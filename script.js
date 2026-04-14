@@ -4,15 +4,13 @@
 //  ※ 이 파일은 수정할 필요가 없습니다.
 // ============================================================
 
-// 플랫폼별 아이콘 & 라벨
 const PLATFORM_CONFIG = {
-  html:    { label: "HTML",    icon: "🌐", badgeClass: "badge-html" },
-  gpt:     { label: "GPTs",    icon: "✦",  badgeClass: "badge-gpt" },
-  gemini:  { label: "Gemini",  icon: "◈",  badgeClass: "badge-gemini" },
-  claude:  { label: "Claude",  icon: "◆",  badgeClass: "badge-claude" },
+  html:    { label: "HTML",   icon: "🌐", badgeClass: "badge-html" },
+  gpt:     { label: "GPTs",   icon: "✦",  badgeClass: "badge-gpt" },
+  gemini:  { label: "Gemini", icon: "◈",  badgeClass: "badge-gemini" },
+  claude:  { label: "Claude", icon: "◆",  badgeClass: "badge-claude" },
 };
 
-// 섹션별 대표 아이콘
 const SECTION_ICON = {
   "career-data": "📈",
   "curriculum":  "📋",
@@ -21,7 +19,6 @@ const SECTION_ICON = {
   "personal":    "🔒",
 };
 
-// 카드 아이콘 매핑 (id 기반)
 const CARD_ICON = {
   "job-rate":          "📊",
   "curriculum-2026":   "📋",
@@ -38,7 +35,6 @@ const CARD_ICON = {
 
 // ── 현재 필터 상태 ─────────────────────────────────────────
 let currentSection = "all";
-let currentTarget  = "all";   // ← 대상 필터 추가
 let currentSearch  = "";
 
 // ── 외부 링크 열기 ─────────────────────────────────────────
@@ -49,23 +45,18 @@ function openLink(url) {
 // ── 카드 HTML 생성 ─────────────────────────────────────────
 function buildCard(item) {
   const icon = CARD_ICON[item.id] || "📄";
-
   const isPersonal = item.section === "personal";
 
-  // 플랫폼 배지
   const platforms = [...new Set(item.links.map(l => l.platform))];
   const badgesHTML = platforms.map(p => {
     const cfg = PLATFORM_CONFIG[p] || { label: p, icon: "🔗", badgeClass: "" };
     return `<span class="platform-badge ${cfg.badgeClass}">${cfg.icon} ${cfg.label}</span>`;
   }).join("");
 
-  // 태그
   const tagsHTML = item.tags.map(t => `<span class="tag">${t}</span>`).join("");
   const gradesHTML = item.grades.map(g => `<span class="tag tag-grade">${g}</span>`).join("");
 
-  // 링크 버튼
   const btnsHTML = item.links.map(link => {
-    const cfg = PLATFORM_CONFIG[link.platform] || { icon: "🔗" };
     return `<button class="link-btn" onclick="openLink('${link.url}')">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       ${link.label}
@@ -107,12 +98,10 @@ function buildQuickCard(item) {
 
 // ── 전체 렌더링 ────────────────────────────────────────────
 function render() {
-  // 퀵 액세스
   const quickItems = resources.filter(r => r.featured);
   document.getElementById("quickGrid").innerHTML =
     quickItems.map(buildQuickCard).join("");
 
-  // 섹션별 렌더링
   const sectionOrder = ["admission", "curriculum", "ai-tools", "career-data", "personal"];
   const sectionsContainer = document.getElementById("sectionsContainer");
   sectionsContainer.innerHTML = "";
@@ -120,15 +109,13 @@ function render() {
   let anyVisible = false;
 
   sectionOrder.forEach(sectionKey => {
-    if (currentSection !== "all" && currentSection !== sectionKey) return;
-    // 전체 보기에서 개인 섹션은 숨김 (명시적으로 🔒 개인 클릭 시만 노출)
+    // 전체 보기에서는 개인 섹션 숨김
     if (currentSection === "all" && sectionKey === "personal") return;
+    // 섹션 필터 적용
+    if (currentSection !== "all" && currentSection !== sectionKey) return;
 
     const items = resources.filter(item => {
       if (item.section !== sectionKey) return false;
-      // 개인 섹션은 대상 필터 무시
-      if (sectionKey === "personal") return true;
-      if (currentTarget !== "all" && !item.targets.includes(currentTarget)) return false;
       if (!currentSearch) return true;
       const q = currentSearch.toLowerCase();
       return (
@@ -152,8 +139,7 @@ function render() {
     sectionsContainer.appendChild(sectionEl);
   });
 
-  const noResult = document.getElementById("noResult");
-  noResult.classList.toggle("show", !anyVisible);
+  document.getElementById("noResult").classList.toggle("show", !anyVisible);
 }
 
 // ── 마지막 업데이트 날짜 ───────────────────────────────────
@@ -167,29 +153,16 @@ function setLastUpdated() {
 
 // ── 이벤트 연결 ───────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
-  // 검색
-  const searchInput = document.getElementById("searchInput");
-  searchInput.addEventListener("input", e => {
+  document.getElementById("searchInput").addEventListener("input", e => {
     currentSearch = e.target.value.trim();
     render();
   });
 
-  // 섹션 필터 버튼
   document.querySelectorAll(".filter-btn[data-section]").forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".filter-btn[data-section]").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       currentSection = btn.dataset.section;
-      render();
-    });
-  });
-
-  // 대상 필터 버튼
-  document.querySelectorAll(".filter-btn[data-target]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".filter-btn[data-target]").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      currentTarget = btn.dataset.target;
       render();
     });
   });

@@ -21,7 +21,7 @@ const SECTIONS = {
   "ai-tools": {
     label: "🤖 AI 도우미",
     desc: "탐구·세특·면접 등 학습 전반을 지원하는 AI 도구"
-  }
+  },
   "personal": {
     label: "🔒 개인",
     desc: "개인 전용 자료 (외부 공개 비권장)"

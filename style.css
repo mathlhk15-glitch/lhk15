@@ -91,7 +91,7 @@ a { text-decoration: none; color: inherit; }
   background: #fff;
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
-  padding: 10px 24px 0;
+  padding: 10px 24px;
 }
 
 .sticky-inner {
@@ -104,21 +104,7 @@ a { text-decoration: none; color: inherit; }
   gap: 10px;
   align-items: center;
   flex-wrap: wrap;
-  padding-bottom: 10px;
-}
-
-.filter-row + .filter-row {
-  border-top: 1px solid var(--border);
-  padding-top: 8px;
-}
-
-.filter-row-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.06em;
-  white-space: nowrap;
-  min-width: 32px;
+  padding-bottom: 0;
 }
 
 .search-wrap {
