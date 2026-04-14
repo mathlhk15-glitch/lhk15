@@ -196,7 +196,7 @@ const resources = [
     links: [
       { label: "GPTs로 열기", url: "https://chatgpt.com/g/g-6982925ee34881919b46f80dedfc8b02-seteug-saengseong", platform: "gpt" }
     ]
-  }
+  },   // ← 쉼표 필수
 
   // ────────────────────────────────────────────────────────
   //  섹션 5. 개인 (비공개 · 개인 전용)

@@ -121,9 +121,13 @@ function render() {
 
   sectionOrder.forEach(sectionKey => {
     if (currentSection !== "all" && currentSection !== sectionKey) return;
+    // 전체 보기에서 개인 섹션은 숨김 (명시적으로 🔒 개인 클릭 시만 노출)
+    if (currentSection === "all" && sectionKey === "personal") return;
 
     const items = resources.filter(item => {
       if (item.section !== sectionKey) return false;
+      // 개인 섹션은 대상 필터 무시
+      if (sectionKey === "personal") return true;
       if (currentTarget !== "all" && !item.targets.includes(currentTarget)) return false;
       if (!currentSearch) return true;
       const q = currentSearch.toLowerCase();
