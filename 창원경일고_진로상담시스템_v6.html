@@ -283,6 +283,116 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--g50);color:var(--g80
 ::-webkit-scrollbar{width:5px;height:5px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--g300);border-radius:10px;}
+
+/* ══════════════════════════════════
+   MOBILE RESPONSIVE
+══════════════════════════════════ */
+
+/* 햄버거 버튼 - 데스크톱에선 숨김 */
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;border-radius:6px;color:var(--g600);font-size:20px;line-height:1;flex-shrink:0;}
+.hamburger:hover{background:var(--g100);}
+
+/* 모바일 사이드바 오버레이 */
+.sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;}
+.sidebar-backdrop.show{display:block;}
+
+@media (max-width: 768px) {
+
+  /* ── 기본 레이아웃 ── */
+  body{overflow:auto;}
+  #app{flex-direction:column;height:auto;min-height:100vh;overflow:visible;}
+
+  /* ── 사이드바: 슬라이드 오버레이로 변환 ── */
+  .sidebar{
+    position:fixed;top:0;left:0;height:100vh;z-index:300;
+    transform:translateX(-100%);transition:transform .25s ease;
+    width:240px;overflow-y:auto;
+  }
+  .sidebar.mobile-open{transform:translateX(0);}
+
+  /* ── 햄버거 버튼 표시 ── */
+  .hamburger{display:flex;align-items:center;justify-content:center;}
+
+  /* ── 메인 영역 ── */
+  .main{width:100%;min-height:100vh;}
+
+  /* ── 탑바 ── */
+  .topbar{padding:0 12px;gap:8px;height:52px;position:sticky;top:0;z-index:100;}
+  .topbar-title{font-size:13px;}
+  .topbar-actions{gap:5px;}
+  .topbar-actions .btn{display:none;}   /* 백업·불러오기 버튼 모바일 숨김 */
+  .gcal-btn span:last-child{display:none;} /* 캘린더 버튼 텍스트 숨기고 아이콘만 */
+  .gcal-btn{padding:6px 8px;}
+
+  /* ── 콘텐츠 패딩 ── */
+  .content{padding:12px;}
+
+  /* ── 셋업 화면 ── */
+  .setup-box{width:calc(100vw - 32px);padding:24px 20px;margin:16px;}
+
+  /* ── 그리드 → 단일 컬럼 ── */
+  .grid-2,.grid-3,.grid-4,.grid-cal{grid-template-columns:1fr !important;gap:10px;}
+
+  /* ── 상담 레이아웃 ── */
+  .counsel-layout{
+    grid-template-columns:1fr !important;
+    height:auto !important;
+    gap:10px;
+  }
+  .counsel-left,.counsel-right{overflow-y:visible;}
+
+  /* ── 과목 레이아웃 ── */
+  .subj-layout{grid-template-columns:1fr !important;}
+
+  /* ── 테이블: 가로 스크롤 ── */
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .tbl{min-width:520px;}
+
+  /* ── 팝업 ── */
+  .popup{width:calc(100vw - 24px);padding:20px 16px;max-height:90vh;}
+
+  /* ── 캘린더 ── */
+  .cal-cell{min-height:38px;}
+  .cal-cell-num{font-size:11px;width:18px;height:18px;}
+
+  /* ── 폼 행 → 단일 컬럼 ── */
+  .form-row{grid-template-columns:1fr !important;}
+
+  /* ── stat 카드 폰트 ── */
+  .stat-value{font-size:22px;}
+
+  /* ── 버튼 그룹 가로 스크롤 ── */
+  .btn-group-scroll{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
+  .btn-group-scroll::-webkit-scrollbar{height:0;}
+
+  /* ── 사이드바 닫기 버튼 ── */
+  .sb-close{display:flex;}
+}
+
+@media (max-width: 480px) {
+  .topbar-title{font-size:12px;}
+  .content{padding:10px;}
+  .card-hd{padding:12px 14px;}
+  .card-bd{padding:12px 14px;}
+  .stat-value{font-size:20px;}
+  .setup-box{padding:20px 16px;}
+  .counsel-layout{gap:8px;}
+  .session-item{padding:8px 10px;}
+  .s-avatar{width:36px;height:36px;font-size:14px;}
+  .s-name{font-size:14px;}
+}
+
+/* 사이드바 안 닫기 버튼 (모바일) */
+.sb-close{
+  display:none;
+  align-items:center;justify-content:flex-end;
+  padding:10px 14px 0;
+}
+.sb-close-btn{
+  background:rgba(255,255,255,0.15);border:none;color:white;
+  width:28px;height:28px;border-radius:50%;cursor:pointer;
+  font-size:14px;display:flex;align-items:center;justify-content:center;
+}
 </style>
 </head>
 <body>
@@ -315,7 +425,10 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--g50);color:var(--g80
 
 <!-- ══ APP ══ -->
 <div id="app" style="display:none;">
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-close">
+      <button class="sb-close-btn" onclick="closeSidebar()">✕</button>
+    </div>
     <div class="sb-logo">
       <h2>전국 고등학교<br>진로상담 시스템</h2>
       <span>진로진학상담 시스템</span>
@@ -365,8 +478,11 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--g50);color:var(--g80
     </div>
   </aside>
 
+  <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeSidebar()"></div>
+
   <div class="main">
     <div class="topbar">
+      <button class="hamburger" onclick="openSidebar()">☰</button>
       <div class="topbar-title" id="topbar-title">🏠 대시보드</div>
       <div class="topbar-actions">
         <button class="gcal-btn" id="gcal-btn" onclick="connectGCal()">
@@ -649,7 +765,19 @@ function nav(screen){
     el.classList.toggle('active', el.dataset.screen===screen);
   });
   document.getElementById('topbar-title').textContent = SCREEN_TITLES[screen]||screen;
+  closeSidebar(); // 모바일: 메뉴 선택 시 사이드바 닫기
   renderScreen();
+}
+
+function openSidebar(){
+  document.getElementById('sidebar').classList.add('mobile-open');
+  document.getElementById('sidebar-backdrop').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('mobile-open');
+  document.getElementById('sidebar-backdrop').classList.remove('show');
+  document.body.style.overflow='';
 }
 
 function renderScreen(){
@@ -1063,7 +1191,7 @@ function renderHistory(){
       </div>
     </div>
     <div class="card-bd" style="padding:0;">
-      <table class="tbl" id="history-table">
+      <div class="tbl-wrap"><table class="tbl" id="history-table">
         <thead>
           <tr>
             <th>날짜</th><th>학생</th><th>학년/반</th><th>상담 유형</th><th>요약</th><th>상태</th><th>관리</th>
@@ -1086,7 +1214,7 @@ function renderHistory(){
             </tr>`;
           }).join('') || '<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--g400);">상담 기록이 없습니다</td></tr>'}
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>`;
 }
@@ -1129,14 +1257,14 @@ function renderSubject(){
           </div>
 
           <!-- 과목 테이블 -->
-          <table class="tbl">
+          <div class="tbl-wrap"><table class="tbl">
             <thead>
               <tr><th>과목명</th><th>교과군</th><th>단위수</th><th>상태</th><th>비고</th><th>추가/삭제</th></tr>
             </thead>
             <tbody id="subject-tbody">
               ${renderSubjectRows(STATE.editingSubjectGrade)}
             </tbody>
-          </table>
+          </table></div>
 
           <div style="margin-top:12px;display:flex;gap:8px;">
             <button class="btn btn-outline btn-sm" onclick="addSubjectRow()">+ 과목 추가</button>
@@ -1315,7 +1443,7 @@ function renderStudents(){
       </div>
     </div>
     <div class="card-bd" style="padding:0;">
-      <table class="tbl" id="student-table">
+      <div class="tbl-wrap"><table class="tbl" id="student-table">
         <thead>
           <tr>
             <th><input type="checkbox" onchange="toggleAllStudents(this.checked)" id="chk-all"></th>
@@ -1337,7 +1465,7 @@ function renderStudents(){
             </td>
           </tr>`).join('') || '<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--g400);">등록된 학생이 없습니다</td></tr>'}
         </tbody>
-      </table>
+      </table></div>
     </div>
     <!-- 선택 삭제 -->
     <div style="padding:10px 16px;border-top:1px solid var(--g100);display:flex;align-items:center;gap:10px;">
@@ -2993,7 +3121,7 @@ function renderCareerTest(){
       </div>
     </div>
     <div class="card-bd" style="padding:0;">
-      <table class="tbl" id="ct-table">
+      <div class="tbl-wrap"><table class="tbl" id="ct-table">
         <thead>
           <tr>
             <th>학년</th><th>반</th><th>번호</th><th>이름</th>
@@ -3026,7 +3154,7 @@ function renderCareerTest(){
             </tr>`;
           }).join('') || '<tr><td colspan="10" style="text-align:center;padding:30px;color:var(--g400);">업로드된 진로검사 결과가 없습니다</td></tr>'}
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>`;
 }
