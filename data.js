@@ -122,6 +122,17 @@ const resources = [
 
   // ── 진로·취업 데이터 ──────────────────────────────────────
   {
+    id: "career-counsel",
+    title: "전국 고등학교 진로상담 시스템",
+    section: "career-data",
+    description: "전국 고등학교 데이터 기반 진로상담 시스템. 학교별 진학 현황, 학과 탐색, 상담 자료 통합 제공",
+    tags: ["진로상담", "고등학교", "진학현황", "AI도구"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-04",
+    links: [{ label: "바로가기", url: "창원경일고_진로상담시스템_v6.html", platform: "html" }]
+  },
+  {
     id: "job-rate",
     title: "취업 유지취업률 현황",
     section: "career-data",

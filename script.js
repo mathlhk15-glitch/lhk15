@@ -12,6 +12,7 @@ const CARD_ICON = {
   "interview-helper": "🎤", "news-inquiry":     "📰",
   "seteuk-edit":      "✏️", "seteuk-gen":       "⚡",
   "family-portfolio": "📈",
+  "career-counsel":   "🏫",
 };
 
 let currentSection = "all";
