@@ -22,6 +22,10 @@ const SECTIONS = {
     label: "🤖 AI 도우미",
     desc: "탐구·세특·면접 등 학습 전반을 지원하는 AI 도구"
   }
+  "personal": {
+    label: "🔒 개인",
+    desc: "개인 전용 자료 (외부 공개 비권장)"
+  }
 };
 
 const resources = [
@@ -191,6 +195,25 @@ const resources = [
     updatedAt: "2026-04",
     links: [
       { label: "GPTs로 열기", url: "https://chatgpt.com/g/g-6982925ee34881919b46f80dedfc8b02-seteug-saengseong", platform: "gpt" }
+    ]
+  }
+
+  // ────────────────────────────────────────────────────────
+  //  섹션 5. 개인 (비공개 · 개인 전용)
+  // ────────────────────────────────────────────────────────
+  {
+    id: "family-portfolio",
+    title: "이현규 패밀리 오피스",
+    section: "personal",
+    description: "가족 주식 포트폴리오 대시보드. 종목별 평가금액·수익률·리스크 게이지·투자 원칙·시뮬레이션 통합 관리",
+    targets: ["개인"],
+    grades: [],
+    tags: ["포트폴리오", "주식", "투자", "가족"],
+    featured: false,
+    isNew: false,
+    updatedAt: "2026-04",
+    links: [
+      { label: "대시보드 열기", url: "portfolio.html", platform: "html" }
     ]
   }
 

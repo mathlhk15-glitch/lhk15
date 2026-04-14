@@ -18,24 +18,27 @@ const SECTION_ICON = {
   "curriculum":  "📋",
   "admission":   "🎓",
   "ai-tools":    "🤖",
+  "personal":    "🔒",
 };
 
 // 카드 아이콘 매핑 (id 기반)
 const CARD_ICON = {
-  "job-rate":        "📊",
-  "curriculum-2026": "📋",
-  "bachi-2026-03":   "🗂️",
-  "ipsi-3rd":        "🔍",
-  "ipsi-1-2nd":      "🔍",
-  "question-helper": "💬",
-  "interview-helper":"🎤",
-  "news-inquiry":    "📰",
-  "seteuk-edit":     "✏️",
-  "seteuk-gen":      "⚡",
+  "job-rate":          "📊",
+  "curriculum-2026":   "📋",
+  "bachi-2026-03":     "🗂️",
+  "ipsi-3rd":          "🔍",
+  "ipsi-1-2nd":        "🔍",
+  "question-helper":   "💬",
+  "interview-helper":  "🎤",
+  "news-inquiry":      "📰",
+  "seteuk-edit":       "✏️",
+  "seteuk-gen":        "⚡",
+  "family-portfolio":  "📈",
 };
 
 // ── 현재 필터 상태 ─────────────────────────────────────────
 let currentSection = "all";
+let currentTarget  = "all";   // ← 대상 필터 추가
 let currentSearch  = "";
 
 // ── 외부 링크 열기 ─────────────────────────────────────────
@@ -46,6 +49,8 @@ function openLink(url) {
 // ── 카드 HTML 생성 ─────────────────────────────────────────
 function buildCard(item) {
   const icon = CARD_ICON[item.id] || "📄";
+
+  const isPersonal = item.section === "personal";
 
   // 플랫폼 배지
   const platforms = [...new Set(item.links.map(l => l.platform))];
@@ -70,7 +75,7 @@ function buildCard(item) {
   const newBadge = item.isNew ? `<span class="new-badge">NEW</span>` : "";
 
   return `
-    <div class="card" data-section="${item.section}" data-id="${item.id}">
+    <div class="${isPersonal ? 'card card-personal' : 'card'}" data-section="${item.section}" data-id="${item.id}">
       ${newBadge}
       <div class="card-top">
         <span class="card-icon">${icon}</span>
@@ -108,7 +113,7 @@ function render() {
     quickItems.map(buildQuickCard).join("");
 
   // 섹션별 렌더링
-  const sectionOrder = ["admission", "curriculum", "ai-tools", "career-data"];
+  const sectionOrder = ["admission", "curriculum", "ai-tools", "career-data", "personal"];
   const sectionsContainer = document.getElementById("sectionsContainer");
   sectionsContainer.innerHTML = "";
 
@@ -119,6 +124,7 @@ function render() {
 
     const items = resources.filter(item => {
       if (item.section !== sectionKey) return false;
+      if (currentTarget !== "all" && !item.targets.includes(currentTarget)) return false;
       if (!currentSearch) return true;
       const q = currentSearch.toLowerCase();
       return (
@@ -164,12 +170,22 @@ document.addEventListener("DOMContentLoaded", () => {
     render();
   });
 
-  // 필터 버튼
-  document.querySelectorAll(".filter-btn").forEach(btn => {
+  // 섹션 필터 버튼
+  document.querySelectorAll(".filter-btn[data-section]").forEach(btn => {
     btn.addEventListener("click", () => {
-      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".filter-btn[data-section]").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       currentSection = btn.dataset.section;
+      render();
+    });
+  });
+
+  // 대상 필터 버튼
+  document.querySelectorAll(".filter-btn[data-target]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-btn[data-target]").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentTarget = btn.dataset.target;
       render();
     });
   });

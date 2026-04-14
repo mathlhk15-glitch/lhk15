@@ -91,16 +91,34 @@ a { text-decoration: none; color: inherit; }
   background: #fff;
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
-  padding: 12px 24px;
+  padding: 10px 24px 0;
 }
 
 .sticky-inner {
   max-width: 960px;
   margin: 0 auto;
+}
+
+.filter-row {
   display: flex;
   gap: 10px;
   align-items: center;
   flex-wrap: wrap;
+  padding-bottom: 10px;
+}
+
+.filter-row + .filter-row {
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+.filter-row-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  min-width: 32px;
 }
 
 .search-wrap {
@@ -165,6 +183,18 @@ a { text-decoration: none; color: inherit; }
   background: var(--navy);
   border-color: var(--navy);
   color: #fff;
+}
+
+/* 대상 필터 활성 색상 */
+.filter-btn[data-target].active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+
+.filter-btn[data-target]:hover:not(.active) {
+  border-color: var(--teal);
+  color: var(--teal);
 }
 
 /* ── 메인 컨텐츠 ───────────────────────────────────────── */
@@ -435,16 +465,47 @@ a { text-decoration: none; color: inherit; }
   margin-top: 4px;
 }
 
+/* ── 개인 섹션 전용 스타일 ────────────────────────────── */
+.filter-btn-personal {
+  border-color: rgba(201, 168, 76, 0.35);
+  color: #b79235;
+}
+.filter-btn-personal:hover {
+  border-color: #b79235;
+  color: #b79235;
+  background: rgba(201,168,76,0.06);
+}
+.filter-btn-personal.active {
+  background: #1a3a5c;
+  border-color: rgba(201,168,76,0.6);
+  color: #e8c878;
+}
+
+.section-personal .section-title {
+  color: #b79235;
+}
+
+.card-personal {
+  border-color: rgba(201, 168, 76, 0.25);
+  background: linear-gradient(135deg, #fffdf5 0%, #fefcf0 100%);
+}
+
+.card-personal:hover {
+  border-color: rgba(183, 146, 53, 0.5);
+  box-shadow: 0 4px 16px rgba(183,146,53,0.12);
+}
+
 /* ── 반응형 ─────────────────────────────────────────────── */
 @media (max-width: 640px) {
   .site-header { padding: 20px 16px 18px; }
   .header-title { font-size: 21px; }
-  .sticky-bar { padding: 10px 16px; }
+  .sticky-bar { padding: 8px 16px 0; }
   .main { padding: 20px 16px 48px; }
   .quick-grid { grid-template-columns: 1fr 1fr; }
   .card-grid { grid-template-columns: 1fr; gap: 10px; }
   .filter-btns { gap: 4px; }
   .filter-btn { font-size: 12px; padding: 6px 11px; }
+  .filter-row-label { display: none; }
 }
 
 @media (max-width: 400px) {
