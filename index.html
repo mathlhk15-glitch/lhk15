@@ -9,72 +9,49 @@
 </head>
 <body>
 
-<!-- ── 상단 헤더 ──────────────────────────────────── -->
 <header class="site-header">
   <div class="header-inner">
     <div class="header-school">창원경일고등학교 · 진로진학상담부</div>
     <h1 class="header-title">진로진학 통합 허브</h1>
-    <p class="header-desc">
-      입시자료, 교육과정 자료, 진학 탐색 도구, AI 기반 탐구·세특·면접 지원 도구를 한 곳에 모은 통합 자료실
-    </p>
+    <p class="header-desc">입시자료, 교육과정 자료, 진학 탐색 도구, AI 기반 탐구·세특·면접 지원 도구를 한 곳에 모은 통합 자료실</p>
   </div>
 </header>
 
-<!-- ── 스티키 검색·필터 바 ────────────────────────── -->
 <div class="sticky-bar">
   <div class="sticky-inner">
-
-    <!-- 1행: 검색 + 섹션 필터 -->
-    <div class="filter-row">
-      <div class="search-wrap" style="flex:1;min-width:160px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <input type="search" id="searchInput" placeholder="자료 검색 (제목, 설명, 태그)" autocomplete="off" />
-      </div>
-      <div class="filter-btns">
-        <button class="filter-btn active" data-section="all">전체</button>
-        <button class="filter-btn" data-section="admission">수시 입시</button>
-        <button class="filter-btn" data-section="curriculum">교육과정</button>
-        <button class="filter-btn" data-section="ai-tools">AI 도우미</button>
-        <button class="filter-btn" data-section="career-data">진로 데이터</button>
-        <button class="filter-btn filter-btn-personal" data-section="personal">🔒 개인</button>
-      </div>
+    <div class="search-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="search" id="searchInput" placeholder="자료 검색 (제목, 설명, 태그)" autocomplete="off" />
     </div>
-
+    <div class="filter-btns">
+      <button class="filter-btn active" data-section="all">전체</button>
+      <button class="filter-btn" data-section="admission">수시 입시</button>
+      <button class="filter-btn" data-section="curriculum">교육과정</button>
+      <button class="filter-btn" data-section="ai-tools">AI 도우미</button>
+      <button class="filter-btn" data-section="career-data">진로 데이터</button>
+      <button class="filter-btn filter-btn-personal" data-section="personal">🔒 개인</button>
+    </div>
   </div>
 </div>
 
-<!-- ── 메인 컨텐츠 ────────────────────────────────── -->
 <main class="main">
-
-  <!-- 퀵 액세스 -->
   <div class="quick-section">
     <div class="quick-title">⚡ 자주 쓰는 자료</div>
     <div class="quick-grid" id="quickGrid"></div>
   </div>
-
   <div class="hub-divider"></div>
-
-  <!-- 섹션별 카드 자동 생성 -->
   <div id="sectionsContainer"></div>
-
-  <!-- 검색 결과 없음 -->
-  <div class="no-result" id="noResult">
-    검색 결과가 없습니다. 다른 키워드로 검색해 보세요.
-  </div>
-
+  <div class="no-result" id="noResult">검색 결과가 없습니다. 다른 키워드로 검색해 보세요.</div>
 </main>
 
-<!-- ── 푸터 ───────────────────────────────────────── -->
 <footer class="site-footer">
   <p id="lastUpdated" style="font-weight:500;color:#4a5568;"></p>
-  <p>외부 링크(GPTs, Gemini)는 해당 서비스에 로그인이 필요할 수 있습니다.</p>
-  <p style="margin-top:8px;">창원경일고등학교 진로진학상담부 · 문의: 담당교사</p>
+  <p>외부 링크(GPTs, Gemini)는 해당 서비스 로그인이 필요할 수 있습니다.</p>
+  <p style="margin-top:8px;">창원경일고등학교 진로진학상담부</p>
 </footer>
 
-<!-- 데이터 먼저 로드, 그 다음 스크립트 -->
 <script src="data.js"></script>
 <script src="script.js"></script>
 </body>
