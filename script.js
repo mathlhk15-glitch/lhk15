@@ -119,11 +119,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll(".filter-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      currentSection = btn.dataset.section;
+      const target = btn.dataset.section;
+
+      if (target === "personal") {
+        // 이미 인증된 경우 바로 이동
+        if (sessionStorage.getItem("hub-auth") === "ok") {
+          setActive(btn); currentSection = "personal"; render(); return;
+        }
+        // 비밀번호 모달 표시
+        document.getElementById("pw-modal").style.display = "flex";
+        document.getElementById("pw-input").value = "";
+        document.getElementById("pw-error").style.display = "none";
+        setTimeout(() => document.getElementById("pw-input").focus(), 50);
+        return;
+      }
+
+      setActive(btn);
+      currentSection = target;
       render();
     });
+  });
+
+  function setActive(btn) {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  }
+
+  // 비밀번호 확인
+  window.confirmPw = function() {
+    const val = document.getElementById("pw-input").value;
+    if (val === "1215") {
+      sessionStorage.setItem("hub-auth", "ok");
+      document.getElementById("pw-modal").style.display = "none";
+      const personalBtn = document.querySelector('[data-section="personal"]');
+      setActive(personalBtn);
+      currentSection = "personal";
+      render();
+    } else {
+      document.getElementById("pw-error").style.display = "block";
+      document.getElementById("pw-input").value = "";
+      document.getElementById("pw-input").focus();
+    }
+  };
+
+  window.closePwModal = function() {
+    document.getElementById("pw-modal").style.display = "none";
+  };
+
+  // 엔터키 지원
+  document.getElementById("pw-input").addEventListener("keydown", e => {
+    if (e.key === "Enter") window.confirmPw();
+    if (e.key === "Escape") window.closePwModal();
   });
 
   // 마지막 업데이트
