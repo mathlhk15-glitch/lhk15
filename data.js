@@ -130,7 +130,7 @@ const resources = [
     featured: true,
     isNew: true,
     updatedAt: "2026-04",
-    links: [{ label: "바로가기", url: "창원경일고_진로상담시스템.html", platform: "html" }]
+    links: [{ label: "바로가기", url: "진로상담시스템.html", platform: "html" }]
   },
   {
     id: "job-rate",
