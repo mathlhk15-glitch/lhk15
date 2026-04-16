@@ -4459,6 +4459,188 @@ ${rawText}`}]}]})
 // ══════════════════════════════════════════
 //  진로정보 사이트 바로가기
 // ══════════════════════════════════════════
+function renderUnivLinks(){
+  const univData = [
+    {no:1,region:'서울',name:'서울대학교',url:'https://admission.snu.ac.kr',type:'국립'},
+    {no:2,region:'서울',name:'연세대학교',url:'https://admission.yonsei.ac.kr',type:'사립'},
+    {no:3,region:'서울',name:'고려대학교',url:'https://oku.korea.ac.kr',type:'사립'},
+    {no:4,region:'서울',name:'성균관대학교',url:'https://admission.skku.edu',type:'사립'},
+    {no:5,region:'서울',name:'한양대학교',url:'https://go.hanyang.ac.kr',type:'사립'},
+    {no:6,region:'서울',name:'서강대학교',url:'https://admission.sogang.ac.kr/enter/html/main/index.asp',type:'사립'},
+    {no:7,region:'서울',name:'이화여자대학교',url:'https://admission.ewha.ac.kr',type:'사립'},
+    {no:8,region:'서울',name:'중앙대학교',url:'https://admission.cau.ac.kr/main.do',type:'사립'},
+    {no:9,region:'서울',name:'경희대학교',url:'https://iphak.khu.ac.kr',type:'사립'},
+    {no:10,region:'서울',name:'한국외국어대학교',url:'https://adms.hufs.ac.kr/index.do',type:'사립'},
+    {no:11,region:'서울',name:'서울시립대학교',url:'https://admission.uos.ac.kr',type:'공립'},
+    {no:12,region:'서울',name:'건국대학교',url:'https://enter.konkuk.ac.kr/main.do',type:'사립'},
+    {no:13,region:'서울',name:'동국대학교',url:'https://ipsi.dongguk.edu',type:'사립'},
+    {no:14,region:'서울',name:'홍익대학교',url:'https://admission.hongik.ac.kr/main',type:'사립'},
+    {no:15,region:'서울',name:'숙명여자대학교',url:'https://admission.sookmyung.ac.kr/admission/html/main/main.asp',type:'사립'},
+    {no:16,region:'서울',name:'숭실대학교',url:'https://iphak.ssu.ac.kr',type:'사립'},
+    {no:17,region:'서울',name:'세종대학교',url:'https://ipsi.sejong.ac.kr',type:'사립'},
+    {no:18,region:'서울',name:'국민대학교',url:'https://admission.kookmin.ac.kr',type:'사립'},
+    {no:19,region:'서울',name:'광운대학교',url:'https://iphak.kw.ac.kr/main.php',type:'사립'},
+    {no:20,region:'서울',name:'명지대학교',url:'https://iphak.mju.ac.kr',type:'사립'},
+    {no:21,region:'서울',name:'덕성여자대학교',url:'https://www.duksung.ac.kr/iphak/main.do',type:'사립'},
+    {no:22,region:'서울',name:'동덕여자대학교',url:'https://ipsi.dongduk.ac.kr',type:'사립'},
+    {no:23,region:'서울',name:'서울여자대학교',url:'https://admission.swu.ac.kr',type:'사립'},
+    {no:24,region:'서울',name:'성신여자대학교',url:'https://admission.sungshin.ac.kr',type:'사립'},
+    {no:25,region:'서울',name:'한성대학교',url:'https://enter.hansung.ac.kr',type:'사립'},
+    {no:26,region:'서울',name:'삼육대학교',url:'https://ipsi.syu.ac.kr',type:'사립'},
+    {no:27,region:'서울',name:'상명대학교',url:'https://admission.smu.ac.kr',type:'사립'},
+    {no:28,region:'서울',name:'가톨릭대학교',url:'https://ipsi.catholic.ac.kr',type:'사립'},
+    {no:29,region:'서울',name:'서경대학교',url:'https://go.skuniv.ac.kr',type:'사립'},
+    {no:30,region:'서울',name:'한국체육대학교',url:'https://www.knsu.ac.kr/ipsi/index.do',type:'국립'},
+    {no:31,region:'서울',name:'추계예술대학교',url:'https://enter.chugye.ac.kr/main.do',type:'사립'},
+    {no:32,region:'서울',name:'서울과학기술대학교',url:'https://admission.seoultech.ac.kr',type:'국립'},
+    {no:33,region:'경기',name:'아주대학교',url:'https://www.iajou.ac.kr',type:'사립'},
+    {no:34,region:'경기',name:'경기대학교',url:'https://enter.kyonggi.ac.kr/index.do',type:'사립'},
+    {no:35,region:'인천',name:'인하대학교',url:'https://admission.inha.ac.kr',type:'사립'},
+    {no:36,region:'경기',name:'가천대학교',url:'https://admission.gachon.ac.kr',type:'사립'},
+    {no:37,region:'경기',name:'단국대학교',url:'https://ipsi.dankook.ac.kr/intro.html',type:'사립'},
+    {no:38,region:'경기',name:'수원대학교',url:'https://www.suwon.ac.kr/index.html#none',type:'사립'},
+    {no:39,region:'경기',name:'성결대학교',url:'https://ipsi.sungkyul.ac.kr',type:'사립'},
+    {no:40,region:'경기',name:'대진대학교',url:'https://admission.daejin.ac.kr/main.do',type:'사립'},
+    {no:41,region:'인천',name:'인천대학교',url:'https://admission.inu.ac.kr/main.do',type:'공립'},
+    {no:42,region:'경기',name:'차의과학대학교',url:'https://admission.cha.ac.kr',type:'사립'},
+    {no:43,region:'경기',name:'한신대학교',url:'https://ent.hs.ac.kr',type:'사립'},
+    {no:44,region:'경기',name:'강남대학교',url:'https://www.kangnam.ac.kr/kangnam/1026/subview.do',type:'사립'},
+    {no:45,region:'경기',name:'협성대학교',url:'https://iphak.uhs.ac.kr/jungsi/mojip.do',type:'사립'},
+    {no:46,region:'경기',name:'평택대학교',url:'https://entrance.ptu.ac.kr',type:'사립'},
+    {no:47,region:'경기',name:'용인대학교',url:'https://ipsi.yongin.ac.kr/index.do',type:'사립'},
+    {no:48,region:'경기',name:'한양대학교(ERICA)',url:'https://go.hanyang.ac.kr',type:'사립'},
+    {no:49,region:'경기',name:'한국항공대학교',url:'https://ibhak.kau.ac.kr',type:'사립'},
+    {no:50,region:'강원',name:'강원대학교',url:'https://admission.kangwon.ac.kr',type:'국립'},
+    {no:51,region:'강원',name:'강릉원주대학교',url:'https://iphak.gwnu.ac.kr/sites/iphak/index.do',type:'국립'},
+    {no:52,region:'강원',name:'한림대학교',url:'https://admission.hallym.ac.kr/admission/index.do',type:'사립'},
+    {no:53,region:'강원',name:'상지대학교',url:'https://www.sangji.ac.kr/go/index.do',type:'사립'},
+    {no:54,region:'강원',name:'가톨릭관동대학교',url:'https://www.cku.ac.kr/iphak/index.do',type:'사립'},
+    {no:55,region:'강원',name:'연세대학교(미래)',url:'https://mirae.yonsei.ac.kr/wj/2349/subview.do',type:'사립'},
+    {no:56,region:'충북',name:'충북대학교',url:'https://ipsi.chungbuk.ac.kr',type:'국립'},
+    {no:57,region:'충남',name:'충남대학교',url:'https://ipsi.cnu.ac.kr',type:'국립'},
+    {no:58,region:'충남',name:'공주대학교',url:'https://ipsi.kongju.ac.kr',type:'국립'},
+    {no:59,region:'충남',name:'한국기술교육대학교',url:'https://www.koreatech.ac.kr/index.es?sid=a4',type:'국립'},
+    {no:60,region:'충남',name:'순천향대학교',url:'https://ipsi.sch.ac.kr',type:'사립'},
+    {no:61,region:'충남',name:'백석대학교',url:'https://ipsi.bu.ac.kr',type:'사립'},
+    {no:62,region:'충남',name:'남서울대학교',url:'https://consult.mncapro.co.kr/solution/nsuipsi',type:'사립'},
+    {no:63,region:'충남',name:'호서대학교',url:'https://ipsi.hoseo.ac.kr',type:'사립'},
+    {no:64,region:'충남',name:'건양대학교',url:'https://ipsi.konyang.ac.kr',type:'사립'},
+    {no:65,region:'충남',name:'나사렛대학교',url:'https://ipsi.kornu.ac.kr/sites/ipsi/index.do',type:'사립'},
+    {no:66,region:'충북',name:'청주대학교',url:'https://www.cju.ac.kr/ipsi/index.do',type:'사립'},
+    {no:67,region:'충북',name:'서원대학교',url:'https://www.seowon.ac.kr/iphak/index.do',type:'사립'},
+    {no:68,region:'대전',name:'한밭대학교',url:'https://www.hanbat.ac.kr/admission/',type:'국립'},
+    {no:69,region:'대전',name:'한남대학교',url:'https://ibsi.hannam.ac.kr',type:'사립'},
+    {no:70,region:'대전',name:'배재대학교',url:'https://enter.pcu.ac.kr',type:'사립'},
+    {no:71,region:'대전',name:'우송대학교',url:'https://ent.wsu.ac.kr',type:'사립'},
+    {no:72,region:'대전',name:'목원대학교',url:'https://enter.mokwon.ac.kr',type:'사립'},
+    {no:73,region:'전북',name:'전북대학교',url:'https://enter.jbnu.ac.kr',type:'국립'},
+    {no:74,region:'전남',name:'전남대학교',url:'https://admission.jnu.ac.kr',type:'국립'},
+    {no:75,region:'전남',name:'목포대학교',url:'https://ipsi.mokpo.ac.kr',type:'국립'},
+    {no:76,region:'전남',name:'순천대학교',url:'https://www.scnu.ac.kr/iphak/main.do',type:'국립'},
+    {no:77,region:'전북',name:'원광대학교',url:'https://ipsi.wku.ac.kr',type:'사립'},
+    {no:78,region:'전북',name:'전주대학교',url:'https://iphak.jj.ac.kr',type:'사립'},
+    {no:79,region:'전북',name:'우석대학교',url:'https://enter.woosuk.ac.kr',type:'사립'},
+    {no:80,region:'전남',name:'동신대학교',url:'https://www.dsu.ac.kr/dsu/1001/subview.do',type:'사립'},
+    {no:81,region:'전남',name:'세한대학교',url:'https://www.sehan.ac.kr/sehan/1004/subview.do',type:'사립'},
+    {no:82,region:'광주',name:'조선대학교',url:'https://i.chosun.ac.kr/intro',type:'사립'},
+    {no:83,region:'광주',name:'광주대학교',url:'https://iphak.gwangju.ac.kr',type:'사립'},
+    {no:84,region:'광주',name:'호남대학교',url:'https://enter.honam.ac.kr',type:'사립'},
+    {no:85,region:'광주',name:'광주여자대학교',url:'https://ipsi.kwu.ac.kr',type:'사립'},
+    {no:86,region:'경북',name:'경북대학교',url:'https://ipsi1.knu.ac.kr',type:'국립'},
+    {no:87,region:'경남',name:'경상국립대학교',url:'https://www.gnu.ac.kr/new/main.do',type:'국립'},
+    {no:88,region:'경북',name:'국립경국대',url:'https://www.gknu.ac.kr/main/html.do?menu_idx=2',type:'국립'},
+    {no:89,region:'경남',name:'창원대학교',url:'https://www.changwon.ac.kr/ipsi/main.do',type:'국립'},
+    {no:90,region:'경북',name:'금오공과대학교',url:'https://www.kumoh.ac.kr/ipsi/index.do',type:'국립'},
+    {no:91,region:'경남',name:'한국해양대학교',url:'https://www.kmou.ac.kr/ipsi/',type:'국립'},
+    {no:92,region:'경북',name:'영남대학교',url:'https://enter.yu.ac.kr',type:'사립'},
+    {no:93,region:'경북',name:'계명대학교',url:'https://www.gokmu.ac.kr',type:'사립'},
+    {no:94,region:'경남',name:'경남대학교',url:'https://ipsi.kyungnam.ac.kr',type:'사립'},
+    {no:95,region:'경남',name:'인제대학교',url:'https://iphak.inje.ac.kr',type:'사립'},
+    {no:96,region:'경북',name:'대구대학교',url:'https://ipsi.daegu.ac.kr',type:'사립'},
+    {no:97,region:'경북',name:'대구가톨릭대학교',url:'https://ibsi.cu.ac.kr',type:'사립'},
+    {no:98,region:'경남',name:'동서대학교',url:'https://ipsi.dongseo.ac.kr',type:'사립'},
+    {no:99,region:'경남',name:'신라대학교',url:'https://ipsi.silla.ac.kr',type:'사립'},
+    {no:100,region:'경남',name:'가야대학교',url:'https://ipsi.kaya.ac.kr',type:'사립'},
+    {no:101,region:'경남',name:'영산대학교',url:'https://www.ysu.ac.kr/ysu/1010/subview.do',type:'사립'},
+    {no:102,region:'경남',name:'한동대학교',url:'https://www.handong.edu/kor/admission',type:'사립'},
+    {no:103,region:'부산',name:'부산대학교',url:'https://go.pusan.ac.kr',type:'국립'},
+    {no:104,region:'울산',name:'울산대학교',url:'https://iphak.ulsan.ac.kr',type:'사립'},
+    {no:105,region:'부산',name:'부경대학교',url:'https://iphak.pknu.ac.kr',type:'국립'},
+    {no:106,region:'부산',name:'부산외국어대학교',url:'https://enter.bufs.ac.kr',type:'사립'},
+    {no:107,region:'부산',name:'동아대학교',url:'https://ent.donga.ac.kr',type:'사립'},
+    {no:108,region:'부산',name:'동의대학교',url:'https://www.deu.ac.kr/Admissions/index.htm',type:'사립'},
+    {no:109,region:'부산',name:'고신대학교',url:'https://dream.kosin.ac.kr',type:'사립'},
+    {no:110,region:'부산',name:'경성대학교',url:'https://ipsi.ks.ac.kr',type:'사립'},
+    {no:111,region:'울산',name:'UNIST',url:'https://adm-u.unist.ac.kr/admission/index.do',type:'국립'},
+    {no:112,region:'제주',name:'제주대학교',url:'https://ibsi.jejunu.ac.kr',type:'국립'},
+    {no:113,region:'제주',name:'제주국제대학교',url:'https://apply.jeju.ac.kr',type:'사립'},
+    {no:114,region:'대전',name:'KAIST',url:'https://admission.kaist.ac.kr',type:'국립'},
+    {no:115,region:'경북',name:'POSTECH',url:'https://adm-u.postech.ac.kr/',type:'사립'},
+    {no:116,region:'광주',name:'GIST',url:'https://admission.gist.ac.kr',type:'국립'},
+    {no:117,region:'대구',name:'DGIST',url:'https://admission.dgist.ac.kr',type:'국립'},
+  ];
+
+  const regions = ['전체','서울','경기','인천','강원','충북','충남','대전','전북','전남','광주','경북','경남','대구','부산','울산','제주'];
+  const typeColors = {국립:'#0369a1',사립:'#7c3aed',공립:'#059669'};
+  const typesBg = {국립:'#e0f2fe',사립:'#ede9fe',공립:'#ecfdf5'};
+
+  return `
+  <div style="margin-bottom:16px;">
+    <div class="card">
+      <div class="card-hd">
+        <span class="card-title">🏫 전국 대학 입학처 바로가기 <span style="font-size:11px;font-weight:400;color:var(--g500);margin-left:6px;">117개 대학</span></span>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="text" id="univSearch" placeholder="대학명 검색..." 
+            style="padding:6px 10px;border:1.5px solid var(--g200);border-radius:var(--radius-sm);font-size:12px;font-family:inherit;outline:none;width:160px;"
+            oninput="filterUnivs()"
+            onfocus="this.style.borderColor='var(--accent)'" 
+            onblur="this.style.borderColor='var(--g200)'">
+          <span id="univCount" style="font-size:11.5px;color:var(--g500);">117개</span>
+        </div>
+      </div>
+      <div class="card-bd" style="padding-top:12px;">
+        <!-- 지역 탭 -->
+        <div id="univRegionTabs" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+          ${regions.map((r,i)=>`
+            <button onclick="setUnivRegion('${r}')" id="univTab_${r}"
+              style="padding:4px 11px;border-radius:20px;font-size:11.5px;font-family:inherit;cursor:pointer;transition:all .15s;
+              border:1.5px solid ${i===0?'var(--accent)':'var(--g200)'};
+              background:${i===0?'var(--accent)':'white'};
+              color:${i===0?'white':'var(--g600)'};">
+              ${r}
+            </button>`).join('')}
+        </div>
+        <!-- 대학 그리드 -->
+        <div id="univGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">
+          ${[...univData].sort((a,b)=>{
+            const aEng=/^[A-Z]/.test(a.name), bEng=/^[A-Z]/.test(b.name);
+            if(aEng&&!bEng) return -1; if(!aEng&&bEng) return 1;
+            return a.name.localeCompare(b.name,'ko');
+          }).map(u=>`
+            <a href="${u.url}" target="_blank" rel="noopener"
+              class="univ-card" data-region="${u.region}" data-name="${u.name}"
+              style="text-decoration:none;display:block;border:1.5px solid var(--g200);border-radius:var(--radius-sm);padding:10px 12px;background:white;transition:all .15s;"
+              onmouseover="this.style.borderColor='var(--accent)';this.style.background='var(--accent-soft)'"
+              onmouseout="this.style.borderColor='var(--g200)';this.style.background='white'">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                <span style="font-size:12.5px;font-weight:700;color:var(--g800);">${u.name}</span>
+                <span style="font-size:9.5px;padding:1px 6px;border-radius:10px;background:${typesBg[u.type]||'#f1f5f9'};color:${typeColors[u.type]||'#475569'};font-weight:600;">${u.type}</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="font-size:10.5px;color:var(--g500);">📍 ${u.region}</span>
+                <span style="font-size:10px;color:var(--accent);">입학처 →</span>
+              </div>
+            </a>`).join('')}
+        </div>
+        <div id="univNoResult" style="display:none;text-align:center;padding:32px;color:var(--g400);font-size:13px;">
+          검색 결과가 없습니다.
+        </div>
+      </div>
+    </div>
+  </div>
+  `;
+}
+
 function renderLinks(){
   const sites = [
     {
@@ -4531,13 +4713,42 @@ function renderLinks(){
   `).join('');
 
   return `
-  <div style="max-width:900px;">
+  <div style="max-width:960px;">
     <div style="background:linear-gradient(135deg,var(--primary),var(--primary-mid));border-radius:var(--radius);padding:18px 22px;margin-bottom:16px;color:white;">
       <div style="font-size:15px;font-weight:800;margin-bottom:4px;">🔗 진로정보 사이트 바로가기</div>
       <div style="font-size:12px;opacity:.75;">진로상담에 자주 활용하는 공식 사이트 모음입니다. 클릭하면 새 탭에서 열립니다.</div>
     </div>
+    ${renderUnivLinks()}
     ${cardsHTML}
   </div>`;
+}
+
+let _univRegion = '전체';
+function setUnivRegion(region){
+  _univRegion = region;
+  document.querySelectorAll('[id^="univTab_"]').forEach(btn=>{
+    const isActive = btn.id === 'univTab_'+region;
+    btn.style.background = isActive ? 'var(--accent)' : 'white';
+    btn.style.color = isActive ? 'white' : 'var(--g600)';
+    btn.style.borderColor = isActive ? 'var(--accent)' : 'var(--g200)';
+  });
+  filterUnivs();
+}
+function filterUnivs(){
+  const q = (document.getElementById('univSearch')?.value||'').toLowerCase();
+  const cards = document.querySelectorAll('.univ-card');
+  let vis = 0;
+  cards.forEach(c=>{
+    const regionMatch = _univRegion==='전체' || c.dataset.region===_univRegion;
+    const nameMatch = !q || c.dataset.name.toLowerCase().includes(q);
+    const show = regionMatch && nameMatch;
+    c.style.display = show ? 'block' : 'none';
+    if(show) vis++;
+  });
+  const cnt = document.getElementById('univCount');
+  if(cnt) cnt.textContent = vis+'개';
+  const noResult = document.getElementById('univNoResult');
+  if(noResult) noResult.style.display = vis===0 ? 'block' : 'none';
 }
 </script>
 </body>
