@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>전국 고등학교 진로상담 시스템</title>
+<title>창원경일고 진로상담 시스템 v10</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap');
@@ -1100,7 +1100,10 @@ function renderCounsel(){
             <div class="empty-state" style="padding:16px 0;">
               <div class="empty-text" style="font-size:12px;">아직 검사 결과가 없습니다</div>
             </div>
-            <button class="btn btn-outline" style="width:100%;font-size:12px;" onclick="nav('careertest')">진로검사 결과 가져오기 →</button>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <button class="btn btn-outline" style="flex:1;font-size:12px;" onclick="nav('careertest')">진로검사 결과 가져오기 →</button>
+              <button class="btn btn-outline" style="font-size:11px;white-space:nowrap;" onclick="importFrom4JongTest()" title="4종검사 시스템에서 직접 불러오기">🔗 직접연동</button>
+            </div>
           </div>
         </div>`;
 
@@ -1532,6 +1535,14 @@ function renderSettings(){
           <label class="form-label">Google Calendar Client ID</label>
           <input class="form-input" id="s-gcal-id" value="${gcalId}" placeholder="xxxxx.apps.googleusercontent.com">
           <div style="font-size:11px;color:var(--g400);margin-top:4px;">console.cloud.google.com → OAuth 2.0 클라이언트 ID</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🔗 4종검사 AI분석시스템 GAS URL <span style="font-size:10px;font-weight:400;background:#d1fae5;color:#065f46;padding:1px 6px;border-radius:10px;margin-left:4px;">NEW</span></label>
+          <input class="form-input" id="s-gas-url" value="${DB.getSetting('gas_url')}" placeholder="https://script.google.com/macros/s/....">
+          <div style="font-size:11px;color:var(--g400);margin-top:4px;line-height:1.6;">
+            4종검사 학생 입력 HTML의 ⚙️ 설정에서 확인한 Apps Script URL을 입력하세요.<br>
+            저장 후 진로검사 결과 메뉴에서 <strong>"4종검사 데이터 불러오기"</strong> 버튼이 활성화됩니다.
+          </div>
         </div>
         <div style="background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:8px;padding:12px;margin-bottom:14px;">
           <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:6px;">📅 학생 상담신청 방법 (약속 일정)</div>
@@ -3298,6 +3309,19 @@ function renderCareerTest(){
 
   return `
   <!-- 구글폼/시트 안내 -->
+  <!-- 4종검사 시스템 직접 연동 -->
+  <div style="background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #6ee7b7;border-radius:var(--radius);padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:13px;font-weight:700;color:#065f46;margin-bottom:6px;">🔗 4종검사 AI분석시스템 직접 연동 <span style="font-size:10px;font-weight:400;background:#d1fae5;color:#065f46;padding:2px 7px;border-radius:10px;margin-left:6px;">NEW</span></div>
+    <div style="font-size:12px;color:var(--g700);line-height:1.8;margin-bottom:10px;">
+      4종검사 AI분석시스템(학생 입력 HTML)의 <strong>Google Apps Script URL</strong>을 설정하면 학생 제출 데이터를 클릭 한 번으로 불러올 수 있습니다.
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px;">
+      <input class="form-input" id="gas-url-inline" style="flex:1;min-width:240px;font-size:12px;" placeholder="GAS 웹앱 URL (설정에서 입력하거나 여기에 직접 입력)" value="${DB.getSetting('gas_url','')}">
+      <button class="btn btn-success btn-sm" onclick="importFrom4JongTest()" style="background:#059669;color:#fff;border:none;white-space:nowrap;">📥 4종검사 데이터 불러오기</button>
+    </div>
+    <div style="font-size:11px;color:#047857;">💡 GAS URL은 4종검사 시스템 ⚙️ 설정에서 확인 가능 · 설정 메뉴에서 저장해두면 다음부터 자동 입력됩니다</div>
+  </div>
+
   <div style="background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #7dd3fc;border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;">
     <div style="font-size:13px;font-weight:700;color:#0369a1;margin-bottom:8px;">📋 구글 폼 → 구글 시트 → 엑셀 내보내기 → 시스템 업로드</div>
     <div style="font-size:12px;color:var(--g700);line-height:1.8;margin-bottom:12px;">
@@ -3325,6 +3349,7 @@ function renderCareerTest(){
       <div class="flex gap-8">
         <input class="form-input" style="width:160px;" placeholder="이름 검색..." oninput="filterCareerTest(this.value)">
         <button class="btn btn-outline btn-sm" onclick="exportCareerTestExcel()">⬇ 엑셀 내보내기</button>
+        <button class="btn btn-outline btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="clearCareerTestOnly()">🗑️ 전체 초기화</button>
       </div>
     </div>
     <div class="card-bd" style="padding:0;">
@@ -3454,6 +3479,161 @@ function downloadCareerTestTemplate(){
   guide['!cols']=[{wch:14},{wch:50}];
   XLSX.utils.book_append_sheet(wb, guide, '사용방법');
   XLSX.writeFile(wb, '전국고교_진로검사_구글시트_양식.xlsx');
+}
+
+
+// ══════════════════════════════════════════
+// 4종검사 AI분析시스템 GAS 직접 연동
+// ══════════════════════════════════════════
+async function importFrom4JongTest(){
+  // GAS URL 결정: inline 입력 > settings 저장값
+  const inlineEl = document.getElementById('gas-url-inline');
+  const url = (inlineEl?.value||'').trim() || DB.getSetting('gas_url','');
+  if(!url){
+    alert('Google Apps Script URL을 입력해 주세요.\n\n4종검사 HTML → ⚙️ 설정 → Apps Script URL 항목에서 확인할 수 있습니다.');
+    return;
+  }
+  // URL을 settings에 자동 저장
+  DB.setSetting('gas_url', url);
+  if(inlineEl) inlineEl.value = url;
+
+  const btnEl = document.querySelector('button[onclick="importFrom4JongTest()"]');
+  const origText = btnEl ? btnEl.textContent : '';
+  if(btnEl){ btnEl.textContent = '⏳ 불러오는 중...'; btnEl.disabled = true; }
+
+  try{
+    const res = await fetch(url + '?t=' + Date.now());
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    const submissions = json.submissions || [];
+    if(submissions.length === 0){
+      alert('4종검사 시스템에 제출된 데이터가 없습니다.\n학생들이 먼저 검사 결과를 입력해야 합니다.');
+      return;
+    }
+
+    const students  = DB.get('students');
+    const ctList    = DB.get('careertest');
+    let added = 0, updated = 0, unmatched = [];
+
+    submissions.forEach(sub => {
+      const name   = String(sub.name || '').trim();
+      const hakbun = String(sub.studentId || '').trim(); // 예: '10107'
+      const cls    = String(sub.classNum || '').replace('반','').trim(); // 예: '1'
+      if(!name) return;
+
+      // 학생 매칭: 이름 우선, 보조는 반+학번
+      let student = students.find(s => s.name === name);
+      if(!student && hakbun){
+        student = students.find(s => {
+          const numPart = hakbun.slice(-2).replace(/^0/,'');
+          return String(s.class) === cls && String(s.number) === numPart;
+        });
+      }
+      if(!student){ unmatched.push(name); return; }
+
+      const d  = sub.data || {};
+      const ap = d.aptitude  || {};
+      const pe = d.personality || {};
+      const it = d.interest  || {};
+      const ca = d.career    || {};
+
+      // 적성검사 수준 매핑 (ABL_NAMES 순서 고정)
+      const ablNames = ['언어력','수리력','추리력','공간능력','지각속도','과학능력','집중능력','색채능력','사고유연성'];
+      const ablMap   = {};
+      (ap.scores || []).forEach(sc => { ablMap[sc.name] = sc.level || ''; });
+
+      // Holland T점수 매핑
+      const hoMap = {};
+      (it.types || []).forEach(h => { hoMap[h.code] = h.t || ''; });
+
+      // 흥미코드: 'I (탐구형)' → 'I'
+      const extractCode = str => (str||'').charAt(0).toUpperCase();
+      const 흥미코드 = extractCode(it.code1) + extractCode(it.code2);
+
+      // 진로성숙도 하위요인
+      const cmSubs = ca.cm?.subs || [];
+      const findLv = (arr, keyword) => {
+        const found = arr.find(x => (x.name||'').includes(keyword));
+        return found ? (found.lv || '') : '';
+      };
+
+      // 기존 레코드 찾기 (업데이트 vs 신규)
+      const existIdx = ctList.findIndex(c => c.studentId === student.id);
+      const ct = {
+        studentId: student.id,
+        학번: hakbun,
+        submittedAt: sub.submittedAt || new Date().toISOString(),
+        // 적성검사
+        ...(Object.fromEntries(ablNames.map(n => [n+'_수준', ablMap[n]||'']))),
+        추천직업1: (ap.jobs||[])[0]||'',
+        추천직업2: (ap.jobs||[])[1]||'',
+        추천직업3: (ap.jobs||[])[2]||'',
+        // 인성검사
+        외향성: pe.ext||'',
+        호감성: pe.agr||'',
+        성실성: pe.con||'',
+        개방성: pe.ope||'',
+        정서적불안정성: pe.neu||'',
+        학교생활만족도: pe.ssat||'',
+        학교생활적응도: pe.sadp||'',
+        급우관계: pe.peer||'',
+        학업성적수준: pe.grade||'',
+        가장좋아하는과목: pe.fav||'',
+        가장싫어하는과목: pe.bad||'',
+        희망학과: pe.dept||'',
+        희망직업: pe.job||'',
+        // 흥미검사
+        흥미코드: 흥미코드,
+        R현실형_T점수: hoMap['R']||'',
+        I탐구형_T점수: hoMap['I']||'',
+        A예술형_T점수: hoMap['A']||'',
+        S사회형_T점수: hoMap['S']||'',
+        E진취형_T점수: hoMap['E']||'',
+        C관습형_T점수: hoMap['C']||'',
+        가장높은흥미: it.hi||'',
+        가장낮은흥미: it.lo||'',
+        추천직업_흥미: it.jobs||'',
+        // 진로발달
+        진로성숙도_T점수: ca.cm?.t||'',
+        진로성숙도_구분: ca.cm?.lv||'',
+        계획성_수준: findLv(cmSubs,'계획성'),
+        독립성_수준: findLv(cmSubs,'독립성'),
+        진로탐색행동_수준: findLv(cmSubs,'진로탐색행동'),
+        진로결정수준_점수: ca.cd?.sc||'',
+        진로결정수준_평점: ca.cd?.lv||'',
+        관심직업: ca.job||'',
+        검사결과생각: ca.thought||'',
+        노력할점: ca.plan||''
+      };
+
+      if(existIdx >= 0){
+        ctList[existIdx] = ct;
+        updated++;
+      } else {
+        ctList.push(ct);
+        added++;
+      }
+    });
+
+    DB.set('careertest', ctList);
+
+    let msg = '✅ 4종검사 데이터 연동 완료!\n\n';
+    msg += '신규 등록: ' + added + '명\n';
+    msg += '업데이트: ' + updated + '명\n';
+    if(unmatched.length > 0){
+      msg += '\n⚠️ 학생 명단 미매칭 ' + unmatched.length + '명\n';
+      msg += unmatched.slice(0,10).join(', ');
+      if(unmatched.length > 10) msg += ' 외 ' + (unmatched.length-10) + '명';
+      msg += '\n\n💡 학생 명단에 먼저 등록된 학생만 매칭됩니다.';
+    }
+    alert(msg);
+    renderScreen();
+
+  } catch(e){
+    alert('불러오기 오류: ' + e.message + '\n\n확인사항:\n• GAS URL이 올바른지 확인\n• Apps Script가 "모든 사용자"에게 액세스 허용되었는지 확인\n• 배포 → 웹 앱 → 액세스: 모든 사용자');
+  } finally {
+    if(btnEl){ btnEl.textContent = origText; btnEl.disabled = false; }
+  }
 }
 
 // 구글시트 엑셀 업로드 → 진로검사 결과 일괄 등록
@@ -3965,6 +4145,8 @@ function saveSettings(){
   DB.setSetting('gcal_client_id', document.getElementById('s-gcal-id').value.trim());
   const newApiKey = document.getElementById('s-api-key')?.value.trim();
   if(newApiKey) DB.setSetting('api_key', newApiKey);
+  const newGasUrl = document.getElementById('s-gas-url')?.value.trim();
+  if(newGasUrl) DB.setSetting('gas_url', newGasUrl);
   alert('설정이 저장되었습니다.' + (newApiKey ? '\nAPI Key가 갱신되었습니다.' : '') + '\nGoogle Calendar는 다시 연동해주세요.');
   renderScreen();
 }
@@ -4286,9 +4468,17 @@ function importData(event){
 }
 
 function clearAllData(){
-  ['students','sessions','records'].forEach(k=>DB.set(k,[]));
+  ['students','sessions','records','careertest'].forEach(k=>DB.set(k,[]));
+  ['moe_subjects','curriculum_subjects','univ_subjects','subject_guides'].forEach(k=>DB.set(k,[]));
   renderScreen();
   alert('초기화 완료');
+}
+
+function clearCareerTestOnly(){
+  if(!confirm('진로검사 결과 데이터 전체를 삭제할까요?\n학생 명단·상담 기록은 유지됩니다.')) return;
+  DB.set('careertest',[]);
+  renderScreen();
+  alert('진로검사 결과가 초기화되었습니다.');
 }
 
 function attachListeners(){
