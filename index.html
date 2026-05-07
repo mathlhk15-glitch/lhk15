@@ -625,56 +625,48 @@
 
   <!-- 기존 data.js (자료실 데이터) — 있으면 로드, 없으면 기본 데이터 사용 -->
   <script>
-    /* =====================================================
-       data.js 없는 경우를 위한 기본 자료 데이터
-       실제 운영 시 기존 data.js 파일로 교체하거나
-       아래 ARCHIVE_DATA를 data.js에서 불러오도록 수정
-       ===================================================== */
-    if (typeof ARCHIVE_DATA === 'undefined') {
-      window.ARCHIVE_DATA = {
-        sections: [
-          {
-            id: 'admission',
-            title: '📄 수시 입시 자료',
-            items: []
-          },
-          {
-            id: 'curriculum',
-            title: '📘 교육과정 자료',
-            items: []
-          },
-          {
-            id: 'ai-tools',
-            title: '🤖 AI 도우미',
-            items: []
-          },
-          {
-            id: 'career-data',
-            title: '🎯 진로 데이터',
-            items: []
-          },
-          {
-            id: 'personal',
-            title: '🔒 개인 자료',
-            personal: true,
-            items: []
-          }
-        ],
-        quick: []
-      };
-    }
-
-    /* =====================================================
-       기존 script.js 의 섹션/카드 데이터가 window.SECTIONS
-       또는 window.hubData 로 정의되어 있는 경우 자동 호환
-       ===================================================== */
-    if (typeof window.SECTIONS !== 'undefined') {
-      window.ARCHIVE_DATA.sections = window.SECTIONS;
-    }
   </script>
 
-  <!-- 기존 data.js (있으면 아래 주석 해제) -->
+  <!-- 자료실 데이터 -->
   <script src="data.js"></script>
+
+  <script>
+    /* =====================================================
+       data.js의 SECTIONS + resources 형식을
+       ARCHIVE_DATA.sections[].items[] 형식으로 변환
+       ===================================================== */
+    (function () {
+      if (typeof SECTIONS === 'undefined' || typeof resources === 'undefined') return;
+
+      const sectionOrder = ['admission', 'curriculum', 'ai-tools', 'career-data', 'personal'];
+      const sectionMeta = {
+        admission:    { title: '📄 수시 입시 자료' },
+        curriculum:   { title: '📘 교육과정 자료' },
+        'ai-tools':   { title: '🤖 AI 도우미' },
+        'career-data':{ title: '🎯 진로 데이터' },
+        personal:     { title: '🔒 개인 자료', personal: true }
+      };
+
+      window.ARCHIVE_DATA = {
+        sections: sectionOrder.map(sid => ({
+          id: sid,
+          title: sectionMeta[sid].title,
+          personal: sectionMeta[sid].personal || false,
+          items: resources
+            .filter(r => r.section === sid)
+            .map(r => ({
+              title: r.title,
+              desc: r.description,
+              tags: r.tags || [],
+              url: (r.links && r.links[0]) ? r.links[0].url : '#',
+              icon: '📎',
+              newTab: true
+            }))
+        })),
+        quick: []
+      };
+    })();
+  </script>
 
   <script>
     /* =====================================================
