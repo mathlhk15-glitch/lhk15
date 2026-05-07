@@ -1,0 +1,447 @@
+/* =====================================================
+   창원경일고 진로진학 상담 워크스테이션
+   common.css — 공통 디자인 시스템
+   PHASE 1 산출물
+   ===================================================== */
+
+/* ── 0. Google Fonts & Pretendard ── */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+/* ── 1. CSS 변수 (디자인 토큰) ── */
+:root {
+  /* 색상 */
+  --primary:      #1e3a5f;   /* 네이비 — 메인 */
+  --primary-dark: #142a47;   /* 네이비 진하게 */
+  --primary-light:#2a517e;   /* 네이비 밝게 */
+  --accent:       #2e86c1;   /* 블루 — 강조 */
+  --accent-light: #d6eaf8;   /* 블루 연하게 */
+  --gold:         #f0a500;   /* 골드 — 포인트 */
+  --gold-light:   #fef3cd;   /* 골드 연하게 */
+  --success:      #27ae60;
+  --danger:       #e74c3c;
+  --warning:      #f39c12;
+  --info:         #2980b9;
+
+  /* 배경 */
+  --bg:           #f4f6f9;
+  --bg-card:      #ffffff;
+  --bg-hover:     #f0f4f8;
+
+  /* 텍스트 */
+  --text-main:    #1a1a2e;
+  --text-sub:     #4a5568;
+  --text-muted:   #718096;
+  --text-white:   #ffffff;
+
+  /* 테두리 */
+  --border:       #e2e8f0;
+  --border-focus: #2e86c1;
+
+  /* 그림자 */
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:    0 4px 12px rgba(0,0,0,0.10);
+  --shadow-lg:    0 8px 24px rgba(0,0,0,0.12);
+
+  /* 레이아웃 */
+  --nav-height:   56px;
+  --radius-sm:    6px;
+  --radius-md:    12px;
+  --radius-lg:    16px;
+  --max-width:    1200px;
+
+  /* 폰트 */
+  --font-main: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+  --font-mono: 'Courier New', monospace;
+}
+
+/* ── 2. 리셋 & 기본 ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg);
+  color: var(--text-main);
+  line-height: 1.6;
+  padding-top: var(--nav-height); /* 고정 네비게이션 높이만큼 여백 */
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+img { max-width: 100%; height: auto; }
+
+/* ── 3. 공통 네비게이션 ── */
+.ws-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  background: var(--primary);
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 9999;
+  box-shadow: var(--shadow-md);
+  gap: 0;
+}
+
+.ws-nav__logo {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-white);
+  white-space: nowrap;
+  margin-right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.ws-nav__logo:hover { text-decoration: none; opacity: 0.9; }
+.ws-nav__logo-icon { font-size: 20px; }
+
+.ws-nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ws-nav__menu::-webkit-scrollbar { display: none; }
+
+.ws-nav__item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  border: none;
+  background: transparent;
+}
+.ws-nav__item:hover {
+  background: rgba(255,255,255,0.15);
+  color: var(--text-white);
+  text-decoration: none;
+}
+.ws-nav__item.active {
+  background: var(--accent);
+  color: var(--text-white);
+}
+.ws-nav__item-icon { font-size: 15px; }
+
+.ws-nav__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* 관리자 배지 */
+.ws-nav__admin-badge {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  background: var(--gold);
+  color: #1a1a1a;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.ws-nav__admin-badge.visible { display: flex; }
+
+/* 햄버거 (모바일) */
+.ws-nav__hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-white);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: 8px;
+}
+
+/* 모바일 드롭다운 메뉴 */
+.ws-nav__mobile-menu {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0; right: 0;
+  background: var(--primary-dark);
+  z-index: 9998;
+  flex-direction: column;
+  padding: 8px 0 12px;
+  box-shadow: var(--shadow-lg);
+}
+.ws-nav__mobile-menu.open { display: flex; }
+.ws-nav__mobile-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.ws-nav__mobile-item:hover,
+.ws-nav__mobile-item.active {
+  background: rgba(255,255,255,0.1);
+  color: var(--text-white);
+  text-decoration: none;
+}
+
+/* ── 4. 공통 푸터 ── */
+.ws-footer {
+  background: var(--primary-dark);
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  margin-top: 48px;
+}
+.ws-footer strong { color: rgba(255,255,255,0.9); }
+
+/* ── 5. 레이아웃 컨테이너 ── */
+.ws-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+.ws-page-header {
+  margin-bottom: 24px;
+}
+.ws-page-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+}
+.ws-page-header p {
+  color: var(--text-sub);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* ── 6. 카드 ── */
+.ws-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  padding: 20px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.ws-card:hover { box-shadow: var(--shadow-md); }
+.ws-card--clickable { cursor: pointer; }
+.ws-card--clickable:hover { transform: translateY(-2px); }
+
+.ws-card__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ws-card__body { font-size: 14px; color: var(--text-sub); }
+
+/* ── 7. 그리드 ── */
+.ws-grid {
+  display: grid;
+  gap: 16px;
+}
+.ws-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.ws-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.ws-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+/* ── 8. 버튼 ── */
+.ws-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-main);
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.ws-btn:hover { text-decoration: none; }
+
+.ws-btn--primary {
+  background: var(--accent);
+  color: var(--text-white);
+}
+.ws-btn--primary:hover { background: #2471a3; color: var(--text-white); }
+
+.ws-btn--secondary {
+  background: var(--bg-hover);
+  color: var(--text-sub);
+  border: 1px solid var(--border);
+}
+.ws-btn--secondary:hover { background: var(--border); }
+
+.ws-btn--danger {
+  background: var(--danger);
+  color: var(--text-white);
+}
+.ws-btn--danger:hover { background: #c0392b; color: var(--text-white); }
+
+.ws-btn--gold {
+  background: var(--gold);
+  color: #1a1a1a;
+}
+.ws-btn--gold:hover { background: #d4920a; }
+
+.ws-btn--sm { padding: 5px 12px; font-size: 12px; }
+.ws-btn--lg { padding: 12px 28px; font-size: 16px; }
+.ws-btn--full { width: 100%; }
+
+/* ── 9. 배지 & 태그 ── */
+.ws-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.ws-badge--primary { background: var(--accent-light); color: var(--accent); }
+.ws-badge--gold { background: var(--gold-light); color: #a07000; }
+.ws-badge--danger { background: #fdecea; color: var(--danger); }
+.ws-badge--success { background: #d5f5e3; color: var(--success); }
+
+/* ── 10. 입력 폼 ── */
+.ws-input {
+  width: 100%;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: var(--font-main);
+  color: var(--text-main);
+  background: var(--bg-card);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+.ws-input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(46,134,193,0.15);
+}
+.ws-input::placeholder { color: var(--text-muted); }
+
+.ws-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-sub);
+  margin-bottom: 6px;
+}
+
+.ws-form-group { margin-bottom: 16px; }
+
+/* ── 11. 알림/모달 오버레이 ── */
+.ws-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+}
+.ws-overlay.open { display: flex; }
+
+.ws-modal {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: var(--shadow-lg);
+}
+.ws-modal__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+.ws-modal__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+/* ── 12. 구분선 ── */
+.ws-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 20px 0;
+}
+
+/* ── 13. 섹션 헤더 ── */
+.ws-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-light);
+}
+
+/* ── 14. 로딩 스피너 ── */
+.ws-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: ws-spin 0.8s linear infinite;
+  margin: 20px auto;
+}
+@keyframes ws-spin { to { transform: rotate(360deg); } }
+
+/* ── 15. 반응형 ── */
+@media (max-width: 768px) {
+  body { padding-top: var(--nav-height); }
+
+  .ws-nav__menu { display: none; }
+  .ws-nav__hamburger { display: block; }
+
+  .ws-grid--2,
+  .ws-grid--3,
+  .ws-grid--4 { grid-template-columns: 1fr; }
+
+  .ws-container { padding: 16px 14px; }
+
+  .ws-page-header h1 { font-size: 18px; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .ws-grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .ws-grid--3 { grid-template-columns: repeat(2, 1fr); }
+}
