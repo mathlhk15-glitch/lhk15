@@ -314,16 +314,10 @@
       color: #fff;
       border-color: var(--primary);
     }
-    .ws-filter-btn--personal {
       border-color: var(--gold);
       color: #a07000;
     }
-    .ws-filter-btn--personal:hover,
-    .ws-filter-btn--personal.active {
-      background: var(--gold);
-      color: #1a1a1a;
-      border-color: var(--gold);
-    }
+
 
     /* 자료실 그리드 */
     .ws-archive-sections { }
@@ -440,33 +434,7 @@
     }
     .ws-no-result.visible { display: block; }
 
-    /* 개인자료 잠금 표시 */
-    .ws-archive-section--personal .ws-archive-section__title {
-      border-bottom-color: var(--gold-light);
-      color: #a07000;
-    }
-    .ws-archive-section--personal .ws-archive-card {
-      opacity: 0.5;
-      pointer-events: none;
-      filter: blur(1px);
-    }
-    .ws-archive-section--personal.unlocked .ws-archive-card {
-      opacity: 1;
-      pointer-events: auto;
-      filter: none;
-    }
-    .ws-personal-lock-btn {
-      margin-left: auto;
-      padding: 4px 12px;
-      border-radius: 20px;
-      border: none;
-      background: var(--gold);
-      color: #1a1a1a;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: var(--font-main);
-    }
+
 
     /* 반응형 */
     @media (max-width: 900px) {
@@ -590,7 +558,7 @@
           <button class="ws-filter-btn" data-section="curriculum" onclick="setFilter('curriculum', this)">교육과정</button>
           <button class="ws-filter-btn" data-section="ai-tools" onclick="setFilter('ai-tools', this)">AI 도우미</button>
           <button class="ws-filter-btn" data-section="career-data" onclick="setFilter('career-data', this)">진로 데이터</button>
-          <button class="ws-filter-btn ws-filter-btn--personal" data-section="personal" onclick="setFilter('personal', this)">🔒 개인</button>
+
         </div>
       </div>
 
@@ -600,25 +568,7 @@
     </div>
   </section>
 
-  <!-- 개인자료 비밀번호 모달 -->
-  <div id="pw-modal" class="ws-overlay">
-    <div class="ws-modal">
-      <div style="font-size:32px;text-align:center;margin-bottom:8px;">🔒</div>
-      <div class="ws-modal__title" style="text-align:center;">개인 자료</div>
-      <p style="font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:16px;">비밀번호를 입력하세요</p>
-      <div class="ws-form-group">
-        <input class="ws-input" id="pw-input" type="password"
-               placeholder="비밀번호"
-               style="text-align:center;letter-spacing:4px;"
-               onkeydown="if(event.key==='Enter') confirmPw()" />
-      </div>
-      <div id="pw-error" style="display:none;font-size:12px;color:var(--danger);text-align:center;margin-bottom:8px;">비밀번호가 틀렸습니다.</div>
-      <div class="ws-modal__actions">
-        <button class="ws-btn ws-btn--secondary" onclick="closePwModal()">취소</button>
-        <button class="ws-btn ws-btn--primary" onclick="confirmPw()">확인</button>
-      </div>
-    </div>
-  </div>
+
 
   <!-- PHASE 1 공통 네비게이션 JS -->
   <script src="nav.js"></script>
@@ -638,20 +588,18 @@
     (function () {
       if (typeof SECTIONS === 'undefined' || typeof resources === 'undefined') return;
 
-      const sectionOrder = ['admission', 'curriculum', 'ai-tools', 'career-data', 'personal'];
+      const sectionOrder = ['admission', 'curriculum', 'ai-tools', 'career-data'];
       const sectionMeta = {
         admission:    { title: '📄 수시 입시 자료' },
         curriculum:   { title: '📘 교육과정 자료' },
         'ai-tools':   { title: '🤖 AI 도우미' },
-        'career-data':{ title: '🎯 진로 데이터' },
-        personal:     { title: '🔒 개인 자료', personal: true }
+        'career-data':{ title: '🎯 진로 데이터' }
       };
 
       window.ARCHIVE_DATA = {
         sections: sectionOrder.map(sid => ({
           id: sid,
           title: sectionMeta[sid].title,
-          personal: sectionMeta[sid].personal || false,
           items: resources
             .filter(r => r.section === sid)
             .map(r => ({
@@ -673,8 +621,6 @@
        PHASE 2 대시보드 스크립트
        ===================================================== */
 
-    const PERSONAL_PW = 'ruddlf';
-    let personalUnlocked = false;
     let currentFilter = 'all';
 
     /* ── 오늘 날짜 표시 ── */
@@ -768,15 +714,13 @@
       container.innerHTML = '';
 
       data.sections.forEach(section => {
-        const isPersonal = section.personal || section.id === 'personal';
         const sectionEl = document.createElement('div');
-        sectionEl.className = `ws-archive-section${isPersonal ? ' ws-archive-section--personal' : ''}${isPersonal && personalUnlocked ? ' unlocked' : ''}`;
+        sectionEl.className = `ws-archive-section`;
         sectionEl.dataset.sectionId = section.id;
 
         const titleHtml = `
           <div class="ws-archive-section__title">
             ${section.title}
-            ${isPersonal ? `<button class="ws-personal-lock-btn" onclick="handlePersonalLock()">${personalUnlocked ? '🔓 잠금 해제됨' : '🔒 비밀번호 필요'}</button>` : ''}
           </div>`;
 
         const items = section.items || [];
@@ -814,10 +758,6 @@
 
     /* ── 필터 ── */
     function setFilter(sectionId, btn) {
-      if (sectionId === 'personal' && !personalUnlocked) {
-        openPwModal();
-        return;
-      }
       currentFilter = sectionId;
       document.querySelectorAll('.ws-filter-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
@@ -857,54 +797,6 @@
 
       const noResult = document.getElementById('archiveNoResult');
       if (noResult) noResult.classList.toggle('visible', !anyVisible && !!query);
-    }
-
-    /* ── 개인자료 비밀번호 ── */
-    function handlePersonalLock() {
-      if (personalUnlocked) {
-        personalUnlocked = false;
-        renderArchive();
-      } else {
-        openPwModal();
-      }
-    }
-
-    function openPwModal() {
-      const modal = document.getElementById('pw-modal');
-      if (modal) {
-        modal.classList.add('open');
-        modal.style.display = 'flex';
-        setTimeout(() => document.getElementById('pw-input')?.focus(), 100);
-      }
-    }
-    function closePwModal() {
-      const modal = document.getElementById('pw-modal');
-      if (modal) {
-        modal.classList.remove('open');
-        modal.style.display = '';
-      }
-      const errEl = document.getElementById('pw-error');
-      if (errEl) errEl.style.display = 'none';
-      const inp = document.getElementById('pw-input');
-      if (inp) inp.value = '';
-    }
-    function confirmPw() {
-      const val = document.getElementById('pw-input')?.value || '';
-      const errEl = document.getElementById('pw-error');
-      if (val === PERSONAL_PW) {
-        personalUnlocked = true;
-        closePwModal();
-        // 개인 필터로 전환
-        currentFilter = 'personal';
-        document.querySelectorAll('.ws-filter-btn').forEach(b => {
-          b.classList.toggle('active', b.dataset.section === 'personal');
-        });
-        renderArchive();
-      } else {
-        if (errEl) errEl.style.display = 'block';
-        const inp = document.getElementById('pw-input');
-        if (inp) { inp.value = ''; inp.focus(); }
-      }
     }
 
     /* ── 자료실 스크롤 ── */
