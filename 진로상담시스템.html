@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>창원경일고 진로상담 시스템 v10</title>
 <link rel="stylesheet" href="common.css">
+
+<!-- PWA 지원 -->
+<link rel="manifest" href="manifest.json" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<meta name="theme-color" content="#1a3a5c" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap');
@@ -5028,5 +5033,14 @@ function filterUnivs(){
 }
 </script>
 <script src="nav.js"></script>
+
+<!-- PWA 서비스워커 등록 -->
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW ref fail', err));
+    });
+  }
+</script>
 </body>
 </html>

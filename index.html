@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,6 +10,11 @@
 
   <!-- 공통 CSS (PHASE 1 산출물) -->
   <link rel="stylesheet" href="common.css" />
+
+  <!-- PWA 지원 -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <meta name="theme-color" content="#1a3a5c" />
 
   <style>
     /* =====================================================
@@ -828,5 +835,13 @@
     });
   </script>
 
+  <!-- PWA 서비스워커 등록 -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW ref fail', err));
+      });
+    }
+  </script>
 </body>
 </html>
