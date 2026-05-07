@@ -1,11 +1,15 @@
 {
   "name": "진로진학 상담 워크스테이션",
   "short_name": "진로상담",
-  "start_url": ".",
+  "id": "com.mathlhk15.counsel",
+  "start_url": "./index.html",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#1a3a5c",
-  "description": "진로상담 및 학생 관리 시스템",
+  "description": "창원경일고 진로진학 상담 시스템",
+  "categories": ["education", "productivity"],
+  "lang": "ko-KR",
   "icons": [
     {
       "src": "icon-192.png",
