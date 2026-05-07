@@ -3,74 +3,931 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>창원경일고 진로진학 통합 허브</title>
-  <meta name="description" content="창원경일고등학교 학생·학부모·교사를 위한 진로진학 및 학업지원 통합 자료실" />
-  <link rel="stylesheet" href="style.css" />
+  <title>진로진학 상담 워크스테이션 — 창원경일고</title>
+  <meta name="description" content="창원경일고등학교 진로진학 상담 워크스테이션 — 검사결과, 생기부 분석, 상담관리, 자료실 통합 허브" />
+
+  <!-- 공통 CSS (PHASE 1 산출물) -->
+  <link rel="stylesheet" href="common.css" />
+
+  <style>
+    /* =====================================================
+       PHASE 2 전용 스타일 — 대시보드 레이아웃
+       ===================================================== */
+
+    /* ── 히어로 검색 배너 ── */
+    .ws-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 60%, var(--accent) 100%);
+      color: var(--text-white);
+      padding: 32px 20px 28px;
+      margin-bottom: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .ws-hero::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .ws-hero__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      position: relative;
+    }
+    .ws-hero__school {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .ws-hero__title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .ws-hero__title span {
+      color: var(--gold);
+    }
+
+    /* 검색창 */
+    .ws-hero__search {
+      display: flex;
+      gap: 8px;
+      max-width: 520px;
+    }
+    .ws-hero__search-wrap {
+      flex: 1;
+      position: relative;
+    }
+    .ws-hero__search-wrap input {
+      width: 100%;
+      padding: 11px 16px 11px 40px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      font-family: var(--font-main);
+      background: rgba(255,255,255,0.95);
+      color: var(--text-main);
+      outline: none;
+    }
+    .ws-hero__search-wrap input:focus {
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(240,165,0,0.4);
+    }
+    .ws-hero__search-wrap input::placeholder { color: var(--text-muted); }
+    .ws-hero__search-icon {
+      position: absolute;
+      left: 12px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      pointer-events: none;
+    }
+    .ws-hero__search button {
+      padding: 11px 20px;
+      background: var(--gold);
+      color: #1a1a1a;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: var(--font-main);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .ws-hero__search button:hover { background: #d4920a; }
+
+    /* ── 오늘 요약 바 ── */
+    .ws-today-bar {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+    }
+    .ws-today-bar__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 10px 0;
+      font-size: 13px;
+      color: var(--text-sub);
+      flex-wrap: wrap;
+    }
+    .ws-today-bar__item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ws-today-bar__item strong { color: var(--primary); }
+    .ws-today-bar__date {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ── 학생 검색 결과 팝업 ── */
+    .ws-student-result {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      padding: 16px;
+      margin: 12px 0 0;
+      max-width: 520px;
+    }
+    .ws-student-result.open { display: block; }
+    .ws-student-result__name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .ws-student-result__actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .ws-student-result__actions a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .ws-student-result__actions .btn-gumsa {
+      background: #eef2ff;
+      color: #3730a3;
+    }
+    .ws-student-result__actions .btn-gumsa:hover { background: #e0e7ff; }
+    .ws-student-result__actions .btn-susi {
+      background: #f0fdf4;
+      color: #166534;
+    }
+    .ws-student-result__actions .btn-susi:hover { background: #dcfce7; }
+    .ws-student-result__actions .btn-counsel {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+    .ws-student-result__actions .btn-counsel:hover { background: #b8d9f3; }
+
+    /* ── 메인 4대 기능 카드 ── */
+    .ws-features {
+      background: var(--bg);
+      padding: 24px 20px 8px;
+    }
+    .ws-features__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .ws-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .ws-feature-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      padding: 20px 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+    .ws-feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .ws-feature-card--gumsa::before { background: #6c63ff; }
+    .ws-feature-card--susi::before { background: var(--success); }
+    .ws-feature-card--counsel::before { background: var(--accent); }
+    .ws-feature-card--archive::before { background: var(--gold); }
+
+    .ws-feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      text-decoration: none;
+    }
+    .ws-feature-card__icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .ws-feature-card__title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+    .ws-feature-card__desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .ws-feature-card__badge {
+      position: absolute;
+      top: 14px; right: 14px;
+      font-size: 10px;
+      background: #f1f5f9;
+      color: var(--text-muted);
+      padding: 2px 7px;
+      border-radius: 20px;
+    }
+
+    /* ── 자료실 섹션 ── */
+    .ws-archive {
+      padding: 20px 20px 0;
+    }
+    .ws-archive__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    /* 검색 + 필터 바 */
+    .ws-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .ws-filter-bar__search {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+    .ws-filter-bar__search input {
+      width: 100%;
+      padding: 8px 12px 8px 34px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-family: var(--font-main);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .ws-filter-bar__search input:focus { border-color: var(--border-focus); }
+    .ws-filter-bar__search-icon {
+      position: absolute;
+      left: 10px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      pointer-events: none;
+    }
+    .ws-filter-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .ws-filter-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-sub);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-main);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .ws-filter-btn:hover, .ws-filter-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .ws-filter-btn--personal {
+      border-color: var(--gold);
+      color: #a07000;
+    }
+    .ws-filter-btn--personal:hover,
+    .ws-filter-btn--personal.active {
+      background: var(--gold);
+      color: #1a1a1a;
+      border-color: var(--gold);
+    }
+
+    /* 자료실 그리드 */
+    .ws-archive-sections { }
+    .ws-archive-section { margin-bottom: 28px; }
+    .ws-archive-section.hidden { display: none; }
+
+    .ws-archive-section__title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent-light);
+    }
+    .ws-archive-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .ws-archive-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.15s;
+    }
+    .ws-archive-card:hover {
+      box-shadow: var(--shadow-sm);
+      border-color: var(--accent);
+      text-decoration: none;
+    }
+    .ws-archive-card__icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .ws-archive-card__info { flex: 1; min-width: 0; }
+    .ws-archive-card__title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ws-archive-card__desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .ws-archive-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 6px;
+    }
+    .ws-archive-card__tag {
+      font-size: 10px;
+      padding: 1px 7px;
+      border-radius: 20px;
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    /* 빠른 링크 */
+    .ws-quick {
+      padding: 20px 20px 0;
+    }
+    .ws-quick__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+    .ws-quick-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .ws-quick-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-sub);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .ws-quick-item:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      text-decoration: none;
+    }
+
+    .ws-no-result {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .ws-no-result.visible { display: block; }
+
+    /* 개인자료 잠금 표시 */
+    .ws-archive-section--personal .ws-archive-section__title {
+      border-bottom-color: var(--gold-light);
+      color: #a07000;
+    }
+    .ws-archive-section--personal .ws-archive-card {
+      opacity: 0.5;
+      pointer-events: none;
+      filter: blur(1px);
+    }
+    .ws-archive-section--personal.unlocked .ws-archive-card {
+      opacity: 1;
+      pointer-events: auto;
+      filter: none;
+    }
+    .ws-personal-lock-btn {
+      margin-left: auto;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: none;
+      background: var(--gold);
+      color: #1a1a1a;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font-main);
+    }
+
+    /* 반응형 */
+    @media (max-width: 900px) {
+      .ws-feature-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .ws-feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .ws-hero__title { font-size: 16px; }
+      .ws-today-bar__date { display: none; }
+    }
+    @media (max-width: 400px) {
+      .ws-feature-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-<body>
+<body data-ws-page="home">
 
-<header class="site-header">
-  <div class="header-inner">
-    <div class="header-school">창원경일고등학교 · 진로진학상담부</div>
-    <h1 class="header-title">진로진학 통합 허브</h1>
-    <p class="header-desc">입시자료, 교육과정 자료, 진학 탐색 도구, AI 기반 탐구·세특·면접 지원 도구를 한 곳에 모은 통합 자료실</p>
-  </div>
-</header>
+  <!-- nav.js 가 자동으로 상단 네비게이션과 푸터를 삽입합니다 -->
 
-<div class="sticky-bar">
-  <div class="sticky-inner">
-    <div class="search-wrap">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-      </svg>
-      <input type="search" id="searchInput" placeholder="자료 검색 (제목, 설명, 태그)" autocomplete="off" />
+  <!-- ① 히어로: 학생 검색 -->
+  <section class="ws-hero" id="hero">
+    <div class="ws-hero__inner">
+      <div class="ws-hero__school">창원경일고등학교 · 진로진학상담부</div>
+      <h1 class="ws-hero__title">진로진학 <span>상담 워크스테이션</span></h1>
+      <div class="ws-hero__search">
+        <div class="ws-hero__search-wrap">
+          <span class="ws-hero__search-icon">👤</span>
+          <input type="text" id="studentSearchInput"
+                 placeholder="학번 또는 이름 입력 (예: 20315, 김○○)"
+                 autocomplete="off"
+                 onkeydown="if(event.key==='Enter') searchStudent()" />
+        </div>
+        <button onclick="searchStudent()">🔍 학생 조회</button>
+      </div>
+      <!-- 학생 조회 결과 -->
+      <div class="ws-student-result" id="studentResult">
+        <div class="ws-student-result__name" id="studentResultName"></div>
+        <div class="ws-student-result__actions" id="studentResultActions"></div>
+      </div>
     </div>
-    <div class="filter-btns">
-      <button class="filter-btn active" data-section="all">전체</button>
-      <button class="filter-btn" data-section="admission">수시 입시</button>
-      <button class="filter-btn" data-section="curriculum">교육과정</button>
-      <button class="filter-btn" data-section="ai-tools">AI 도우미</button>
-      <button class="filter-btn" data-section="career-data">진로 데이터</button>
-      <button class="filter-btn filter-btn-personal" data-section="personal">🔒 개인</button>
-    </div>
-  </div>
-</div>
+  </section>
 
-<main class="main">
-  <div class="quick-section">
-    <div class="quick-title">⚡ 자주 쓰는 자료</div>
-    <div class="quick-grid" id="quickGrid"></div>
-  </div>
-  <div class="hub-divider"></div>
-  <div id="sectionsContainer"></div>
-  <div class="no-result" id="noResult">검색 결과가 없습니다. 다른 키워드로 검색해 보세요.</div>
-</main>
-
-<footer class="site-footer">
-  <p id="lastUpdated" style="font-weight:500;color:#4a5568;"></p>
-  <p>외부 링크(GPTs, Gemini)는 해당 서비스 로그인이 필요할 수 있습니다.</p>
-  <p style="margin-top:8px;">창원경일고등학교 진로진학상담부</p>
-</footer>
-
-<script src="data.js"></script>
-<script src="script.js"></script>
-
-<!-- 비밀번호 모달 -->
-<div id="pw-modal" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.45);align-items:center;justify-content:center;">
-  <div style="background:#fff;border-radius:16px;padding:32px 28px;width:320px;box-shadow:0 8px 32px rgba(0,0,0,0.18);text-align:center;">
-    <div style="font-size:32px;margin-bottom:12px;">🔒</div>
-    <div style="font-size:16px;font-weight:700;color:#1a2332;margin-bottom:6px;">개인 자료</div>
-    <div style="font-size:13px;color:#8a96a8;margin-bottom:20px;">비밀번호를 입력하세요</div>
-    <input id="pw-input" type="password" placeholder="비밀번호"
-      style="width:100%;padding:10px 14px;border:1.5px solid #dde3ea;border-radius:8px;font-size:15px;text-align:center;letter-spacing:4px;outline:none;font-family:inherit;margin-bottom:8px;" />
-    <div id="pw-error" style="display:none;font-size:12px;color:#dc2626;margin-bottom:8px;">비밀번호가 틀렸습니다.</div>
-    <div style="display:flex;gap:8px;margin-top:4px;">
-      <button onclick="closePwModal()"
-        style="flex:1;padding:10px;border:1.5px solid #dde3ea;border-radius:8px;background:#fff;font-size:13px;font-weight:600;cursor:pointer;color:#4a5568;font-family:inherit;">취소</button>
-      <button onclick="confirmPw()"
-        style="flex:1;padding:10px;border:none;border-radius:8px;background:#1a3a5c;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">확인</button>
+  <!-- ② 오늘 요약 바 -->
+  <div class="ws-today-bar">
+    <div class="ws-today-bar__inner">
+      <div class="ws-today-bar__item">📅 <strong id="todayStr"></strong></div>
+      <div class="ws-today-bar__item" id="todaySchedule">🗓️ 오늘 상담 일정을 확인하려면 <a href="https://mathlhk15-glitch.github.io/lhk15/진로상담시스템.html" style="color:var(--accent);font-weight:600;">상담관리</a>에서 확인하세요</div>
+      <div class="ws-today-bar__date" id="recentStudentBar"></div>
     </div>
   </div>
-</div>
+
+  <!-- ③ 4대 주요 기능 카드 -->
+  <section class="ws-features">
+    <div class="ws-features__inner">
+      <div class="ws-section-title" style="margin-bottom:14px;">📌 주요 기능</div>
+      <div class="ws-feature-grid">
+
+        <a class="ws-feature-card ws-feature-card--gumsa"
+           href="https://mathlhk15-glitch.github.io/2026gumsa-R/"
+           target="_blank" rel="noopener">
+          <span class="ws-feature-card__badge">새 창</span>
+          <span class="ws-feature-card__icon">📊</span>
+          <div class="ws-feature-card__title">진로검사 결과 조회</div>
+          <div class="ws-feature-card__desc">인성·적성·진로·자기주도 검사 결과를 학생별로 조회합니다</div>
+        </a>
+
+        <a class="ws-feature-card ws-feature-card--susi"
+           href="https://mathlhk15-glitch.github.io/susi/"
+           target="_blank" rel="noopener">
+          <span class="ws-feature-card__badge">새 창</span>
+          <span class="ws-feature-card__icon">📋</span>
+          <div class="ws-feature-card__title">생기부 분석기 Pro</div>
+          <div class="ws-feature-card__desc">학교생활기록부 PDF를 AI로 분석하고 세특 키워드를 추출합니다</div>
+        </a>
+
+        <a class="ws-feature-card ws-feature-card--counsel"
+           href="https://mathlhk15-glitch.github.io/lhk15/진로상담시스템.html">
+          <span class="ws-feature-card__icon">💬</span>
+          <div class="ws-feature-card__title">진로상담 관리</div>
+          <div class="ws-feature-card__desc">상담 예약·기록·학생 관리를 통합적으로 처리합니다</div>
+        </a>
+
+        <a class="ws-feature-card ws-feature-card--archive"
+           href="#archive" onclick="scrollToArchive()">
+          <span class="ws-feature-card__icon">📚</span>
+          <div class="ws-feature-card__title">자료실</div>
+          <div class="ws-feature-card__desc">수시 입시·교육과정·AI 도우미·진로 데이터 자료 모음</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ 빠른 링크 -->
+  <section class="ws-quick">
+    <div class="ws-quick__inner">
+      <div class="ws-section-title" style="margin: 16px 0 10px;">⚡ 자주 쓰는 링크</div>
+      <div class="ws-quick-grid" id="quickGrid">
+        <!-- data.js 로드 후 동적 생성 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ 자료실 -->
+  <section class="ws-archive" id="archive">
+    <div class="ws-archive__inner">
+      <div class="ws-section-title" style="margin: 24px 0 14px;">📚 자료실</div>
+
+      <!-- 검색 + 필터 -->
+      <div class="ws-filter-bar">
+        <div class="ws-filter-bar__search">
+          <span class="ws-filter-bar__search-icon">🔍</span>
+          <input type="search" id="archiveSearchInput"
+                 placeholder="자료 검색 (제목, 설명, 태그)"
+                 oninput="filterArchive()"
+                 autocomplete="off" />
+        </div>
+        <div class="ws-filter-btns">
+          <button class="ws-filter-btn active" data-section="all" onclick="setFilter('all', this)">전체</button>
+          <button class="ws-filter-btn" data-section="admission" onclick="setFilter('admission', this)">수시 입시</button>
+          <button class="ws-filter-btn" data-section="curriculum" onclick="setFilter('curriculum', this)">교육과정</button>
+          <button class="ws-filter-btn" data-section="ai-tools" onclick="setFilter('ai-tools', this)">AI 도우미</button>
+          <button class="ws-filter-btn" data-section="career-data" onclick="setFilter('career-data', this)">진로 데이터</button>
+          <button class="ws-filter-btn ws-filter-btn--personal" data-section="personal" onclick="setFilter('personal', this)">🔒 개인</button>
+        </div>
+      </div>
+
+      <!-- 자료 섹션들 (동적 생성) -->
+      <div class="ws-archive-sections" id="archiveSections"></div>
+      <div class="ws-no-result" id="archiveNoResult">검색 결과가 없습니다. 다른 키워드로 검색해 보세요.</div>
+    </div>
+  </section>
+
+  <!-- 개인자료 비밀번호 모달 -->
+  <div id="pw-modal" class="ws-overlay">
+    <div class="ws-modal">
+      <div style="font-size:32px;text-align:center;margin-bottom:8px;">🔒</div>
+      <div class="ws-modal__title" style="text-align:center;">개인 자료</div>
+      <p style="font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:16px;">비밀번호를 입력하세요</p>
+      <div class="ws-form-group">
+        <input class="ws-input" id="pw-input" type="password"
+               placeholder="비밀번호"
+               style="text-align:center;letter-spacing:4px;"
+               onkeydown="if(event.key==='Enter') confirmPw()" />
+      </div>
+      <div id="pw-error" style="display:none;font-size:12px;color:var(--danger);text-align:center;margin-bottom:8px;">비밀번호가 틀렸습니다.</div>
+      <div class="ws-modal__actions">
+        <button class="ws-btn ws-btn--secondary" onclick="closePwModal()">취소</button>
+        <button class="ws-btn ws-btn--primary" onclick="confirmPw()">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 1 공통 네비게이션 JS -->
+  <script src="nav.js"></script>
+
+  <!-- 기존 data.js (자료실 데이터) — 있으면 로드, 없으면 기본 데이터 사용 -->
+  <script>
+    /* =====================================================
+       data.js 없는 경우를 위한 기본 자료 데이터
+       실제 운영 시 기존 data.js 파일로 교체하거나
+       아래 ARCHIVE_DATA를 data.js에서 불러오도록 수정
+       ===================================================== */
+    if (typeof ARCHIVE_DATA === 'undefined') {
+      window.ARCHIVE_DATA = {
+        sections: [
+          {
+            id: 'admission',
+            title: '📄 수시 입시 자료',
+            items: []
+          },
+          {
+            id: 'curriculum',
+            title: '📘 교육과정 자료',
+            items: []
+          },
+          {
+            id: 'ai-tools',
+            title: '🤖 AI 도우미',
+            items: []
+          },
+          {
+            id: 'career-data',
+            title: '🎯 진로 데이터',
+            items: []
+          },
+          {
+            id: 'personal',
+            title: '🔒 개인 자료',
+            personal: true,
+            items: []
+          }
+        ],
+        quick: []
+      };
+    }
+
+    /* =====================================================
+       기존 script.js 의 섹션/카드 데이터가 window.SECTIONS
+       또는 window.hubData 로 정의되어 있는 경우 자동 호환
+       ===================================================== */
+    if (typeof window.SECTIONS !== 'undefined') {
+      window.ARCHIVE_DATA.sections = window.SECTIONS;
+    }
+  </script>
+
+  <!-- 기존 data.js (있으면 아래 주석 해제) -->
+  <!-- <script src="data.js"></script> -->
+
+  <script>
+    /* =====================================================
+       PHASE 2 대시보드 스크립트
+       ===================================================== */
+
+    const PERSONAL_PW = 'ruddlf';
+    let personalUnlocked = false;
+    let currentFilter = 'all';
+
+    /* ── 오늘 날짜 표시 ── */
+    (function () {
+      const now = new Date();
+      const days = ['일', '월', '화', '수', '목', '금', '토'];
+      const str = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일 (${days[now.getDay()]})`;
+      const el = document.getElementById('todayStr');
+      if (el) el.textContent = str;
+    })();
+
+    /* ── 최근 조회 학생 (localStorage) ── */
+    function getRecentStudents() {
+      try {
+        return JSON.parse(localStorage.getItem('ws_recent_students') || '[]');
+      } catch { return []; }
+    }
+    function saveRecentStudent(id, name) {
+      let list = getRecentStudents();
+      list = list.filter(s => s.id !== id);
+      list.unshift({ id, name, ts: Date.now() });
+      list = list.slice(0, 5);
+      try { localStorage.setItem('ws_recent_students', JSON.stringify(list)); } catch {}
+    }
+    function renderRecentBar() {
+      const list = getRecentStudents();
+      const el = document.getElementById('recentStudentBar');
+      if (!el || list.length === 0) return;
+      el.innerHTML = '최근: ' + list.slice(0, 3).map(s =>
+        `<a href="javascript:void(0)" onclick="applyStudent('${s.id}','${s.name}')"
+            style="color:var(--accent);font-weight:600;">${s.name}(${s.id})</a>`
+      ).join(' · ');
+    }
+    renderRecentBar();
+
+    /* ── 학생 검색 ── */
+    function searchStudent() {
+      const q = document.getElementById('studentSearchInput').value.trim();
+      if (!q) return;
+      const resultEl = document.getElementById('studentResult');
+      const nameEl = document.getElementById('studentResultName');
+      const actionsEl = document.getElementById('studentResultActions');
+
+      // 학번/이름으로 간단 처리 (실제 학생 DB는 data.js or GAS에 있음)
+      const isId = /^\d{5}$/.test(q);
+      const displayName = isId ? `학번 ${q}` : `이름 "${q}"`;
+      nameEl.textContent = `🔍 ${displayName} 으로 조회`;
+
+      const enc = encodeURIComponent(q);
+      const nameParam = isId ? `studentId=${q}` : `name=${enc}`;
+
+      actionsEl.innerHTML = `
+        <a class="btn-gumsa" href="https://mathlhk15-glitch.github.io/2026gumsa-R/?${nameParam}" target="_blank" rel="noopener">
+          📊 검사결과 조회
+        </a>
+        <a class="btn-susi" href="https://mathlhk15-glitch.github.io/susi/?${nameParam}" target="_blank" rel="noopener">
+          📋 생기부 분석
+        </a>
+        <a class="btn-counsel" href="https://mathlhk15-glitch.github.io/lhk15/진로상담시스템.html?${nameParam}">
+          💬 상담기록 확인
+        </a>
+      `;
+
+      if (isId) saveRecentStudent(q, q);
+      else saveRecentStudent(enc, q);
+      renderRecentBar();
+
+      resultEl.classList.add('open');
+    }
+
+    function applyStudent(id, name) {
+      document.getElementById('studentSearchInput').value = id;
+      searchStudent();
+    }
+
+    /* ── 자료실 아카이브 렌더링 ── */
+    function renderArchive() {
+      const container = document.getElementById('archiveSections');
+      if (!container) return;
+      const data = window.ARCHIVE_DATA;
+      if (!data || !data.sections) return;
+
+      container.innerHTML = '';
+
+      data.sections.forEach(section => {
+        const isPersonal = section.personal || section.id === 'personal';
+        const sectionEl = document.createElement('div');
+        sectionEl.className = `ws-archive-section${isPersonal ? ' ws-archive-section--personal' : ''}${isPersonal && personalUnlocked ? ' unlocked' : ''}`;
+        sectionEl.dataset.sectionId = section.id;
+
+        const titleHtml = `
+          <div class="ws-archive-section__title">
+            ${section.title}
+            ${isPersonal ? `<button class="ws-personal-lock-btn" onclick="handlePersonalLock()">${personalUnlocked ? '🔓 잠금 해제됨' : '🔒 비밀번호 필요'}</button>` : ''}
+          </div>`;
+
+        const items = section.items || [];
+        const cardsHtml = items.map(item => `
+          <a class="ws-archive-card" href="${item.url || '#'}" target="${item.newTab !== false ? '_blank' : '_self'}" rel="noopener"
+             data-title="${item.title || ''}" data-desc="${item.desc || ''}" data-tags="${(item.tags || []).join(',')}">
+            <span class="ws-archive-card__icon">${item.icon || '📎'}</span>
+            <div class="ws-archive-card__info">
+              <div class="ws-archive-card__title">${item.title || ''}</div>
+              <div class="ws-archive-card__desc">${item.desc || ''}</div>
+              ${item.tags && item.tags.length ? `<div class="ws-archive-card__tags">${item.tags.map(t => `<span class="ws-archive-card__tag">${t}</span>`).join('')}</div>` : ''}
+            </div>
+          </a>`).join('');
+
+        const emptyHtml = items.length === 0 ? `<p style="color:var(--text-muted);font-size:13px;padding:8px 0;">아직 등록된 자료가 없습니다.</p>` : '';
+
+        sectionEl.innerHTML = titleHtml + `<div class="ws-archive-cards">${cardsHtml}${emptyHtml}</div>`;
+        container.appendChild(sectionEl);
+      });
+
+      // 퀵 링크
+      if (data.quick && data.quick.length) {
+        const qGrid = document.getElementById('quickGrid');
+        if (qGrid) {
+          qGrid.innerHTML = data.quick.map(item =>
+            `<a class="ws-quick-item" href="${item.url}" target="_blank" rel="noopener">
+              ${item.icon || '🔗'} ${item.title}
+            </a>`
+          ).join('');
+        }
+      }
+
+      filterArchive();
+    }
+
+    /* ── 필터 ── */
+    function setFilter(sectionId, btn) {
+      if (sectionId === 'personal' && !personalUnlocked) {
+        openPwModal();
+        return;
+      }
+      currentFilter = sectionId;
+      document.querySelectorAll('.ws-filter-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      filterArchive();
+    }
+
+    function filterArchive() {
+      const query = (document.getElementById('archiveSearchInput')?.value || '').toLowerCase();
+      const sections = document.querySelectorAll('.ws-archive-section');
+      let anyVisible = false;
+
+      sections.forEach(sec => {
+        const secId = sec.dataset.sectionId;
+        const matchFilter = currentFilter === 'all' || secId === currentFilter;
+        if (!matchFilter) { sec.classList.add('hidden'); return; }
+
+        const cards = sec.querySelectorAll('.ws-archive-card');
+        let sectionHasMatch = false;
+
+        cards.forEach(card => {
+          const text = [
+            card.dataset.title || '',
+            card.dataset.desc || '',
+            card.dataset.tags || ''
+          ].join(' ').toLowerCase();
+          const match = !query || text.includes(query);
+          card.style.display = match ? '' : 'none';
+          if (match) sectionHasMatch = true;
+        });
+
+        // 빈 섹션도 표시 (등록 없음 메시지)
+        if (cards.length === 0) sectionHasMatch = true;
+
+        sec.classList.toggle('hidden', !sectionHasMatch);
+        if (sectionHasMatch) anyVisible = true;
+      });
+
+      const noResult = document.getElementById('archiveNoResult');
+      if (noResult) noResult.classList.toggle('visible', !anyVisible && !!query);
+    }
+
+    /* ── 개인자료 비밀번호 ── */
+    function handlePersonalLock() {
+      if (personalUnlocked) {
+        personalUnlocked = false;
+        renderArchive();
+      } else {
+        openPwModal();
+      }
+    }
+
+    function openPwModal() {
+      const modal = document.getElementById('pw-modal');
+      if (modal) {
+        modal.classList.add('open');
+        modal.style.display = 'flex';
+        setTimeout(() => document.getElementById('pw-input')?.focus(), 100);
+      }
+    }
+    function closePwModal() {
+      const modal = document.getElementById('pw-modal');
+      if (modal) {
+        modal.classList.remove('open');
+        modal.style.display = '';
+      }
+      const errEl = document.getElementById('pw-error');
+      if (errEl) errEl.style.display = 'none';
+      const inp = document.getElementById('pw-input');
+      if (inp) inp.value = '';
+    }
+    function confirmPw() {
+      const val = document.getElementById('pw-input')?.value || '';
+      const errEl = document.getElementById('pw-error');
+      if (val === PERSONAL_PW) {
+        personalUnlocked = true;
+        closePwModal();
+        // 개인 필터로 전환
+        currentFilter = 'personal';
+        document.querySelectorAll('.ws-filter-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.section === 'personal');
+        });
+        renderArchive();
+      } else {
+        if (errEl) errEl.style.display = 'block';
+        const inp = document.getElementById('pw-input');
+        if (inp) { inp.value = ''; inp.focus(); }
+      }
+    }
+
+    /* ── 자료실 스크롤 ── */
+    function scrollToArchive(e) {
+      if (e) e.preventDefault();
+      document.getElementById('archive')?.scrollIntoView({ behavior: 'smooth' });
+      return false;
+    }
+
+    /* ── 초기화 ── */
+    window.addEventListener('DOMContentLoaded', function () {
+      renderArchive();
+    });
+    // data.js가 나중에 로드될 경우를 위한 폴백
+    window.addEventListener('load', function () {
+      if (document.getElementById('archiveSections')?.children.length === 0) {
+        renderArchive();
+      }
+    });
+
+    /* ── 기존 script.js 호환: SECTIONS 전역변수 사용 시 ── */
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof window.SECTIONS !== 'undefined' && window.SECTIONS.length > 0) {
+        window.ARCHIVE_DATA.sections = window.SECTIONS;
+        renderArchive();
+      }
+    });
+  </script>
+
 </body>
 </html>
