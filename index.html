@@ -464,6 +464,11 @@
   <!-- ① 히어로: 학생 검색 -->
   <section class="ws-hero" id="hero">
     <div class="ws-hero__inner">
+      <div style="position: absolute; top: 0; right: 0;">
+        <button id="pwaInstallBtn" style="display: none; background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; align-items: center; gap: 6px; font-weight: 600; transition: all 0.2s;">
+          <span style="font-size: 14px;">⬇️</span> 앱으로 설치
+        </button>
+      </div>
       <div class="ws-hero__school">창원경일고등학교 · 진로진학상담부</div>
       <h1 class="ws-hero__title">진로진학 <span>상담 워크스테이션</span></h1>
       <div class="ws-hero__search">
@@ -835,13 +840,49 @@
     });
   </script>
 
-  <!-- PWA 서비스워커 등록 -->
+  <!-- PWA 서비스워커 및 설치 등록 -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW ref fail', err));
       });
     }
+
+    // PWA 앱 설치 버튼 로직
+    let deferredPrompt;
+    const installBtn = document.getElementById('pwaInstallBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Chrome 67 이전 버전의 자동 프롬프트 방지
+      e.preventDefault();
+      // 이벤트를 보관하여 나중에 트리거할 수 있게 함
+      deferredPrompt = e;
+      // 설치 버튼 표시
+      if (installBtn) {
+        installBtn.style.display = 'flex';
+      }
+    });
+
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        // 설치 프롬프트 표시
+        deferredPrompt.prompt();
+        // 사용자가 프롬프트에 응답할 때까지 대기
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          console.log('사용자가 앱 설치를 동의했습니다.');
+          installBtn.style.display = 'none';
+        }
+        deferredPrompt = null;
+      });
+    }
+    
+    // 이미 설치된 경우 버튼 숨기기
+    window.addEventListener('appinstalled', () => {
+      if (installBtn) installBtn.style.display = 'none';
+      deferredPrompt = null;
+    });
   </script>
 </body>
 </html>
