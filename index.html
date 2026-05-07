@@ -177,6 +177,11 @@
       color: var(--accent);
     }
     .ws-student-result__actions .btn-counsel:hover { background: #b8d9f3; }
+    .ws-student-result__actions .btn-report {
+      background: #fff7ed;
+      color: #9a3412;
+    }
+    .ws-student-result__actions .btn-report:hover { background: #ffedd5; }
 
     /* ── 메인 4대 기능 카드 ── */
     .ws-features {
@@ -713,6 +718,12 @@
     }
     renderRecentBar();
 
+    function buildStudentQueryParam(query, isId) {
+      const params = new URLSearchParams();
+      params.set(isId ? 'studentId' : 'name', query);
+      return params.toString();
+    }
+
     /* ── 학생 검색 ── */
     function searchStudent() {
       const q = document.getElementById('studentSearchInput').value.trim();
@@ -726,8 +737,7 @@
       const displayName = isId ? `학번 ${q}` : `이름 "${q}"`;
       nameEl.textContent = `🔍 ${displayName} 으로 조회`;
 
-      const enc = encodeURIComponent(q);
-      const nameParam = isId ? `studentId=${q}` : `name=${enc}`;
+      const nameParam = buildStudentQueryParam(q, isId);
 
       actionsEl.innerHTML = `
         <a class="btn-gumsa" href="https://mathlhk15-glitch.github.io/2026gumsa-R/?${nameParam}" target="_blank" rel="noopener">
@@ -739,10 +749,13 @@
         <a class="btn-counsel" href="https://mathlhk15-glitch.github.io/lhk15/진로상담시스템.html?${nameParam}">
           💬 상담기록 확인
         </a>
+        <a class="btn-report" href="https://mathlhk15-glitch.github.io/lhk15/report.html?${nameParam}">
+          🧾 통합리포트
+        </a>
       `;
 
       if (isId) saveRecentStudent(q, q);
-      else saveRecentStudent(enc, q);
+      else saveRecentStudent(encodeURIComponent(q), q);
       renderRecentBar();
 
       resultEl.classList.add('open');

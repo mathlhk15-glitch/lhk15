@@ -48,6 +48,13 @@
       newTab: false,
     },
     {
+      key: 'report',
+      icon: '🧾',
+      label: '통합리포트',
+      url: 'https://mathlhk15-glitch.github.io/lhk15/report.html',
+      newTab: false,
+    },
+    {
       key: 'archive',
       icon: '📚',
       label: '자료실',
