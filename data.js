@@ -176,6 +176,17 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "2026 직업 동영상 모음.html", platform: "html" }]
   },
+  {
+    id: "career-worldcup",
+    title: "진로 월드컵",
+    section: "career-data",
+    description: "흥미를 기반으로 한 이상형 월드컵 방식의 진로 탐색 도구",
+    tags: ["진로탐색", "월드컵", "직업", "테스트"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "진로 월드컵.html", platform: "html" }]
+  },
 
   // ── 개인 ──────────────────────────────────────────────────
   {
