@@ -32,6 +32,28 @@ const resources = [
     updatedAt: "2026-04",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2028ipsi/", platform: "html" }]
   },
+  {
+    id: "ipsi-2028-nachimban",
+    title: "2028 대입정보(경기진협 나침반)",
+    section: "admission",
+    description: "경기진협에서 제공하는 2028학년도 대입정보 나침반 자료",
+    tags: ["수시", "대입정보", "나침반", "입시"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "2028 대입정보(경기진협 나침반).html", platform: "html" }]
+  },
+  {
+    id: "ipsi-9grade-calc",
+    title: "중간고사 성적으로 9등급 환산",
+    section: "admission",
+    description: "중간고사 성적을 기준으로 9등급을 예상 환산해보는 도구",
+    tags: ["수시", "내신", "등급환산", "중간고사"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "중간고사 성적으로 9등급 환산.html", platform: "html" }]
+  },
 
   // ── 교육과정·배치표 ────────────────────────────────────────
   {
