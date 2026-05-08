@@ -143,6 +143,17 @@ const resources = [
     updatedAt: "2026-04",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/job/", platform: "html" }]
   },
+  {
+    id: "job-video-2026",
+    title: "2026 직업 동영상 모음",
+    section: "career-data",
+    description: "다양한 직업에 대한 안내 및 동영상 자료 모음",
+    tags: ["직업", "동영상", "진로탐색"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "2026 직업 동영상 모음.html", platform: "html" }]
+  },
 
   // ── 개인 ──────────────────────────────────────────────────
   {
