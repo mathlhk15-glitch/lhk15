@@ -183,13 +183,14 @@ header .sub { font-size: 0.8em; opacity: 0.8; margin-top: 4px; }
   max-width: 560px; margin: 10px auto 0;
   display: flex; align-items: center; gap: 8px;
   padding: 0 4px;
+  flex-wrap: wrap;
 }
 .holland-input-wrap label {
   font-size: 0.78em; color: rgba(255,255,255,0.8);
   white-space: nowrap; font-weight: 600;
 }
 .holland-code-input {
-  flex: 1; padding: 8px 14px;
+  flex: 1; min-width: 120px; padding: 8px 14px;
   border-radius: 20px; border: none; outline: none;
   font-size: 0.9em; font-family: inherit; font-weight: 700;
   letter-spacing: 2px; text-transform: uppercase;
@@ -200,15 +201,34 @@ header .sub { font-size: 0.8em; opacity: 0.8; margin-top: 4px; }
 .holland-match-toggle {
   display: flex; background: rgba(255,255,255,0.15);
   border-radius: 15px; overflow: hidden;
+  flex-shrink: 0;
 }
 .holland-match-toggle button {
   border: none; cursor: pointer; font-family: inherit;
-  font-size: 0.72em; font-weight: 700; padding: 6px 10px;
+  font-size: 0.82em; font-weight: 800; padding: 7px 14px;
   background: transparent; color: rgba(255,255,255,0.7);
-  transition: all 0.15s;
+  transition: all 0.15s; min-width: 44px;
 }
 .holland-match-toggle button.active {
   background: rgba(255,255,255,0.9); color: #1a4a7a;
+}
+@media (max-width: 480px) {
+  .holland-input-wrap {
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+  .holland-input-wrap label {
+    display: none;
+  }
+  .holland-code-input {
+    min-width: 0;
+    flex: 1;
+  }
+  .holland-match-toggle button {
+    font-size: 0.85em;
+    padding: 8px 12px;
+    min-width: 46px;
+  }
 }
 .holland-recommend-result {
   max-width: 560px; margin: 6px auto 0;
