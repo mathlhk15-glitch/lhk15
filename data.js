@@ -185,7 +185,7 @@ const resources = [
     featured: false,
     isNew: true,
     updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "진로 월드컵.html", platform: "html" }]
+    links: [{ label: "바로가기", url: "career_worldcup.html", platform: "html" }]
   },
 
   // ── 개인 ──────────────────────────────────────────────────
