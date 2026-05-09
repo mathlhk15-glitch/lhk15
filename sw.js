@@ -1,9 +1,9 @@
-const CACHE_NAME = 'counsel-pwa-v1';
+const CACHE_NAME = 'counsel-pwa-v2';
 
 self.addEventListener('install', (e) => {
+  self.skipWaiting();
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      // Basic core files
       return cache.addAll([
         './',
         './index.html',
@@ -18,12 +18,24 @@ self.addEventListener('install', (e) => {
   );
 });
 
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then((keyList) => {
+      return Promise.all(keyList.map((key) => {
+        if (key !== CACHE_NAME) {
+          return caches.delete(key);
+        }
+      }));
+    })
+  );
+  self.clients.claim();
+});
+
 self.addEventListener('fetch', (e) => {
+  // Network-first strategy
   e.respondWith(
-    caches.match(e.request).then((response) => {
-      return response || fetch(e.request).catch(() => {
-        // Fallback for offline mode if necessary
-      });
+    fetch(e.request).catch(() => {
+      return caches.match(e.request);
     })
   );
 });
