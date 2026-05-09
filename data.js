@@ -188,18 +188,6 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/worldcup", platform: "html" }]
   },
 
-  // ── 개인 ──────────────────────────────────────────────────
-  {
-    id: "family-portfolio",
-    title: "이현규 패밀리 오피스",
-    section: "personal",
-    description: "가족 주식 포트폴리오 대시보드. 종목별 평가금액·수익률·리스크 게이지·투자 원칙·시뮬레이션 통합 관리",
-    tags: ["포트폴리오", "주식", "투자", "가족"],
-    featured: false,
-    isNew: false,
-    updatedAt: "2026-04",
-    links: [{ label: "대시보드 열기", url: "portfolio.html", platform: "html" }]
-  }
 
   // ★ 새 자료 추가는 위 항목을 복사해서 여기에 붙여넣으세요
 
