@@ -243,6 +243,18 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/worldcup", platform: "html" }]
   },
+    {
+    id: "44law",
+    icon: "📄",
+    title: "재미난 44가지 법칙",
+    section: "career-data",
+    description: "재미난 44가지 법칙",
+    tags: ["재미", "머피의 법칙", "44가지"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/44law", platform: "html" }]
+  },
 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
