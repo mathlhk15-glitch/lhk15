@@ -189,6 +189,17 @@
     .todo-summary { font-size:12px; color:var(--text-muted); margin-bottom:12px; }
     .todo-summary strong { color:var(--primary); }
 
+    /* 구글 서비스 */
+    .gservice-section { margin-bottom: 28px; }
+    .gservice-section__title { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .gservice-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+    .gservice-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px 14px; text-align: center; cursor: pointer; transition: all .18s; text-decoration: none; color: inherit; display: block; }
+    .gservice-card:hover { border-color: var(--accent); box-shadow: var(--shadow-md); transform: translateY(-2px); text-decoration: none; }
+    .gservice-card__icon { font-size: 36px; display: block; margin-bottom: 10px; }
+    .gservice-card__title { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+    .gservice-card__desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+    .gservice-account { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-light); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 20px; }
+
     /* 기타 도구 */
     .tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; margin-bottom:20px; }
     .tool-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); padding:20px 18px; text-align:center; cursor:pointer; transition:all .18s; text-decoration:none; color:inherit; display:block; }
@@ -290,6 +301,7 @@
   <div class="ps-tabs">
     <div class="ps-tabs__inner">
       <button class="ps-tab active" data-tab="calendar" onclick="switchTab('calendar',this)">📅 캘린더</button>
+      <button class="ps-tab"        data-tab="google"   onclick="switchTab('google',this)">🌐 구글 서비스</button>
       <button class="ps-tab"        data-tab="links"    onclick="switchTab('links',this)">🔗 개인 링크</button>
       <button class="ps-tab"        data-tab="memo"     onclick="switchTab('memo',this)">📝 메모</button>
       <button class="ps-tab"        data-tab="todo"     onclick="switchTab('todo',this)">✅ 할일</button>
@@ -304,6 +316,79 @@
     <!-- ① 캘린더 -->
     <div class="ps-panel active" id="panel-calendar">
       <div id="calContainer"></div>
+    </div>
+
+    <!-- ② 구글 서비스 -->
+    <div class="ps-panel" id="panel-google">
+      <div class="gservice-account">
+        🔑 <span id="gsAccountLabel">계정 설정 필요 — 설정 탭에서 이메일을 입력하세요</span>
+      </div>
+
+      <div class="gservice-section">
+        <div class="gservice-section__title">📌 자주 쓰는 서비스</div>
+        <div class="gservice-grid">
+          <a id="gs-drive"    class="gservice-card" href="#" target="_blank" rel="noopener">
+            <span class="gservice-card__icon">📁</span>
+            <div class="gservice-card__title">구글 드라이브</div>
+            <div class="gservice-card__desc">내 파일 &amp; 폴더</div>
+          </a>
+          <a id="gs-keep"     class="gservice-card" href="#" target="_blank" rel="noopener">
+            <span class="gservice-card__icon">💛</span>
+            <div class="gservice-card__title">구글 Keep</div>
+            <div class="gservice-card__desc">메모 &amp; 할일</div>
+          </a>
+          <a id="gs-gmail"    class="gservice-card" href="#" target="_blank" rel="noopener">
+            <span class="gservice-card__icon">📧</span>
+            <div class="gservice-card__title">Gmail</div>
+            <div class="gservice-card__desc">이메일</div>
+          </a>
+          <a id="gs-calendar" class="gservice-card" href="#" target="_blank" rel="noopener">
+            <span class="gservice-card__icon">📅</span>
+            <div class="gservice-card__title">구글 캘린더</div>
+            <div class="gservice-card__desc">일정 관리</div>
+          </a>
+          <a id="gs-docs"     class="gservice-card" href="#" target="_blank" rel="noopener">
+            <span class="gservice-card__icon">📄</span>
+            <div class="gservice-card__title">구글 문서</div>
+            <div class="gservice-card__desc">문서 작성</div>
+          </a>
+          <a id="gs-sheets"   class="gservice-card" href="#" target="_blank" rel="noopener">
+            <span class="gservice-card__icon">📊</span>
+            <div class="gservice-card__title">구글 스프레드시트</div>
+            <div class="gservice-card__desc">표 &amp; 데이터</div>
+          </a>
+          <a id="gs-slides"   class="gservice-card" href="#" target="_blank" rel="noopener">
+            <span class="gservice-card__icon">🖼️</span>
+            <div class="gservice-card__title">구글 슬라이드</div>
+            <div class="gservice-card__desc">프레젠테이션</div>
+          </a>
+          <a id="gs-meet"     class="gservice-card" href="#" target="_blank" rel="noopener">
+            <span class="gservice-card__icon">🎥</span>
+            <div class="gservice-card__title">구글 Meet</div>
+            <div class="gservice-card__desc">화상회의</div>
+          </a>
+          <a id="gs-classroom" class="gservice-card" href="#" target="_blank" rel="noopener">
+            <span class="gservice-card__icon">🏫</span>
+            <div class="gservice-card__title">구글 클래스룸</div>
+            <div class="gservice-card__desc">수업 관리</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="gservice-section">
+        <div class="gservice-section__title">⚙️ 계정 설정</div>
+        <p style="font-size:13px;color:var(--text-sub);margin-bottom:12px;line-height:1.7;">
+          구글 계정 이메일을 입력하면 모든 서비스가 해당 계정으로 열립니다.
+        </p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input type="email" id="gsEmailInput" placeholder="예: lhk15@cwgyeongilg-h.gne.go.kr"
+                 style="flex:1;min-width:220px;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-family:var(--font-main);outline:none;transition:border-color .15s;"
+                 onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'" />
+          <button class="ps-btn ps-btn--primary" onclick="saveGsAccount()">💾 저장</button>
+          <button class="ps-btn ps-btn--secondary" onclick="resetGsAccount()">초기화</button>
+        </div>
+        <div id="gsSaveMsg" style="font-size:12px;margin-top:8px;min-height:18px;color:var(--success);"></div>
+      </div>
     </div>
 
     <!-- ② 링크 -->
@@ -748,6 +833,52 @@ function renderCustomTools() {
   }).join('');
 }
 
+/* ── 구글 서비스 ── */
+var GS_SERVICES = {
+  'gs-drive':     'https://drive.google.com/drive/my-drive',
+  'gs-keep':      'https://keep.google.com',
+  'gs-gmail':     'https://mail.google.com/mail',
+  'gs-calendar':  'https://calendar.google.com/calendar/r',
+  'gs-docs':      'https://docs.google.com/document/u/0/',
+  'gs-sheets':    'https://docs.google.com/spreadsheets/u/0/',
+  'gs-slides':    'https://docs.google.com/presentation/u/0/',
+  'gs-meet':      'https://meet.google.com',
+  'gs-classroom': 'https://classroom.google.com'
+};
+
+function getGsEmail() { return localStorage.getItem('ps_gs_email') || ''; }
+
+function renderGsLinks() {
+  var email = getGsEmail();
+  var label = document.getElementById('gsAccountLabel');
+  if (label) label.textContent = email ? ('계정: ' + email) : '계정 설정 필요 — 아래에서 이메일을 입력하세요';
+  var input = document.getElementById('gsEmailInput');
+  if (input && email) input.value = email;
+  Object.keys(GS_SERVICES).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var base = GS_SERVICES[id];
+    el.href = email ? (base + (base.indexOf('?') >= 0 ? '&' : '?') + 'authuser=' + encodeURIComponent(email)) : base;
+  });
+}
+
+function saveGsAccount() {
+  var email = document.getElementById('gsEmailInput').value.trim();
+  if (!email) { alert('이메일을 입력해 주세요.'); return; }
+  localStorage.setItem('ps_gs_email', email);
+  renderGsLinks();
+  var msg = document.getElementById('gsSaveMsg');
+  msg.textContent = '✅ 저장되었습니다! 이제 모든 서비스가 ' + email + ' 계정으로 열립니다.';
+  setTimeout(function(){ msg.textContent = ''; }, 3000);
+}
+
+function resetGsAccount() {
+  if (!confirm('계정 설정을 초기화할까요?')) return;
+  localStorage.removeItem('ps_gs_email');
+  document.getElementById('gsEmailInput').value = '';
+  renderGsLinks();
+}
+
 /* ── 계산기 ── */
 var calcExpr = '';
 function openCalc()  { document.getElementById('calcModal').classList.add('open'); }
@@ -801,6 +932,7 @@ function updateGreeting() {
 function init() {
   updateGreeting();
   renderCalendar();
+  renderGsLinks();
   renderLinks();
   renderMemoList();
   renderTodos();
