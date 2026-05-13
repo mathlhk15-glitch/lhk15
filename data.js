@@ -204,6 +204,31 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/worldcup", platform: "html" }]
   },
 
+    {
+    id: "grade2-inquiry-planner",
+    icon: "📄",
+    title: "2학년 심화탐구활동 설계",
+    section: "grade2-inquiry-planner",
+    description: "흥미를 기반으로 한 이상형 월드컵 방식의 진로 탐색 도구",
+    tags: ["2학년", "생기부 기반", "진로 연계", "심화탐구활동 설계"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/grade2-inquiry-planner", platform: "html" }]
+  },
+
+    {
+    id: "grade3-inquiry-planner",
+    icon: "📄",
+    title: "3학년 심화탐구활동 설계",
+    section: "grade3-inquiry-planner",
+    description: "흥미를 기반으로 한 이상형 월드컵 방식의 진로 탐색 도구",
+    tags: ["3학년", "생기부 기반", "진로 연계", "심화탐구활동 설계"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/grade3-inquiry-planner", platform: "html" }]
+  },
 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
