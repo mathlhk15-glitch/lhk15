@@ -160,7 +160,7 @@ const resources = [
     icon: "📄",
     title: "2학년 심화탐구활동 설계",
     section: "ai-tools",
-    description: "흥미를 기반으로 한 이상형 월드컵 방식의 진로 탐색 도구",
+    description: "1학년 생기부를 분석하여 2학년에서의 심화탐구활동 설계",
     tags: ["2학년", "생기부 기반", "진로 연계", "심화탐구활동 설계"],
     featured: false,
     isNew: true,
@@ -173,14 +173,27 @@ const resources = [
     icon: "📄",
     title: "3학년 심화탐구활동 설계",
     section: "ai-tools",
-    description: "흥미를 기반으로 한 이상형 월드컵 방식의 진로 탐색 도구",
+    description: "1,2학년 생기부를 분석하여 3학년에서의 심화탐구활동 설계",
     tags: ["3학년", "생기부 기반", "진로 연계", "심화탐구활동 설계"],
     featured: false,
     isNew: true,
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/grade3-inquiry-planner", platform: "html" }]
   },
-  
+
+    {
+    id: "saetuk-prompt",
+    icon: "📄",
+    title: "탐구활동지로 세특 프롬프트 생성기",
+    section: "ai-tools",
+    description: "탐구활동 후 탐구활동지를 바탕으로 세특 프롬프트 생성",
+    tags: ["탐구활동", "세특", "프롬프트 생성"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/saetuk-prompt", platform: "html" }]
+  },
+ 
   // ── 진로·취업 데이터 ──────────────────────────────────────
   {
     id: "career-counsel",
