@@ -157,7 +157,7 @@ const resources = [
 
     {
     id: "grade2-inquiry-planner",
-    icon: "📄",
+    icon: "🛠️",
     title: "2학년 심화탐구활동 설계",
     section: "ai-tools",
     description: "1학년 생기부를 분석하여 2학년에서의 심화탐구활동 설계",
@@ -170,7 +170,7 @@ const resources = [
 
     {
     id: "grade3-inquiry-planner",
-    icon: "📄",
+    icon: "🚀",
     title: "3학년 심화탐구활동 설계",
     section: "ai-tools",
     description: "1,2학년 생기부를 분석하여 3학년에서의 심화탐구활동 설계",
@@ -183,7 +183,7 @@ const resources = [
 
     {
     id: "saetuk-prompt",
-    icon: "📄",
+    icon: "🪄",
     title: "탐구활동지로 세특 프롬프트 생성기",
     section: "ai-tools",
     description: "탐구활동 후 탐구활동지를 바탕으로 세특 프롬프트 생성",
