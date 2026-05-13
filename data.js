@@ -64,7 +64,7 @@ const resources = [
   {
     id: "curriculum-2026",
     icon: "🧩",
-    title: "2026 교육과정 편제표",
+    title: "2026 교육과정 편제표 및 1학년 선택과목 도우미",
     section: "curriculum",
     description: "2026학년도 교육과정 편제 및 1학년 과목 선택 안내 자료",
     tags: ["교육과정", "과목선택", "편제표"],
