@@ -7,11 +7,13 @@ const SECTIONS = {
 };
 
 // ★ 카드 추가/수정은 이 배열만 편집하세요
+//    icon 은 이모지 하나, 없으면 "📄" 로 표시됩니다
 const resources = [
 
   // ── 수시 입시 ──────────────────────────────────────────────
   {
     id: "ipsi-3rd",
+    icon: "🔍",
     title: "2026 3학년 수시 배치표",
     section: "admission",
     description: "3학년 수시 지원 가능권을 빠르게 탐색하는 진학 상담용 자료. 교과전형 컷오프 포함",
@@ -23,6 +25,7 @@ const resources = [
   },
   {
     id: "ipsi-1-2nd",
+    icon: "🔍",
     title: "2026 1·2학년 수시 배치표",
     section: "admission",
     description: "2028 입시 기준으로 1·2학년 수시 전략을 탐색하는 자료",
@@ -34,6 +37,7 @@ const resources = [
   },
   {
     id: "ipsi-2028-nachimban",
+    icon: "🧭",
     title: "2028 대입정보(경기진협 나침반)",
     section: "admission",
     description: "경기진협에서 제공하는 2028학년도 대입정보 나침반 자료",
@@ -45,6 +49,7 @@ const resources = [
   },
   {
     id: "ipsi-9grade-calc",
+    icon: "🔢",
     title: "중간고사 성적으로 9등급 환산",
     section: "admission",
     description: "중간고사 성적을 기준으로 9등급을 예상 환산해보는 도구",
@@ -58,6 +63,7 @@ const resources = [
   // ── 교육과정·배치표 ────────────────────────────────────────
   {
     id: "curriculum-2026",
+    icon: "📋",
     title: "2026 교육과정 편제표",
     section: "curriculum",
     description: "2026학년도 교육과정 편제 및 1학년 과목 선택 안내 자료",
@@ -69,6 +75,7 @@ const resources = [
   },
   {
     id: "bachi-2026-03",
+    icon: "🗂️",
     title: "2026 3월 배치표",
     section: "curriculum",
     description: "2026년 3월 학급별 학생 배치 현황 자료",
@@ -82,6 +89,7 @@ const resources = [
   // ── AI 도우미 ─────────────────────────────────────────────
   {
     id: "question-helper",
+    icon: "💬",
     title: "수업 후 질문·탐구 주제 도우미",
     section: "ai-tools",
     description: "수업 이후 질문 확장과 탐구 주제 발굴을 돕는 AI 도구. GPT와 Gemini 모두 제공",
@@ -96,6 +104,7 @@ const resources = [
   },
   {
     id: "interview-helper",
+    icon: "🎤",
     title: "생기부 기반 면접 자료 생성",
     section: "ai-tools",
     description: "학생부 내용을 바탕으로 예상 질문과 답변 방향을 정리하는 AI 도구",
@@ -110,6 +119,7 @@ const resources = [
   },
   {
     id: "news-inquiry",
+    icon: "📰",
     title: "오늘의 뉴스로 탐구활동 만들기",
     section: "ai-tools",
     description: "시사 뉴스를 기반으로 수업 연계 탐구활동지를 자동 생성하는 AI 도구",
@@ -121,6 +131,7 @@ const resources = [
   },
   {
     id: "seteuk-edit",
+    icon: "✏️",
     title: "세특 내용 수정·보완",
     section: "ai-tools",
     description: "작성된 세특 초안의 표현과 내용을 평가 기준에 맞게 개선하는 AI 도구",
@@ -132,6 +143,7 @@ const resources = [
   },
   {
     id: "seteuk-gen",
+    icon: "⚡",
     title: "탐구활동지로 세특 생성",
     section: "ai-tools",
     description: "학생의 탐구 결과물을 입력하면 세특 초안을 자동 작성해 주는 AI 도구",
@@ -145,6 +157,7 @@ const resources = [
   // ── 진로·취업 데이터 ──────────────────────────────────────
   {
     id: "career-counsel",
+    icon: "🏫",
     title: "우리학교 진로상담 시스템",
     section: "career-data",
     description: "창원경일고 데이터 기반 진로상담 시스템. 학교별 진학 현황, 학과 탐색, 상담 자료 통합 제공",
@@ -156,6 +169,7 @@ const resources = [
   },
   {
     id: "job-rate",
+    icon: "📊",
     title: "취업 유지취업률 현황",
     section: "career-data",
     description: "2020~2024 대학교 졸업생 취업 및 유지취업률 통계 검색 자료",
@@ -167,6 +181,7 @@ const resources = [
   },
   {
     id: "job-video-2026",
+    icon: "🎬",
     title: "2026 직업 동영상 모음",
     section: "career-data",
     description: "다양한 직업에 대한 안내 및 동영상 자료 모음",
@@ -178,6 +193,7 @@ const resources = [
   },
   {
     id: "career-worldcup",
+    icon: "🏆",
     title: "진로 월드컵",
     section: "career-data",
     description: "흥미를 기반으로 한 이상형 월드컵 방식의 진로 탐색 도구",
@@ -189,6 +205,18 @@ const resources = [
   },
 
 
-  // ★ 새 자료 추가는 위 항목을 복사해서 여기에 붙여넣으세요
+  // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
+  // {
+  //   id: "고유-아이디",          ← 영문+하이픈, 다른 항목과 겹치지 않게
+  //   icon: "📄",                 ← 원하는 이모지 하나 (없으면 📄 로 표시)
+  //   title: "자료 제목",
+  //   section: "admission",       ← admission / curriculum / ai-tools / career-data / personal
+  //   description: "자료 설명",
+  //   tags: ["태그1", "태그2"],
+  //   featured: false,            ← true 면 상단 퀵 액세스에도 표시
+  //   isNew: true,                ← NEW 뱃지 표시 여부
+  //   updatedAt: "2026-05",       ← YYYY-MM 형식
+  //   links: [{ label: "바로가기", url: "https://...", platform: "html" }]
+  // },
 
 ];

@@ -44,8 +44,8 @@
       key: 'counseling',
       icon: '💬',
       label: '상담관리',
-      url: 'https://mathlhk15-glitch.github.io/lhk15/진로상담시스템.html',
-      newTab: false,
+      url: 'https://mathlhk15-glitch.github.io/jinlosangdam/',
+      newTab: true,
     },
     {
       key: 'report',

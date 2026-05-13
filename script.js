@@ -5,15 +5,8 @@ const PLATFORM_CONFIG = {
   claude: { label: "Claude", icon: "◆",  cls: "badge-claude" },
 };
 
-const CARD_ICON = {
-  "job-rate":         "📊", "curriculum-2026":  "📋",
-  "bachi-2026-03":    "🗂️", "ipsi-3rd":         "🔍",
-  "ipsi-1-2nd":       "🔍", "question-helper":  "💬",
-  "interview-helper": "🎤", "news-inquiry":     "📰",
-  "seteuk-edit":      "✏️", "seteuk-gen":       "⚡",
-  "family-portfolio": "📈",
-  "career-counsel":   "🏫",
-};
+// ※ CARD_ICON 은 data.js 각 항목의 icon 필드로 이동했습니다.
+//    아이콘을 바꾸려면 data.js 의 해당 항목 icon 값만 수정하세요.
 
 let currentSection = "all";
 let currentSearch  = "";
@@ -23,7 +16,7 @@ function openLink(url) {
 }
 
 function buildCard(item) {
-  const icon = CARD_ICON[item.id] || "📄";
+  const icon = item.icon || "📄";
   const isPersonal = item.section === "personal";
 
   const badges = [...new Set(item.links.map(l => l.platform))].map(p => {
@@ -62,7 +55,7 @@ function buildCard(item) {
 }
 
 function buildQuickCard(item) {
-  const icon = CARD_ICON[item.id] || "📄";
+  const icon = item.icon || "📄";
   return `<div class="quick-card" onclick="openLink('${item.links[0].url}')">
     <span class="quick-card-icon">${icon}</span>
     <div class="quick-card-text">
