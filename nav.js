@@ -68,6 +68,13 @@
       url: 'https://mathlhk15-glitch.github.io/lhk15/#settings',
       newTab: false,
     },
+    {
+      key: 'personal',
+      icon: '🔐',
+      label: '개인 공간',
+      url: 'https://mathlhk15-glitch.github.io/lhk15/personal.html',
+      newTab: false,
+    },
   ];
 
   /* ── 현재 페이지 키 감지 ── */

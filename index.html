@@ -580,7 +580,29 @@
     </div>
   </section>
 
-
+  <!-- ━━━ 개인 공간 진입 (푸터 위 숨겨진 버튼) ━━━ -->
+  <div id="personalEntrance" style="
+    text-align:center;
+    padding:28px 20px 8px;
+    opacity:0;
+    transition:opacity 0.4s;
+  "
+    onmouseenter="this.style.opacity='1'"
+    onmouseleave="this.style.opacity='0'"
+  >
+    <a href="personal.html" style="
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 22px;
+      background:var(--primary); color:rgba(255,255,255,0.7);
+      border-radius:24px; font-size:13px; font-weight:600;
+      font-family:var(--font-main); text-decoration:none;
+      border:1px solid rgba(255,255,255,0.15);
+      transition:all 0.2s;
+    "
+      onmouseenter="this.style.color='#fff';this.style.background='var(--primary-light)'"
+      onmouseleave="this.style.color='rgba(255,255,255,0.7)';this.style.background='var(--primary)'"
+    >🔐 개인 공간</a>
+  </div>
 
   <!-- PHASE 1 공통 네비게이션 JS -->
   <script src="nav.js"></script>

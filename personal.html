@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>개인 스테이션 — 창원경일고 진로진학 워크스테이션</title>
+  <meta name="description" content="개인 전용 공간 — 링크, 메모, 할일, 캘린더" />
+  <link rel="stylesheet" href="common.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#1e3a5f" />
+
+  <style>
+    /* ══════════════════════════════════════
+       잠금 화면
+    ══════════════════════════════════════ */
+    #lockScreen {
+      position: fixed; inset: 0;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 60%, var(--accent) 100%);
+      z-index: 99999;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lock-box {
+      background: rgba(255,255,255,0.97);
+      border-radius: 20px; padding: 40px 36px 36px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      width: 340px; max-width: 90vw; text-align: center;
+      animation: lockIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes lockIn {
+      from { opacity:0; transform:scale(0.85) translateY(20px); }
+      to   { opacity:1; transform:scale(1)    translateY(0); }
+    }
+    .lock-icon  { font-size:52px; display:block; margin-bottom:14px; }
+    .lock-title { font-size:18px; font-weight:700; color:var(--primary); margin-bottom:4px; }
+    .lock-sub   { font-size:13px; color:var(--text-muted); margin-bottom:24px; }
+    .lock-input {
+      width:100%; padding:12px 16px;
+      border:2px solid var(--border); border-radius:10px;
+      font-size:24px; letter-spacing:8px; text-align:center;
+      font-family:var(--font-main); color:var(--primary);
+      outline:none; transition:border-color .2s,box-shadow .2s;
+      margin-bottom:16px;
+    }
+    .lock-input:focus { border-color:var(--accent); box-shadow:0 0 0 4px rgba(46,134,193,.15); }
+    .lock-input.error { border-color:var(--danger); animation:shake .4s; }
+    @keyframes shake {
+      0%,100%{ transform:translateX(0) }
+      20%{ transform:translateX(-8px) } 40%{ transform:translateX(8px) }
+      60%{ transform:translateX(-5px) } 80%{ transform:translateX(5px) }
+    }
+    .lock-btn {
+      width:100%; padding:13px; background:var(--primary);
+      color:#fff; border:none; border-radius:10px;
+      font-size:15px; font-weight:700; font-family:var(--font-main);
+      cursor:pointer; transition:background .15s,transform .1s;
+    }
+    .lock-btn:hover  { background:var(--primary-light); }
+    .lock-btn:active { transform:scale(0.98); }
+    .lock-error { font-size:12px; color:var(--danger); margin-top:10px; min-height:18px; }
+    .lock-hint  { font-size:11px; color:var(--text-muted); margin-top:14px; }
+    .lock-hint a { color:var(--accent); cursor:pointer; text-decoration:underline; }
+
+    /* ══════════════════════════════════════
+       메인 콘텐츠
+    ══════════════════════════════════════ */
+    #mainContent { display:none; }
+
+    .ps-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 55%, var(--accent) 100%);
+      color: var(--text-white); padding: 28px 20px 24px;
+      position: relative; overflow: hidden;
+    }
+    .ps-header::before {
+      content:''; position:absolute; top:-50px; right:-50px;
+      width:200px; height:200px; border-radius:50%;
+      background:rgba(255,255,255,.05);
+    }
+    .ps-header__inner {
+      max-width:var(--max-width); margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between; position:relative;
+    }
+    .ps-header__left h1 { font-size:20px; font-weight:700; margin-bottom:4px; }
+    .ps-header__left h1 span { color:var(--gold); }
+    .ps-header__left p  { font-size:12px; color:rgba(255,255,255,.65); }
+    .ps-lock-btn {
+      background:rgba(255,255,255,.15); color:#fff;
+      border:1px solid rgba(255,255,255,.3); padding:7px 16px;
+      border-radius:20px; font-size:13px; font-weight:600;
+      cursor:pointer; transition:background .15s; font-family:var(--font-main);
+    }
+    .ps-lock-btn:hover { background:rgba(255,255,255,.28); }
+
+    /* 탭 */
+    .ps-tabs {
+      background:var(--bg-card); border-bottom:1px solid var(--border);
+      position:sticky; top:var(--nav-height); z-index:100;
+    }
+    .ps-tabs__inner {
+      max-width:var(--max-width); margin:0 auto;
+      display:flex; overflow-x:auto; scrollbar-width:none;
+    }
+    .ps-tabs__inner::-webkit-scrollbar { display:none; }
+    .ps-tab {
+      display:flex; align-items:center; gap:6px;
+      padding:14px 22px; font-size:14px; font-weight:600;
+      color:var(--text-muted); border-bottom:3px solid transparent;
+      cursor:pointer; white-space:nowrap; transition:all .15s;
+      background:none; border-top:none; border-left:none; border-right:none;
+      font-family:var(--font-main);
+    }
+    .ps-tab:hover  { color:var(--primary); }
+    .ps-tab.active { color:var(--primary); border-bottom-color:var(--accent); }
+
+    .ps-content { max-width:var(--max-width); margin:0 auto; padding:24px 20px 60px; }
+    .ps-panel        { display:none; }
+    .ps-panel.active { display:block; }
+
+    /* 캘린더 */
+    .cal-wrap { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden; }
+    .cal-wrap iframe { width:100%; height:620px; border:none; display:block; }
+    .cal-hint { padding:12px 16px; background:var(--gold-light); border-top:1px solid var(--border); font-size:12px; color:#9a7200; display:flex; align-items:center; gap:6px; }
+    .cal-setup { padding:28px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); }
+    .cal-setup h3 { font-size:15px; font-weight:700; color:var(--primary); margin-bottom:8px; }
+    .cal-setup p  { font-size:13px; color:var(--text-sub); margin-bottom:16px; line-height:1.7; }
+    .cal-guide { background:#f0f4f8; border-radius:var(--radius-sm); padding:14px 16px; font-size:12px; color:var(--text-sub); line-height:1.9; margin-bottom:14px; }
+    .cal-guide ol { padding-left:18px; }
+
+    /* 링크 */
+    .link-add-bar { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+    .link-add-bar input { flex:1; min-width:130px; padding:9px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:13px; font-family:var(--font-main); outline:none; transition:border-color .15s; }
+    .link-add-bar input:focus { border-color:var(--accent); }
+    .link-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:12px; }
+    .link-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); padding:14px 16px; display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; transition:all .15s; position:relative; }
+    .link-card:hover { border-color:var(--accent); box-shadow:var(--shadow-sm); text-decoration:none; }
+    .link-card__favicon { width:30px; height:30px; border-radius:8px; background:var(--accent-light); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+    .link-card__info { flex:1; min-width:0; }
+    .link-card__title { font-size:13px; font-weight:700; color:var(--primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .link-card__url   { font-size:11px; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .link-card__del { position:absolute; top:8px; right:8px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:13px; opacity:0; transition:opacity .15s; padding:3px 6px; border-radius:4px; }
+    .link-card:hover .link-card__del { opacity:1; }
+    .link-card__del:hover { background:#fdecea; color:var(--danger); }
+
+    /* 메모 */
+    .memo-layout { display:grid; grid-template-columns:220px 1fr; gap:16px; min-height:500px; }
+    .memo-list { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden; }
+    .memo-list__header { padding:12px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+    .memo-list__title { font-size:13px; font-weight:700; color:var(--primary); }
+    .memo-list__add { background:var(--accent); color:#fff; border:none; border-radius:6px; padding:4px 10px; font-size:12px; font-weight:700; cursor:pointer; font-family:var(--font-main); }
+    .memo-list__add:hover { background:#2471a3; }
+    .memo-items { overflow-y:auto; max-height:460px; }
+    .memo-item { padding:11px 14px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .1s; }
+    .memo-item:hover  { background:var(--bg-hover); }
+    .memo-item.active { background:var(--accent-light); }
+    .memo-item__title   { font-size:13px; font-weight:600; color:var(--primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:2px; }
+    .memo-item__preview { font-size:11px; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .memo-item__date    { font-size:10px; color:var(--text-muted); margin-top:3px; }
+    .memo-editor { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden; display:flex; flex-direction:column; }
+    .memo-editor__header { padding:12px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px; }
+    .memo-editor__title-input { flex:1; border:none; font-size:15px; font-weight:700; color:var(--primary); font-family:var(--font-main); outline:none; background:transparent; }
+    .memo-editor__del { background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:18px; padding:2px 6px; border-radius:4px; transition:all .15s; }
+    .memo-editor__del:hover { background:#fdecea; color:var(--danger); }
+    .memo-editor textarea { flex:1; border:none; padding:16px; font-size:14px; line-height:1.75; font-family:var(--font-main); color:var(--text-main); resize:none; outline:none; min-height:420px; background:transparent; }
+    .memo-placeholder { flex:1; display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-size:14px; padding:40px; }
+
+    /* 할일 */
+    .todo-add-bar { display:flex; gap:8px; margin-bottom:20px; }
+    .todo-add-bar input { flex:1; padding:10px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:14px; font-family:var(--font-main); outline:none; transition:border-color .15s; }
+    .todo-add-bar input:focus { border-color:var(--accent); }
+    .todo-add-bar select { padding:9px 10px; border:1px solid var(--border); border-radius:var(--radius-sm); font-family:var(--font-main); font-size:13px; outline:none; cursor:pointer; background:var(--bg-card); }
+    .todo-filters { display:flex; gap:6px; margin-bottom:14px; }
+    .todo-filter-btn { padding:5px 14px; border-radius:20px; border:1px solid var(--border); background:var(--bg-card); color:var(--text-sub); font-size:12px; font-weight:600; cursor:pointer; font-family:var(--font-main); transition:all .15s; }
+    .todo-filter-btn.active, .todo-filter-btn:hover { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .todo-list { display:flex; flex-direction:column; gap:8px; }
+    .todo-item { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); padding:12px 16px; display:flex; align-items:center; gap:12px; transition:all .15s; }
+    .todo-item.done { opacity:.55; }
+    .todo-item.done .todo-text { text-decoration:line-through; color:var(--text-muted); }
+    .todo-check { width:22px; height:22px; border-radius:50%; border:2px solid var(--border); cursor:pointer; flex-shrink:0; transition:all .15s; display:flex; align-items:center; justify-content:center; font-size:12px; color:transparent; background:transparent; }
+    .todo-check:hover { border-color:var(--success); }
+    .todo-item.done .todo-check { background:var(--success); border-color:var(--success); color:#fff; }
+    .todo-text { flex:1; font-size:14px; color:var(--text-main); }
+    .todo-tag  { font-size:11px; padding:2px 8px; border-radius:20px; background:var(--accent-light); color:var(--accent); white-space:nowrap; }
+    .todo-tag.tag-work     { background:#eef2ff; color:#3730a3; }
+    .todo-tag.tag-personal { background:#f0fdf4; color:#166534; }
+    .todo-tag.tag-urgent   { background:#fff7ed; color:#9a3412; }
+    .todo-date { font-size:11px; color:var(--text-muted); white-space:nowrap; }
+    .todo-del  { background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:16px; opacity:0; padding:2px 6px; border-radius:4px; transition:all .15s; }
+    .todo-item:hover .todo-del { opacity:1; }
+    .todo-del:hover { background:#fdecea; color:var(--danger); }
+    .todo-summary { font-size:12px; color:var(--text-muted); margin-bottom:12px; }
+    .todo-summary strong { color:var(--primary); }
+
+    /* 기타 도구 */
+    .tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; margin-bottom:20px; }
+    .tool-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); padding:20px 18px; text-align:center; cursor:pointer; transition:all .18s; text-decoration:none; color:inherit; display:block; }
+    .tool-card:hover { border-color:var(--accent); box-shadow:var(--shadow-md); transform:translateY(-2px); text-decoration:none; }
+    .tool-card__icon  { font-size:32px; display:block; margin-bottom:10px; }
+    .tool-card__title { font-size:14px; font-weight:700; color:var(--primary); margin-bottom:4px; }
+    .tool-card__desc  { font-size:12px; color:var(--text-muted); line-height:1.5; }
+
+    /* 계산기 모달 */
+    .calc-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:20000; align-items:center; justify-content:center; }
+    .calc-modal.open { display:flex; }
+    .calc-box { background:var(--bg-card); border-radius:var(--radius-lg); padding:24px; width:320px; max-width:92vw; box-shadow:var(--shadow-lg); }
+    .calc-box h3 { font-size:15px; font-weight:700; color:var(--primary); margin-bottom:14px; }
+    .calc-display { width:100%; background:#1a3a5f; color:#fff; border:none; border-radius:var(--radius-sm); padding:12px 16px; font-size:22px; text-align:right; font-family:var(--font-mono); margin-bottom:12px; letter-spacing:1px; }
+    .calc-btns { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+    .calc-btn { padding:14px 8px; border:none; border-radius:var(--radius-sm); font-size:15px; font-weight:700; cursor:pointer; font-family:var(--font-main); transition:all .1s; }
+    .calc-btn:active { transform:scale(.95); }
+    .calc-btn--num  { background:var(--bg-hover); color:var(--text-main); }
+    .calc-btn--num:hover { background:var(--border); }
+    .calc-btn--op   { background:var(--accent-light); color:var(--accent); }
+    .calc-btn--op:hover  { background:#c5d9f0; }
+    .calc-btn--eq   { background:var(--accent); color:#fff; }
+    .calc-btn--eq:hover  { background:#2471a3; }
+    .calc-btn--clr  { background:#fdecea; color:var(--danger); }
+    .calc-btn--clr:hover { background:#fcc; }
+    .calc-close { margin-top:12px; width:100%; padding:9px; background:var(--bg-hover); border:1px solid var(--border); border-radius:var(--radius-sm); font-size:13px; cursor:pointer; font-family:var(--font-main); }
+
+    /* 설정 */
+    .settings-section { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); padding:24px; margin-bottom:20px; }
+    .settings-section h3 { font-size:15px; font-weight:700; color:var(--primary); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+    .settings-section input { width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:14px; font-family:var(--font-main); margin-bottom:10px; outline:none; transition:border-color .15s; }
+    .settings-section input:focus { border-color:var(--accent); }
+
+    /* 공통 버튼 */
+    .ps-btn { display:inline-flex; align-items:center; gap:6px; padding:9px 18px; border-radius:var(--radius-sm); font-size:13px; font-weight:700; font-family:var(--font-main); cursor:pointer; border:none; transition:all .15s; }
+    .ps-btn--primary   { background:var(--accent);   color:#fff; }
+    .ps-btn--primary:hover   { background:#2471a3; }
+    .ps-btn--secondary { background:var(--bg-hover);  color:var(--text-sub); border:1px solid var(--border); }
+    .ps-btn--secondary:hover { background:var(--border); }
+    .ps-btn--gold      { background:var(--gold);    color:#1a1a1a; }
+    .ps-btn--gold:hover      { background:#d4920a; }
+    .ps-btn--danger    { background:var(--danger);  color:#fff; }
+    .ps-btn--danger:hover    { background:#c0392b; }
+    .ps-status { font-size:12px; margin-top:8px; min-height:18px; }
+
+    /* 빈 상태 */
+    .ps-empty { text-align:center; padding:48px 20px; color:var(--text-muted); font-size:14px; }
+    .ps-empty .ps-empty__icon { font-size:40px; display:block; margin-bottom:12px; }
+
+    /* 반응형 */
+    @media (max-width:700px) {
+      .memo-layout { grid-template-columns:1fr; }
+      .memo-items  { max-height:200px; }
+      .cal-wrap iframe { height:420px; }
+    }
+    @media (max-width:500px) {
+      .link-grid  { grid-template-columns:1fr; }
+      .tools-grid { grid-template-columns:repeat(2,1fr); }
+    }
+  </style>
+</head>
+<body data-ws-page="personal">
+
+<!-- ━━━━━━ 잠금 화면 ━━━━━━ -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <span class="lock-icon">🔐</span>
+    <div class="lock-title">개인 스테이션</div>
+    <div class="lock-sub">비밀번호를 입력하세요</div>
+    <input type="password" id="pwdInput" class="lock-input"
+           placeholder="••••" maxlength="30"
+           onkeydown="if(event.key==='Enter') tryUnlock()" />
+    <button class="lock-btn" onclick="tryUnlock()">🔓 잠금 해제</button>
+    <div class="lock-error" id="lockError"></div>
+    <div class="lock-hint">
+      처음 접속? <a onclick="firstSetup()">비밀번호 설정하기</a>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━━━━ 메인 콘텐츠 ━━━━━━ -->
+<div id="mainContent">
+
+  <!-- 공통 네비게이션 + 푸터 자동 삽입 -->
+  <script src="nav.js"></script>
+
+  <!-- 헤더 -->
+  <div class="ps-header">
+    <div class="ps-header__inner">
+      <div class="ps-header__left">
+        <h1>🗂️ <span>개인</span> 스테이션</h1>
+        <p id="headerGreeting">개인 전용 공간</p>
+      </div>
+      <button class="ps-lock-btn" onclick="lockNow()">🔒 잠금</button>
+    </div>
+  </div>
+
+  <!-- 탭 바 -->
+  <div class="ps-tabs">
+    <div class="ps-tabs__inner">
+      <button class="ps-tab active" data-tab="calendar" onclick="switchTab('calendar',this)">📅 캘린더</button>
+      <button class="ps-tab"        data-tab="links"    onclick="switchTab('links',this)">🔗 개인 링크</button>
+      <button class="ps-tab"        data-tab="memo"     onclick="switchTab('memo',this)">📝 메모</button>
+      <button class="ps-tab"        data-tab="todo"     onclick="switchTab('todo',this)">✅ 할일</button>
+      <button class="ps-tab"        data-tab="tools"    onclick="switchTab('tools',this)">🛠️ 기타 도구</button>
+      <button class="ps-tab"        data-tab="settings" onclick="switchTab('settings',this)">⚙️ 설정</button>
+    </div>
+  </div>
+
+  <!-- 패널 -->
+  <div class="ps-content">
+
+    <!-- ① 캘린더 -->
+    <div class="ps-panel active" id="panel-calendar">
+      <div id="calContainer"></div>
+    </div>
+
+    <!-- ② 링크 -->
+    <div class="ps-panel" id="panel-links">
+      <div class="link-add-bar">
+        <input type="text" id="linkTitle"  placeholder="링크 이름 (예: 나이스)" />
+        <input type="url"  id="linkUrl"    placeholder="https://..." style="flex:2"
+               onkeydown="if(event.key==='Enter') addLink()" />
+        <input type="text" id="linkEmoji"  placeholder="🔗" style="width:72px" maxlength="4" />
+        <button class="ps-btn ps-btn--primary" onclick="addLink()">+ 추가</button>
+      </div>
+      <div class="link-grid" id="linkGrid"></div>
+      <div class="ps-empty" id="linkEmpty" style="display:none">
+        <span class="ps-empty__icon">🔗</span>
+        아직 링크가 없습니다. 위에서 추가해 보세요!
+      </div>
+    </div>
+
+    <!-- ③ 메모 -->
+    <div class="ps-panel" id="panel-memo">
+      <div class="memo-layout">
+        <div class="memo-list">
+          <div class="memo-list__header">
+            <span class="memo-list__title">📝 메모 목록</span>
+            <button class="memo-list__add" onclick="newMemo()">+ 새 메모</button>
+          </div>
+          <div class="memo-items" id="memoItems"></div>
+        </div>
+        <div class="memo-editor" id="memoEditor">
+          <div class="memo-placeholder">← 메모를 선택하거나 새로 만드세요</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ 할일 -->
+    <div class="ps-panel" id="panel-todo">
+      <div class="todo-add-bar">
+        <input type="text" id="todoInput" placeholder="할 일 입력 (Enter로 추가)"
+               onkeydown="if(event.key==='Enter') addTodo()" />
+        <select id="todoTag">
+          <option value="">분류 없음</option>
+          <option value="work">업무</option>
+          <option value="personal">개인</option>
+          <option value="urgent">긴급</option>
+        </select>
+        <button class="ps-btn ps-btn--primary" onclick="addTodo()">+ 추가</button>
+      </div>
+      <div class="todo-filters">
+        <button class="todo-filter-btn active" onclick="setTodoFilter('all',this)">전체</button>
+        <button class="todo-filter-btn"        onclick="setTodoFilter('active',this)">진행중</button>
+        <button class="todo-filter-btn"        onclick="setTodoFilter('done',this)">완료</button>
+      </div>
+      <div class="todo-summary" id="todoSummary"></div>
+      <div class="todo-list"    id="todoList"></div>
+      <div class="ps-empty"     id="todoEmpty" style="display:none">
+        <span class="ps-empty__icon">🎉</span>할 일이 없습니다!
+      </div>
+    </div>
+
+    <!-- ⑤ 기타 도구 -->
+    <div class="ps-panel" id="panel-tools">
+      <div class="tools-grid">
+        <div class="tool-card" onclick="openCalc()">
+          <span class="tool-card__icon">🧮</span>
+          <div class="tool-card__title">계산기</div>
+          <div class="tool-card__desc">간단한 사칙연산</div>
+        </div>
+        <a class="tool-card" href="https://www.neis.go.kr"     target="_blank" rel="noopener"><span class="tool-card__icon">🏫</span><div class="tool-card__title">나이스</div><div class="tool-card__desc">교육행정정보시스템</div></a>
+        <a class="tool-card" href="https://www.career.go.kr"   target="_blank" rel="noopener"><span class="tool-card__icon">🎯</span><div class="tool-card__title">커리어넷</div><div class="tool-card__desc">진로교육 포털</div></a>
+        <a class="tool-card" href="https://www.adiga.kr"        target="_blank" rel="noopener"><span class="tool-card__icon">🎓</span><div class="tool-card__title">어디가</div><div class="tool-card__desc">대학 입시 정보</div></a>
+        <a class="tool-card" href="https://ipsi.uway.com"       target="_blank" rel="noopener"><span class="tool-card__icon">📊</span><div class="tool-card__title">유웨이</div><div class="tool-card__desc">입시 배치표·정보</div></a>
+        <a class="tool-card" href="https://www.suneung.re.kr"   target="_blank" rel="noopener"><span class="tool-card__icon">📝</span><div class="tool-card__title">수능 홈페이지</div><div class="tool-card__desc">한국교육과정평가원</div></a>
+      </div>
+
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px;margin-top:8px;">
+        <div style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:14px;">🔧 사이트 바로가기 추가</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input type="text" id="toolTitle" placeholder="이름 (예: EBS)" style="flex:1;min-width:120px;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-family:var(--font-main);outline:none;" />
+          <input type="url"  id="toolUrl"   placeholder="https://..." style="flex:2;min-width:160px;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-family:var(--font-main);outline:none;" onkeydown="if(event.key==='Enter') addCustomTool()" />
+          <input type="text" id="toolEmoji" placeholder="🌐" style="width:64px;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-family:var(--font-main);outline:none;" maxlength="4" />
+          <button class="ps-btn ps-btn--primary" onclick="addCustomTool()">+ 추가</button>
+        </div>
+        <div class="tools-grid" id="customToolGrid" style="margin-top:16px;"></div>
+      </div>
+    </div>
+
+    <!-- ⑥ 설정 -->
+    <div class="ps-panel" id="panel-settings">
+      <div class="settings-section">
+        <h3>📅 구글 캘린더 연동</h3>
+        <p style="font-size:13px;color:var(--text-sub);margin-bottom:14px;line-height:1.7;">Google 캘린더 공개 embed URL을 입력하면 캘린더 탭에 표시됩니다.</p>
+        <div class="cal-guide">
+          <ol>
+            <li>Google 캘린더 → 설정(⚙️) → 내 캘린더 선택</li>
+            <li>하단 <strong>캘린더 삽입</strong> → <strong>맞춤설정</strong></li>
+            <li>생성된 iframe의 <code>src="…"</code> 값 복사 후 아래에 붙여넣기</li>
+          </ol>
+        </div>
+        <input type="text" id="calUrlInput" placeholder="https://calendar.google.com/calendar/embed?src=..." />
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="ps-btn ps-btn--primary"   onclick="saveCalUrl()">💾 저장 &amp; 적용</button>
+          <button class="ps-btn ps-btn--secondary" onclick="resetCalUrl()">초기화</button>
+        </div>
+        <div class="ps-status" id="calSaveMsg" style="color:var(--success);"></div>
+      </div>
+
+      <div class="settings-section" style="max-width:420px;">
+        <h3>🔑 비밀번호 변경</h3>
+        <input type="password" id="curPwd"  placeholder="현재 비밀번호" />
+        <input type="password" id="newPwd"  placeholder="새 비밀번호" />
+        <input type="password" id="newPwd2" placeholder="새 비밀번호 확인" />
+        <button class="ps-btn ps-btn--gold" style="width:100%;" onclick="changePwd()">변경하기</button>
+        <div class="ps-status" id="pwdMsg"></div>
+      </div>
+
+      <div class="settings-section" style="max-width:420px;">
+        <h3>🗑️ 데이터 관리</h3>
+        <p style="font-size:13px;color:var(--text-sub);margin-bottom:14px;">모든 링크·메모·할일 데이터를 삭제합니다. 비밀번호 설정은 유지됩니다.</p>
+        <button class="ps-btn ps-btn--danger" onclick="clearAll()">전체 데이터 삭제</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 계산기 모달 -->
+<div class="calc-modal" id="calcModal" onclick="if(event.target===this) closeCalc()">
+  <div class="calc-box">
+    <h3>🧮 계산기</h3>
+    <input type="text" id="calcDisplay" class="calc-display" readonly value="0" />
+    <div class="calc-btns">
+      <button class="calc-btn calc-btn--clr" onclick="calcClear()">C</button>
+      <button class="calc-btn calc-btn--op"  onclick="calcInput('(')">(</button>
+      <button class="calc-btn calc-btn--op"  onclick="calcInput(')')">)</button>
+      <button class="calc-btn calc-btn--op"  onclick="calcInput('/')">÷</button>
+      <button class="calc-btn calc-btn--num" onclick="calcInput('7')">7</button>
+      <button class="calc-btn calc-btn--num" onclick="calcInput('8')">8</button>
+      <button class="calc-btn calc-btn--num" onclick="calcInput('9')">9</button>
+      <button class="calc-btn calc-btn--op"  onclick="calcInput('*')">×</button>
+      <button class="calc-btn calc-btn--num" onclick="calcInput('4')">4</button>
+      <button class="calc-btn calc-btn--num" onclick="calcInput('5')">5</button>
+      <button class="calc-btn calc-btn--num" onclick="calcInput('6')">6</button>
+      <button class="calc-btn calc-btn--op"  onclick="calcInput('-')">−</button>
+      <button class="calc-btn calc-btn--num" onclick="calcInput('1')">1</button>
+      <button class="calc-btn calc-btn--num" onclick="calcInput('2')">2</button>
+      <button class="calc-btn calc-btn--num" onclick="calcInput('3')">3</button>
+      <button class="calc-btn calc-btn--op"  onclick="calcInput('+')">+</button>
+      <button class="calc-btn calc-btn--num" onclick="calcInput('0')" style="grid-column:span 2">0</button>
+      <button class="calc-btn calc-btn--num" onclick="calcInput('.')">.</button>
+      <button class="calc-btn calc-btn--eq"  onclick="calcEqual()">=</button>
+    </div>
+    <button class="calc-close" onclick="closeCalc()">닫기</button>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   개인 스테이션 — 전체 스크립트
+   ═══════════════════════════════════════════════ */
+
+const STORAGE_KEY = 'ps_pwd';
+const DEFAULT_PWD = '1234'; // ← 초기 비밀번호 (설정 탭에서 변경)
+
+/* ── 잠금 ── */
+function getPwd() { return localStorage.getItem(STORAGE_KEY) || DEFAULT_PWD; }
+
+function tryUnlock() {
+  const input = document.getElementById('pwdInput').value;
+  if (input === getPwd()) {
+    document.getElementById('lockScreen').style.display  = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+    init();
+  } else {
+    const inp = document.getElementById('pwdInput');
+    inp.classList.add('error');
+    document.getElementById('lockError').textContent = '비밀번호가 틀렸습니다. 다시 입력해 주세요.';
+    inp.value = '';
+    setTimeout(() => inp.classList.remove('error'), 500);
+    inp.focus();
+  }
+}
+
+function firstSetup() {
+  const pwd = prompt('처음 사용할 비밀번호를 입력하세요:');
+  if (pwd && pwd.trim()) {
+    localStorage.setItem(STORAGE_KEY, pwd.trim());
+    alert('비밀번호가 설정되었습니다! 방금 입력한 비밀번호로 로그인하세요.');
+  }
+}
+
+function lockNow() {
+  document.getElementById('mainContent').style.display = 'none';
+  document.getElementById('lockScreen').style.display  = 'flex';
+  document.getElementById('pwdInput').value = '';
+  document.getElementById('lockError').textContent = '';
+  setTimeout(() => document.getElementById('pwdInput').focus(), 200);
+}
+
+function changePwd() {
+  const cur = document.getElementById('curPwd').value;
+  const n1  = document.getElementById('newPwd').value;
+  const n2  = document.getElementById('newPwd2').value;
+  const msg = document.getElementById('pwdMsg');
+  const show = (t, ok) => { msg.style.color = ok ? 'var(--success)' : 'var(--danger)'; msg.textContent = t; };
+  if (cur !== getPwd()) { show('현재 비밀번호가 틀렸습니다.', false); return; }
+  if (!n1)              { show('새 비밀번호를 입력하세요.', false);   return; }
+  if (n1 !== n2)        { show('새 비밀번호가 일치하지 않습니다.', false); return; }
+  localStorage.setItem(STORAGE_KEY, n1);
+  show('비밀번호가 변경되었습니다!', true);
+  ['curPwd','newPwd','newPwd2'].forEach(id => document.getElementById(id).value = '');
+}
+
+/* ── 탭 ── */
+function switchTab(tab, btn) {
+  document.querySelectorAll('.ps-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ps-tab').forEach(b  => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+/* ── 캘린더 ── */
+function saveCalUrl() {
+  const url = document.getElementById('calUrlInput').value.trim();
+  if (!url) { alert('URL을 입력해 주세요.'); return; }
+  localStorage.setItem('ps_cal_url', url);
+  renderCalendar();
+  const msg = document.getElementById('calSaveMsg');
+  msg.textContent = '저장되었습니다!';
+  setTimeout(() => msg.textContent = '', 2500);
+}
+
+function resetCalUrl() {
+  if (!confirm('캘린더 URL을 초기화할까요?')) return;
+  localStorage.removeItem('ps_cal_url');
+  document.getElementById('calUrlInput').value = '';
+  renderCalendar();
+}
+
+function renderCalendar() {
+  const url = localStorage.getItem('ps_cal_url');
+  const container = document.getElementById('calContainer');
+  if (url) {
+    container.innerHTML =
+      '<div class="cal-wrap">' +
+        '<iframe src="' + escAttr(url) + '" frameborder="0" scrolling="no" title="Google Calendar"></iframe>' +
+        '<div class="cal-hint">💡 캘린더 URL은 <strong>설정 탭</strong>에서 변경할 수 있습니다.</div>' +
+      '</div>';
+    document.getElementById('calUrlInput').value = url;
+  } else {
+    container.innerHTML =
+      '<div class="cal-setup">' +
+        '<h3>📅 구글 캘린더 연동 안내</h3>' +
+        '<p>아직 캘린더 URL이 설정되지 않았습니다.<br><strong>설정 탭</strong>에서 Google 캘린더 embed URL을 입력해 주세요.</p>' +
+        '<button class="ps-btn ps-btn--primary" onclick="switchTab(\'settings\', document.querySelector(\'[data-tab=settings]\'))">⚙️ 설정으로 이동</button>' +
+      '</div>';
+  }
+}
+
+/* ── 링크 ── */
+function getLinks()       { try { return JSON.parse(localStorage.getItem('ps_links') || '[]'); } catch { return []; } }
+function saveLinks(links) { localStorage.setItem('ps_links', JSON.stringify(links)); }
+
+function addLink() {
+  const title = document.getElementById('linkTitle').value.trim();
+  const url   = document.getElementById('linkUrl').value.trim();
+  const icon  = document.getElementById('linkEmoji').value.trim() || '🔗';
+  if (!url) { alert('URL을 입력해 주세요.'); return; }
+  const links = getLinks();
+  links.unshift({ id: Date.now(), title: title || url, url, icon });
+  saveLinks(links);
+  renderLinks();
+  ['linkTitle','linkUrl','linkEmoji'].forEach(id => document.getElementById(id).value = '');
+}
+
+function deleteLink(id) { saveLinks(getLinks().filter(l => l.id !== id)); renderLinks(); }
+
+function renderLinks() {
+  const links = getLinks();
+  const grid  = document.getElementById('linkGrid');
+  const empty = document.getElementById('linkEmpty');
+  if (!links.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = links.map(l =>
+    '<a class="link-card" href="' + escAttr(l.url) + '" target="_blank" rel="noopener">' +
+      '<div class="link-card__favicon">' + escHtml(l.icon) + '</div>' +
+      '<div class="link-card__info">' +
+        '<div class="link-card__title">' + escHtml(l.title) + '</div>' +
+        '<div class="link-card__url">'   + escHtml(l.url)   + '</div>' +
+      '</div>' +
+      '<button class="link-card__del" onclick="event.preventDefault();deleteLink(' + l.id + ')">✕</button>' +
+    '</a>'
+  ).join('');
+}
+
+/* ── 메모 ── */
+var currentMemoId = null;
+function getMemos()       { try { return JSON.parse(localStorage.getItem('ps_memos') || '[]'); } catch { return []; } }
+function saveMemos(memos) { localStorage.setItem('ps_memos', JSON.stringify(memos)); }
+
+function newMemo() {
+  var memos = getMemos();
+  var memo  = { id: Date.now(), title: '새 메모', content: '', date: today() };
+  memos.unshift(memo);
+  saveMemos(memos);
+  renderMemoList();
+  openMemo(memo.id);
+}
+
+function openMemo(id) {
+  currentMemoId = id;
+  var memo = getMemos().find(function(m){ return m.id === id; });
+  if (!memo) return;
+  document.querySelectorAll('.memo-item').forEach(function(el){ el.classList.remove('active'); });
+  var el = document.querySelector('.memo-item[data-id="' + id + '"]');
+  if (el) el.classList.add('active');
+  document.getElementById('memoEditor').innerHTML =
+    '<div class="memo-editor__header">' +
+      '<input class="memo-editor__title-input" id="memoTitleInput" value="' + escHtml(memo.title) + '" oninput="updateMemoTitle()" placeholder="메모 제목" />' +
+      '<button class="memo-editor__del" onclick="deleteMemo(' + id + ')">🗑️</button>' +
+    '</div>' +
+    '<textarea id="memoContent" placeholder="내용을 입력하세요…" oninput="updateMemoContent()">' + escHtml(memo.content) + '</textarea>';
+}
+
+function updateMemoTitle() {
+  var memos = getMemos(), idx = memos.findIndex(function(m){ return m.id === currentMemoId; });
+  if (idx < 0) return;
+  memos[idx].title = document.getElementById('memoTitleInput').value;
+  memos[idx].date  = today();
+  saveMemos(memos); renderMemoList();
+}
+
+function updateMemoContent() {
+  var memos = getMemos(), idx = memos.findIndex(function(m){ return m.id === currentMemoId; });
+  if (idx < 0) return;
+  memos[idx].content = document.getElementById('memoContent').value;
+  memos[idx].date    = today();
+  saveMemos(memos); renderMemoList();
+}
+
+function deleteMemo(id) {
+  if (!confirm('이 메모를 삭제할까요?')) return;
+  saveMemos(getMemos().filter(function(m){ return m.id !== id; }));
+  currentMemoId = null;
+  document.getElementById('memoEditor').innerHTML = '<div class="memo-placeholder">← 메모를 선택하거나 새로 만드세요</div>';
+  renderMemoList();
+}
+
+function renderMemoList() {
+  var memos = getMemos(), container = document.getElementById('memoItems');
+  if (!memos.length) { container.innerHTML = '<div style="padding:20px;font-size:13px;color:var(--text-muted);text-align:center;">메모가 없습니다</div>'; return; }
+  container.innerHTML = memos.map(function(m){
+    return '<div class="memo-item ' + (m.id === currentMemoId ? 'active' : '') + '" data-id="' + m.id + '" onclick="openMemo(' + m.id + ')">' +
+      '<div class="memo-item__title">'   + escHtml(m.title) + '</div>' +
+      '<div class="memo-item__preview">' + escHtml(m.content.substring(0,30)) + '</div>' +
+      '<div class="memo-item__date">'    + (m.date || '') + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+/* ── 할일 ── */
+var todoFilter = 'all';
+function getTodos()       { try { return JSON.parse(localStorage.getItem('ps_todos') || '[]'); } catch { return []; } }
+function saveTodos(todos) { localStorage.setItem('ps_todos', JSON.stringify(todos)); }
+
+function addTodo() {
+  var text = document.getElementById('todoInput').value.trim();
+  var tag  = document.getElementById('todoTag').value;
+  if (!text) return;
+  var todos = getTodos();
+  todos.unshift({ id: Date.now(), text: text, tag: tag, done: false, date: today() });
+  saveTodos(todos); renderTodos();
+  document.getElementById('todoInput').value = '';
+  document.getElementById('todoTag').value   = '';
+}
+
+function toggleTodo(id) {
+  var todos = getTodos(), idx = todos.findIndex(function(t){ return t.id === id; });
+  if (idx < 0) return;
+  todos[idx].done = !todos[idx].done;
+  saveTodos(todos); renderTodos();
+}
+
+function deleteTodo(id) { saveTodos(getTodos().filter(function(t){ return t.id !== id; })); renderTodos(); }
+
+function setTodoFilter(filter, btn) {
+  todoFilter = filter;
+  document.querySelectorAll('.todo-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderTodos();
+}
+
+function renderTodos() {
+  var todos = getTodos(), list = document.getElementById('todoList'),
+      empty = document.getElementById('todoEmpty'), summary = document.getElementById('todoSummary');
+  var done = todos.filter(function(t){ return t.done; }).length;
+  summary.innerHTML = '총 <strong>' + todos.length + '</strong>개 · 진행중 <strong>' + (todos.length - done) + '</strong>개 · 완료 <strong>' + done + '</strong>개';
+  var filtered = todos.filter(function(t){ return todoFilter === 'active' ? !t.done : todoFilter === 'done' ? t.done : true; });
+  if (!filtered.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  var tagLabel = { work:'업무', personal:'개인', urgent:'긴급' };
+  list.innerHTML = filtered.map(function(t){
+    return '<div class="todo-item ' + (t.done ? 'done' : '') + '">' +
+      '<div class="todo-check" onclick="toggleTodo(' + t.id + ')">' + (t.done ? '✓' : '') + '</div>' +
+      '<div class="todo-text">' + escHtml(t.text) + '</div>' +
+      (t.tag ? '<span class="todo-tag tag-' + t.tag + '">' + (tagLabel[t.tag] || t.tag) + '</span>' : '') +
+      '<div class="todo-date">' + (t.date || '') + '</div>' +
+      '<button class="todo-del" onclick="deleteTodo(' + t.id + ')">✕</button>' +
+    '</div>';
+  }).join('');
+}
+
+/* ── 기타 도구 (사용자 정의) ── */
+function getCustomTools()       { try { return JSON.parse(localStorage.getItem('ps_tools') || '[]'); } catch { return []; } }
+function saveCustomTools(tools) { localStorage.setItem('ps_tools', JSON.stringify(tools)); }
+
+function addCustomTool() {
+  var title = document.getElementById('toolTitle').value.trim();
+  var url   = document.getElementById('toolUrl').value.trim();
+  var icon  = document.getElementById('toolEmoji').value.trim() || '🌐';
+  if (!url) { alert('URL을 입력해 주세요.'); return; }
+  var tools = getCustomTools();
+  tools.unshift({ id: Date.now(), title: title || url, url: url, icon: icon });
+  saveCustomTools(tools); renderCustomTools();
+  ['toolTitle','toolUrl','toolEmoji'].forEach(function(id){ document.getElementById(id).value = ''; });
+}
+
+function deleteCustomTool(id) { saveCustomTools(getCustomTools().filter(function(t){ return t.id !== id; })); renderCustomTools(); }
+
+function renderCustomTools() {
+  var tools = getCustomTools(), grid = document.getElementById('customToolGrid');
+  if (!tools.length) { grid.innerHTML = ''; return; }
+  grid.innerHTML = tools.map(function(t){
+    return '<div style="position:relative;">' +
+      '<a class="tool-card" href="' + escAttr(t.url) + '" target="_blank" rel="noopener">' +
+        '<span class="tool-card__icon">' + escHtml(t.icon) + '</span>' +
+        '<div class="tool-card__title">' + escHtml(t.title) + '</div>' +
+        '<div class="tool-card__desc">'  + escHtml(t.url)   + '</div>' +
+      '</a>' +
+      '<button onclick="deleteCustomTool(' + t.id + ')" title="삭제" ' +
+              'style="position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;font-size:13px;color:var(--text-muted);">✕</button>' +
+    '</div>';
+  }).join('');
+}
+
+/* ── 계산기 ── */
+var calcExpr = '';
+function openCalc()  { document.getElementById('calcModal').classList.add('open'); }
+function closeCalc() { document.getElementById('calcModal').classList.remove('open'); }
+function calcInput(val) {
+  if (calcExpr === '오류') calcExpr = '';
+  calcExpr += val;
+  document.getElementById('calcDisplay').value = calcExpr;
+}
+function calcClear() { calcExpr = ''; document.getElementById('calcDisplay').value = '0'; }
+function calcEqual() {
+  try {
+    // eslint-disable-next-line no-new-func
+    var result = Function('"use strict"; return (' + calcExpr + ')')();
+    calcExpr = String(parseFloat(result.toFixed(10)));
+    document.getElementById('calcDisplay').value = calcExpr;
+  } catch(e) {
+    calcExpr = '오류';
+    document.getElementById('calcDisplay').value = '오류';
+  }
+}
+
+/* ── 전체 삭제 ── */
+function clearAll() {
+  if (!confirm('모든 링크·메모·할일 데이터가 삭제됩니다.\n계속하시겠습니까?')) return;
+  ['ps_links','ps_memos','ps_todos','ps_tools','ps_cal_url'].forEach(function(k){ localStorage.removeItem(k); });
+  renderLinks(); renderMemoList(); renderTodos(); renderCustomTools(); renderCalendar();
+  alert('데이터가 모두 삭제되었습니다.');
+}
+
+/* ── 유틸 ── */
+function escHtml(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(str) {
+  return String(str || '').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function today() {
+  var d = new Date(), days = ['일','월','화','수','목','금','토'];
+  return (d.getMonth()+1) + '/' + d.getDate() + '(' + days[d.getDay()] + ')';
+}
+function updateGreeting() {
+  var h = new Date().getHours();
+  var greet = h < 12 ? '좋은 아침입니다! ☀️' : h < 18 ? '좋은 오후입니다! 🌤️' : '좋은 저녁입니다! 🌙';
+  var d = new Date(), days = ['일','월','화','수','목','금','토'];
+  document.getElementById('headerGreeting').textContent =
+    greet + '  |  ' + d.getFullYear() + '년 ' + (d.getMonth()+1) + '월 ' + d.getDate() + '일 (' + days[d.getDay()] + ')';
+}
+
+/* ── 초기화 ── */
+function init() {
+  updateGreeting();
+  renderCalendar();
+  renderLinks();
+  renderMemoList();
+  renderTodos();
+  renderCustomTools();
+}
+</script>
+</body>
+</html>
