@@ -147,20 +147,6 @@ img { max-width: 100%; height: auto; }
   flex-shrink: 0;
 }
 
-/* 관리자 배지 */
-.ws-nav__admin-badge {
-  display: none;
-  align-items: center;
-  gap: 5px;
-  background: var(--gold);
-  color: #1a1a1a;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 20px;
-}
-.ws-nav__admin-badge.visible { display: flex; }
-
 /* 햄버거 (모바일) */
 .ws-nav__hamburger {
   display: none;

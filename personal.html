@@ -509,6 +509,86 @@
         <p style="font-size:13px;color:var(--text-sub);margin-bottom:14px;">모든 링크·메모·할일 데이터를 삭제합니다. 비밀번호 설정은 유지됩니다.</p>
         <button class="ps-btn ps-btn--danger" onclick="clearAll()">전체 데이터 삭제</button>
       </div>
+
+      <!-- ☁️ 구글 시트 동기화 -->
+      <div class="settings-section" id="sync-section">
+        <h3>☁️ 구글 시트 동기화</h3>
+        <p style="font-size:13px;color:var(--text-sub);margin-bottom:14px;line-height:1.7;">
+          구글 시트를 저장소로 사용해 PC·휴대폰 어디서든 같은 데이터를 씁니다.<br>
+          최초 1회 아래 가이드대로 설정하면 이후 버튼 한 번으로 동기화됩니다.
+        </p>
+
+        <!-- 가이드 -->
+        <details style="margin-bottom:16px;">
+          <summary style="cursor:pointer;font-size:13px;font-weight:700;color:var(--accent);">📋 최초 설정 가이드 (클릭해서 펼치기)</summary>
+          <div style="font-size:12px;line-height:1.9;padding:12px 0;color:var(--text-sub);">
+            <strong>① 구글 시트 준비</strong><br>
+            1. <a href="https://sheets.new" target="_blank" style="color:var(--accent);">sheets.new</a> 에서 새 시트 생성<br>
+            2. 시트 이름을 <code>ws_data</code> 로 변경 (하단 탭 더블클릭)<br>
+            3. A1 셀에 <code>key</code>, B1 셀에 <code>value</code> 입력 후 저장<br><br>
+            <strong>② Apps Script 배포</strong><br>
+            4. 시트 메뉴 → <strong>확장 프로그램 → Apps Script</strong><br>
+            5. 아래 코드 전체를 붙여넣고 저장(💾)<br>
+            <pre style="background:var(--bg-card);border-radius:6px;padding:10px;overflow-x:auto;font-size:11px;margin:8px 0;">function doGet(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName('ws_data');
+  var key = e.parameter.key;
+  if (key) {
+    var data = sh.getDataRange().getValues();
+    for (var i = 1; i &lt; data.length; i++) {
+      if (data[i][0] === key) {
+        return ContentService.createTextOutput(data[i][1])
+          .setMimeType(ContentService.MimeType.TEXT);
+      }
+    }
+    return ContentService.createTextOutput('__NOT_FOUND__')
+      .setMimeType(ContentService.MimeType.TEXT);
+  }
+  // 전체 데이터 반환
+  var rows = sh.getDataRange().getValues();
+  var obj = {};
+  for (var j = 1; j &lt; rows.length; j++) {
+    if (rows[j][0]) obj[rows[j][0]] = rows[j][1];
+  }
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName('ws_data');
+  var payload = JSON.parse(e.postData.contents);
+  var rows = sh.getDataRange().getValues();
+  Object.keys(payload).forEach(function(key) {
+    var found = false;
+    for (var i = 1; i &lt; rows.length; i++) {
+      if (rows[i][0] === key) {
+        sh.getRange(i + 1, 2).setValue(payload[key]);
+        found = true; break;
+      }
+    }
+    if (!found) sh.appendRow([key, payload[key]]);
+  });
+  return ContentService.createTextOutput('ok')
+    .setMimeType(ContentService.MimeType.TEXT);
+}</pre>
+            6. <strong>배포 → 새 배포</strong> → 유형: <strong>웹 앱</strong><br>
+            7. 실행 계정: <strong>나</strong> / 액세스 권한: <strong>모든 사용자</strong> 선택 후 배포<br>
+            8. 생성된 <strong>웹 앱 URL</strong> 복사 → 아래에 붙여넣기
+          </div>
+        </details>
+
+        <label style="font-size:12px;font-weight:700;color:var(--text-sub);display:block;margin-bottom:6px;">Apps Script 웹 앱 URL</label>
+        <input type="text" id="syncUrlInput" placeholder="https://script.google.com/macros/s/..." style="margin-bottom:10px;" />
+        <button class="ps-btn ps-btn--primary" onclick="saveSyncUrl()" style="margin-bottom:8px;width:100%;">🔗 URL 저장</button>
+        <div class="ps-status" id="syncUrlMsg" style="color:var(--success);margin-bottom:16px;"></div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="ps-btn ps-btn--gold"      onclick="syncUpload()"   id="btn-upload">☁️ 구글 시트에 저장 (업로드)</button>
+          <button class="ps-btn ps-btn--secondary" onclick="syncDownload()" id="btn-download">📥 구글 시트에서 불러오기 (다운로드)</button>
+        </div>
+        <div class="ps-status" id="syncMsg" style="margin-top:10px;font-size:13px;"></div>
+      </div>
     </div>
 
   </div>
@@ -928,6 +1008,92 @@ function updateGreeting() {
     greet + '  |  ' + d.getFullYear() + '년 ' + (d.getMonth()+1) + '월 ' + d.getDate() + '일 (' + days[d.getDay()] + ')';
 }
 
+/* ── 구글 시트 동기화 ── */
+const SYNC_URL_KEY = 'ps_sync_url';
+const SYNC_DATA_KEYS = ['ps_links','ps_memos','ps_todos','ps_tools','ps_cal_url','ps_gs_email'];
+
+function getSyncUrl() { return localStorage.getItem(SYNC_URL_KEY) || ''; }
+
+function saveSyncUrl() {
+  const url = document.getElementById('syncUrlInput').value.trim();
+  if (!url) { alert('URL을 입력해 주세요.'); return; }
+  localStorage.setItem(SYNC_URL_KEY, url);
+  const msg = document.getElementById('syncUrlMsg');
+  msg.textContent = '✅ URL이 저장되었습니다!';
+  setTimeout(() => msg.textContent = '', 3000);
+}
+
+function setSyncStatus(text, ok) {
+  const msg = document.getElementById('syncMsg');
+  if (!msg) return;
+  msg.style.color = ok ? 'var(--success)' : 'var(--danger)';
+  msg.textContent = text;
+}
+
+function setSyncBtnLoading(loading) {
+  ['btn-upload','btn-download'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.disabled = loading;
+  });
+}
+
+async function syncUpload() {
+  const url = getSyncUrl();
+  if (!url) { alert('먼저 Apps Script URL을 저장해 주세요.'); return; }
+  setSyncBtnLoading(true);
+  setSyncStatus('☁️ 업로드 중...', true);
+  try {
+    const payload = {};
+    SYNC_DATA_KEYS.forEach(k => {
+      const v = localStorage.getItem(k);
+      if (v !== null) payload[k] = v;
+    });
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload),
+      mode: 'no-cors'   // Apps Script CORS 우회
+    });
+    // no-cors는 response를 읽을 수 없어 성공으로 간주
+    setSyncStatus('✅ 구글 시트에 저장했습니다! (' + new Date().toLocaleTimeString() + ')', true);
+  } catch(e) {
+    setSyncStatus('❌ 업로드 실패: ' + e.message, false);
+  } finally {
+    setSyncBtnLoading(false);
+  }
+}
+
+async function syncDownload() {
+  const url = getSyncUrl();
+  if (!url) { alert('먼저 Apps Script URL을 저장해 주세요.'); return; }
+  if (!confirm('구글 시트 데이터로 현재 기기의 데이터를 덮어씁니다.\n계속하시겠습니까?')) return;
+  setSyncBtnLoading(true);
+  setSyncStatus('📥 다운로드 중...', true);
+  try {
+    const res = await fetch(url + '?t=' + Date.now(), { mode: 'cors' });
+    if (!res.ok) throw new Error('서버 응답 오류 (' + res.status + ')');
+    const data = await res.json();
+    let count = 0;
+    SYNC_DATA_KEYS.forEach(k => {
+      if (data[k] !== undefined) {
+        localStorage.setItem(k, data[k]);
+        count++;
+      }
+    });
+    // 화면 갱신
+    renderLinks(); renderMemoList(); renderTodos(); renderCustomTools(); renderCalendar(); renderGsLinks();
+    const urlInput = document.getElementById('syncUrlInput');
+    if (urlInput) urlInput.value = getSyncUrl();
+    const gsInput = document.getElementById('gsEmailInput');
+    if (gsInput && data['ps_gs_email']) gsInput.value = data['ps_gs_email'];
+    setSyncStatus('✅ ' + count + '개 항목을 불러왔습니다! (' + new Date().toLocaleTimeString() + ')', true);
+  } catch(e) {
+    setSyncStatus('❌ 다운로드 실패: ' + e.message + '\n(URL이 올바른지, 웹 앱이 배포됐는지 확인해 주세요)', false);
+  } finally {
+    setSyncBtnLoading(false);
+  }
+}
+
 /* ── 초기화 ── */
 function init() {
   updateGreeting();
@@ -937,6 +1103,10 @@ function init() {
   renderMemoList();
   renderTodos();
   renderCustomTools();
+  // 저장된 동기화 URL 복원
+  const syncUrl = getSyncUrl();
+  const urlInput = document.getElementById('syncUrlInput');
+  if (urlInput && syncUrl) urlInput.value = syncUrl;
 }
 </script>
 </body>
