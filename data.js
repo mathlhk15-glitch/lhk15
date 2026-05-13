@@ -25,7 +25,7 @@ const resources = [
   },
   {
     id: "ipsi-1-2nd",
-    icon: ""🌱",
+    icon: "🌱",
     title: "2026 1·2학년 수시 배치표",
     section: "admission",
     description: "2028 입시 기준으로 1·2학년 수시 전략을 탐색하는 자료",
