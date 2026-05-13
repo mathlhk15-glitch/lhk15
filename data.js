@@ -13,7 +13,7 @@ const resources = [
   // ── 수시 입시 ──────────────────────────────────────────────
   {
     id: "ipsi-3rd",
-    icon: "🔍",
+    icon: "🎯",
     title: "2026 3학년 수시 배치표",
     section: "admission",
     description: "3학년 수시 지원 가능권을 빠르게 탐색하는 진학 상담용 자료. 교과전형 컷오프 포함",
@@ -25,7 +25,7 @@ const resources = [
   },
   {
     id: "ipsi-1-2nd",
-    icon: "🔍",
+    icon: ""🌱",
     title: "2026 1·2학년 수시 배치표",
     section: "admission",
     description: "2028 입시 기준으로 1·2학년 수시 전략을 탐색하는 자료",
@@ -49,7 +49,7 @@ const resources = [
   },
   {
     id: "ipsi-9grade-calc",
-    icon: "🔢",
+    icon: "🧮",
     title: "중간고사 성적으로 9등급 환산",
     section: "admission",
     description: "중간고사 성적을 기준으로 9등급을 예상 환산해보는 도구",
@@ -63,7 +63,7 @@ const resources = [
   // ── 교육과정·배치표 ────────────────────────────────────────
   {
     id: "curriculum-2026",
-    icon: "📋",
+    icon: "🧩",
     title: "2026 교육과정 편제표",
     section: "curriculum",
     description: "2026학년도 교육과정 편제 및 1학년 과목 선택 안내 자료",
@@ -75,7 +75,7 @@ const resources = [
   },
   {
     id: "bachi-2026-03",
-    icon: "🗂️",
+    icon: "👥",
     title: "2026 3월 배치표",
     section: "curriculum",
     description: "2026년 3월 학급별 학생 배치 현황 자료",
@@ -89,7 +89,7 @@ const resources = [
   // ── AI 도우미 ─────────────────────────────────────────────
   {
     id: "question-helper",
-    icon: "💬",
+    icon: "💡",
     title: "수업 후 질문·탐구 주제 도우미",
     section: "ai-tools",
     description: "수업 이후 질문 확장과 탐구 주제 발굴을 돕는 AI 도구. GPT와 Gemini 모두 제공",
