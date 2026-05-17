@@ -193,7 +193,20 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/saetuk-prompt", platform: "html" }]
   },
- 
+
+    {
+    id: "AI_Council_Room",
+    icon: "✨",
+    title: "AI 회의실",
+    section: "ai-tools",
+    description: "하나의 주제로 4개의 AI가 의견을 주고 받는 곳",
+    tags: ["AI", "회의, "토론"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/AI_Council_Room", platform: "html" }]
+  },
+  
   // ── 진로·취업 데이터 ──────────────────────────────────────
   {
     id: "career-counsel",
