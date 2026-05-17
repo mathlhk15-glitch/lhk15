@@ -200,7 +200,7 @@ const resources = [
     title: "AI 회의실",
     section: "ai-tools",
     description: "하나의 주제로 4개의 AI가 의견을 주고 받는 곳",
-    tags: ["AI", "회의, "토론"],
+    tags: ["AI", "회의", "토론"],
     featured: false,
     isNew: true,
     updatedAt: "2026-05",
