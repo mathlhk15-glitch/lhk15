@@ -278,7 +278,7 @@ const resources = [
     featured: false,
     isNew: true,
     updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: " https://mathlhk15-glitch.github.io/teacher-cert-finder", platform: "html" }]
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/teacher-cert-finder", platform: "html" }]
   },
 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
