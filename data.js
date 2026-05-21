@@ -268,6 +268,18 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/44law", platform: "html" }]
   },
+    {
+    id: "4teacher-cert-finder",
+    icon: "🧑‍🎓",
+    title: "교직이수과정기관 검색",
+    section: "career-data",
+    description: "교직이수과정기관 검색",
+    tags: ["교직이수", "사범대", "교사자격"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: " https://mathlhk15-glitch.github.io/teacher-cert-finder", platform: "html" }]
+  },
 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
