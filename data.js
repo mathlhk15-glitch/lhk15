@@ -269,7 +269,7 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/44law", platform: "html" }]
   },
     {
-    id: "4teacher-cert-finder",
+    id: "teacher-cert-finder",
     icon: "🧑‍🎓",
     title: "교직이수과정기관 검색",
     section: "career-data",
