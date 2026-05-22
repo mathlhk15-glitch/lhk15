@@ -282,9 +282,9 @@ const resources = [
   },
       {
     id: "localdoctor",
-    icon: "🧑‍🎓",
+    icon: "👨‍⚕️",
     title: "교직이수과정기관 검색",
-    section: "localdoctor",
+    section: "career-data",
     description: "지역의사제",
     tags: ["지역", "의사"],
     featured: false,
