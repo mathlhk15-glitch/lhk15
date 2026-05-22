@@ -24,16 +24,16 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi/", platform: "html" }]
   },
   {
-    id: "ipsi-2028-nachimban",
+    id: "gyeonggi-ipsi",
     icon: "🧭",
-    title: "2028 대입정보(경기진협 나침반)",
+    title: "경기진협 자료",
     section: "admission",
-    description: "경기진협에서 제공하는 2028학년도 대입정보 나침반 자료",
-    tags: ["수시", "대입정보", "나침반", "입시"],
+    description: "경기진협에서 제공하는 대입정보 모음",
+    tags: ["경기", "대입정보", "나침반", "입시"],
     featured: false,
     isNew: true,
     updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "2028 대입정보(경기진협 나침반).html", platform: "html" }]
+    links: [{ label: "바로가기", url: "https://specialzoker.github.io/", platform: "html" }]
   },
   {
     id: "ipsi-9grade-calc",
