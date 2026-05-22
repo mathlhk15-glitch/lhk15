@@ -59,7 +59,19 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "중간고사 성적으로 9등급 환산.html", platform: "html" }]
   },
-
+      {
+    id: "localdoctor",
+    icon: "👨‍⚕️",
+    title: "지역의사제",
+    section: "admission",
+    description: "지역의사제",
+    tags: ["지역", "의사"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/localdoctor", platform: "html" }]
+  },
+  
   // ── 교육과정·배치표 ────────────────────────────────────────
   {
     id: "curriculum-2026",
@@ -279,18 +291,6 @@ const resources = [
     isNew: true,
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/teacher-cert-finder", platform: "html" }]
-  },
-      {
-    id: "localdoctor",
-    icon: "👨‍⚕️",
-    title: "지역의사제",
-    section: "career-data",
-    description: "지역의사제",
-    tags: ["지역", "의사"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/localdoctor", platform: "html" }]
   },
 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
