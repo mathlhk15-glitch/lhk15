@@ -24,6 +24,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi/", platform: "html" }]
   },
   {
+    id: "2028ipsi",
+    icon: "🎯",
+    title: "2028 대입전형 정리(수도권,영남권 36개 대학)",
+    section: "admission",
+    description: "2028 수도권,영남권 대학 위주로 36개 대학 대입전형 정리",
+    tags: ["2028", "대입", "시행계획"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2028ipsi/", platform: "html" }]
+  },  
+  {
     id: "gyeonggi-ipsi",
     icon: "🧭",
     title: "경기진협 자료",
