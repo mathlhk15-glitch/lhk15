@@ -14,26 +14,14 @@ const resources = [
   {
     id: "ipsi-3rd",
     icon: "🎯",
-    title: "2026 3학년 수시 배치표",
+    title: "2026 수시 학생부교과 배치표",
     section: "admission",
-    description: "3학년 수시 지원 가능권을 빠르게 탐색하는 진학 상담용 자료. 교과전형 컷오프 포함",
+    description: "수시 학생부교과 지원 가능권을 빠르게 탐색하는 진학 상담용 자료. 교과전형 컷오프 포함",
     tags: ["수시", "교과전형", "입시", "배치표"],
     featured: true,
     isNew: false,
     updatedAt: "2026-04",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi/", platform: "html" }]
-  },
-  {
-    id: "ipsi-1-2nd",
-    icon: "🌱",
-    title: "2026 1·2학년 수시 배치표",
-    section: "admission",
-    description: "2028 입시 기준으로 1·2학년 수시 전략을 탐색하는 자료",
-    tags: ["수시", "2028입시", "입시", "배치표"],
-    featured: true,
-    isNew: false,
-    updatedAt: "2026-04",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2028ipsi/", platform: "html" }]
   },
   {
     id: "ipsi-2028-nachimban",
