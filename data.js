@@ -283,7 +283,7 @@ const resources = [
       {
     id: "localdoctor",
     icon: "👨‍⚕️",
-    title: "교직이수과정기관 검색",
+    title: "지역의사제",
     section: "career-data",
     description: "지역의사제",
     tags: ["지역", "의사"],
