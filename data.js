@@ -166,31 +166,17 @@ const resources = [
     links: [{ label: "GPTs로 열기", url: "https://chatgpt.com/g/g-6982925ee34881919b46f80dedfc8b02-seteug-saengseong", platform: "gpt" }]
   },
 
-
     {
-    id: "grade2-inquiry-planner",
-    icon: "🛠️",
-    title: "2학년 심화탐구활동 설계",
-    section: "ai-tools",
-    description: "1학년 생기부를 분석하여 2학년에서의 심화탐구활동 설계",
-    tags: ["2학년", "생기부 기반", "진로 연계", "심화탐구활동 설계"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/grade2-inquiry-planner", platform: "html" }]
-  },
-
-    {
-    id: "grade3-inquiry-planner",
+    id: "inquiry-planner",
     icon: "🚀",
-    title: "3학년 심화탐구활동 설계",
+    title: "진로연계 탐구성장 플랫폼",
     section: "ai-tools",
-    description: "1,2학년 생기부를 분석하여 3학년에서의 심화탐구활동 설계",
-    tags: ["3학년", "생기부 기반", "진로 연계", "심화탐구활동 설계"],
+    description: "이전 학년 생기부를 분석하여 지금 학년에서의 심화탐구활동 설계",
+    tags: ["생기부 기반", "진로 연계", "심화탐구활동 설계"],
     featured: false,
     isNew: true,
     updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/grade3-inquiry-planner", platform: "html" }]
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/inquiry-planner", platform: "html" }]
   },
 
     {
