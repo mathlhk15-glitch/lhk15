@@ -14,10 +14,10 @@ const resources = [
   {
     id: "ipsi-3rd",
     icon: "🎯",
-    title: "2026 수시 학생부교과 배치표",
+    title: "입결 탐색 상담",
     section: "admission",
-    description: "수시 학생부교과 지원 가능권을 빠르게 탐색하는 진학 상담용 자료. 교과전형 컷오프 포함",
-    tags: ["수시", "교과전형", "입시", "배치표"],
+    description: "수시 입결, 진주동명고선생님 자료 혼합",
+    tags: ["수시", "정시", "입결", "배치표"],
     featured: true,
     isNew: false,
     updatedAt: "2026-04",
