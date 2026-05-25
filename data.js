@@ -36,6 +36,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2028ipsi/", platform: "html" }]
   },  
   {
+    id: "2028ipsi",
+    icon: "🏥",
+    title: "2028 간호학과 전형 검색",
+    section: "admission",
+    description: "2028 간호학과 전형 검색",
+    tags: ["2028", "간호학과"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2028nurse/", platform: "html" }]
+  },  
+  {
     id: "gyeonggi-ipsi",
     icon: "🧭",
     title: "경기진협 자료",
