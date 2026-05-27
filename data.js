@@ -34,7 +34,8 @@ const resources = [
     isNew: true,
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/college-admissions-2027-2028/", platform: "html" }]
-  {
+  },
+    {
     id: "2028ipsi",
     icon: "🎯",
     title: "2028 대입전형 정리(수도권,영남권 36개 대학)",
