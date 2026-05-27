@@ -23,6 +23,17 @@ const resources = [
     updatedAt: "2026-04",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi/", platform: "html" }]
   },
+    {
+    id: "college-admissions-2027-2028",
+    icon: "🌳",
+    title: "2027,8 주요대학 대입전형 정리(이동균선생님)",
+    section: "admission",
+    description: "2027,2028 주요대학 전형 정리",
+    tags: ["2027", "2028", "대입", "전형정리"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/college-admissions-2027-2028/", platform: "html" }]
   {
     id: "2028ipsi",
     icon: "🎯",
