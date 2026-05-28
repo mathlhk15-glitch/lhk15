@@ -302,7 +302,18 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/teacher-cert-finder", platform: "html" }]
   },
-
+    {
+    id: "gyeongil-parent-test",
+    icon: "🐦‍⬛",
+    title: "학부모 교육성향 테스트",
+    section: "career-data",
+    description: "학부모님 대상 간단하게 교육성향 테스트",
+    tags: ["학부모", "교육성향", "테스트"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeongil-parent-test", platform: "html" }]
+  },
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
   //   id: "고유-아이디",          ← 영문+하이픈, 다른 항목과 겹치지 않게
