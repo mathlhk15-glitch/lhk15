@@ -38,10 +38,10 @@ const resources = [
     {
     id: "2028ipsi",
     icon: "🎯",
-    title: "2028 대입전형 정리(수도권,영남권 36개 대학)",
+    title: "2028 15개 대학 대입전형 정리",
     section: "admission",
-    description: "2028 수도권,영남권 대학 위주로 36개 대학 대입전형 정리",
-    tags: ["2028", "대입", "시행계획"],
+    description: "2028 15개 대학 대입전형 정리",
+    tags: ["2028", "15개 대학", "전형 정리"],
     featured: false,
     isNew: true,
     updatedAt: "2026-05",
