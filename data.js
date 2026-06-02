@@ -95,7 +95,20 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/localdoctor", platform: "html" }]
   },
-  
+  },
+      {
+    id: "esteacher",
+    icon: "👨‍⚕️",
+    title: "대입정보를 정리한 진학정보실",
+    section: "admission",
+    description: "진학정보실",
+    tags: ["진학", "정보실"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://jinhak.esteacher.kr/", platform: "html" }]
+  },
+    
   // ── 교육과정·배치표 ────────────────────────────────────────
   {
     id: "curriculum-2026",
