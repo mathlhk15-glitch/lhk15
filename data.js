@@ -228,7 +228,19 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/AI_Council_Room", platform: "html" }]
   },
-  
+  {
+    id: "student-growth-roadmap",
+    icon: "📗",
+    title: "학생부 성장 로드맵 v21",
+    section: "ai-tools",
+    description: "생기부 PDF 업로드 → AI 분석 → 과목별·창체별 맞춤 활동·세특·4주 실천 로드맵 자동 설계",
+    tags: ["생기부", "세특", "AI분석", "로드맵", "수시"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-06",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/student_growth_roadmap/", platform: "html" }]
+  },
+
   // ── 진로·취업 데이터 ──────────────────────────────────────
   {
     id: "career-counsel",

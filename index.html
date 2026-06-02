@@ -201,7 +201,7 @@
     }
     .ws-feature-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 14px;
     }
     .ws-feature-card {
@@ -226,6 +226,7 @@
     .ws-feature-card--susi::before { background: var(--success); }
     .ws-feature-card--counsel::before { background: var(--accent); }
     .ws-feature-card--archive::before { background: var(--gold); }
+    .ws-feature-card--roadmap::before { background: #10b981; }
 
     .ws-feature-card:hover {
       transform: translateY(-3px);
@@ -441,7 +442,10 @@
 
 
     /* 반응형 */
-    @media (max-width: 900px) {
+    @media (max-width: 1100px) {
+      .ws-feature-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 750px) {
       .ws-feature-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 600px) {
@@ -531,6 +535,15 @@
           <span class="ws-feature-card__icon">📚</span>
           <div class="ws-feature-card__title">자료실</div>
           <div class="ws-feature-card__desc">수시 입시·교육과정·AI 도우미·진로 데이터 자료 모음</div>
+        </a>
+
+        <a class="ws-feature-card ws-feature-card--roadmap"
+           href="https://mathlhk15-glitch.github.io/student_growth_roadmap/"
+           target="_blank" rel="noopener">
+          <span class="ws-feature-card__badge">새 창</span>
+          <span class="ws-feature-card__icon">📗</span>
+          <div class="ws-feature-card__title">학생부 성장 로드맵</div>
+          <div class="ws-feature-card__desc">생기부 PDF 업로드 → AI 분석 → 맞춤 활동·세특·4주 로드맵 설계 (v21)</div>
         </a>
 
       </div>
@@ -727,6 +740,9 @@
           </a>
           <a href="https://mathlhk15-glitch.github.io/susi/?${nameParam}" target="_blank" rel="noopener" style="font-size: 12px; color: var(--text-muted); text-decoration: underline;">
             생기부 분석 (새 창) ↗
+          </a>
+          <a href="https://mathlhk15-glitch.github.io/student_growth_roadmap/" target="_blank" rel="noopener" style="font-size: 12px; color: var(--text-muted); text-decoration: underline;">
+            학생부 성장 로드맵 (새 창) ↗
           </a>
           <a href="report.html?${nameParam}" target="_blank" rel="noopener" style="font-size: 12px; color: var(--text-muted); text-decoration: underline;">
             통합리포트 (새 창) ↗
