@@ -203,19 +203,6 @@ const resources = [
   },
 
     {
-    id: "inquiry-planner",
-    icon: "🚀",
-    title: "진로연계 탐구성장 플랫폼",
-    section: "ai-tools",
-    description: "이전 학년 생기부를 분석하여 지금 학년에서의 심화탐구활동 설계",
-    tags: ["생기부 기반", "진로 연계", "심화탐구활동 설계"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/inquiry-planner", platform: "html" }]
-  },
-
-    {
     id: "saetuk-prompt",
     icon: "🪄",
     title: "탐구활동지로 세특 프롬프트 생성기",
@@ -239,18 +226,6 @@ const resources = [
     isNew: true,
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/AI_Council_Room", platform: "html" }]
-  },
-  {
-    id: "student-growth-roadmap",
-    icon: "📗",
-    title: "학생부 성장 로드맵 v21",
-    section: "ai-tools",
-    description: "생기부 PDF 업로드 → AI 분석 → 과목별·창체별 맞춤 활동·세특·4주 실천 로드맵 자동 설계",
-    tags: ["생기부", "세특", "AI분석", "로드맵", "수시"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-06",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/student_growth_roadmap/", platform: "html" }]
   },
 
   // ── 진로·취업 데이터 ──────────────────────────────────────
