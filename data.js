@@ -26,7 +26,7 @@ const resources = [
     {
     id: "college-admissions-2027-2028",
     icon: "🌳",
-    title: "2027,8 주요대학 대입전형 정리(이동균선생님)",
+    title: "이동균선생님의 2027,8 주요대학, 메디컬계열 대입전형 정리",
     section: "admission",
     description: "2027,2028 주요대학 전형 정리",
     tags: ["2027", "2028", "대입", "전형정리"],
@@ -38,10 +38,10 @@ const resources = [
     {
     id: "2028ipsi",
     icon: "🎯",
-    title: "2028 15개 대학 대입전형 정리",
+    title: "2027,2028 15개 대학 대입전형 한눈에 보기, 비교 정리",
     section: "admission",
-    description: "2028 15개 대학 대입전형 정리",
-    tags: ["2028", "15개 대학", "전형 정리"],
+    description: "2027,20288 15개 대학 대입전형 정리",
+    tags: ["2027,8", "15개 대학", "전형 정리"],
     featured: false,
     isNew: true,
     updatedAt: "2026-05",
