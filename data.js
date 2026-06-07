@@ -48,6 +48,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2028ipsi/", platform: "html" }]
   },  
   {
+    id: "ipsi-2027",
+    icon: "🏥",
+    title: "2027 대입 대학별 핵심 가이드",
+    section: "admission",
+    description: "2027 대입 대학별 핵심 가이드",
+    tags: ["2027", "핵심 가이드"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/", platform: "html" }]
+  },  
+    {
     id: "2028nurse",
     icon: "🏥",
     title: "2028 간호학과 전형 검색",
