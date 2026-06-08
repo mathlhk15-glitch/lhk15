@@ -119,6 +119,18 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://jinhak.esteacher.kr/", platform: "html" }]
   },
+        {
+    id: "2027_essay",
+    icon: "👨‍⚕️",
+    title: "김강석선생님의 2027 논술전형 정리",
+    section: "admission",
+    description: "2027 논술전형",
+    tags: ["2027", "논술"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://kangseok15.github.io/2027_essay/", platform: "html" }]
+  },
     
   // ── 교육과정·배치표 ────────────────────────────────────────
   {
