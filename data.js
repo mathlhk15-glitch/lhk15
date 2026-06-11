@@ -254,6 +254,18 @@ const resources = [
 
   // ── 진로·취업 데이터 ──────────────────────────────────────
   {
+    id: "major-explorer",
+    icon: "🏫",
+    title: "대학별 전공 가이드",
+    section: "major-explorer",
+    description: "대학에서 제공하는 전공 가이드 모음",
+    tags: ["전공", "가이드", "대학제공"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-04",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/major-explorer/", platform: "html" }]
+  },  
+  {
     id: "career-counsel",
     icon: "🏫",
     title: "우리학교 진로상담 시스템",
