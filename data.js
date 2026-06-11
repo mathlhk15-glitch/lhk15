@@ -262,7 +262,7 @@ const resources = [
     tags: ["전공", "가이드", "대학제공"],
     featured: true,
     isNew: true,
-    updatedAt: "2026-04",
+    updatedAt: "2026-06",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/major-explorer/", platform: "html" }]
   },  
   {
