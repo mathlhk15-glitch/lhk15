@@ -257,7 +257,7 @@ const resources = [
     id: "major-explorer",
     icon: "🏫",
     title: "대학별 전공 가이드",
-    section: "career-dat",
+    section: "career-data",
     description: "대학에서 제공하는 전공 가이드 모음",
     tags: ["전공", "가이드", "대학제공"],
     featured: true,
