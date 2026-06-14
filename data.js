@@ -59,6 +59,18 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/", platform: "html" }]
   },  
+  {
+  id: "suwan-korean-2027",
+  icon: "📚",
+  title: "2027 수능완성 문학·독서 학습맵",
+  section: "admission",
+  description: "수능완성 문학·독서 63개 작품·지문 인터랙티브 학습맵. 입문 10선, 진로 연결, 오늘 하나만 읽기 등 루트 제공. 체크 기록 본인 기기 저장.",
+  tags: ["수능완성", "국어", "문학", "독서", "2027"],
+  featured: false,
+  isNew: true,
+  updatedAt: "2026-06",
+  links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/suwan-korean-2027.html", platform: "html" }]
+},
     {
     id: "2028nurse",
     icon: "🏥",
