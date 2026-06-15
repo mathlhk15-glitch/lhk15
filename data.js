@@ -278,6 +278,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/major-explorer/", platform: "html" }]
   },  
   {
+    id: "admission-roadmap",
+    icon: "🏫",
+    title: "계열별 대입 로드맵",
+    section: "career-data",
+    description: "계열별 대입 로드맵",
+    tags: ["계열", "대입", "로드맵"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-06",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2026-1-choice/admission-roadmap.html", platform: "html" }]
+  },    
+  {
     id: "career-counsel",
     icon: "🏫",
     title: "우리학교 진로상담 시스템",
