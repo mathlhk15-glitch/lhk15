@@ -47,6 +47,18 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2028ipsi/", platform: "html" }]
   },  
+    {
+  id: "2027-susi-counsel-hub",
+  icon: "📚",
+  title: "2027 수시 전형 탐색·상담 허브",
+  section: "admission",
+  description: "2027 수시",
+  tags: ["2027", "수시", "탐색"],
+  featured: false,
+  isNew: true,
+  updatedAt: "2026-06",
+  links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/2027-susi-counsel-hub.html", platform: "html" }]
+},
   {
     id: "ipsi-2027",
     icon: "🏥",
