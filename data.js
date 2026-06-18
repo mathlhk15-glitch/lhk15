@@ -83,6 +83,18 @@ const resources = [
   updatedAt: "2026-06",
   links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/suwan-korean-2027.html", platform: "html" }]
 },
+  {
+  id: "science-univ-2027",
+  icon: "📚",
+  title: "2027 이공계 특성화대 6개교 입시 안내 ",
+  section: "admission",
+  description: "2027 이공계 특성화대 6개교 입시 안내",
+  tags: ["2027", "이공계", "특셩화대"],
+  featured: false,
+  isNew: true,
+  updatedAt: "2026-06",
+  links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/science-univ-2027.html", platform: "html" }]
+},
     {
     id: "2028nurse",
     icon: "🏥",
