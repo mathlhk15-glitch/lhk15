@@ -274,7 +274,6 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/saetuk-prompt", platform: "html" }]
   },
-
     {
     id: "AI_Council_Room",
     icon: "✨",
@@ -287,7 +286,19 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/AI_Council_Room", platform: "html" }]
   },
-
+    {
+    id: "saeteck seosul",
+    icon: "✨",
+    title: "세특 작성 도움형 서술형 문장",
+    section: "ai-tools",
+    description: "세특 작성 도와주는 서술형 문장 모음",
+    tags: ["세특", "문장"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-06",
+    links: [{ label: "바로가기", url: "https://fastidious-brigadeiros-07cdae.netlify.app/", platform: "html" }]
+  },
+  
   // ── 진로·취업 데이터 ──────────────────────────────────────
   {
     id: "major-explorer",
