@@ -289,7 +289,7 @@ const resources = [
     {
     id: "saeteck seosul",
     icon: "✨",
-    title: "세특 작성 도움형 서술형 문장",
+    title: "박정민 선생님의 세특 작성 사용 서술형 문장 모음",
     section: "ai-tools",
     description: "세특 작성 도와주는 서술형 문장 모음",
     tags: ["세특", "문장"],
