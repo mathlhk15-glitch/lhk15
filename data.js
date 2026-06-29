@@ -13,7 +13,7 @@ const resources = [
   // ── 수시 입시 ──────────────────────────────────────────────
   {
     id: "ipsi-3rd",
-    icon: "🎯",
+    icon: "🐼",
     title: "입결 탐색 상담",
     section: "admission",
     description: "수시 입결, 진주동명고선생님 자료 혼합",
@@ -73,7 +73,7 @@ const resources = [
   },  
   {
   id: "suwan-korean-2027",
-  icon: "📚",
+  icon: "🌱",
   title: "2027 수능완성 문학·독서 학습맵",
   section: "admission",
   description: "수능완성 문학·독서 63개 작품·지문 인터랙티브 학습맵. 입문 10선, 진로 연결, 오늘 하나만 읽기 등 루트 제공. 체크 기록 본인 기기 저장.",
@@ -133,7 +133,7 @@ const resources = [
   },
       {
     id: "localdoctor",
-    icon: "👨‍⚕️",
+    icon: "🦉",
     title: "지역의사제",
     section: "admission",
     description: "지역의사제",
@@ -145,7 +145,7 @@ const resources = [
   },
       {
     id: "esteacher",
-    icon: "👨‍⚕️",
+    icon: "🐜",
     title: "대입정보를 정리한 진학정보실",
     section: "admission",
     description: "진학정보실",
@@ -157,7 +157,7 @@ const resources = [
   },
         {
     id: "2027_essay",
-    icon: "👨‍⚕️",
+    icon: "🐓",
     title: "김강석선생님의 2027 논술전형 정리",
     section: "admission",
     description: "2027 논술전형",
@@ -303,7 +303,7 @@ const resources = [
   },  
   {
     id: "admission-roadmap",
-    icon: "🏫",
+    icon: "🐶",
     title: "계열별 대입 로드맵",
     section: "career-data",
     description: "계열별 대입 로드맵",
@@ -315,7 +315,7 @@ const resources = [
   },    
   {
     id: "career-counsel",
-    icon: "🏫",
+    icon: "🍉",
     title: "우리학교 진로상담 시스템",
     section: "career-data",
     description: "창원경일고 데이터 기반 진로상담 시스템. 학교별 진학 현황, 학과 탐색, 상담 자료 통합 제공",
@@ -363,7 +363,7 @@ const resources = [
   },
     {
     id: "44law",
-    icon: "📄",
+    icon: "☘️",
     title: "재미난 44가지 법칙",
     section: "career-data",
     description: "재미난 44가지 법칙",
