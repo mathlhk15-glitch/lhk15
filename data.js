@@ -184,14 +184,14 @@ const resources = [
   {
     id: "bachi-2026-03",
     icon: "👥",
-    title: "2026 3월 배치표",
+    title: "2026 모의고사 배치표",
     section: "curriculum",
-    description: "2026년 3월 학급별 학생 배치 현황 자료",
-    tags: ["배치표", "학급"],
+    description: "2026년 모의고사 정시 배치표",
+    tags: ["배치표", "정시"],
     featured: true,
     isNew: false,
     updatedAt: "2026-03",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2026-3-bachi/", platform: "html" }]
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2026-bachi/", platform: "html" }]
   },
 
   // ── AI 도우미 ─────────────────────────────────────────────
