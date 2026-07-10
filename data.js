@@ -408,6 +408,19 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeongil-parent-test", platform: "html" }]
   },
+    {
+    id: "good-writingt",
+    icon: "🐦‍⬛",
+    title: "좋은 글 모음",
+    section: "career-data",
+    description: "좋은 글 모음",
+    tags: ["좋은 글"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/good-writing", platform: "html" }]
+  },
+
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
   //   id: "고유-아이디",          ← 영문+하이픈, 다른 항목과 겹치지 않게
