@@ -169,7 +169,7 @@ const resources = [
   },
         {
     id: "2027-yaksul-nonsul",
-    icon: "🐓",
+    icon: "🧹",
     title: "2027 약술형 논술 정리(최승후 선생님)",
     section: "admission",
     description: "2027 약술형 논술 정리",
@@ -424,7 +424,7 @@ const resources = [
   },
     {
     id: "good-writingt",
-    icon: "🐦‍⬛",
+    icon: "⚔️",
     title: "좋은 글 모음",
     section: "career-data",
     description: "좋은 글 모음",
