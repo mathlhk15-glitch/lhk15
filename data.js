@@ -167,7 +167,21 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://kangseok15.github.io/2027_essay/", platform: "html" }]
   },
-    
+        {
+    id: "2027-yaksul-nonsul",
+    icon: "🐓",
+    title: "2027 약술형 논술 정리(최승후 선생님)",
+    section: "admission",
+    description: "2027 약술형 논술 정리",
+    tags: ["2027", "약술형 논술"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/2027-yaksul-nonsul", platform: "html" }]
+  },
+
+
+  
   // ── 교육과정·배치표 ────────────────────────────────────────
   {
     id: "curriculum-2026",
