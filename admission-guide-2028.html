@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2027·2028 대입, 대학은 무엇을 보고 학생은 무엇을 준비해야 할까?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --ink:#16233d;
+  --body:#3b4763;
+  --muted:#6b7692;
+  --paper:#ffffff;
+  --wash:#f2f5fa;
+  --wash2:#e9eef7;
+  --line:#d9e1ee;
+  --blue:#2a5cab;
+  --blue-deep:#1d3f77;
+  --red:#c2402c;
+  --red-soft:#faeae6;
+  --hl:#ffe98a;
+  --green:#2e7d5b;
+  --green-soft:#e9f4ef;
+  --gray:#5b6478;
+  --gray-soft:#eceef3;
+  --amber:#b8790a;
+  --amber-soft:#fbeed9;
+  --radius:14px;
+  --maxw:980px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  color:var(--body);
+  background:var(--paper);
+  line-height:1.75;
+  font-size:16.5px;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
+.serif{font-family:'Noto Serif KR','Nanum Myeongjo',serif}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+mark{
+  background:linear-gradient(180deg, transparent 52%, var(--hl) 52%, var(--hl) 96%, transparent 96%);
+  color:inherit;font-weight:700;padding:0 2px;
+}
+.redpen{color:var(--red);font-weight:800}
+
+/* ---------- 근거 등급 배지 ---------- */
+.badge{
+  display:inline-flex;align-items:center;gap:4px;font-size:.72rem;font-weight:800;
+  border-radius:6px;padding:2px 9px;letter-spacing:.02em;white-space:nowrap;line-height:1.6;
+}
+.badge.confirmed{background:var(--green-soft);color:var(--green)}
+.badge.review{background:var(--amber-soft);color:var(--amber)}
+.badge.outlook{background:var(--wash2);color:var(--blue-deep)}
+.badge.explain{background:#eee8f7;color:#68479a}
+.badge.res2026{background:var(--gray-soft);color:var(--gray)}
+.badge-legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin:14px 0 6px;font-size:.83rem;color:var(--muted)}
+.badge-legend span{display:inline-flex;align-items:center;gap:6px}
+
+/* ---------- 내비게이션 ---------- */
+nav{
+  position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+}
+nav .inner{max-width:var(--maxw);margin:0 auto;padding:10px 22px;display:flex;gap:8px;align-items:center;overflow-x:auto;scrollbar-width:none}
+nav .inner::-webkit-scrollbar{display:none}
+nav .brand{font-weight:800;color:var(--ink);font-size:.85rem;white-space:nowrap;padding-right:10px;border-right:1px solid var(--line);margin-right:4px}
+nav a{
+  white-space:nowrap;font-size:.82rem;font-weight:600;color:var(--muted);
+  text-decoration:none;padding:5px 11px;border-radius:999px;border:1px solid transparent;
+}
+nav a:hover,nav a:focus-visible{color:var(--blue-deep);background:var(--wash);border-color:var(--line);outline:none}
+
+/* ---------- 히어로 ---------- */
+header.hero{background:var(--ink);color:#eef2fb;padding:60px 0 40px;position:relative;overflow:hidden}
+header.hero::after{
+  content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle at center, rgba(74,118,196,.35), transparent 70%);
+}
+.hero .eyebrow{
+  display:inline-block;font-size:.8rem;letter-spacing:.14em;font-weight:700;color:#a9bce0;
+  border:1px solid rgba(169,188,224,.4);border-radius:999px;padding:5px 14px;margin-bottom:22px;
+}
+.hero h1{
+  font-family:'Noto Serif KR',serif;font-weight:900;color:#fff;
+  font-size:clamp(1.6rem,4vw,2.5rem);line-height:1.42;margin-bottom:16px;position:relative;z-index:1;
+}
+.hero h1 .hl-dark{background:linear-gradient(180deg, transparent 55%, rgba(255,233,138,.32) 55%);padding:0 2px}
+.hero p.sub{font-size:1.0rem;color:#c3cfe8;max-width:640px;position:relative;z-index:1}
+.hero .meta{margin-top:22px;font-size:.85rem;color:#8fa2c9;position:relative;z-index:1}
+.hero .meta b{color:#dfe7f7}
+
+/* ---------- 기준일 안내 바 ---------- */
+.datebar{background:#0f1a30;color:#c3cfe8;padding:16px 0;border-top:1px solid rgba(255,255,255,.08)}
+.datebar .wrap{display:flex;gap:14px;align-items:flex-start;font-size:.86rem;line-height:1.6}
+.datebar .di{flex:none;background:#2a3c63;color:#fff;font-weight:800;font-size:.75rem;border-radius:6px;padding:3px 10px;margin-top:2px}
+.datebar b{color:#fff}
+
+/* ---------- 3분 핵심 안내 ---------- */
+.digest{background:var(--wash);border-bottom:1px solid var(--line);padding:44px 0 40px}
+.digest h2{font-size:1.35rem;margin-bottom:6px}
+.digest .sub2{color:var(--muted);font-size:.9rem;margin-bottom:22px}
+.digest ol{list-style:none;counter-reset:dg;display:grid;gap:10px;margin-bottom:26px}
+.digest ol li{
+  counter-increment:dg;background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:13px 16px 13px 50px;position:relative;font-size:.95rem;color:var(--ink);font-weight:600;
+}
+.digest ol li::before{
+  content:counter(dg);position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  width:26px;height:26px;border-radius:50%;background:var(--red);color:#fff;font-weight:800;font-size:.85rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.reader-map{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:760px){.reader-map{grid-template-columns:1fr 1fr}}
+.reader-map .rm{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 14px;font-size:.85rem}
+.reader-map .rm b{display:block;color:var(--blue-deep);font-size:.9rem;margin-bottom:6px}
+.reader-map .rm a{color:var(--body);text-decoration:none;border-bottom:1px dotted var(--line)}
+.reader-map .rm a:hover{color:var(--blue-deep)}
+
+/* ---------- 공통 섹션 ---------- */
+section{padding:58px 0}
+section.alt{background:var(--wash)}
+.part-label{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:800;letter-spacing:.1em;color:var(--red);margin-bottom:12px}
+.part-label::before{content:"";width:26px;height:3px;background:var(--red);border-radius:2px}
+h2{font-family:'Noto Serif KR',serif;font-weight:800;color:var(--ink);font-size:clamp(1.32rem,3vw,1.75rem);line-height:1.45;margin-bottom:14px}
+h3{color:var(--ink);font-weight:800;font-size:1.1rem;margin:34px 0 12px;padding-left:12px;border-left:4px solid var(--blue);line-height:1.5}
+p{margin-bottom:14px}
+.lead{font-size:1.03rem;color:var(--body)}
+ul.plain{list-style:none;margin:10px 0 16px}
+ul.plain li{padding:4px 0 4px 24px;position:relative}
+ul.plain li::before{content:"·";position:absolute;left:8px;color:var(--blue);font-weight:900}
+
+/* ---------- 근거 카드(구 인용카드) ---------- */
+.quote{background:#fff;border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:10px;padding:18px 20px;margin:20px 0;box-shadow:0 2px 10px rgba(22,35,61,.05)}
+.quote .q-body{font-family:'Noto Serif KR',serif;font-weight:700;color:var(--ink);font-size:1.0rem;line-height:1.75}
+.quote .q-src{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:.8rem;font-weight:700;color:var(--blue-deep)}
+
+/* ---------- 표 ---------- */
+.tbl-wrap{overflow-x:auto;margin:18px 0;border-radius:12px;border:1px solid var(--line);box-shadow:0 2px 10px rgba(22,35,61,.04)}
+table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:520px;background:#fff}
+thead th{background:var(--ink);color:#fff;font-weight:700;text-align:left;padding:11px 14px;font-size:.85rem;letter-spacing:.02em;white-space:nowrap}
+tbody td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:var(--wash)}
+td b{color:var(--ink)}
+td .num{color:var(--red);font-weight:800}
+.tbl-cap{font-size:.8rem;color:var(--muted);margin:-8px 0 18px;padding-left:2px}
+
+/* ---------- 포인트 박스 ---------- */
+.action{background:var(--green-soft);border:1px solid #cbe4d8;border-radius:12px;padding:16px 20px;margin:18px 0}
+.action .a-tag{display:inline-block;font-size:.75rem;font-weight:800;color:#fff;background:var(--green);border-radius:6px;padding:2px 10px;margin-bottom:8px;letter-spacing:.06em}
+.action p{margin:0;color:#274d3d}
+.warn{background:var(--red-soft);border:1px solid #f0cfc7;border-radius:12px;padding:16px 20px;margin:18px 0}
+.warn .a-tag{display:inline-block;font-size:.75rem;font-weight:800;color:#fff;background:var(--red);border-radius:6px;padding:2px 10px;margin-bottom:8px;letter-spacing:.06em}
+.warn p{margin:0;color:#6e2a1d}
+.note{background:var(--wash);border:1px dashed var(--line);border-radius:10px;padding:14px 18px;margin:16px 0;font-size:.9rem;color:var(--muted)}
+
+/* ---------- 진실 카드 ---------- */
+.truth{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;margin:26px 0;box-shadow:0 3px 14px rgba(22,35,61,.05)}
+.truth .t-no{font-family:'Noto Serif KR',serif;font-weight:900;font-size:.9rem;color:#fff;background:var(--red);display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:8px;margin-bottom:10px;padding:0 8px}
+.truth h3{border:none;padding:0;margin:0 0 12px;font-size:1.18rem;font-family:'Noto Serif KR',serif}
+
+/* ---------- 비교 카드 ---------- */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+.cmp{border-radius:12px;padding:20px 22px;border:1px solid var(--line);background:#fff}
+.cmp.bad{border-top:5px solid #b9c2d4}
+.cmp.good{border-top:5px solid var(--green)}
+.cmp.dont{border-top:5px solid var(--red)}
+.cmp h4{font-size:.98rem;color:var(--ink);margin-bottom:10px;font-weight:800}
+.cmp ul{list-style:none}
+.cmp li{padding:4px 0 4px 24px;position:relative;font-size:.92rem}
+.cmp.good li::before,.cmp.do li::before{content:"✓";position:absolute;left:2px;color:var(--green);font-weight:900}
+.cmp.bad li::before{content:"—";position:absolute;left:2px;color:#9aa5bd;font-weight:900}
+.cmp.dont li::before{content:"✕";position:absolute;left:2px;color:var(--red);font-weight:900}
+.cmp .verdict{margin-top:12px;font-size:.86rem;font-weight:700;border-top:1px dashed var(--line);padding-top:10px}
+.cmp.good .verdict{color:var(--green)}
+.cmp.bad .verdict{color:#7a86a3}
+
+/* ---------- 대학 카드(구조화) ---------- */
+.uni-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+@media(max-width:760px){.uni-grid{grid-template-columns:1fr}}
+.uni{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 18px;box-shadow:0 2px 10px rgba(22,35,61,.04);display:flex;flex-direction:column}
+.uni .u-name{font-family:'Noto Serif KR',serif;font-weight:900;color:var(--ink);font-size:1.14rem;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.uni .u-tag{font-size:.72rem;font-weight:700;color:var(--blue);background:var(--wash2);border-radius:6px;padding:2px 8px;letter-spacing:.02em}
+.uni dl{margin-top:12px;font-size:.87rem;line-height:1.65}
+.uni dt{display:flex;align-items:center;gap:6px;font-size:.72rem;font-weight:800;color:#fff;background:var(--gray);border-radius:5px;padding:2px 8px;width:fit-content;margin:10px 0 5px;letter-spacing:.01em}
+.uni dt.dt-go{background:var(--green)}
+.uni dt.dt-care{background:var(--red)}
+.uni dt.dt-28{background:var(--blue-deep)}
+.uni dt.dt-who{background:var(--amber)}
+.uni dd{margin:0 0 2px}
+
+/* ---------- 로드맵 ---------- */
+.road{border-left:3px solid var(--blue);margin:26px 0 10px;padding-left:0;list-style:none}
+.road>li{position:relative;padding:0 0 30px 30px}
+.road>li::before{content:"";position:absolute;left:-10px;top:6px;width:17px;height:17px;border-radius:50%;background:#fff;border:4px solid var(--blue)}
+.road .r-grade{font-family:'Noto Serif KR',serif;font-weight:900;color:var(--ink);font-size:1.1rem}
+.road .r-goal{display:inline-block;font-size:.78rem;font-weight:800;color:var(--blue-deep);background:var(--wash2);border-radius:6px;padding:2px 10px;margin:6px 0 8px}
+
+/* ---------- 체크리스트 ---------- */
+.check{list-style:none;margin:12px 0 18px}
+.check li{position:relative;padding:7px 0 7px 34px;border-bottom:1px dashed var(--line);font-size:.94rem}
+.check li::before{content:"";position:absolute;left:2px;top:11px;width:16px;height:16px;border:2px solid var(--blue);border-radius:4px;background:#fff}
+
+/* ---------- 5단계 스텝 ---------- */
+.steps{counter-reset:st;list-style:none;margin:18px 0}
+.steps li{counter-increment:st;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px 14px 58px;margin-bottom:10px;position:relative;font-size:.94rem}
+.steps li::before{content:counter(st);position:absolute;left:14px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem}
+.steps li b{color:var(--ink)}
+.steps li .ex{display:block;color:var(--muted);font-size:.86rem;margin-top:2px}
+
+/* ---------- 푸터 ---------- */
+footer{background:var(--ink);color:#b9c6e2;padding:44px 0 50px;font-size:.88rem}
+footer .f-title{font-family:'Noto Serif KR',serif;color:#fff;font-weight:800;font-size:1.05rem;margin-bottom:12px}
+footer p{margin-bottom:8px}
+
+@media print{
+  nav{display:none}
+  section{padding:26px 0}
+  .truth,.uni,.quote,.tbl-wrap{box-shadow:none;break-inside:avoid}
+  header.hero{padding:34px 0}
+  body{font-size:12.5px}
+}
+</style>
+</head>
+<body>
+
+<nav aria-label="문서 목차">
+  <div class="inner">
+    <span class="brand">진학탐구 안내</span>
+    <a href="#digest">3분 핵심</a>
+    <a href="#p1">핵심 결론</a>
+    <a href="#p2">7가지 확인사항</a>
+    <a href="#p3">전형 바로 알기</a>
+    <a href="#p4">학생부·수업</a>
+    <a href="#p5">면접</a>
+    <a href="#p6">14개 대학</a>
+    <a href="#p7">2028 개편</a>
+    <a href="#p8">학년별 전략</a>
+    <a href="#p9">유형별 전형</a>
+    <a href="#p10">보호자 가이드</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">2026 대학으로 찾아가는 톡톡 진학탐구 간담회 · 학생·보호자 안내자료</span>
+    <h1>2027·2028 대입,<br>대학은 <span class="hl-dark">무엇을 보고</span><br>학생은 <span class="hl-dark">무엇을 준비해야</span> 할까?</h1>
+    <p class="sub">이 자료는 건국대·경희대·고려대·동국대·서강대·서울대·서울시립대·성균관대·숙명여대·연세대·이화여대·중앙대·한국외대·한양대 — 14개 대학 입학 관계자 간담회 내용을 정리한 보고서를 바탕으로, 학생과 보호자가 실제 학교생활과 진학 준비에 활용할 수 있도록 재구성한 자료입니다.</p>
+    <p class="meta">경쟁률·충원율·합격자 비율 등 수치는 대학이 공개했거나 간담회에서 제시한 자료를 정리한 것이며,<br>일부 서술은 <b>보고서 작성자의 요약·해설</b>이 포함되어 있습니다. 근거 성격은 본문의 색상 배지로 구분했습니다.</p>
+  </div>
+  <div class="datebar">
+    <div class="wrap">
+      <span class="di">자료 기준</span>
+      <span><b>기준일 2026년 7월.</b> 본 자료의 경쟁률·충원율·합격자 비율 등 수치는 주로 <b>2026학년도 입시 결과</b>이며, 2027·2028학년도 내용은 간담회 시점의 계획·전망으로 대학별 공식 발표 이후 변경될 수 있습니다. 평균등급과 합격 사례는 <b>합격을 보장하는 기준이 아니라 지원 판단을 돕는 참고자료</b>입니다. 최종 지원 시에는 반드시 해당 학년도 대학 모집요강을 확인하십시오.</span>
+    </div>
+  </div>
+</header>
+
+<section id="digest" class="digest">
+  <div class="wrap">
+    <h2>먼저, 3분 핵심 안내</h2>
+    <p class="sub2">시간이 없다면 이 다섯 줄과 아래 '나의 학년 바로가기'만 읽어도 됩니다.</p>
+    <ol>
+      <li>내신등급만으로 합격 가능성을 판단하지 않습니다.</li>
+      <li>자연계는 지원 분야에 맞는 수학·과학 과목 선택이 중요합니다.</li>
+      <li>학생부에는 활동의 이름보다 동기·과정·역할·변화가 남아야 합니다.</li>
+      <li>수시 지원자도 수능최저학력기준(수능최저)을 준비해야 합니다.</li>
+      <li>대학 이름보다 나에게 유리한 전형을 먼저 찾아야 합니다.</li>
+    </ol>
+    <div class="reader-map">
+      <div class="rm"><b>고1 학생</b>과목 선택의 기초를 다지려면<br><a href="#p4">제4부 학생부·수업</a> · <a href="#p8">제8부 학년별 전략</a></div>
+      <div class="rm"><b>고2 학생</b>과목·탐구의 깊이를 점검하려면<br><a href="#p2">제2부 확인사항 4·7</a> · <a href="#p7">제7부 2028 개편</a> · <a href="#p8">제8부</a></div>
+      <div class="rm"><b>고3 학생</b>지원 전략을 짜려면<br><a href="#p2">제2부 확인사항 1·2·7</a> · <a href="#p3">제3부</a> · <a href="#p6">제6부 대학별</a> · <a href="#p9">제9부</a></div>
+      <div class="rm"><b>보호자님</b>전체 흐름을 이해하려면<br><a href="#p1">제1부</a> · <a href="#p2">제2부</a> · <a href="#p10">제10부</a></div>
+    </div>
+    <div class="badge-legend">
+      <span><span class="badge confirmed">확정</span>대학이 대입전형 시행계획에 이미 반영한 사항</span>
+      <span><span class="badge review">검토 중</span>간담회 당시 대학이 연구·검토 중이라고 밝힌 사항</span>
+      <span><span class="badge outlook">전망</span>입학처 설명 또는 보고서의 예상</span>
+      <span><span class="badge explain">간담회 설명</span>대학 관계자가 밝힌 평가 원칙·지원 경향</span>
+      <span><span class="badge res2026">2026 결과</span>2026학년도 입시 결과에 한정된 수치</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 제1부 ==================== -->
+<section id="p1">
+  <div class="wrap">
+    <span class="part-label">제1부</span>
+    <h2>먼저 알아야 할 가장 중요한 결론</h2>
+    <p class="lead">대학은 더 이상 학생을 <mark>내신등급 하나만으로 판단하지 않습니다.</mark> 대학에 따라 반영 정도는 다르지만, 다음 요소를 함께 살펴봅니다.</p>
+    <ul class="plain">
+      <li>어떤 과목을 <b>선택</b>했는가</li>
+      <li>선택한 과목에서 어느 정도 <b>성취</b>했는가</li>
+      <li>수업 중 무엇을 궁금해하고 어떻게 <b>탐구</b>했는가</li>
+      <li>활동에서 실제로 맡은 <b>역할</b>이 무엇인가</li>
+      <li>진로 관심이 여러 교과와 활동 속에서 어떻게 <b>발전</b>했는가</li>
+      <li>출결·협업·책임감 등 학교생활을 얼마나 <b>성실</b>하게 했는가</li>
+      <li><b>수능최저학력기준(이하 수능최저)</b>을 충족할 수 있는가</li>
+      <li>면접에서 학생부 활동을 <b>자신의 말로 설명</b>할 수 있는가</li>
+    </ul>
+    <div class="quote">
+      <span class="q-body">앞으로의 대입 준비는 다음 공식으로 이해할 수 있습니다 &nbsp;—&nbsp; 교과 성적 + 과목 선택 + 수업 활동 + 탐구의 깊이 + 수능 경쟁력 + 대학별 전형 이해</span>
+      <span class="q-src"><span class="badge outlook">전망</span>보고서 작성자의 요약</span>
+    </div>
+    <p>모든 학생이 여섯 요소를 똑같이 잘해야 하는 것은 아닙니다. 중요한 것은 <mark>내가 강점을 가진 요소를 많이 반영하는 전형을 찾는 것</mark>입니다. 이 자료의 목적이 바로 그 지도를 그려 드리는 데 있습니다.</p>
+
+    <h3>"내신 몇 등급이면 어느 대학 가나요?"만 물어서는 안 되는 이유</h3>
+    <p>내신등급은 여전히 중요합니다. 그러나 같은 등급대의 두 학생이라도 대학의 평가는 달라질 수 있습니다. 아래는 이해를 돕기 위해 구성한 가상의 예시입니다.</p>
+    <div class="grid2">
+      <div class="cmp bad">
+        <h4>학생 A (예시) — 내신 평균 1.8등급</h4>
+        <ul>
+          <li>공학계열 지원 희망</li>
+          <li>물리·기하 관련 과목을 선택하지 않음</li>
+          <li>세특에 공학 관련 탐구가 거의 없음</li>
+          <li>활동 대부분이 의학·생명 분야에 집중</li>
+        </ul>
+        <div class="verdict">등급은 높지만, "공학을 공부할 준비가 되었는가"에 답이 없습니다.</div>
+      </div>
+      <div class="cmp good">
+        <h4>학생 B (예시) — 내신 평균 2.2등급</h4>
+        <ul>
+          <li>공학계열 지원 희망</li>
+          <li>수학·물리 관련 과목을 충실히 이수</li>
+          <li>수업에서 전기회로·에너지 효율·반도체를 탐구</li>
+          <li>탐구 과정과 결과가 세특에 구체적으로 기록</li>
+        </ul>
+        <div class="verdict">교과 정성평가·학생부종합전형(학종)에서는 학생 B가 더 좋은 평가를 받을 가능성이 있습니다.</div>
+      </div>
+    </div>
+    <p>실제로 건국대 간담회에서는, 내신이 매우 우수해도 지원 계열의 핵심 과목을 이수하지 않거나 학생부의 진로 방향이 모집단위와 맞지 않으면 불리할 수 있다는 사례가 소개되었습니다(제2부의 실제 불합격 사례 참고). 즉 <mark>내신은 출발점이고, 과목 선택과 학생부의 내용이 최종 경쟁력에 영향을 줄 수 있습니다.</mark></p>
+  </div>
+</section>
+
+<!-- ==================== 제2부 ==================== -->
+<section id="p2" class="alt">
+  <div class="wrap">
+    <span class="part-label">제2부</span>
+    <h2>지원 전에 꼭 확인해야 할 7가지</h2>
+    <p class="lead">간담회에서 확인된 내용 중, 학생·보호자가 흔히 오해하기 쉬운 부분입니다. 데이터와 함께 하나씩 확인하세요.</p>
+
+    <div class="truth">
+      <span class="t-no">확인 1</span>
+      <h3>최초합격에서 떨어져도 끝난 게 아닙니다 — '충원율'을 이해하세요</h3>
+      <p>수시에서 최초합격자 발표에 이름이 없으면 낙담하기 쉽지만, 주요 대학에서는 최초합격자 중 상당수가 더 상위 대학으로 옮겨가고 그 자리가 <b>추가합격으로 채워지는 경우가 많습니다.</b></p>
+      <div class="note"><b>충원율의 정확한 의미:</b> 충원율 100%는 모집인원과 같은 수만큼 추가합격 통보가 이루어졌다는 뜻입니다. 예를 들어 10명 모집에 충원율 100%라면 약 10명이 추가로 합격 통보를 받았다는 의미이며, <b>최초합격자 전원이 빠졌다는 뜻과 정확히 같지는 않습니다</b>(추가합격자 중에서도 다시 등록을 포기하는 경우가 있습니다).</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>대학·전형</th><th>충원율<span class="badge res2026" style="margin-left:6px">2026 결과</span></th><th>참고</th></tr></thead>
+        <tbody>
+          <tr><td><b>서강대 교과</b></td><td class="num">440%<br><span style="font-weight:400;color:var(--muted);font-size:.82em">모집인원의 약 4.4배</span></td><td>명목 경쟁률 11:1, 수능최저 충족자 기준 실질 경쟁률은 약 1.57:1로 보고됨</td></tr>
+          <tr><td><b>한양대 서류형</b>(자연 선호학과)</td><td class="num">500~650%<br><span style="font-weight:400;color:var(--muted);font-size:.82em">모집인원의 약 5~6.5배</span></td><td>모집 인원 축소 속에서도 지원자가 유지되며 나타난 수치</td></tr>
+          <tr><td><b>건국대 KU지역균형</b></td><td class="num">225.6%<br><span style="font-weight:400;color:var(--muted);font-size:.82em">모집인원의 약 2.3배</span></td><td>실질 경쟁률은 약 3:1 수준으로 보고됨</td></tr>
+          <tr><td><b>성균관대 정시 다군</b></td><td class="num">최대 1,000%<br><span style="font-weight:400;color:var(--muted);font-size:.82em">모집인원의 약 10배</span></td><td>일부 모집단위에 한정된 사례</td></tr>
+        </tbody>
+      </table></div>
+      <div class="quote">
+        <span class="q-body">최초합격 탈락은 지원자가 부족해서가 아니라 나타날 수 있는 정상적인 흐름으로 설명되었습니다. 우수한 지원자 풀이 다른 대학으로 빠져나가며 추가합격으로 채워지는 구조이므로, 끝까지 기다리는 것이 좋다는 조언이 있었습니다.</span>
+        <span class="q-src"><span class="badge res2026">2026 결과</span>한양대 간담회 설명을 재구성함</span>
+      </div>
+      <div class="action"><span class="a-tag">실천 지침</span><p>1단계에 합격했으면 면접까지, 최초합격이 안 됐으면 추가합격 발표 마지막 날까지 <b>끝까지 기다리고, 끝까지 응시하십시오.</b> 연세대 간담회에서는 면접에 끝까지 참여한 학생의 최종 합격 가능성이 약 70% 수준으로 설명되었고, 한양대 면접형은 결시율이 약 20%로 보고되어 끝까지 응시하는 학생에게 상대적으로 유리할 수 있습니다.</p></div>
+    </div>
+
+    <div class="truth">
+      <span class="t-no">확인 2</span>
+      <h3>인터넷의 '합격 컷'을 그대로 믿으면 오차가 클 수 있습니다</h3>
+      <p>'어디가' 등에 공개되는 50%컷·70%컷은 <b>최종 등록자를 사후에 내신 등급으로 다시 줄 세운 참고치</b>입니다. 서류 평가 점수 자체를 보여주는 지표는 아닙니다.</p>
+      <div class="quote">
+        <span class="q-body">70%컷에 위치한 학생이 오히려 서류평가에서 높은 점수를 받았을 가능성도 있습니다. 컷 수치만 보고 지원 범위를 좁히면 컷이 해마다 올라가는 현상으로 이어질 수 있다는 설명이었습니다.</span>
+        <span class="q-src"><span class="badge explain">간담회 설명</span>서울대 간담회 설명을 재구성함</span>
+      </div>
+      <ul class="plain">
+        <li><b>이화여대:</b> 어문계열 70컷에는 외국어고 학생 등급이 섞여 있어(경제학과 합격자의 약 40%가 외국어고 출신으로 보고됨) 낮게 나타날 수 있습니다. 3등급 후반의 수치가 일반고 기준 합격선과 같다고 보기는 어렵다는 설명입니다.</li>
+        <li><b>성균관대:</b> 특히 종합전형에서는 컷 숫자의 참고 가치가 크지 않다는 의견이 제시되었습니다.</li>
+      </ul>
+      <div class="action"><span class="a-tag">실천 지침</span><p>컷은 참고 자료 중 하나로만 활용하고, 지원 범위는 컷보다 폭넓게 설계하는 것이 안전합니다. 담임·진로진학상담교사와의 상담에서 전형별 <b>실질 경쟁률과 충원율</b>까지 함께 살펴보시기 바랍니다.</p></div>
+    </div>
+
+    <div class="truth">
+      <span class="t-no">확인 3</span>
+      <h3>"일반고라서 불리하다"— 모든 전형에 해당하는 말은 아닙니다</h3>
+      <p>일반고라는 이유만으로 <b>모든 전형에서 불리한 것은 아닙니다.</b> 다만 전형에 따라 차이가 있어 확인이 필요합니다.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>대학·전형</th><th>일반고 비율<span class="badge res2026" style="margin-left:6px">2026 결과</span></th></tr></thead>
+        <tbody>
+          <tr><td>고려대 학교추천</td><td>합격자의 <span class="num">99.3%</span></td></tr>
+          <tr><td>건국대 KU지역균형</td><td>합격자의 <span class="num">100%</span></td></tr>
+          <tr><td>중앙대 지역균형</td><td>등록자의 <span class="num">100%</span></td></tr>
+          <tr><td>경희대 네오르네상스(자연)</td><td><span class="num">약 96%</span></td></tr>
+          <tr><td>서울시립대 학종</td><td>최종 합격 <span class="num">82.7%</span> (지원 79.5%)</td></tr>
+          <tr><td>연세대 활동우수형</td><td>최종 등록 <span class="num">약 70%</span></td></tr>
+          <tr><td style="color:var(--muted)">참고 — 고려대 계열적합(예외 사례)</td><td style="color:var(--muted)">특목고 비중 <span class="num">약 67.9%</span>로 반대 경향</td></tr>
+        </tbody>
+      </table></div>
+      <div class="quote">
+        <span class="q-body">일반고 학생들의 세특 기록 수준이 특목고나 자사고보다 낮지 않다는 취지의 설명이 있었습니다. 기록의 구체성만 놓고 보면 일반고에 강점이 있는 경우가 많다는 것입니다.</span>
+        <span class="q-src"><span class="badge explain">간담회 설명</span>경희대 간담회 설명을 재구성함</span>
+      </div>
+      <p>서강대 간담회에서는 일반고 지원자 수가 늘면 합격자 수도 함께 느는 경향이 있다는 설명이 있었고, 경남 학생의 서류 1단계 통과율은 다음과 같이 전국 평균을 웃도는 사례가 확인되었습니다.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>대학</th><th>경남 서류 통과율<span class="badge res2026" style="margin-left:6px">2026</span></th><th>전국 평균</th></tr></thead>
+        <tbody>
+          <tr><td>중앙대 (면접형 1단계)</td><td class="num">34.5%</td><td>25.1%</td></tr>
+          <tr><td>이화여대 (면접형 1단계)</td><td class="num">36.1%</td><td>29.4%</td></tr>
+          <tr><td>고려대 (면접전형 1단계)</td><td class="num">40.3%</td><td>35.7%</td></tr>
+        </tbody>
+      </table></div>
+      <p>다만 모든 대학·전형에 적용되는 결론은 아니며(위 표의 고려대 계열적합처럼 특목고 비중이 높은 전형도 있습니다), 우리 지역의 과제로 자주 언급된 것은 두 가지입니다. ① <b>지원 자체가 적다는 점</b>(서강대 간담회: "경쟁력이 없는 것이 아니라 지원 자체가 적다"는 취지의 분석), ② <b>수능최저 충족률</b>(확인 7 참고). 따라서 "이 대학은 일반고가 어렵다"고 단정하기보다, <mark>"이 대학에서 일반고 학생에게 상대적으로 유리한 전형은 무엇인가?"</mark>를 전형별로 확인하는 것이 정확합니다.</p>
+    </div>
+
+    <div class="truth">
+      <span class="t-no">확인 4</span>
+      <h3>내신 상위권도 탈락한 사례가 있습니다 — '과목 선택'을 함께 보세요</h3>
+      <p>건국대 간담회에서 소개된 <b>실제 불합격 사례</b>입니다. 모두 내신 최상위권이었습니다.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>지원 학과</th><th>불합격 관련 사유(간담회 설명)<span class="badge res2026" style="margin-left:6px">2026</span></th></tr></thead>
+        <tbody>
+          <tr><td>동물자원·식품(내신 공동 1등)</td><td><b class="redpen">화학Ⅰ·화학Ⅱ 미이수</b></td></tr>
+          <tr><td>사회환경공학부</td><td>물리Ⅱ 대신 지구과학Ⅱ 이수 (공대는 물리Ⅱ를 상대적으로 선호한다는 설명)</td></tr>
+          <tr><td>수학교육과</td><td>미적분 2등급(원점수 59점) + 교육 분야 관심 부족으로 평가됨</td></tr>
+          <tr><td>문화콘텐츠학과</td><td>음악 계열 과목 과다 이수로 학과 연관성이 약하게 평가됨</td></tr>
+        </tbody>
+      </table></div>
+      <p style="font-size:.86rem;color:var(--muted);margin-top:-8px">※ 특정 대학·특정 모집단위의 개별 사례이며, 모든 대학·모든 학과에 동일하게 적용되는 기준은 아닙니다.</p>
+      <h3 style="margin-top:26px">대학별로 과목 선택을 보는 강도는 다릅니다</h3>
+      <ul class="plain">
+        <li><b>비교적 엄격하게 보는 편:</b> 동국대(무전공 자연은 수학 3과목과 물리·화학을 이수한 지원자의 합격률이 90% 이상으로 보고됨), 중앙대(공학계열 지원자의 90% 이상이 물리를 수강했다는 설명), 한양대(자연계 미적분·기하 미이수가 교과 정성평가에서 불리하게 작용한 사례 보고), 연세대(공학계열 합격자의 약 90%가 물리Ⅰ·Ⅱ를 이수했다는 통계)</li>
+        <li><b>상대적으로 유연하게 보는 편:</b> 성균관대·서강대(전공적합성 자체를 평가 요소로 두지 않음 — 다만 "미적분·과학이 전혀 없는 극단적인 경우"는 불리할 수 있다는 설명), 서울시립대(물리를 이수하지 않아도 되는 학과가 많다는 설명), 한국외대(권장 과목을 별도로 공표하지 않음)</li>
+      </ul>
+      <div class="action"><span class="a-tag">실천 지침 — 자연계</span><p>자연계 지원자는 희망 모집단위의 기초가 되는 수학·과학 과목을 우선적으로 이수하는 것이 중요합니다. 특히 공학계열에서는 <b>미적분·기하와 물리</b>, 화학·생명계열에서는 <b>화학·생명과학</b>의 이수와 성취가 여러 대학에서 중요하게 언급되었습니다. 확률과통계까지 포함한 폭넓은 수학 이수는 도움이 될 수 있으나, 모든 과목을 무리하게 선택하기보다 희망 계열과 자신의 학업 수준을 함께 고려해야 합니다. 학교에 필요한 과목이 개설되지 않았다면 공동교육과정·온라인 과정으로 보완하되, <b>무리한 선택으로 성취도가 낮아지면 오히려 역효과</b>가 될 수 있다는 점도 함께 고려하십시오.</p></div>
+      <h3 style="margin-top:26px">인문·사회계열은 '강제'보다 '연결'이 중요합니다</h3>
+      <p>인문계열은 특정 과목 미이수가 직접적 불이익으로 이어지는 경우가 상대적으로 적다는 설명이 많았습니다. 다만 다음과 같은 연결은 도움이 됩니다.</p>
+      <ul class="plain">
+        <li>경영·경제 → 경제, 수학, 사회현상 분석</li>
+        <li>정치·행정 → 정치와 법, 사회문화, 역사</li>
+        <li>미디어·언론 → 사회문화, 국어, 정보 분석</li>
+        <li>교육 → 교과 학업역량과 교육 문제에 대한 관심</li>
+        <li>외국어·국제 → 외국어, 문화, 국제사회 탐구</li>
+      </ul>
+      <p>과목 이름만 맞추는 것보다 <mark>그 과목에서 무엇을 배웠고 어떻게 생각을 발전시켰는가</mark>가 더 중요하다는 것이 공통된 설명입니다.</p>
+    </div>
+
+    <div class="truth">
+      <span class="t-no">확인 5</span>
+      <h3>좋은 학생부는 '화려한 학생부'가 아니라 '구체적인 학생부'입니다</h3>
+      <p>여러 대학에서 공통으로 언급된 원칙 — <mark>추상적인 칭찬보다, 학생이 실제로 한 활동과 생각의 변화가 중요합니다.</mark></p>
+      <div class="grid2">
+        <div class="cmp bad">
+          <h4>도움이 적은 기록</h4>
+          <ul>
+            <li>"학업역량이 매우 우수함"</li>
+            <li>"창의적 사고력이 뛰어남"</li>
+            <li>"적극적으로 수업에 참여함"</li>
+            <li>"진로에 대한 열정이 돋보임"</li>
+            <li>진로 희망·학과명을 반복 기재</li>
+          </ul>
+          <div class="verdict">이런 표현만으로는 학생이 실제로 무엇을 했는지 알기 어렵습니다.</div>
+        </div>
+        <div class="cmp good">
+          <h4>도움이 되는 기록</h4>
+          <ul>
+            <li>어떤 주제를, 왜 탐구했는지</li>
+            <li>어떤 자료와 방법을 사용했는지</li>
+            <li>처음 생각과 최종 결론이 어떻게 달라졌는지</li>
+            <li>어려움·오류를 어떻게 수정했는지</li>
+            <li>모둠에서 어떤 역할을 맡았고, 후속 탐구는 무엇이었는지</li>
+          </ul>
+          <div class="verdict">과정과 근거가 보이는 기록이 좋은 평가를 받는 경향이 있습니다.</div>
+        </div>
+      </div>
+      <div class="quote">
+        <span class="q-body">내신이 매우 우수하더라도 세특에 역량의 근거가 충분히 드러나지 않으면 좋은 평가를 받기 어렵다는 설명이 있었습니다. 등급 간의 작은 차이보다 학습의 깊이와 그 근거가 평가의 핵심이라는 취지입니다.</span>
+        <span class="q-src"><span class="badge explain">간담회 설명</span>서울대 간담회 설명을 재구성함</span>
+      </div>
+      <div class="quote">
+        <span class="q-body">창의적 체험활동은 수업(교과 세특)의 평가를 대신할 수 없으며, 평가의 중심은 전 과목의 성취와 교과 세특이라는 설명이 있었습니다.</span>
+        <span class="q-src"><span class="badge explain">간담회 설명</span>서강대 간담회 설명을 재구성함</span>
+      </div>
+      <p>학생이 할 수 있는 일은 명확합니다. <b>수업에 실제로 참여하고, 궁금한 것을 실제로 파고들고, 그 과정을 선생님이 관찰할 수 있게 하는 것.</b> 학생부는 교사가 관찰한 사실의 기록이므로, 활동 없이 기록만 좋게 만들 방법은 없습니다. (구체적 방법은 제4부의 '수업에서 남겨야 할 다섯 가지 흔적' 참고)</p>
+    </div>
+
+    <div class="truth">
+      <span class="t-no">확인 6</span>
+      <h3>면접에서 순위가 바뀌는 경우가 많습니다 — 말솜씨보다 이해도</h3>
+      <p>1단계 서류합격자 중 면접 이후 최종 합격 여부가 바뀐 비율(면접 역전 관련 통계)입니다.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>대학</th><th>면접 후 순위 변동 비율<span class="badge res2026" style="margin-left:6px">2026</span></th><th>비고</th></tr></thead>
+        <tbody>
+          <tr><td><b>숙명여대</b></td><td class="num">74.2% (1배수권)</td><td>3배수권에서도 약 55%가 합격권에 진입한 것으로 보고됨</td></tr>
+          <tr><td><b>서울시립대</b></td><td class="num">약 59%</td><td>면접 반영 비율 50%</td></tr>
+          <tr><td><b>동국대</b></td><td class="num">인문 51.2% / 자연 48.7%</td><td>서류 41등이 최종 17등으로 합격한 사례가 소개됨</td></tr>
+          <tr><td><b>한국외대 면접형</b></td><td class="num">서울 40.4%</td><td>서류 1배수 안에서도 순위 변동 발생</td></tr>
+          <tr><td>연세대·성균관대</td><td>상대적으로 낮음</td><td>면접까지 완주하는 것 자체가 관건으로 언급됨</td></tr>
+        </tbody>
+      </table></div>
+      <ul class="plain">
+        <li><b>외운 답보다 '이해'를 확인한다는 설명입니다.</b> 숙명여대는 한 활동당 꼬리 질문을 여러 개(최대 약 6개) 이어간다고 밝혔습니다.</li>
+        <li><b>유창함보다 '주장과 근거'를 본다는 설명입니다.</b> 서울시립대는 답변이 막히면 칠판에 써 보게 하는 등 다른 기회를 준다고 밝혔습니다.</li>
+        <li><b>막혀도 만회할 수 있다는 설명입니다.</b> 건국대는 다른 질문으로 기회를 주고, 이후에 잘 답하면 충분히 만회될 수 있다고 밝혔습니다.</li>
+      </ul>
+      <div class="action"><span class="a-tag">실천 지침</span><p>면접 대비의 핵심은 '자기 학생부에 적힌 활동을 자기 언어로 설명하는 연습'입니다. 자세한 준비 방법은 제5부를 참고하세요.</p></div>
+    </div>
+
+    <div class="truth">
+      <span class="t-no">확인 7</span>
+      <h3>우리 지역의 과제로 자주 언급되는 것 — 수능최저</h3>
+      <p>한양대 간담회에서는 경남을 전국 17개 시도 중 <b class="redpen">수능최저 충족률이 낮은 편</b>으로 언급했습니다.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>대학·전형</th><th>경남 충족률<span class="badge res2026" style="margin-left:6px">2026</span></th><th>비교</th></tr></thead>
+        <tbody>
+          <tr><td>고려대 학업우수</td><td class="num">인문 29.2% · 자연 26.3%</td><td>서류가 좋아도 최저 미충족 시 불합격</td></tr>
+          <tr><td>성균관대</td><td class="num">약 60%</td><td>전국 65~70%</td></tr>
+          <tr><td>중앙대 지역균형</td><td class="num">64.7% → 56.5%</td><td>2년 연속 하락 추세로 보고됨</td></tr>
+        </tbody>
+      </table></div>
+      <p>반대로 수능최저를 충족하면 <mark>실질 경쟁자 수가 크게 줄어 합격 가능성이 높아질 수 있습니다.</mark> 서강대 교과는 최저(3개 영역 각 3등급) 충족 시 실질 경쟁률이 1.57:1 수준으로 보고되었고, 한국외대 교과는 최저 충족 시 경쟁률이 1점대로 낮아지는 학과도 있다는 설명이었습니다.</p>
+      <div class="warn"><span class="a-tag">주의</span><p>"수시로 갈 계획이니 수능은 준비하지 않아도 된다"는 판단이 지역 학생들에게 아쉬운 결과로 이어지는 경우가 많다는 지적이 있었습니다. 국·수·영·탐 중 <b>자신 있는 3개 영역을 정해 3등급 이내를 목표로 꾸준히 관리</b>하는 것이 수시 준비에도 도움이 됩니다. 아울러 교과 전형에서 최저를 충족하지 못할 경우를 대비해 <b>같은 대학의 학생부종합전형(학종)을 함께 지원</b>하는 것도 서강대 간담회에서 권장된 전략입니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 제3부 ==================== -->
+<section id="p3">
+  <div class="wrap">
+    <span class="part-label">제3부</span>
+    <h2>전형 바로 알기 — 이름이 같아도 내용이 다릅니다</h2>
+
+    <h3>학생부교과전형도 모두 같은 전형이 아닙니다</h3>
+    <p>학생부교과전형을 "내신만 보는 전형"으로 생각하기 쉽지만, 대학마다 평가 방식에 차이가 있습니다.</p>
+    <div class="grid2">
+      <div class="cmp good">
+        <h4>① 내신 정량평가 중심 대학 — 서강대·중앙대</h4>
+        <ul>
+          <li>별도의 정성평가 없음 (정량 중심)</li>
+          <li>대학별 교과 환산점수·반영 과목이 핵심 변수</li>
+          <li>수능최저 충족 여부가 직접적 영향</li>
+          <li>충원율까지 확인하면 실질 경쟁률을 가늠할 수 있음</li>
+        </ul>
+        <div class="verdict">세특보다 내신 환산점수와 수능최저 충족이 상대적으로 중요합니다.</div>
+      </div>
+      <div class="cmp good">
+        <h4>② 내신 + 정성평가 결합 대학 — 건국·동국·성균관·이화·한양 등</h4>
+        <ul>
+          <li>지원 계열 관련 과목을 선택했는가</li>
+          <li>어렵거나 필요한 과목을 의도적으로 피하지 않았는가</li>
+          <li>세특에 학업 태도와 탐구 과정이 나타나는가</li>
+          <li>출결과 학교생활은 성실한가</li>
+        </ul>
+        <div class="verdict">건국대는 정량 점수 차이가 작다는 점(올1등급과 올2등급의 차이 약 2.1점)을 근거로, 정성평가 30%가 합격자 변별에 상당한 영향을 줄 수 있다고 설명했습니다.</div>
+      </div>
+    </div>
+    <div class="note">교과전형 검토 시 확인할 7가지 질문 — ① 내신 100% 정량인가? ② 서류·정성평가가 포함되나? ③ 어떤 교과·과목을 반영하나? ④ 진로선택과목 성취도는 어떻게 환산하나? ⑤ 수능최저가 있나? ⑥ 학교별 추천 인원 제한이 있나? ⑦ 충원율이 높은 전형인가?</div>
+
+    <h3>명목 경쟁률 · 실질 경쟁률 · 충원율 — 세 숫자를 함께 보세요</h3>
+    <ul class="plain">
+      <li><b>명목 경쟁률:</b> 전체 지원자 수 ÷ 모집인원</li>
+      <li><b>실질 경쟁률:</b> 수능최저 미충족자·결시자·자격 미달자를 제외한 실제 경쟁 인원 기준</li>
+      <li><b>충원율:</b> 모집인원 대비 추가합격 통보 인원의 비율(위 확인 1 참고)</li>
+    </ul>
+    <div class="quote">
+      <span class="q-body">모집 10명에 200명이 지원하면 표면 경쟁률은 20:1입니다. 그러나 수능최저 충족자가 60명이라면 실질 경쟁률은 60 ÷ 10 = 6:1로 낮아지고, 여기에 결시와 충원까지 고려하면 실제 합격 가능성은 표면 숫자보다 높아질 수 있습니다.</span>
+      <span class="q-src"><span class="badge outlook">전망</span>실질 경쟁률 계산 예시(보고서 작성자 구성)</span>
+    </div>
+    <p>지원 판단에서는 최근 3개년 경쟁률, 수능최저 충족률, 충원율, 최종등록자 성적, 고교유형별 합격 비율, 모집인원 증감, 전형방법 변경을 함께 살펴보는 것이 정확합니다. 대학별 세부 자료는 진로진학상담실 상담을 통해 확인할 수 있습니다.</p>
+
+    <h3>수능최저는 '마지막에 준비하는 조건'이 아닙니다</h3>
+    <p>학생부가 우수해도 수능최저 미충족으로 불합격하는 사례가 많고, 반대로 표면 경쟁률이 높아도 최저 미충족자를 제외하면 실질 경쟁률이 크게 내려가는 전형도 많습니다. 학생 유형별 전략은 다음과 같습니다.</p>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>학생 유형</th><th>전략</th></tr></thead>
+      <tbody>
+        <tr><td><b>내신은 우수, 수능이 약함</b></td><td>수능최저 없는 학종·교과전형 확인(동국대는 논술을 제외하면 수능최저가 없다고 안내됨) / 면접형 전형 활용 / 고1·2부터 수능 기본학습 병행</td></tr>
+        <tr><td><b>내신보다 수능이 강함</b></td><td>수능최저가 높은 교과전형 / 논술전형 / 정시 / 학생부 반영이 적은 전형</td></tr>
+        <tr><td><b>둘 다 안정적</b></td><td>교과·학종·논술 조합 / 최저 충족률이 낮은 대학을 전략적으로 활용 / 충원율 높은 모집단위까지 검토</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>자율전공·무전공은 "진로가 없는 학생이 가는 곳"이 아닙니다</h3>
+    <p>여러 대학 간담회에서 공통으로 언급된 선호 특성은 다음과 같습니다 — 특정 학과에 억지로 맞추지 않았지만 <b>관심 분야를 꾸준히 탐색</b>한 학생, 스스로 질문을 만들고 해결 방법을 찾아본 학생, 여러 과목의 지식을 자기 관심 주제 안에서 연결한 학생.</p>
+    <div class="quote">
+      <span class="q-body">건국대 KU자율전공학부는 성적만이 아니라 자기주도성·창의적 문제해결력·경험의 다양성 같은 성장역량을 함께 평가한다는 설명이었습니다. 여기서 '경험의 다양성'은 인문·자연 활동을 무작정 섞는 것이 아니라, 자기 관심 영역을 여러 교과와 활동으로 깊고 풍부하게 확장하는 것을 의미한다고 안내되었습니다.</span>
+      <span class="q-src"><span class="badge explain">간담회 설명</span>건국대 간담회 설명을 재구성함(183명 학종 선발)</span>
+    </div>
+    <div class="note"><b>자율전공 지원 전 반드시 확인:</b> 모든 전공을 자유롭게 선택할 수 있는가 / 의학·사범·예체능 등 제외 전공이 있는가 / 성적·정원 제한이 있는가 / 인기 전공 쏠림 시 배정 방식 / 캠퍼스 간 이동 가능 여부 / 전공 변경·복수전공의 자유도. (예: 한양대 인터칼리지는 모집 규모가 커 지원이 몰리는 경향이 보고되었고, 서울시립대 자유전공 자연은 인공지능 계열 진입이 많다는 설명이 있었습니다.)</div>
+  </div>
+</section>
+
+<!-- ==================== 제4부 ==================== -->
+<section id="p4" class="alt">
+  <div class="wrap">
+    <span class="part-label">제4부</span>
+    <h2>학생부는 '마지막에 꾸미는 서류'가 아닙니다 — 수업에서 남겨야 할 다섯 가지 흔적</h2>
+    <p class="lead">학생부 기록은 교사가 작성하지만, <mark>기록할 수 있는 근거는 학생의 수업 참여에서 만들어집니다.</mark> 평소 수업에서 다음 다섯 가지 흔적을 남기세요.</p>
+    <ol class="steps">
+      <li><b>질문의 흔적</b> — 수업 내용을 듣고 끝내지 말고 궁금한 점을 만드세요.<span class="ex">예: "이 이론이 현실에서도 같은 결과를 보일까?" "이 자료의 출처와 신뢰도는 충분한가?" "서로 다른 자료가 다른 결론을 내리는 이유는?"</span></li>
+      <li><b>자료 탐색의 흔적</b> — 검색 결과를 그대로 옮기지 말고 자료를 비교하세요.<span class="ex">국가기관 통계 · 학술자료 · 공공데이터 · 신뢰할 수 있는 언론 보도 · 직접 조사한 설문과 관찰자료</span></li>
+      <li><b>사고 변화의 흔적</b> — 좋은 탐구는 처음부터 완벽한 결론을 내리는 활동이 아닙니다.<span class="ex">예: "처음에는 원인이 A라고 생각했지만, 자료를 비교한 결과 B와 C도 함께 작용함을 확인함."</span></li>
+      <li><b>문제 해결의 흔적</b> — 실패와 수정의 과정이 곧 역량의 증거입니다.<span class="ex">자료 부족 시 다른 자료를 찾음 · 실험 실패 원인을 분석해 조건을 바꿈 · 설문 문항 오류를 발견해 수정함 · 모둠 의견 충돌 시 기준을 정해 조정함</span></li>
+      <li><b>후속 탐구의 흔적</b> — 하나의 활동이 끝난 뒤 다음 질문으로 이어지면 깊이가 드러납니다.<span class="ex">조사 결과로 지역별 차이를 추가 분석 · 이론을 실제 사례에 적용 · 다른 교과 개념과 연결해 설명</span></li>
+    </ol>
+
+    <h3>학생부종합전형(학종)이 공통으로 보는 세 가지 역량</h3>
+    <p>대학마다 이름과 비율은 다르지만, 대체로 다음 세 영역을 평가한다고 안내되었습니다.</p>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>역량</th><th>이런 것이 아닙니다</th><th>이런 것입니다</th></tr></thead>
+      <tbody>
+        <tr><td><b>학업역량</b></td><td>시험 성적만</td><td>교과 성취도 + 학업 태도 + 지적 호기심 + 탐구력 + 어려운 내용을 끝까지 해결하는 태도 + 배운 내용을 다른 문제에 적용하는 능력</td></tr>
+        <tr><td><b>진로역량<br>(자기계발역량)</b></td><td>희망 학과명 반복 기재</td><td>관심 분야 관련 과목 선택 + 수업에서의 관련 탐구 + 관심이 구체화·확장된 과정. <b>진로가 바뀌어도 무방하다는 설명이 많았습니다</b> — 중요한 것은 왜 바뀌었고 바뀐 뒤 어떤 탐색을 했는가입니다.</td></tr>
+        <tr><td><b>공동체역량</b></td><td>반장·학생회 경험만</td><td>출결과 시간 약속 + 맡은 역할의 책임감 + 갈등 조정 경험 + 모둠 기여 + 배려와 나눔 + 규칙 준수</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>대학별 '기재를 보는 눈' — 알아두면 수업 태도가 달라집니다</h3>
+    <ul class="plain">
+      <li><b>경희대:</b> 미사여구 위주의 기록보다, 수업에서 어떤 주제로 무슨 발표·활동을 했는지 객관적 사실을 적는 것이 더 유용하다는 설명이 있었습니다.</li>
+      <li><b>서울대:</b> 1학년의 미숙함은 자연스럽고, 3학년 심화 과목에서 가장 완숙한 학업역량이 드러나는 것이 이상적이라는 안내입니다. 1학년부터 완벽한 세특은 오히려 의심을 살 수 있다는 설명도 있었습니다. 대학 수준의 어려운 용어를 과시하기보다 <b>교과 기본 원리의 완전한 이해</b>를 보여주는 편이 좋게 평가된다는 취지입니다.</li>
+      <li><b>서강대·서울대 공통:</b> 성취도(등급·원점수)와 세특 내용이 서로 맞아떨어져야 한다는 설명입니다. 1등급인데 성취도가 낮게 기록되면 불리하게 읽힐 수 있습니다.</li>
+      <li><b>중앙대:</b> 비슷한 수준의 학생부가 많다 보니, 자기만의 색깔이 드러나는 기록이 눈에 띈다는 설명이 있었습니다. 모든 활동을 개인 탐구 하나로 채우기보다, 동아리에서는 협력하는 모습이 함께 드러나는 것이 좋다는 안내입니다.</li>
+      <li><b>서울시립대:</b> 평가 키워드는 '적정'이라는 설명입니다. 영어 수업 활동을 억지로 특정 전공(예: 반도체)으로 끝맺는 식의 과도한 전공 연결은 오히려 부자연스럽게 읽힐 수 있습니다.</li>
+      <li><b>이화여대:</b> 발전가능성 평가에 <b>비주요교과(음악·미술·체육·기술가정) 성취도까지</b> 포함된다는 안내입니다. 예체능 과목도 소홀히 하지 않는 것이 좋습니다.</li>
+    </ul>
+    <div class="quote">
+      <span class="q-body">사설 컨설팅에서 만들어진 획일적인 기록보다, 학교 수업에서 실제로 나타난 학생의 개별성과 성장 과정이 평가에 더 중요하게 작용한다는 설명이 있었습니다. 문장이 매끄러운지보다 학생의 실제 특성이 드러나는지가 관건이라는 취지입니다.</span>
+      <span class="q-src"><span class="badge explain">간담회 설명</span>한국외대 간담회 설명을 재구성함</span>
+    </div>
+
+    <h3>공동교육과정·온라인 수업 — '들었다'는 사실보다 활용 과정</h3>
+    <p>학교에 필요한 과목이 없다면 공동교육과정이나 온라인 수업으로 보완할 수 있습니다. 다만 대학은 이수 사실 자체보다 <b>왜 선택했고, 무엇을 배웠고, 기존 교과·진로 탐구와 어떻게 연결했는가</b>를 본다는 설명이 많았습니다. 건국대는 공동교육과정에서 다수가 높은 성취도를 받는 구조라 이수 사실만으로는 우대가 어렵고, 구체적 관심과 탐구 내용이 세특에 드러나는 것이 중요하다고 설명했습니다.</p>
+  </div>
+</section>
+
+<!-- ==================== 제5부 ==================== -->
+<section id="p5">
+  <div class="wrap">
+    <span class="part-label">제5부</span>
+    <h2>면접 — 말솜씨보다 '자기 활동을 이해한 학생'이 유리합니다</h2>
+    <p class="lead">학생부 기반 면접에서 확인하는 것으로 안내된 내용입니다 — 활동을 실제로 했는가 / 목적과 과정을 이해하는가 / 사용한 개념과 자료를 설명할 수 있는가 / 결과의 한계를 아는가 / 본인이 맡은 역할이 무엇인가.</p>
+
+    <h3>면접에서 자주 이어지는 질문 구조 (5단계, 예시)</h3>
+    <ol class="steps">
+      <li><b>사실 확인</b><span class="ex">"이 활동을 하게 된 계기는 무엇인가요?"</span></li>
+      <li><b>과정 확인</b><span class="ex">"자료는 어디에서 찾았고 어떤 기준으로 선택했나요?"</span></li>
+      <li><b>개념 확인</b><span class="ex">"활동에 사용한 핵심 개념을 설명해 보세요."</span></li>
+      <li><b>역할 확인</b><span class="ex">"모둠 활동에서 본인이 직접 담당한 부분은 무엇인가요?"</span></li>
+      <li><b>확장 질문</b><span class="ex">"다시 탐구한다면 어떤 점을 보완하겠습니까?"</span></li>
+    </ol>
+    <p>숙명여대는 이런 꼬리 질문을 한 활동당 여러 개(최대 약 6개) 이어간다고 안내했으며(다만 고교 교육과정 범위를 넘지 않는다는 설명), 건국대는 학생이 한 질문에서 막혀도 다른 질문으로 다시 답할 기회를 준다고 밝혔습니다. 연세대는 대부분 <b>녹화 면접(약 8분, 현장 추가 질문 없음)</b> 방식이라 긴장 부담이 상대적으로 적은 대신, 정해진 시간 안에 논리적으로 답변을 구성하는 연습이 필요하다는 설명이었습니다.</p>
+
+    <h3>평소 준비 방법 — 면접 직전에 학생부를 외우는 방식은 효과가 낮다는 설명입니다</h3>
+    <p>활동을 할 때마다 다음 일곱 가지를 짧게 정리해 두세요. 이것이 그대로 면접 답변의 바탕이 될 수 있습니다.</p>
+    <ul class="check">
+      <li>활동을 시작한 이유</li>
+      <li>내가 한 일</li>
+      <li>가장 어려웠던 점</li>
+      <li>문제를 해결한 방법</li>
+      <li>배운 점</li>
+      <li>아쉬운 점</li>
+      <li>후속 질문 (다음에 더 알아보고 싶은 것)</li>
+    </ul>
+    <div class="warn"><span class="a-tag">특히 주의 — 안전지원의 함정</span><p>숙명여대 간담회에서는, 교과 등급만 보고 진로와 무관한 학과에 안전 지원하는 경우 <b>1등급대에서도 면접까지 가지 못하고 불합격하는 사례가 여러 건 있었다</b>는 설명이 있었습니다. 지원 학과는 학생부의 흐름과 맞는지 함께 점검하는 것이 좋습니다.</p></div>
+  </div>
+</section>
+
+<!-- ==================== 제6부 ==================== -->
+<section id="p6" class="alt">
+  <div class="wrap">
+    <span class="part-label">제6부</span>
+    <h2>14개 대학의 평가 특징과 지원 포인트</h2>
+    <p class="lead">대학을 단순 서열이 아니라 <mark>평가 방식의 차이</mark>로 이해하기 위한 안내입니다. 모든 대학을 같은 틀(2026 결과 → 2027 지원 포인트 → 2028 변화 → 대상 학생 → 확인 사항)로 정리해 비교하기 쉽도록 구성했습니다.</p>
+
+    <div class="uni-grid">
+
+      <div class="uni">
+        <div class="u-name">건국대 <span class="u-tag">교과 정성평가 30%</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>KU지역균형(교과) 합격자 일반고 비율 100%, 충원율 225.6%로 실질 경쟁률은 약 3:1 수준으로 보고됨. 자율전공학부는 183명을 학종으로 선발.</dd>
+          <dt>2027 지원 포인트</dt><dd>교과 정량 70%+정성평가 30% 구조. 정량 점수 차가 작아(올1등급·올2등급 차 약 2.1점) 정성평가의 영향력이 상당하다는 설명. 경남 학생의 자율전공 합격 수기 발표 사례가 소개됨.</dd>
+          <dt class="dt-28">2028 변화 <span class="badge confirmed" style="margin-left:4px">확정</span></dt><dd>교과·논술에 수능최저 신설(3개 영역 합 8, 한국사 포함).</dd>
+          <dt class="dt-who">대상 학생</dt><dd>자연계 핵심 과목(물리·화학 등)을 충실히 이수하고, 세특에 탐구 과정이 구체적으로 드러나는 학생.</dd>
+          <dt class="dt-care">확인 사항</dt><dd>내신이 높아도 핵심 과목 미이수 시 불리했던 사례가 보고됨(제2부 확인 4 참고). 최종 최저 기준은 모집요강에서 재확인.</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">경희대 <span class="u-tag">일반고 비중 높음</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>네오르네상스(종합) 자연계 등록자의 약 96%가 일반고. 경남 지역 네오르네상스 합격률이 분석 대상 중 가장 높게 나타남.</dd>
+          <dt>2027 지원 포인트</dt><dd>지역균형(교과)은 수능최저 충족이 관건. 한의예·치의예 교과전형은 미달 가능성이 언급되어, 최저를 충족할 수 있다면 적극 검토할 만하다는 설명.</dd>
+          <dt class="dt-28">2028 변화 <span class="badge review" style="margin-left:4px">검토 중</span></dt><dd>성취도(A·B·C) 반영 도입이 검토되고 있으며, '르네상스 서류형' 신설도 구상 단계로 소개됨.</dd>
+          <dt class="dt-who">대상 학생</dt><dd>진로선택 과목까지 성실하게 이수하는 학생 — 성취도가 낮으면 절대평가 구조에서 불리할 수 있음.</dd>
+          <dt class="dt-care">확인 사항</dt><dd>2028 개편 항목은 확정이 아니라 검토 단계이므로, 매년 발표되는 대입전형 시행계획을 확인.</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">고려대 <span class="u-tag">전형별 성격 상이</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>학교추천(교과) 합격자의 99.3%가 일반고. 학업우수(종합)는 일반고 비율 약 62%로 균형적. 계열적합은 특목고 비율 약 67.9%.</dd>
+          <dt>2027 지원 포인트</dt><dd>학교추천과 학업우수가 상대적으로 유리한 통로로 언급됨. 경남 학생의 면접 1단계 통과율(40.3%)이 전국 평균(35.7%)보다 높게 보고됨.</dd>
+          <dt class="dt-28">2028 변화 <span class="badge confirmed" style="margin-left:4px">확정</span></dt><dd>학교추천 서류평가 10%→20% 확대 및 수능최저 폐지(의학계열 제외), 학업우수에 면접 20% 도입, 계열적합 면접 폐지.</dd>
+          <dt class="dt-who">대상 학생</dt><dd>학업우수는 서류 완성도가 관건이나 수능최저 충족이 병행되어야 함(경남 충족률 30% 미만으로 보고).</dd>
+          <dt class="dt-care">확인 사항</dt><dd>2028부터 전형별 성격이 크게 바뀌므로 현 고2는 최신 시행계획을 기준으로 재설계 필요.</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">동국대 <span class="u-tag">면접 영향력 큼</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>논술을 제외하면 수능최저가 없는 것으로 안내됨. 두드림(종합)은 일반고+자공고 비율 약 92%. 면접 후 합불 순위 변동 비율 인문 51.2%·자연 48.7%로 보고됨.</dd>
+          <dt>2027 지원 포인트</dt><dd>학과 교수가 서류·면접을 함께 평가해 전공적합성 색채가 강하다는 설명. 전과가 입학정원의 50%까지 허용되어 학사 운영이 유연함.</dd>
+          <dt class="dt-28">2028 변화 <span class="badge confirmed" style="margin-left:4px">확정</span></dt><dd>정시 축소(약 30%)와 학종 확대, 면접 비중 30%→40% 확대.</dd>
+          <dt class="dt-who">대상 학생</dt><dd>자연계는 수학 3과목과 물리·화학의 충실한 이수가 중요하다는 설명(무전공 자연 합격률 90% 이상 보고).</dd>
+          <dt class="dt-care">확인 사항</dt><dd>교과전형은 등급 간 점수 차가 작게 설계되어 세특 등 서류 내용이 상대적으로 중요하다는 설명.</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">서강대 <span class="u-tag">정성평가 미도입</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>교과전형 명목 경쟁률 약 11:1, 충원율 440%로 실질 경쟁률 약 1.57:1로 보고됨. 경남 1등급 후반대 지원자 40명 중 18명이 합격한 것으로 소개됨.</dd>
+          <dt>2027 지원 포인트</dt><dd>전공적합성·계열적합성을 평가 요소로 두지 않는다는 설명. 상위권 대학 중 유일하게 교과전형에 정성평가가 없다고 안내됨.</dd>
+          <dt class="dt-28">2028 변화 <span class="badge confirmed" style="margin-left:4px">확정</span></dt><dd>학종을 두 전형으로 구분(수능최저 유무 기준). 정시에 재학생 전용 '수능지역균형'(나군 90명) 신설.</dd>
+          <dt class="dt-who">대상 학생</dt><dd>전 과목의 고른 성취와 수능최저 충족이 가능한 학생. 진로 변경에는 비교적 유연.</dd>
+          <dt class="dt-care">확인 사항</dt><dd>"지원 자체가 적을 뿐 경쟁력이 없는 것은 아니다"라는 진단이 경남 지역에 대해 제시됨.</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">서울대 <span class="u-tag">2028 수능최저 폐지</span></div>
+        <dl>
+          <dt>현재 평가 특징</dt><dd>서류와 면접을 함께 활용하며, 진로 희망을 반복 기재하는 방식보다 세특에 드러난 학습의 깊이와 근거를 중요하게 본다는 설명이 있었음.</dd>
+          <dt>지원 포인트</dt><dd>등급 숫자보다 세특에 드러난 학습의 깊이와 근거를 중요하게 본다는 설명.</dd>
+          <dt class="dt-28">2028 변화 <span class="badge confirmed" style="margin-left:4px">확정</span></dt><dd>수능최저학력기준 전면 폐지, 면접에 '융합형 과제 수행' 도입.</dd>
+          <dt class="dt-who">대상 학생</dt><dd>1학년부터 완성된 세특보다, 학년이 올라가며 심화 과목에서 학업역량이 성장하는 모습을 보이는 학생.</dd>
+          <dt class="dt-care">확인 사항</dt><dd>수능최저 폐지로 세특·면접의 비중이 절대적으로 커지는 만큼, 현 고2는 이 변화를 전제로 준비가 필요.</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">서울시립대 <span class="u-tag">재학생 비율 높음</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>학종 최종 합격자의 95.3%가 재학생으로 보고됨. 평가 키워드는 '적정' — 과도한 전공 포장은 오히려 경계한다는 설명.</dd>
+          <dt>2027 지원 포인트</dt><dd>학종 면접형(면접 반영 50%, 순위 변동 비율 약 59%)이 상대적으로 유리한 통로로 언급됨.</dd>
+          <dt class="dt-28">2028 변화 <span class="badge confirmed" style="margin-left:4px">확정</span></dt><dd>교과 정성평가 40%로 확대.</dd>
+          <dt class="dt-who">대상 학생</dt><dd>3학년 2학기까지 학교생활을 충실히 이어가는 재학생. 출결(질병 포함) 관리가 점차 중요해짐.</dd>
+          <dt class="dt-care">확인 사항</dt><dd>질병 결석이 많다면 사유를 학생부에 함께 남겨 두는 것이 좋다는 설명.</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">성균관대 <span class="u-tag">충원율 높음</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>전공적합성을 평가 요소로 두지 않는다는 설명. 충원율 100~400% 수준으로 보고됨.</dd>
+          <dt>2027 지원 포인트 <span class="badge confirmed" style="margin-left:4px">확정</span></dt><dd>'융합인재'(서류형, 최저 3합6) 신설 — 수능최저를 맞출 수 있는 일반고 상위권을 겨냥한 설계로 안내됨. 추천인재(교과)는 일반고 비율이 매우 높음.</dd>
+          <dt class="dt-28">2028 방향 <span class="badge outlook" style="margin-left:4px">전망</span></dt><dd>교과 현역 지원 제한, 정성평가 비중 확대 방향이 논의됨.</dd>
+          <dt class="dt-who">대상 학생</dt><dd>자유전공을 노린다면 '성균인재'보다 '융합인재·탐구인재'가 상대적으로 유리하다는 설명(성균인재는 수능 후 면접이라 상위권 보험성 지원이 몰린다는 분석).</dd>
+          <dt class="dt-care">확인 사항</dt><dd>경남의 과제로 서류 1단계 통과율과 수능최저 충족이 함께 언급됨.</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">숙명여대 <span class="u-tag">면접 영향력 큼</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>학생부를 '3년간 쓴 한 권의 책'으로 읽는다는 설명. 1배수권 기준 면접 후 순위 변동 비율 74.2%로 보고됨.</dd>
+          <dt>2027 지원 포인트</dt><dd>지역균형(교과)에서 경남 지원 127명 중 51명이 합격한 것으로 소개됨. 지원만 늘어도 결과가 개선될 수 있다는 평가.</dd>
+          <dt class="dt-28">2028 변화 <span class="badge confirmed" style="margin-left:4px">확정</span></dt><dd>교과전형 최저 폐지, 정성평가 30% 도입(다만 지나친 역전 합격은 방지한다는 설명 — 교과 성적의 중요성은 유지).</dd>
+          <dt class="dt-who">대상 학생</dt><dd>지원 학과와 학생부 흐름이 일치하는 학생. 학과와 무관한 안전 지원은 오히려 위험하다는 설명.</dd>
+          <dt class="dt-care">확인 사항</dt><dd>1등급대에서도 진로 불일치로 면접 기회조차 얻지 못한 사례가 보고됨(제5부 참고).</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">연세대 <span class="u-tag">완주 시 합격 가능성 높음</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>최초합격자 다수가 상위 대학으로 이탈하고 추가합격으로 채워지는 구조라는 설명. 녹화 면접(약 8분)에 끝까지 참여하면 합격 가능성이 약 70% 수준으로 안내됨.</dd>
+          <dt>2027 지원 포인트</dt><dd>추천형(일반고 비중 높음)과 활동우수형(등록자 약 70%가 일반고)이 상대적으로 유리한 통로로 언급됨. 경남 추천형 합격자가 최근 3년간 늘어난 것으로 보고됨.</dd>
+          <dt class="dt-28">2028 변화 <span class="badge confirmed" style="margin-left:4px">확정</span></dt><dd>전 전형 종합평가화, 수능최저 없는 심층면접형 '탐구인재형' 신설.</dd>
+          <dt class="dt-who">대상 학생</dt><dd>심화 과목을 '이수'만 하는 것이 아니라 성취도까지 함께 확보하는 학생.</dd>
+          <dt class="dt-care">확인 사항</dt><dd>무리한 심화 과목 이수로 성취도가 낮아지면 오히려 역효과라는 설명.</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">이화여대 <span class="u-tag">계열적합 평가</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>미래인재 면접형도 일반고 기준 인문 2점대 초반·자연 1점대 후반까지 합격한 사례가 있어, 등급이 낮아 면접형을 택하는 전략은 권장되지 않는다는 설명.</dd>
+          <dt>2027 지원 포인트</dt><dd>미래인재 서류형(일반고 비중 높음)과 교과(일반고 비율 100%)가 상대적으로 안정적인 통로로 언급됨.</dd>
+          <dt class="dt-28">2028 변화 <span class="badge confirmed" style="margin-left:4px">확정</span></dt><dd>교과 정성평가 15% 도입, 수능최저 3합7로 상향, 재수생 지원 제한.</dd>
+          <dt class="dt-who">대상 학생</dt><dd>전공에 억지로 맞춘 학생부보다, 계열 안에서 폭넓게 탐구한 학생. 비주요교과 성취도도 함께 관리하는 학생.</dd>
+          <dt class="dt-care">확인 사항</dt><dd>경남은 서류 통과율은 높은 편이나(36.1% vs 전국 29.4%) 면접 단계 보완이 필요하다는 진단.</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">중앙대 <span class="u-tag">정성평가 미도입(교과)</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>서강대와 함께 교과전형에 정성평가를 도입하지 않은 대학으로 안내됨(정량 중심). 모두의 학종(융합형)은 최저가 없고 일반고 등록 비율 88~91%.</dd>
+          <dt>2027 지원 포인트 <span class="badge confirmed" style="margin-left:4px">확정</span></dt><dd>'최저 있는 학종'(성장형, 3합6) 신설 — 일반고 1~2등급 초반대에 새로운 기회가 될 수 있다는 설명. 다빈치캠퍼스는 최저가 없어 2~3등급대 등록도 가능.</dd>
+          <dt class="dt-28">2028 방향 <span class="badge review" style="margin-left:4px">검토 중</span></dt><dd>학종 면접 비중을 40%로 확대하는 방향과 정시 '수능67+서류33' 트랙 도입이 논의됨.</dd>
+          <dt class="dt-who">대상 학생</dt><dd>"일반고는 무조건 융합형"이라는 통념과 달리, 자연계 탐구형도 등록의 절반이 일반고라는 설명 — 폭넓게 검토할 필요.</dd>
+          <dt class="dt-care">확인 사항</dt><dd>경남 서류 통과율(34.5%)이 전국(25.1%)보다 높게 보고됨.</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">한국외대 <span class="u-tag">서류형·특수외국어학과</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>학종 서류형 경쟁률이 면접형의 약 절반 수준이면서 부울경 합격률이 상대적으로 높다는 설명. 특수외국어(지역학) 학과는 '지역 전문가' 양성이 목적이라는 안내.</dd>
+          <dt>2027 지원 포인트</dt><dd>이중전공이 정원의 150%까지 학과 제한 없이 가능하다는 설명(재학생 다수가 전공 2개 이수) — 입학 후 진로 확장의 폭이 넓음.</dd>
+          <dt class="dt-28">2028 변화 <span class="badge confirmed" style="margin-left:4px">확정</span></dt><dd>교과 원점수 폐지(등급만 반영), 서류형에 수능최저 신설(서울 2합6).</dd>
+          <dt class="dt-who">대상 학생</dt><dd>기존 진로(경제·정치 등)를 3학년 때 특정 국가·대륙으로 연결하는 방식으로 특수외국어 학과에 지원할 수 있는 학생.</dd>
+          <dt class="dt-care">확인 사항</dt><dd>3점대 등급으로 특수외국어 학과에 면접형으로 합격한 사례가 소개된 바 있으나, 개별 사례로 참고할 것.</dd>
+        </dl>
+      </div>
+
+      <div class="uni">
+        <div class="u-name">한양대 <span class="u-tag">2028 교과 대개편</span></div>
+        <dl>
+          <dt class="dt-go">2026 결과</dt><dd>자연계 선호학과 충원율이 500~650% 수준으로 보고됨. 면접형 결시율 약 20%로, 최종 등록자 구성은 결시 여부의 영향을 받는다는 설명. 정시에도 학생부 종합평가 10% 반영.</dd>
+          <dt>2027 지원 포인트</dt><dd>추천형(종합)은 일반고 비율이 서류형보다 높게 나타난다는 설명 — 다만 두 전형 모두 수능최저 충족이 핵심 변수.</dd>
+          <dt class="dt-28">2028 변화 <span class="badge review" style="margin-left:4px">검토 중</span></dt><dd>교과전형을 정량 60+정성평가 40으로 개편하는 방향이 논의됨(세부 배점은 확정 전).</dd>
+          <dt class="dt-who">대상 학생</dt><dd>자연계 미적분·기하를 이수하고 출결을 관리하는 학생 — 내신이 좋아도 이 두 요건 미비로 탈락한 사례가 소수 보고됨.</dd>
+          <dt class="dt-care">확인 사항</dt><dd>2028 배점은 확정 전이므로 매년 발표되는 시행계획에서 최종 확인 필요.</dd>
+        </dl>
+      </div>
+
+    </div>
+    <div class="note">※ 위 카드는 간담회 보고서를 재구성한 것으로, 확정·검토·전망이 함께 표시되어 있습니다. 전형 비율, 수능최저, 모집인원과 지원 자격은 학년도별로 달라질 수 있으므로, 실제 지원 시 <b>해당 학년도 대학 모집요강을 반드시 확인</b>해야 합니다.</div>
+  </div>
+</section>
+
+<!-- ==================== 제7부 ==================== -->
+<section id="p7">
+  <div class="wrap">
+    <span class="part-label">제7부</span>
+    <h2>2028학년도 대입 개편 — 2026년 현재 고2는 여기부터 다시 보세요</h2>
+    <p class="lead">내신 9등급제→5등급제, 통합형 수능, 고교학점제의 영향으로 평가 방식이 크게 바뀝니다. 방향은 대체로 하나로 수렴합니다 — <mark>"등급 숫자만으로는 변별이 어려워지므로, 학생부의 내용(과목 이수·세특·출결)을 여러 전형에서 함께 본다."</mark></p>
+    <div class="note"><b>적용 대상 안내:</b> 2026년 현재 고2 학생은 2027년에 고3이 되어 <b>2028학년도 대학입시</b>에 지원하게 됩니다.</div>
+    <div class="badge-legend" style="margin-top:0"><span><span class="badge confirmed">확정</span>시행계획 반영</span><span><span class="badge review">검토 중</span>간담회 당시 검토 단계</span></div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>대학</th><th>2028 핵심 변화</th><th>근거 성격</th></tr></thead>
+      <tbody>
+        <tr><td><b>서울대</b></td><td>수능최저 전면 폐지, 면접에 융합형 과제 도입</td><td><span class="badge confirmed">확정</span></td></tr>
+        <tr><td><b>연세대</b></td><td>전 전형 종합평가화, 교과에 서류 20%, 탐구인재형(심층면접) 신설</td><td><span class="badge confirmed">확정</span></td></tr>
+        <tr><td><b>고려대</b></td><td>교과 서류 20% 확대+최저 폐지(의학 제외), 학업우수 면접 20% 도입</td><td><span class="badge confirmed">확정</span></td></tr>
+        <tr><td><b>한양대</b></td><td>교과 정량 60+정성평가 40 방향, 서류형 폐지→학업형(최저 3합7) 중심</td><td><span class="badge review">검토 중</span></td></tr>
+        <tr><td><b>성균관대</b></td><td>교과 현역만 지원 가능 방향, 정성평가 30% 확대 논의</td><td><span class="badge review">검토 중</span></td></tr>
+        <tr><td><b>서강대</b></td><td>학종 이원화(수능최저로 구분), 정시 재학생 전용 전형 신설</td><td><span class="badge confirmed">확정</span></td></tr>
+        <tr><td><b>건국대</b></td><td>교과·논술 수능최저 신설(3개 합 8, 한국사 포함)</td><td><span class="badge confirmed">확정</span></td></tr>
+        <tr><td><b>경희대</b></td><td>성취도(A·B·C) 반영, '르네상스 서류형' 신설 구상</td><td><span class="badge review">검토 중</span></td></tr>
+        <tr><td><b>이화여대</b></td><td>교과 정성평가 15% 도입, 최저 3합7 상향, 재수생 제외</td><td><span class="badge confirmed">확정</span></td></tr>
+        <tr><td><b>한국외대</b></td><td>교과 원점수 폐지, 서류형 최저 신설(서울 2합6)</td><td><span class="badge confirmed">확정</span></td></tr>
+        <tr><td><b>중앙대</b></td><td>학종 면접 40%로 확대 논의, 정시 '수능67+서류33' 트랙 검토</td><td><span class="badge review">검토 중</span></td></tr>
+        <tr><td><b>서울시립대</b></td><td>교과 정성평가 40% (교과 60을 뒤집을 수 있는 수준으로 설명)</td><td><span class="badge confirmed">확정</span></td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>같은 교과전형이라도 평가 방식이 갈라집니다</h3>
+    <p>석차등급 중심 / 성취도 A·B·C 반영 / 등급+성취도 결합 / 상위 일부 과목 반영 / 교과 정성평가 확대 / 수능최저 신설 또는 폐지 — 대학마다 조합이 다릅니다. 따라서 <b>"5등급제에서 몇 등급인가"만으로 지원 가능성을 판단하기 어려워지며, 전형의 이름보다 실제 평가 요소를 확인하는 것이 정확합니다.</b> 정시에서도 교과 이수·출결·학생부 정성평가를 반영하는 대학이 늘어나는 추세이므로 "정시 준비생이니 학교생활은 중요하지 않다"는 판단은 주의가 필요합니다.</p>
+
+    <h3>2026년 현재 고2가 챙길 세 가지</h3>
+    <ul class="plain">
+      <li><b>성취도 관리</b> — 5등급제에서 성취도 A·B·C가 새로운 변별 도구로 활용될 가능성이 큽니다. "진로선택 과목이니 대충"이라는 접근은 권장되지 않습니다. (한양대: 유사·선수 과목을 묶어 성취도의 일관성을 확인한다는 설명)</li>
+      <li><b>출결</b> — 여러 대학이 교과·정시에까지 출결을 반영하는 방향으로 움직이고 있습니다. 미인정 결석·지각이 반복되면 불리할 수 있고, 질병 결석도 사유 기록이 도움이 됩니다.</li>
+      <li><b>재학생 우대 흐름</b> — 여러 대학이 교과전형에서 재수생 지원을 제한하고(성균관·숙명·이화·한양 등) 재학생 전용 정시 전형까지 신설하는 추세입니다. <b>고3 2학기까지 학교생활을 충실히 이어가는 것</b> 자체가 전략이 될 수 있습니다.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== 제8부 ==================== -->
+<section id="p8" class="alt">
+  <div class="wrap">
+    <span class="part-label">제8부</span>
+    <h2>학년별 준비 전략과 실천 체크리스트</h2>
+    <ul class="road">
+      <li>
+        <div class="r-grade">고등학교 1학년</div>
+        <span class="r-goal">핵심 목표 — 기초 학업역량과 진로 방향 만들기</span>
+        <ul class="check">
+          <li>공통과목의 기본 개념을 충실히 학습하기</li>
+          <li>관심 있는 분야를 넓게 탐색하고, 수업 중 질문·발표 경험 쌓기</li>
+          <li>진로에 필요한 2·3학년 선택과목 미리 확인하기 (자연계: 미적분·기하 + 계열 핵심 과학)</li>
+          <li>친구를 따라 과목을 선택하지 않기</li>
+          <li>국·수·영·탐 수능 기초를 놓치지 않기</li>
+          <li>출결을 1학년부터 관리하기 — 아파서 결석했다면 담임 선생님과 상의해 사유가 기록되도록</li>
+        </ul>
+        <p style="font-size:.9rem;color:var(--muted)">학과를 확정할 필요는 없습니다. 인문사회·상경·공학·자연과학·생명보건·교육·예체능 등 <b>큰 계열의 방향</b>만 정해 두면 됩니다. 1학년 세특이 완벽할 필요도 없다는 설명입니다(서울대 간담회: "1학년의 미숙함은 자연스럽다").</p>
+      </li>
+      <li>
+        <div class="r-grade">고등학교 2학년</div>
+        <span class="r-goal">핵심 목표 — 관심 분야의 깊이와 전형 가능성 확인하기</span>
+        <ul class="check">
+          <li>진로 관련 과목을 충실하게 이수하기 — '이수'가 아니라 '성취'가 목표</li>
+          <li>교과별 탐구 주제를 서로 연결하기 (단순 조사보다 비교·분석·적용 중심)</li>
+          <li>부족한 과목은 공동교육과정 등으로 보완하기 (무리한 욕심은 금물)</li>
+          <li>희망 대학의 교과 환산 방식 확인하기</li>
+          <li>수능최저 충족 가능성을 모의고사로 점검하기</li>
+          <li>활동 기록(동기→과정→어려움→해결→배움)을 그때그때 정리하기</li>
+        </ul>
+        <p style="font-size:.9rem;color:var(--muted)">2학년 말에는 판단할 수 있어야 합니다 — 교과전형이 유리한가 / 학종이 유리한가 / 수능최저를 맞출 가능성이 있는가 / 논술을 준비할 가치가 있는가 / 면접형이 적합한가.</p>
+      </li>
+      <li>
+        <div class="r-grade">고등학교 3학년</div>
+        <span class="r-goal">핵심 목표 — 대학 이름보다 전형 구조를 기준으로 지원하기</span>
+        <ul class="check">
+          <li>대학별 환산점수 계산 + 학생부 경쟁력 분석 + 수능최저 충족 가능성 확인</li>
+          <li>지원 학과는 학생부 흐름과 맞게 — '등급 맞춰 안전 지원'은 오히려 탈락 요인이 될 수 있음(숙명여대 사례)</li>
+          <li>수시 6장을 한 유형에 몰지 않기 (예: 교과 2 + 서류형 학종 1 + 면접형 학종 1 + 논술 1 + 기회균형/지역 관련 1)</li>
+          <li>교과 최저가 불안하면 같은 대학 학종을 병행 지원하기</li>
+          <li><b>1단계 합격 = 면접 무조건 응시 / 최초합격 탈락 = 추가합격 끝까지 대기</b></li>
+          <li>3학년 2학기까지 성적·출결·수업 태도 유지하기 (재학생 우대 대학 다수)</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>학생이 지금부터 실천할 체크리스트</h3>
+    <div class="grid2">
+      <div class="cmp do">
+        <h4>매 수업에서</h4>
+        <ul>
+          <li>오늘 배운 내용 중 궁금한 점을 한 가지 찾는다</li>
+          <li>발표·토론·탐구 기회에 가능한 범위에서 참여한다</li>
+          <li>자료를 사용할 때 출처를 확인한다</li>
+          <li>모둠 활동에서 맡은 역할을 분명히 한다</li>
+          <li>결과뿐 아니라 과정과 수정 내용을 남긴다</li>
+        </ul>
+      </div>
+      <div class="cmp do">
+        <h4>매 학기 말에</h4>
+        <ul>
+          <li>가장 의미 있었던 수업 활동 3개를 정리한다</li>
+          <li>관심 분야가 어떻게 달라졌는지 적는다</li>
+          <li>잘한 점과 부족한 점을 구분한다</li>
+          <li>다음 학기에 이어 갈 탐구 주제를 정한다</li>
+          <li>학생부 기재 내용을 확인하고 활동을 스스로 설명해 본다</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cmp do" style="margin-top:0">
+      <h4>과목 선택 전에</h4>
+      <ul>
+        <li>희망 계열의 필수·권장 과목을 확인한다</li>
+        <li>지원하려는 대학의 과목 평가 방식을 살펴본다</li>
+        <li>성적이 쉽다는 이유만으로 과목을 고르지 않는다</li>
+        <li>너무 많은 심화과목을 무리하게 선택하지 않는다</li>
+        <li>학교에 없는 과목의 보완 방법을 진로진학상담실과 상담한다</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 제9부 ==================== -->
+<section id="p9">
+  <div class="wrap">
+    <span class="part-label">제9부</span>
+    <h2>학생 유형별 추천 전형 방향</h2>
+    <p class="lead">진학 준비의 목표는 모든 영역을 완벽하게 만드는 것이 아니라, <mark>나의 강점을 정확히 알고 그 강점을 높게 평가하는 전형을 찾는 것</mark>입니다.</p>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>학생 유형</th><th>우선 검토할 전형</th><th>준비 핵심</th></tr></thead>
+      <tbody>
+        <tr><td>내신이 매우 우수하고 수능최저 충족 가능</td><td><b>교과전형</b></td><td>대학별 환산점수, 수능최저, 충원율</td></tr>
+        <tr><td>내신이 우수하고 수업·탐구도 충실</td><td><b>교과 정성평가형 · 서류형 학종</b></td><td>과목 선택, 세특, 탐구의 깊이</td></tr>
+        <tr><td>내신은 다소 부족하지만 성장 과정이 뚜렷</td><td><b>학생부종합전형(학종) · 자율전공</b></td><td>자기주도성, 문제해결, 면접</td></tr>
+        <tr><td>학생부보다 수능이 강함</td><td><b>논술 · 정시 · 수능최저형 교과</b></td><td>수능 경쟁력, 대학별고사</td></tr>
+        <tr><td>말하기와 사고력이 강함</td><td><b>면접형 학종</b></td><td>학생부 숙지, 개념 설명, 제시문 연습</td></tr>
+        <tr><td>진로가 아직 넓게 열려 있음</td><td><b>자율전공 · 광역모집</b></td><td>관심 분야의 깊이, 전공 선택 조건 확인</td></tr>
+        <tr><td>지원 자격을 충족함</td><td><b>기회균형 · 농어촌 등</b></td><td>자격 확인, 일반전형과의 유불리 비교</td></tr>
+      </tbody>
+    </table></div>
+    <p class="tbl-cap">※ 유형은 겹칠 수 있으며, 학생별 최적 조합은 진로진학상담실 개별 상담에서 함께 설계합니다.</p>
+  </div>
+</section>
+
+<!-- ==================== 제10부 ==================== -->
+<section id="p10" class="alt">
+  <div class="wrap">
+    <span class="part-label">제10부</span>
+    <h2>보호자가 해야 할 일과 하지 말아야 할 일</h2>
+    <div class="grid2">
+      <div class="cmp do">
+        <h4>해야 할 일</h4>
+        <ul>
+          <li><b>결과보다 과정을 질문하기</b> — "몇 등급이니?"와 함께 "가장 어려웠던 건 뭐였니?", "새롭게 알게 된 건?", "관심 분야가 넓어진 부분이 있니?"를 물어봐 주세요</li>
+          <li><b>과목 선택 시 학교와 상담하기</b> — 희망 계열 필수 과목, 학생의 실제 수준, 공동교육과정 활용 가능성을 진로교사·담임·교과교사와 함께 확인</li>
+          <li><b>수능 준비를 늦추지 않기</b> — 수시를 준비해도 수능최저가 필요할 수 있습니다. 고1·2부터 기본 학습 유지가 안전합니다</li>
+          <li><b>대학 이름보다 전형 적합성 보기</b> — 같은 대학에도 일반고에 유리한 전형과 상대적으로 불리한 전형이 함께 있습니다</li>
+          <li><b>최초합격 발표일에 낙담하는 자녀 붙잡아 주기</b> — 추가합격은 예외적 상황이 아니라 구조적으로 발생하는 흐름입니다. 끝까지 기다리는 것이 도움이 됩니다</li>
+        </ul>
+      </div>
+      <div class="cmp dont">
+        <h4>주의가 필요한 일</h4>
+        <ul>
+          <li>친구 자녀의 과목 선택을 그대로 따라 하게 하기</li>
+          <li>무조건 어려운 과목을 많이 선택하게 하기</li>
+          <li>모든 활동을 희망 학과 이름에 억지로 연결하기</li>
+          <li>자격증과 외부활동을 무작정 늘리기</li>
+          <li>학생이 하지 않은 활동을 과장하게 하기</li>
+          <li>"수시 준비하니 수능은 필요 없다"고 판단하기</li>
+          <li>한 번 정한 진로를 바꾸지 못하게 하기 — 여러 대학이 "진로 변경은 무방하다. 중요한 것은 바뀐 뒤의 탐색"이라는 취지로 설명했습니다</li>
+          <li>"일반고라 불리하다"는 말로 자녀의 자신감을 꺾기 — 전형에 따라 다르다는 점이 제2부 확인 3에서 확인됩니다</li>
+        </ul>
+      </div>
+    </div>
+    <div class="quote">
+      <span class="q-body">거칠더라도 학생의 진짜 특성이 솔직하게 드러난 학생부가 평가에서 더 눈에 들어온다는 설명이 있었습니다. 컨설팅으로 만들어진 획일적인 학생부는 대학마다 평가 기준이 다르고 매년 바뀌어 한계가 크다는 취지입니다.</span>
+      <span class="q-src"><span class="badge explain">간담회 설명</span>한국외대 간담회 설명을 재구성함</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 마무리 ==================== -->
+<section id="last">
+  <div class="wrap">
+    <span class="part-label">마지막으로</span>
+    <h2>학생에게 전하는 말</h2>
+    <p class="lead">대학은 완벽한 학생만을 선발하지 않습니다.</p>
+    <p>성적이 조금 부족하더라도 스스로 질문하고, 필요한 과목을 선택하고, 실패한 활동을 수정하며 성장한 학생에게 기회가 있습니다. 반대로 성적이 좋더라도 수업을 수동적으로 따라가고, 지원 분야에 필요한 준비가 부족하다면 좋은 평가를 받지 못할 수 있습니다.</p>
+    <div class="quote">
+      <span class="q-body">중요한 것은 활동을 많이 하는 것이 아닙니다. 수업에서 배우고, 궁금해하고, 탐구하고, 설명하고, 다시 발전시키는 과정이 쌓여야 합니다.</span>
+      <span class="q-src"><span class="badge outlook">전망</span>보고서 작성자의 요약</span>
+    </div>
+    <p>학생부는 마지막에 꾸미는 서류가 아니라 <mark>3년간의 학교생활이 기록된 결과</mark>입니다. 수능 역시 학생부와 별개의 준비가 아니라 <mark>지원 가능한 전형의 범위를 넓혀 주는 도구</mark>입니다. 그리고 진학 준비의 최종 목표는 이것입니다 —</p>
+    <p style="font-family:'Noto Serif KR',serif;font-weight:800;color:var(--ink);font-size:1.12rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 4px;text-align:center;margin:26px 0">
+      나의 강점을 정확히 알고,<br>그 강점을 높게 평가하는 대학과 전형을 찾는 것.
+    </p>
+    <p>궁금한 점은 언제든 <b>진로진학상담실</b>로 문의해 주십시오. 대학별 세부 자료와 학생 개인별 과목 선택 설계, 전형 조합은 진로진학상담실 상담을 통해 확인할 수 있습니다.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="f-title">2026 대학으로 찾아가는 톡톡 진학탐구 간담회 — 학생·보호자 안내자료</p>
+    <p>본 자료는 14개 대학 입학 관계자 간담회 내용을 정리한 보고서를 바탕으로 재구성한 것이며, 일부 서술에는 보고서 작성자의 요약·해설이 포함되어 있습니다.</p>
+    <p>경쟁률·충원율·합격자 비율 등 수치는 주로 <b style="color:#fff">2026학년도 입시 결과</b>이며, 2027·2028학년도 내용 중 상당수는 간담회 시점의 <b style="color:#fff">계획 또는 검토 단계</b>였습니다. 본문의 배지(확정·검토 중·전망·간담회 설명·2026 결과)로 근거 성격을 구분했으니 참고하시기 바랍니다.</p>
+    <p>전형 비율·수능최저·모집인원·지원 자격은 학년도별로 변경될 수 있으므로, 실제 지원 시 해당 학년도 <b style="color:#fff">대학별 모집요강</b>을 반드시 확인하시기 바랍니다.</p>
+    <p style="margin-top:14px;color:#8fa2c9">창원경일고등학교 진로진학상담부 · 자료 기준일 2026년 7월</p>
+  </div>
+</footer>
+
+</body>
+</html>
