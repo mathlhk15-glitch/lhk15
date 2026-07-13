@@ -47,6 +47,20 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2028ipsi/", platform: "html" }]
   },  
+
+    {
+    id: "admission-guide-2028",
+    icon: "🎯",
+    title: "2027·2028 대입, 대학은 무엇을 보고 학생은 무엇을 준비해야 할까?",
+    section: "admission",
+    description: "2027,20288 주요대학 입학 관계자 간담회 내용 정리",
+    tags: ["2027,8", "14개 대학", "간담회"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/admission-guide-2028", platform: "html" }]
+  },  
+  
     {
   id: "2027-susi-counsel-hub",
   icon: "📚",
