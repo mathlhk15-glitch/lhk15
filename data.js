@@ -193,10 +193,20 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/2027-yaksul-nonsul", platform: "html" }]
   },
+        {
+    id: "gyeongil-sports-guide",
+    icon: "🧹",
+    title: "체육계열 수시지원 가이드",
+    section: "admission",
+    description: "체육계열 수시지원 가이드",
+    tags: ["체육", "수시"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeongil-sports-guide/", platform: "html" }]
+  },
 
-
-  
-  // ── 교육과정·배치표 ────────────────────────────────────────
+    // ── 교육과정·배치표 ────────────────────────────────────────
   {
     id: "curriculum-2026",
     icon: "🧩",
