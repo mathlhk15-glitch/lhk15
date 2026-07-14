@@ -205,6 +205,18 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeongil-sports-guide/", platform: "html" }]
   },
+        {
+    id: "gyeongil-admissions-compass",
+    icon: "🧹",
+    title: "경일고,경일여고 수시 3개년 입시 결과 배치표",
+    section: "admission",
+    description: "경일고,경일여고 수시 3개년 입시 결과 배치표",
+    tags: ["수시", "배치표"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeongil-admissions-compass/", platform: "html" }]
+  },
 
     // ── 교육과정·배치표 ────────────────────────────────────────
   {
