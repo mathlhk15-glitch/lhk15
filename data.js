@@ -207,7 +207,7 @@ const resources = [
     featured: true,
     isNew: false,
     updatedAt: "2026-03",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2026-1-choice/", platform: "html" }]
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2026-1-hakup-design", platform: "html" }]
   },
   {
     id: "bachi-2026-03",
