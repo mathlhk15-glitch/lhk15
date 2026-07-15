@@ -208,7 +208,7 @@ const resources = [
   },
         {
     id: "gyeongil-sports-guide",
-    icon: "🧹",
+    icon: "🍇",
     title: "체육계열 수시지원 가이드",
     section: "admission",
     description: "체육계열 수시지원 가이드",
@@ -220,7 +220,7 @@ const resources = [
   },
         {
     id: "gyeongil-admissions-compass",
-    icon: "🧹",
+    icon: "🍧",
     title: "경일고,경일여고 수시 3개년 입시 결과 배치표",
     section: "admission",
     description: "경일고,경일여고 수시 3개년 입시 결과 배치표",
