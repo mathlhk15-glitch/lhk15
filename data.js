@@ -23,19 +23,6 @@ const resources = [
     updatedAt: "2026-04",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi/", platform: "html" }]
   },
-  {
-    id: "gyeongil-admissions-compass",
-    icon: "🏞️",
-    title: "경일 졸업생 수시 현황",
-    section: "gyeongil-admissions-compass",
-    description: "경일 졸업생 수시 현황",
-    tags: ["졸업생", "3개년", "수시"],
-    featured: true,
-    isNew: false,
-    updatedAt: "2026-07",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeongil-admissions-compass/", platform: "html" }]
-  },
- 
     {
     id: "college-admissions-2027-2028",
     icon: "🌳",
