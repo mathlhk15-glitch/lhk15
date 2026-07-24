@@ -169,6 +169,18 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://jinhak.esteacher.kr/", platform: "html" }]
   },
+      {
+    id: "2027-medical-eligibility-checker",
+    icon: "🎯",
+    title: "2027학년도 의대 지원자격 검색기-부산교육청",
+    section: "admission",
+    description: "2027학년도 의대 지원자격 검색기-부산교육청",
+    tags: ["2027", "의대", "지원자격"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/2027-medical-eligibility-checker", platform: "html" }]
+  },  
         {
     id: "2027_essay",
     icon: "🐓",
