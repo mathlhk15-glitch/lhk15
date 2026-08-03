@@ -341,6 +341,7 @@ textarea{width:100%;height:110px;background:var(--panel);border:1px solid var(--
 <section class="screen" id="s-set">
   <h1 class="h1">설정</h1>
   <p class="sub">출발 전에 한 번 맞추면 됩니다. 운전 중에는 재생 버튼 외에 아무것도 만지지 마세요.</p>
+  <button class="btn" id="audio-test" style="margin-bottom:10px">🔊 음성 출력 확인</button>
 
   <div class="setrow"><div><div class="lbl">생각 시간</div><div class="desc">한국어를 듣고 답을 꺼내는 침묵</div></div>
     <div class="seg sm" id="seg-gap"><button data-v="7">7</button><button data-v="5">5</button><button data-v="3">3</button><button data-v="2">2</button></div></div>
@@ -781,14 +782,20 @@ const VERBS=[['go','went'],['come','came'],['get','got'],['take','took'],['find'
 const DEF={day:1,done:{},marks:{},streak:0,last:null,pending:null,
   set:{gap:5,rate:0.88,rep:2,txt:1,wake:1,len:10}};
 let S=JSON.parse(JSON.stringify(DEF));
-const KEY='cec-v5';
-const LEGACY_KEYS=['cec-v4','cec-v3'];
+const KEY='cec-v6';
+const LEGACY_KEYS=['cec-v5','cec-v4','cec-v3'];
+function cleanText(v,max=300){return String(v??'').replace(/[<>]/g,'').slice(0,max);}
 function normalizeState(v){
   if(!v||typeof v!=='object')throw new Error('invalid state');
   const day=Math.min(30,Math.max(1,Number(v.day)||1));
+  const marks={};
+  if(v.marks&&typeof v.marks==='object')Object.entries(v.marks).forEach(([id,m])=>{
+    if(!m||typeof m!=='object')return;
+    marks[cleanText(id,80)]={...m,ko:cleanText(m.ko),en:cleanText(m.en),
+      ok:Math.max(0,Number(m.ok)||0),miss:Math.max(0,Number(m.miss)||0)};
+  });
   return {...JSON.parse(JSON.stringify(DEF)),...v,day,
-    done:v.done&&typeof v.done==='object'?v.done:{},
-    marks:v.marks&&typeof v.marks==='object'?v.marks:{},
+    done:v.done&&typeof v.done==='object'?v.done:{},marks,
     set:{...DEF.set,...(v.set&&typeof v.set==='object'?v.set:{})}};
 }
 async function load(){try{let raw=localStorage.getItem(KEY);
@@ -817,10 +824,11 @@ function pv(){const v=speechSynthesis.getVoices()||[];
 if('speechSynthesis'in window){pv();speechSynthesis.onvoiceschanged=pv;}
 function speak(t,lang,rate){return new Promise(res=>{
   if(!('speechSynthesis'in window)||!t){setTimeout(res,700);return;}
-  try{const u=new SpeechSynthesisUtterance(t);
+  try{speechSynthesis.resume();const u=new SpeechSynthesisUtterance(t);
     u.lang=lang==='ko'?'ko-KR':'en-US';const v=lang==='ko'?koV:enV;if(v)u.voice=v;
-    u.rate=rate;let f=false;const fin=()=>{if(!f){f=true;res();}};
-    u.onend=fin;u.onerror=fin;setTimeout(fin,Math.max(2400,t.length*110)+1700);
+    u.rate=rate;u.volume=1;u.pitch=1;let f=false;
+    const fin=()=>{if(!f){f=true;res();}};
+    u.onend=fin;u.onerror=fin;setTimeout(fin,Math.max(3000,t.length*140)+2200);
     speechSynthesis.speak(u);}catch(e){setTimeout(res,700);}});}
 
 /* silent loop → enables Media Session + helps keep audio session alive */
@@ -835,8 +843,9 @@ function silentURL(){
   return URL.createObjectURL(new Blob([buf],{type:'audio/wav'}));
 }
 function initSilent(){if(silentEl)return;silentEl=new Audio(silentURL());silentEl.loop=true;silentEl.volume=0.001;}
-document.addEventListener('pointerdown',function unlockAudio(){initSilent();if(!silentEl)return;
-  silentEl.play().then(()=>{silentEl.pause();silentEl.currentTime=0;}).catch(()=>{});},{once:true});
+document.addEventListener('pointerdown',function prepareSpeech(){
+  try{speechSynthesis.resume();pv();}catch(e){}
+},{once:true});
 function setMedia(title,artist){
   if(!('mediaSession'in navigator))return;
   try{navigator.mediaSession.metadata=new MediaMetadata({title,artist,album:'출퇴근 여행영어 코치'});
@@ -882,7 +891,7 @@ function qMorning(day){
   const w=due(weakN);
   if(w.length){guide(q,'맞춤 복습','끝으로 복습 날짜가 된 어려운 문장을 다시 꺼냅니다.');
     w.forEach(x=>q.push({t:'q',ph:'맞춤 복습',ko:x.ko,en:x.en,id:x.id}));}
-  q.push({t:'end'});return q;
+  q.push({t:'end'});return fillToTarget(q,day,'am');
 }
 function qEvening(day){
   const P=PLAN[S.set.len],d=dd(day),q=[];
@@ -901,7 +910,7 @@ function qEvening(day){
   const coreN=S.set.len===15?5:3;
   guide(q,'오늘 마무리','마지막으로 오늘의 핵심 문장을 다시 말합니다.');
   d.c.slice(0,coreN).forEach((x,i)=>q.push({t:'q',ph:'오늘 마무리',ko:x[0],en:x[1],id:sid(day,i)}));
-  q.push({t:'end'});return q;
+  q.push({t:'end'});return fillToTarget(q,day,'pm');
 }
 
 function allWeak(n=12){return Object.entries(S.marks)
@@ -915,8 +924,42 @@ function qWeak(){
   w.forEach(x=>q.push({t:'q',ph:'취약 문장',ko:x.ko,en:x.en,rep:2,id:x.id}));
   q.push({t:'end'});return q;
 }
-function estMin(q){const n=q.filter(x=>x.t==='q').length;
-  return (n*(2.4+S.set.gap+2.1*S.set.rep))/60;}
+function speechSec(text,lang='ko',rate=1){
+  const chars=String(text||'').length;
+  const base=lang==='en'?0.085:0.095;
+  return Math.max(1.1,chars*base/Math.max(.65,rate));
+}
+function itemSec(x){
+  if(x.t==='say')return speechSec(x.ko,'ko',1)+speechSec(x.en,'en',S.set.rate)+.25;
+  if(x.t==='q'){
+    if(x.listen)return speechSec(x.ko,'en',S.set.rate)+.3;
+    const prompt=speechSec(x.ko,x.kl==='en'?'en':'ko',x.kl==='en'?S.set.rate:1);
+    const answer=speechSec(x.en,'en',S.set.rate)*Math.max(1,Math.min(3,S.set.rep));
+    return prompt+S.set.gap+answer+.6;
+  }
+  return 0;
+}
+function estMin(q){return q.reduce((a,x)=>a+itemSec(x),0)/60;}
+function fillToTarget(q,day,kind){
+  const target=S.set.len*60*.92,d=dd(day);
+  if(q.reduce((a,x)=>a+itemSec(x),0)>=target)return q;
+  const end=q.pop();let cycle=1;
+  while(q.reduce((a,x)=>a+itemSec(x),0)<target&&cycle<=20){
+    if(kind==='am'){
+      guide(q,'실전 재도전',cycle===1?'남은 시간에는 오늘 문장을 순서를 바꿔 다시 말합니다.':'오늘 문장을 다시 한번 빠르게 꺼냅니다.');
+      const take=S.set.len===5?4:S.set.len===10?7:10;
+      shuffle([...d.c,...d.s]).slice(0,take).forEach(x=>{const ci=d.c.findIndex(y=>y[1]===x[1]);
+        q.push({t:'q',ph:'실전 재도전',ko:x[0],en:x[1],id:ci>=0?sid(day,ci):undefined});});
+    }else{
+      guide(q,'반응 속도 높이기',cycle===1?'남은 시간에는 오늘 대화와 핵심 문장에 더 빠르게 반응합니다.':'같은 표현에 한 번 더 바로 반응합니다.');
+      d.d.forEach(x=>{if(x[0]==='s')q.push({t:'q',ph:'반응 속도 높이기',ko:x[1],kl:'en',en:'',listen:true});
+        else q.push({t:'q',ph:'반응 속도 높이기',ko:x[2],en:x[1]});});
+      d.c.slice(0,S.set.len===5?2:3).forEach((x,i)=>q.push({t:'q',ph:'반응 속도 높이기',ko:x[0],en:x[1],id:sid(day,i)}));
+    }
+    cycle++;
+  }
+  q.push(end);return q;
+}
 
 /* ═══════════ DRIVE ENGINE ═══════════ */
 const D={q:[],i:0,play:false,tok:0,kind:'am',el:{}};
@@ -1022,8 +1065,8 @@ function togglePlay(){
   if(D.play){D.tok++;speechSynthesis.cancel();cancelSleep();D.play=false;relWake();
     try{silentEl&&silentEl.pause();}catch(e){}
     D.el.play.textContent='이어서';D.el.play.classList.add('ps');D.el.hint.textContent='일시정지';
-  }else{D.play=true;reqWake();initSilent();
-    try{silentEl.play().catch(()=>{});}catch(e){}
+  }else{D.play=true;reqWake();
+    try{speechSynthesis.cancel();speechSynthesis.resume();}catch(e){}
     D.el.play.textContent='일시정지';D.el.play.classList.remove('ps');run(D.i);}
 }
 function jump(dir){D.tok++;speechSynthesis.cancel();cancelSleep();
@@ -1046,7 +1089,7 @@ let pend=[];
 function finish(){
   D.play=false;relWake();try{silentEl&&silentEl.pause();}catch(e){}
   document.getElementById('drive').classList.remove('on');
-  if(D.kind==='weak'){markDone();render();return;}
+  if(D.kind==='weak'){markDone();save();render();return;}
   const trained=D.q.filter(x=>x.t==='q'&&x.en&&!x.listen&&x.id);
   pend=[...new Map(trained.map(x=>[x.id,{id:x.id,ko:x.ko,en:x.en,lv:null}])).values()];
   if(!pend.length){
@@ -1258,6 +1301,8 @@ document.querySelectorAll('.nbtn').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
   document.getElementById('s-'+b.dataset.s).classList.add('on');window.scrollTo(0,0);});
 
+document.getElementById('audio-test').onclick=()=>{try{speechSynthesis.cancel();speechSynthesis.resume();}catch(e){}
+  speak('음성 출력이 정상입니다.','ko',1).then(()=>speak('Audio is working.','en',S.set.rate));};
 document.getElementById('btn-am').onclick=()=>openDrive('am');
 document.getElementById('btn-pm').onclick=()=>openDrive('pm');
 document.getElementById('weak-run').onclick=()=>openDrive('weak');
