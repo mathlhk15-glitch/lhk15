@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#070E16">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>출퇴근 여행영어 코치</title>
+<title>출퇴근 여행영어 코치 v5</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -781,7 +781,8 @@ const VERBS=[['go','went'],['come','came'],['get','got'],['take','took'],['find'
 const DEF={day:1,done:{},marks:{},streak:0,last:null,pending:null,
   set:{gap:5,rate:0.88,rep:2,txt:1,wake:1,len:10}};
 let S=JSON.parse(JSON.stringify(DEF));
-const KEY='cec-v4';
+const KEY='cec-v5';
+const LEGACY_KEYS=['cec-v4','cec-v3'];
 function normalizeState(v){
   if(!v||typeof v!=='object')throw new Error('invalid state');
   const day=Math.min(30,Math.max(1,Number(v.day)||1));
@@ -790,7 +791,8 @@ function normalizeState(v){
     marks:v.marks&&typeof v.marks==='object'?v.marks:{},
     set:{...DEF.set,...(v.set&&typeof v.set==='object'?v.set:{})}};
 }
-async function load(){try{const raw=localStorage.getItem(KEY)||localStorage.getItem('cec-v3');
+async function load(){try{let raw=localStorage.getItem(KEY);
+    if(!raw){for(const k of LEGACY_KEYS){raw=localStorage.getItem(k);if(raw)break;}}
     if(raw){S=normalizeState(JSON.parse(raw));localStorage.setItem(KEY,JSON.stringify(S));}}
   catch(e){S=JSON.parse(JSON.stringify(DEF));}}
 async function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}
@@ -847,51 +849,58 @@ function setMedia(title,artist){
 
 /* ═══════════ QUEUE BUILDER ═══════════ */
 const PLAN={
- 5:{rev:2,core:3,rounds:1,swap:0,talk:0,rescue:1,weak:0,rep:5,fix:3,num:0},
- 10:{rev:3,core:5,rounds:1,swap:3,talk:1,rescue:1,weak:2,rep:8,fix:6,num:3},
- 15:{rev:5,core:5,rounds:2,swap:5,talk:1,rescue:1,weak:3,rep:10,fix:6,num:5}
+ 5:{rev:1,core:3,rounds:1,swap:0,talk:0,rescue:0,weak:0,rep:3,fix:2,num:0},
+ 10:{rev:2,core:5,rounds:1,swap:3,talk:1,rescue:1,weak:1,rep:5,fix:3,num:2},
+ 15:{rev:3,core:5,rounds:2,swap:5,talk:1,rescue:1,weak:2,rep:6,fix:4,num:3}
 };
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
 function due(n){const t=Date.now(),o=[];
-  Object.entries(S.marks).forEach(([id,m])=>{if(m.auto&&m.dueAt>t)return;if(m.dueAt&&m.dueAt>t)return;
+  Object.entries(S.marks).forEach(([id,m])=>{if(m.dueAt&&m.dueAt>t)return;
     o.push({id,ko:m.ko,en:m.en,miss:m.miss||0,seen:m.at||0});});
   o.sort((a,b)=>(b.miss-a.miss)||(a.seen-b.seen));return o.slice(0,n);}
+function guide(q,ph,ko){q.push({t:'say',ph,ko,en:''});}
 
 function qMorning(day){
   const P=PLAN[S.set.len],d=dd(day),q=[];
-  q.push({t:'say',ph:'출근길',ko:`데이 ${day}. ${d.m}.`,en:d.p});
-  if(day>1&&P.rev){q.push({t:'mk',ph:'어제 회상'});
-    dd(day-1).c.slice(0,P.rev).forEach(x=>q.push({t:'q',ph:'어제 회상',ko:x[0],en:x[1],rep:1}));}
-  for(let r=1;r<=P.rounds;r++){
-    q.push({t:'mk',ph:P.rounds>1?`오늘 문장 ${r}회전`:'오늘 문장'});
-    d.c.slice(0,P.core).forEach((x,i)=>q.push({t:'q',ph:P.rounds>1?`오늘 문장 ${r}회전`:'오늘 문장',
-      ko:x[0],en:x[1],rep:r===1?3:2,id:sid(day,i)}));}
-  if(P.swap){q.push({t:'mk',ph:'단어 교체'});
-    d.s.slice(0,P.swap).forEach(x=>q.push({t:'q',ph:'단어 교체',ko:x[0],en:x[1],rep:2}));}
-  if(P.rescue){q.push({t:'mk',ph:'비상 탈출구'});
-    shuffle(RESCUE.slice()).slice(0,P.rescue).forEach(x=>q.push({t:'q',ph:'비상 탈출구',ko:x[0],en:x[1],rep:2}));}
-  if(P.talk){q.push({t:'mk',ph:'미니 역할극'});
+  q.push({t:'say',ph:'출근길',ko:`데이 ${day}. 오늘은 ${d.m} 연습입니다.`,en:d.p});
+  const revN=day===1?0:day<=5?Math.min(2,P.rev):P.rev;
+  if(revN){guide(q,'어제 회상','먼저 어제 배운 문장을 짧게 떠올립니다.');
+    dd(day-1).c.slice(0,revN).forEach(x=>q.push({t:'q',ph:'어제 회상',ko:x[0],en:x[1]}));}
+  guide(q,'오늘 핵심','이제 오늘의 핵심 문장을 연습합니다.');
+  d.c.slice(0,P.core).forEach((x,i)=>q.push({t:'q',ph:'오늘 핵심',ko:x[0],en:x[1],id:sid(day,i)}));
+  if(P.swap){guide(q,'같은 패턴 확장','이제 같은 문장 틀에서 단어만 바꿔 말합니다.');
+    d.s.slice(0,P.swap).forEach(x=>q.push({t:'q',ph:'같은 패턴 확장',ko:x[0],en:x[1]}));}
+  if(P.rounds>1){guide(q,'핵심 재인출','방금 익힌 핵심 문장을 다시 한번 스스로 꺼냅니다.');
+    d.c.slice(0,P.core).forEach((x,i)=>q.push({t:'q',ph:'핵심 재인출',ko:x[0],en:x[1],id:sid(day,i)}));}
+  if(P.talk){guide(q,'미니 역할극','이제 실제 대화 속에서 오늘 표현을 사용합니다.');
     d.d.forEach(x=>{if(x[0]==='s')q.push({t:'q',ph:'미니 역할극',ko:x[1],kl:'en',en:'',listen:true});
-      else q.push({t:'q',ph:'미니 역할극',ko:x[2],en:x[1],rep:2});});}
-  const w=due(P.weak);
-  if(w.length){q.push({t:'mk',ph:'다시 꺼내기'});
-    w.forEach(x=>q.push({t:'q',ph:'다시 꺼내기',ko:x.ko,en:x.en,rep:2,id:x.id}));}
+      else q.push({t:'q',ph:'미니 역할극',ko:x[2],en:x[1]});});}
+  const rescueN=day<=2?0:P.rescue;
+  if(rescueN){guide(q,'여행 안전 문장','마지막으로 못 알아들었을 때 쓸 문장을 하나 익힙니다.');
+    shuffle(RESCUE.slice()).slice(0,rescueN).forEach(x=>q.push({t:'q',ph:'여행 안전 문장',ko:x[0],en:x[1]}));}
+  const weakN=day<=2?0:day<=5?Math.min(1,P.weak):P.weak;
+  const w=due(weakN);
+  if(w.length){guide(q,'맞춤 복습','끝으로 복습 날짜가 된 어려운 문장을 다시 꺼냅니다.');
+    w.forEach(x=>q.push({t:'q',ph:'맞춤 복습',ko:x.ko,en:x.en,id:x.id}));}
   q.push({t:'end'});return q;
 }
 function qEvening(day){
   const P=PLAN[S.set.len],d=dd(day),q=[];
-  q.push({t:'say',ph:'퇴근길',ko:'상대방 말에 바로 답하는 연습입니다.',en:''});
-  q.push({t:'mk',ph:'즉답'});
-  shuffle(REPLIES.slice()).slice(0,P.rep).forEach(x=>q.push({t:'q',ph:'즉답',ko:x[0],kl:'en',en:x[1],rep:2,staff:true}));
-  q.push({t:'mk',ph:'되묻기 · 매일'});
-  RESCUE.slice(0,P.fix).forEach(x=>q.push({t:'q',ph:'되묻기 · 매일',ko:x[0],en:x[1],rep:2}));
-  if(P.num){q.push({t:'mk',ph:'숫자'});
-    shuffle(NUMBERS.slice()).slice(0,P.num).forEach(x=>q.push({t:'q',ph:'숫자',ko:x[0],en:x[1],rep:2}));}
-  q.push({t:'mk',ph:'오늘 대화'});
+  q.push({t:'say',ph:'퇴근길',ko:`데이 ${day}. 오늘 표현을 실제 대화에 바로 반응하는 연습입니다.`,en:''});
+  guide(q,'오늘 대화','먼저 오늘 배운 표현이 들어간 짧은 대화를 듣고 답합니다.');
   d.d.forEach(x=>{if(x[0]==='s')q.push({t:'q',ph:'오늘 대화',ko:x[1],kl:'en',en:'',listen:true});
-    else q.push({t:'q',ph:'오늘 대화',ko:x[2],en:x[1],rep:2});});
-  q.push({t:'mk',ph:'핵심 3문장'});
-  d.c.slice(0,3).forEach((x,i)=>q.push({t:'q',ph:'핵심 3문장',ko:x[0],en:x[1],rep:2,id:sid(day,i)}));
+    else q.push({t:'q',ph:'오늘 대화',ko:x[2],en:x[1]});});
+  guide(q,'즉답 연습','이제 여행에서 자주 듣는 짧은 말에 바로 답합니다.');
+  shuffle(REPLIES.slice()).slice(0,P.rep).forEach(x=>q.push({t:'q',ph:'즉답 연습',ko:x[0],kl:'en',en:x[1],staff:true}));
+  const fixN=day<=2?Math.min(2,P.fix):P.fix;
+  if(fixN){guide(q,'되묻기','못 알아들었을 때 당황하지 않고 되묻는 연습입니다.');
+    RESCUE.slice(0,fixN).forEach(x=>q.push({t:'q',ph:'되묻기',ko:x[0],en:x[1]}));}
+  const numN=day>=6?P.num:0;
+  if(numN){guide(q,'숫자와 시간','이제 여행에서 자주 틀리는 숫자와 시간을 확인합니다.');
+    shuffle(NUMBERS.slice()).slice(0,numN).forEach(x=>q.push({t:'q',ph:'숫자와 시간',ko:x[0],en:x[1]}));}
+  const coreN=S.set.len===15?5:3;
+  guide(q,'오늘 마무리','마지막으로 오늘의 핵심 문장을 다시 말합니다.');
+  d.c.slice(0,coreN).forEach((x,i)=>q.push({t:'q',ph:'오늘 마무리',ko:x[0],en:x[1],id:sid(day,i)}));
   q.push({t:'end'});return q;
 }
 
@@ -1075,16 +1084,19 @@ function applyMark(id,ko,en,lv){
   m.dueAt=Date.now()+days*86400000;
   S.marks[id]=m;
 }
-function markDone(){
-  const k=tKey();S.done[k]=S.done[k]||{};
-  if(D.kind==='am'||D.kind==='pm')S.done[k][D.kind]=S.day;
+function markDone(dayOverride=S.day){
+  const completedDay=dayOverride,k=tKey();S.done[k]=S.done[k]||{};
+  if(D.kind==='am'||D.kind==='pm')S.done[k][D.kind]=completedDay;
   if(S.last!==k){const y=yesterdayKey();
     S.streak=(S.last===y)?S.streak+1:1;S.last=k;}
-  if(S.done[k].am===S.day&&S.done[k].pm===S.day&&S.day<30)S.day++;
+  const vals=Object.values(S.done);
+  const amDone=vals.some(v=>v.am===completedDay),pmDone=vals.some(v=>v.pm===completedDay);
+  if(amDone&&pmDone&&S.day===completedDay&&completedDay<30)S.day++;
 }
 async function saveReview(skip){
+  const completedDay=(S.pending&&S.pending.day)||S.day;
   if(!skip)pend.forEach(p=>{if(p.lv)applyMark(p.id,p.ko,p.en,p.lv);});
-  S.pending=null;markDone();await save();
+  S.pending=null;markDone(completedDay);await save();
   document.getElementById('review').classList.remove('on');render();
 }
 
@@ -1093,8 +1105,10 @@ const Q={pool:[],i:0,cur:null,timer:null};
 function openQuiz(){
   const d=dd(S.day);
   const base=d.c.map((x,i)=>({id:sid(S.day,i),ko:x[0],en:x[1]}));
-  const rev=due(6).map(x=>({id:x.id,ko:x.ko,en:x.en}));
-  Q.pool=shuffle([...rev,...base,...RESCUE.map((x,i)=>({id:'r'+i,ko:x[0],en:x[1]}))]).slice(0,12);
+  const rev=due(S.day<=2?0:4).map(x=>({id:x.id,ko:x.ko,en:x.en}));
+  const rescue=RESCUE.slice(0,S.day<=2?2:3).map((x,i)=>({id:'r'+i,ko:x[0],en:x[1]}));
+  const unique=[...new Map([...base,...rev,...rescue].map(x=>[x.id,x])).values()];
+  Q.pool=shuffle(unique).slice(0,12);
   Q.i=0;document.getElementById('quiz').classList.add('on');nextQ();
 }
 function nextQ(){
