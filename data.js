@@ -360,19 +360,43 @@ const resources = [
     updatedAt: "2026-06",
     links: [{ label: "바로가기", url: "https://fastidious-brigadeiros-07cdae.netlify.app/", platform: "html" }]
   },
+      {
+    id: "saeteck seosul",
+    icon: "✨",
+    title: "박정민 선생님의 세특 작성 사용 서술형 문장 모음",
+    section: "ai-tools",
+    description: "세특 작성 도와주는 서술형 문장 모음",
+    tags: ["세특", "문장"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-06",
+    links: [{ label: "바로가기", url: "https://fastidious-brigadeiros-07cdae.netlify.app/", platform: "html" }]
+  },
+        {
+    id: "teacher-growth-studio",
+    icon: "✨",
+    title: "교사 수업·평가·기록 설계실",
+    section: "ai-tools",
+    description: "수행평가를 설계하고, 학생의 성장 근거를 점검하며, 외부 AI에 넣을 안전한 프롬프트를 만듭니다",
+    tags: ["수행평가 설계", "세특 점검, 검수"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/teacher-growth-studio/", platform: "html" }]
+  },
   
   // ── 진로·취업 데이터 ──────────────────────────────────────
   {
-    id: "major-explorer",
+    id: "career-lab",
     icon: "🏫",
     title: "대학별 전공 가이드",
     section: "career-data",
-    description: "대학에서 제공하는 전공 가이드 모음",
-    tags: ["전공", "가이드", "대학제공"],
+    description: "내 경헙에서 시작하는 진로 실험실",
+    tags: ["질문", "텀구 설계", "성장로드맵"],
     featured: true,
     isNew: true,
-    updatedAt: "2026-06",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/major-explorer/", platform: "html" }]
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/career-lab/", platform: "html" }]
   },  
   {
     id: "admission-roadmap",
