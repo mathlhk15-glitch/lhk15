@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#070E16">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>출퇴근 여행영어 코치 v5</title>
+<title>출퇴근 여행영어 코치 v5.2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -232,7 +232,7 @@ textarea{width:100%;height:110px;background:var(--panel);border:1px solid var(--
 <!-- ════════ 오늘 ════════ -->
 <section class="screen on" id="s-today">
   <div class="mast">
-    <div class="brand">출퇴근 <span>여행영어 코치</span></div>
+    <div class="brand">출퇴근 <span>여행영어 코치</span> <small style="color:var(--dim2);font-size:9px">v5.2</small></div>
     <div class="mstat" id="m-streak"><b>0</b>일 연속</div>
   </div>
 
@@ -248,8 +248,8 @@ textarea{width:100%;height:110px;background:var(--panel);border:1px solid var(--
   </div>
 
   <div class="sec">
-    <div class="sechead"><div class="eyebrow">세션 길이</div><div class="eyebrow" id="t-est"></div></div>
-    <div class="seg" id="seg-len"><button data-v="5">5분</button><button data-v="10">10분</button><button data-v="15">15분</button></div>
+    <div class="sechead"><div class="eyebrow">세션 분량</div><div class="eyebrow" id="t-est"></div></div>
+    <div class="seg" id="seg-len"><button data-v="5">짧게</button><button data-v="10">기본</button><button data-v="15">집중</button></div>
   </div>
 
   <div class="sec">
@@ -257,8 +257,9 @@ textarea{width:100%;height:110px;background:var(--panel);border:1px solid var(--
       <button class="run am" id="btn-am"><span class="dot"></span>
         <div class="k">출근길</div><div class="s">한국어 → 영어로<br>먼저 꺼내기</div></button>
       <button class="run pm" id="btn-pm"><span class="dot"></span>
-        <div class="k">퇴근길</div><div class="s">상대 영어 →<br>바로 대응하기</div></button>
+        <div class="k">퇴근길</div><div class="s">오늘 표현 →<br>바로 대응하기</div></button>
     </div>
+    <div class="note" style="margin-top:9px"><b>출근길</b>은 오늘 문장을 먼저 꺼내는 연습, <b>퇴근길</b>은 같은 문장을 대화 속에서 바로 쓰는 복습입니다.</div>
   </div>
 
   <div class="sec">
@@ -275,7 +276,7 @@ textarea{width:100%;height:110px;background:var(--panel);border:1px solid var(--
   <div class="sec">
     <div class="sechead"><div class="eyebrow">다시 꺼낼 문장</div><div class="eyebrow" id="weak-n"></div></div>
     <div class="list" id="weak-list" style="margin-bottom:9px"></div>
-    <button class="btn" id="weak-run">취약 문장만 3분 복습</button>
+    <button class="btn" id="weak-run">취약 문장 복습</button>
   </div>
 </section>
 
@@ -332,7 +333,7 @@ textarea{width:100%;height:110px;background:var(--panel);border:1px solid var(--
     <div class="note">
       <b>속도가 유일한 합격선입니다.</b><br>
       1~2주차 7초 → 3~4주차 5초 → 5~6주차 3초 → 자동화 2초.<br>
-      같은 문장에 ⭕가 3번 연속이면 자동화 문장으로 넘어가고, 복습 간격이 30일로 늘어납니다.
+      같은 문장에 서로 다른 날 ⭕가 3회 누적되면 자동화 문장으로 넘어가고, 복습 간격이 30일로 늘어납니다.
     </div>
   </div>
 </section>
@@ -415,7 +416,7 @@ textarea{width:100%;height:110px;background:var(--panel);border:1px solid var(--
   <div class="rvs" id="rv-s"></div>
   <div id="rv-items"></div>
   <button class="btn pri" id="rv-save" style="margin-top:14px">저장하고 끝내기</button>
-  <button class="btn" id="rv-skip" style="margin-top:8px">건너뛰기</button>
+  <button class="btn" id="rv-skip" style="margin-top:8px">평가 없이 완료 처리</button>
 </div>
 
 <!-- TRANSIT QUIZ -->
@@ -496,7 +497,7 @@ const DAYS=[
     ["가장 가까운 약국이 어디예요?","Where is the nearest pharmacy?"]],
  s:[["출구가 어디예요?","Where is the exit?"],["엘리베이터가 어디예요?","Where is the elevator?"],
     ["택시 승강장이 어디예요?","Where is the taxi stand?"],["매표소가 어디예요?","Where is the ticket office?"],
-    ["제 자리가 어디예요?","Where is my seat?"]],
+    ["제 자리가 어디예요?","Could you show me where my seat is?"]],
  d:[["m","Where is the restroom?","화장실이 어디인가요?"],["s","It's next to the elevator.","엘리베이터 옆에 있습니다."],
     ["m","Sorry? Could you show me?","네? 보여 주시겠어요?"]]},
 
@@ -514,7 +515,7 @@ const DAYS=[
  c:[["이 기차 트빌리시 가나요?","Does this train go to Tbilisi?"],["이 버스 공항 가나요?","Does this bus go to the airport?"],
     ["이 버스 호텔 근처에 서나요?","Does this bus stop near the hotel?"],["어디서 내려요?","Where do I get off?"],
     ["몇 정거장이에요?","How many stops is it?"]],
- s:[["이 표 이 버스에 되나요?","Does this ticket work on this bus?"],["이 카드 여기서 되나요?","Does this card work here?"],
+ s:[["이 표 이 버스에 되나요?","Does this ticket work on this bus?"],["이 카드 여기서 사용할 수 있나요?","Can I use this card here?"],
     ["다음 역이 어디예요?","What's the next stop?"],["여기서 내리면 되나요?","Do I get off here?"],
     ["내릴 때 알려 주시겠어요?","Could you tell me when to get off?"]],
  d:[["m","Does this train go to Tbilisi?","이 기차는 트빌리시에 가나요?"],["s","No. You need the next train.","아니요. 다음 기차를 타야 합니다."],
@@ -689,15 +690,15 @@ const DAYS=[
  c:[["지갑을 도난당했어요","My wallet was stolen."],["경찰서가 어디예요?","Where is the police station?"],
     ["신고서를 써야 해요","I need to file a report."],["약국이 어디예요?","Where is the pharmacy?"],
     ["감사합니다, 큰 도움 됐어요","Thank you, that helps a lot."]],
- s:[["보험 서류가 필요해요","I need a copy of the report for my insurance."],["약 좀 주시겠어요?","Could I get some medicine?"],
-    ["의사를 만날 수 있을까요?","Could I see a doctor?"],["카드를 정지해야 해요","I need to block my card."],
+ s:[["보험 서류가 필요해요","I need a copy of the report for my insurance."],["두통약이 있나요?","Do you have anything for a headache?"],
+    ["의사를 만날 수 있을까요?","Could I see a doctor?"],["카드를 정지해야 해요","I need to freeze my card."],
     ["대사관에 연락해야 해요","I need to contact the embassy."]],
  d:[["m","My wallet was stolen.","지갑을 도난당했습니다."],["s","When did it happen?","언제 일어났나요?"],
     ["m","About an hour ago, on the bus.","한 시간쯤 전에 버스에서요."],["s","Please fill out this form.","이 양식을 작성해 주세요."]]},
 
 /* W6 */
 {p:"공항 입국",m:"입국 심사에서 짧게 답하기",
- c:[["관광차 왔어요","I'm here for tourism."],["일주일 있을 거예요","I'm staying for a week."],
+ c:[["관광하러 왔어요","I'm here for sightseeing."],["일주일 있을 거예요","I'm staying for a week."],
     ["이 호텔에 묵어요","I'm staying at this hotel."],["돌아가는 표 있어요","I have a return ticket."],
     ["신고할 것 없어요","I have nothing to declare."]],
  s:[["가족과 함께 왔어요","I'm here with my family."],["처음 왔어요","It's my first time here."],
@@ -764,7 +765,7 @@ const REPLIES=[["Passport, please.","Here you are."],["Cash or card?","Card, ple
  ["Your room is on the third floor.","Sorry? Which floor?"]];
 
 const NUMBERS=[["13번 게이트","Gate thirteen."],["50번 게이트","Gate fifty."],["6시 15분","Six fifteen."],
- ["6시 50분","Six fifty."],["213호","Room two thirteen."],["14요, 아니면 40요?","Is that fourteen or forty?"],
+ ["6시 50분","Six fifty."],["213호","Room two-one-three."],["14요, 아니면 40요?","Is that fourteen or forty?"],
  ["19요, 아니면 90요?","Is that nineteen or ninety?"],["1,5요? 아니면 5,0요?","One five, or five zero?"]];
 
 const CORE12=[["I'd like this, please.","이걸로 주세요"],["I need help.","도와주세요"],
@@ -782,9 +783,28 @@ const VERBS=[['go','went'],['come','came'],['get','got'],['take','took'],['find'
 const DEF={day:1,done:{},marks:{},streak:0,last:null,pending:null,
   set:{gap:5,rate:0.88,rep:2,txt:1,wake:1,len:10}};
 let S=JSON.parse(JSON.stringify(DEF));
-const KEY='cec-v6';
-const LEGACY_KEYS=['cec-v5','cec-v4','cec-v3'];
+const KEY='cec-v7';
+const LEGACY_KEYS=['cec-v6','cec-v5','cec-v4','cec-v3'];
 function cleanText(v,max=300){return String(v??'').replace(/[<>]/g,'').slice(0,max);}
+function pick(v,allowed,fallback){return allowed.includes(Number(v))?Number(v):fallback;}
+function migrateDone(raw){
+  const out={};
+  if(!raw||typeof raw!=='object')return out;
+  Object.entries(raw).forEach(([k,v])=>{
+    if(!v||typeof v!=='object')return;
+    // 새 구조: day 번호를 key로 사용
+    if(/^\d{1,2}$/.test(k)){
+      const d=Math.min(30,Math.max(1,Number(k)));
+      out[d]={am:v.am||null,pm:v.pm||null};return;
+    }
+    // 구 구조: 날짜별 {am:day, pm:day}
+    if(/^\d{4}-\d{2}-\d{2}$/.test(k)){
+      ['am','pm'].forEach(kind=>{const d=Number(v[kind]);if(d>=1&&d<=30){
+        out[d]=out[d]||{am:null,pm:null};out[d][kind]=k;}});
+    }
+  });
+  return out;
+}
 function normalizeState(v){
   if(!v||typeof v!=='object')throw new Error('invalid state');
   const day=Math.min(30,Math.max(1,Number(v.day)||1));
@@ -794,9 +814,13 @@ function normalizeState(v){
     marks[cleanText(id,80)]={...m,ko:cleanText(m.ko),en:cleanText(m.en),
       ok:Math.max(0,Number(m.ok)||0),miss:Math.max(0,Number(m.miss)||0)};
   });
-  return {...JSON.parse(JSON.stringify(DEF)),...v,day,
-    done:v.done&&typeof v.done==='object'?v.done:{},marks,
-    set:{...DEF.set,...(v.set&&typeof v.set==='object'?v.set:{})}};
+  const vs=v.set&&typeof v.set==='object'?v.set:{};
+  const set={
+    len:pick(vs.len,[5,10,15],DEF.set.len),gap:pick(vs.gap,[2,3,5,7],DEF.set.gap),
+    rate:pick(vs.rate,[0.75,0.88,1],DEF.set.rate),rep:pick(vs.rep,[1,2,3],DEF.set.rep),
+    txt:pick(vs.txt,[0,1],DEF.set.txt),wake:pick(vs.wake,[0,1],DEF.set.wake)
+  };
+  return {...JSON.parse(JSON.stringify(DEF)),...v,day,done:migrateDone(v.done),marks,set};
 }
 async function load(){try{let raw=localStorage.getItem(KEY);
     if(!raw){for(const k of LEGACY_KEYS){raw=localStorage.getItem(k);if(raw)break;}}
@@ -823,13 +847,14 @@ function pv(){const v=speechSynthesis.getVoices()||[];
     ||v.find(x=>/^en[-_]US/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null;}
 if('speechSynthesis'in window){pv();speechSynthesis.onvoiceschanged=pv;}
 function speak(t,lang,rate){return new Promise(res=>{
-  if(!('speechSynthesis'in window)||!t){setTimeout(res,700);return;}
+  if(!('speechSynthesis'in window)||!t){setTimeout(res,350);return;}
   try{speechSynthesis.resume();const u=new SpeechSynthesisUtterance(t);
     u.lang=lang==='ko'?'ko-KR':'en-US';const v=lang==='ko'?koV:enV;if(v)u.voice=v;
-    u.rate=rate;u.volume=1;u.pitch=1;let f=false;
-    const fin=()=>{if(!f){f=true;res();}};
-    u.onend=fin;u.onerror=fin;setTimeout(fin,Math.max(3000,t.length*140)+2200);
-    speechSynthesis.speak(u);}catch(e){setTimeout(res,700);}});}
+    u.rate=rate;u.volume=1;u.pitch=1;let f=false,timer=null;
+    const fin=()=>{if(!f){f=true;if(timer)clearTimeout(timer);res();}};
+    u.onend=fin;u.onerror=fin;
+    timer=setTimeout(()=>{try{speechSynthesis.cancel();}catch(e){}fin();},Math.min(12000,Math.max(3500,t.length*130+1800)));
+    speechSynthesis.speak(u);}catch(e){setTimeout(res,350);}});}
 
 /* silent loop → enables Media Session + helps keep audio session alive */
 let silentEl=null;
@@ -863,8 +888,10 @@ const PLAN={
  15:{rev:3,core:5,rounds:2,swap:5,talk:1,rescue:1,weak:2,rep:6,fix:4,num:3}
 };
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
-function due(n){const t=Date.now(),o=[];
-  Object.entries(S.marks).forEach(([id,m])=>{if(m.dueAt&&m.dueAt>t)return;
+function addDaysKey(baseKey,days){const d=new Date(baseKey+'T12:00:00');d.setDate(d.getDate()+days);return localDateKey(d);}
+function due(n){const today=tKey(),o=[];
+  Object.entries(S.marks).forEach(([id,m])=>{const dueKey=m.dueKey||localDateKey(new Date(Number(m.dueAt)||0));
+    if(dueKey&&dueKey>today)return;
     o.push({id,ko:m.ko,en:m.en,miss:m.miss||0,seen:m.at||0});});
   o.sort((a,b)=>(b.miss-a.miss)||(a.seen-b.seen));return o.slice(0,n);}
 function guide(q,ph,ko){q.push({t:'say',ph,ko,en:''});}
@@ -872,45 +899,59 @@ function guide(q,ph,ko){q.push({t:'say',ph,ko,en:''});}
 function qMorning(day){
   const P=PLAN[S.set.len],d=dd(day),q=[];
   q.push({t:'say',ph:'출근길',ko:`데이 ${day}. 오늘은 ${d.m} 연습입니다.`,en:d.p});
-  const revN=day===1?0:day<=5?Math.min(2,P.rev):P.rev;
-  if(revN){guide(q,'어제 회상','먼저 어제 배운 문장을 짧게 떠올립니다.');
-    dd(day-1).c.slice(0,revN).forEach(x=>q.push({t:'q',ph:'어제 회상',ko:x[0],en:x[1]}));}
+  if(day>1){
+    const revN=day<=5?Math.min(2,P.rev):P.rev;
+    if(revN){guide(q,'어제 회상','먼저 어제 배운 문장을 짧게 떠올립니다.');
+      dd(day-1).c.slice(0,revN).forEach(x=>q.push({t:'q',ph:'어제 회상',ko:x[0],en:x[1]}));}
+  }
   guide(q,'오늘 핵심','이제 오늘의 핵심 문장을 연습합니다.');
   d.c.slice(0,P.core).forEach((x,i)=>q.push({t:'q',ph:'오늘 핵심',ko:x[0],en:x[1],id:sid(day,i)}));
   if(P.swap){guide(q,'같은 패턴 확장','이제 같은 문장 틀에서 단어만 바꿔 말합니다.');
     d.s.slice(0,P.swap).forEach(x=>q.push({t:'q',ph:'같은 패턴 확장',ko:x[0],en:x[1]}));}
-  if(P.rounds>1){guide(q,'핵심 재인출','방금 익힌 핵심 문장을 다시 한번 스스로 꺼냅니다.');
-    d.c.slice(0,P.core).forEach((x,i)=>q.push({t:'q',ph:'핵심 재인출',ko:x[0],en:x[1],id:sid(day,i)}));}
   if(P.talk){guide(q,'미니 역할극','이제 실제 대화 속에서 오늘 표현을 사용합니다.');
     d.d.forEach(x=>{if(x[0]==='s')q.push({t:'q',ph:'미니 역할극',ko:x[1],kl:'en',en:'',listen:true});
       else q.push({t:'q',ph:'미니 역할극',ko:x[2],en:x[1]});});}
-  const rescueN=day<=2?0:P.rescue;
-  if(rescueN){guide(q,'여행 안전 문장','마지막으로 못 알아들었을 때 쓸 문장을 하나 익힙니다.');
-    shuffle(RESCUE.slice()).slice(0,rescueN).forEach(x=>q.push({t:'q',ph:'여행 안전 문장',ko:x[0],en:x[1]}));}
+  if(P.rounds>1){guide(q,'핵심 재인출','마지막으로 오늘 핵심 문장을 한 번 더 꺼냅니다.');
+    d.c.slice(0,P.core).forEach((x,i)=>q.push({t:'q',ph:'핵심 재인출',ko:x[0],en:x[1],id:sid(day,i)}));}
   const weakN=day<=2?0:day<=5?Math.min(1,P.weak):P.weak;
   const w=due(weakN);
   if(w.length){guide(q,'맞춤 복습','끝으로 복습 날짜가 된 어려운 문장을 다시 꺼냅니다.');
     w.forEach(x=>q.push({t:'q',ph:'맞춤 복습',ko:x.ko,en:x.en,id:x.id}));}
-  q.push({t:'end'});return fillToTarget(q,day,'am');
+  q.push({t:'end'});return capSession(q,day,'am');
 }
 function qEvening(day){
   const P=PLAN[S.set.len],d=dd(day),q=[];
-  q.push({t:'say',ph:'퇴근길',ko:`데이 ${day}. 오늘 표현을 실제 대화에 바로 반응하는 연습입니다.`,en:''});
-  guide(q,'오늘 대화','먼저 오늘 배운 표현이 들어간 짧은 대화를 듣고 답합니다.');
+  q.push({t:'say',ph:'퇴근길',ko:`데이 ${day}. 출근길에서 배운 표현을 실제 대화에 바로 반응하는 연습입니다.`,en:''});
+  guide(q,'아침 회상','먼저 오늘 핵심 문장을 짧게 다시 꺼냅니다.');
+  const recallN=S.set.len===5?3:5;
+  d.c.slice(0,recallN).forEach((x,i)=>q.push({t:'q',ph:'아침 회상',ko:x[0],en:x[1],id:sid(day,i)}));
+  guide(q,'오늘 대화','이제 오늘 표현이 들어간 짧은 대화를 듣고 답합니다.');
   d.d.forEach(x=>{if(x[0]==='s')q.push({t:'q',ph:'오늘 대화',ko:x[1],kl:'en',en:'',listen:true});
     else q.push({t:'q',ph:'오늘 대화',ko:x[2],en:x[1]});});
-  guide(q,'즉답 연습','이제 여행에서 자주 듣는 짧은 말에 바로 답합니다.');
-  shuffle(REPLIES.slice()).slice(0,P.rep).forEach(x=>q.push({t:'q',ph:'즉답 연습',ko:x[0],kl:'en',en:x[1],staff:true}));
-  const fixN=day<=2?Math.min(2,P.fix):P.fix;
-  if(fixN){guide(q,'되묻기','못 알아들었을 때 당황하지 않고 되묻는 연습입니다.');
-    RESCUE.slice(0,fixN).forEach(x=>q.push({t:'q',ph:'되묻기',ko:x[0],en:x[1]}));}
-  const numN=day>=6?P.num:0;
-  if(numN){guide(q,'숫자와 시간','이제 여행에서 자주 틀리는 숫자와 시간을 확인합니다.');
-    shuffle(NUMBERS.slice()).slice(0,numN).forEach(x=>q.push({t:'q',ph:'숫자와 시간',ko:x[0],en:x[1]}));}
-  const coreN=S.set.len===15?5:3;
-  guide(q,'오늘 마무리','마지막으로 오늘의 핵심 문장을 다시 말합니다.');
-  d.c.slice(0,coreN).forEach((x,i)=>q.push({t:'q',ph:'오늘 마무리',ko:x[0],en:x[1],id:sid(day,i)}));
-  q.push({t:'end'});return fillToTarget(q,day,'pm');
+  if(P.swap){guide(q,'패턴 즉답','같은 패턴의 문장을 듣고 바로 말합니다.');
+    d.s.slice(0,S.set.len===5?2:S.set.len===10?3:5).forEach(x=>q.push({t:'q',ph:'패턴 즉답',ko:x[0],en:x[1]}));}
+  if(day>1&&P.fix){guide(q,'되묻기','못 알아들었을 때 당황하지 않고 되묻는 연습입니다.');
+    shuffle(RESCUE.slice()).slice(0,S.set.len===5?1:Math.min(2,P.fix)).forEach(x=>q.push({t:'q',ph:'되묻기',ko:x[0],en:x[1]}));}
+  if(day>=6&&P.num){guide(q,'숫자와 시간','이제 여행에서 자주 틀리는 숫자와 시간을 확인합니다.');
+    shuffle(NUMBERS.slice()).slice(0,P.num).forEach(x=>q.push({t:'q',ph:'숫자와 시간',ko:x[0],en:x[1]}));}
+  q.push({t:'end'});return capSession(q,day,'pm');
+}
+function capSession(q,day,kind){
+  const d=dd(day),end=q.pop();
+  // 선택한 분량에 맞춰 보강 라운드를 정확히 한 번만 추가한다.
+  // 실제 재생 시간을 억지로 채우지 않아 동일 문장의 과도한 반복을 막는다.
+  if(kind==='am'){
+    guide(q,'짧은 재도전','오늘 핵심 문장을 순서를 바꿔 한 번만 더 말합니다.');
+    const take=S.set.len===5?2:S.set.len===10?3:5;
+    shuffle(d.c.map((x,i)=>({x,i}))).slice(0,take)
+      .forEach(({x,i})=>q.push({t:'q',ph:'짧은 재도전',ko:x[0],en:x[1],id:sid(day,i)}));
+  }else{
+    guide(q,'마무리 재도전','마지막으로 오늘 핵심 문장을 한 번만 더 빠르게 말합니다.');
+    const take=S.set.len===5?2:3;
+    shuffle(d.c.map((x,i)=>({x,i}))).slice(0,take)
+      .forEach(({x,i})=>q.push({t:'q',ph:'마무리 재도전',ko:x[0],en:x[1],id:sid(day,i)}));
+  }
+  q.push(end);return q;
 }
 
 function allWeak(n=12){return Object.entries(S.marks)
@@ -940,26 +981,6 @@ function itemSec(x){
   return 0;
 }
 function estMin(q){return q.reduce((a,x)=>a+itemSec(x),0)/60;}
-function fillToTarget(q,day,kind){
-  const target=S.set.len*60*.92,d=dd(day);
-  if(q.reduce((a,x)=>a+itemSec(x),0)>=target)return q;
-  const end=q.pop();let cycle=1;
-  while(q.reduce((a,x)=>a+itemSec(x),0)<target&&cycle<=20){
-    if(kind==='am'){
-      guide(q,'실전 재도전',cycle===1?'남은 시간에는 오늘 문장을 순서를 바꿔 다시 말합니다.':'오늘 문장을 다시 한번 빠르게 꺼냅니다.');
-      const take=S.set.len===5?4:S.set.len===10?7:10;
-      shuffle([...d.c,...d.s]).slice(0,take).forEach(x=>{const ci=d.c.findIndex(y=>y[1]===x[1]);
-        q.push({t:'q',ph:'실전 재도전',ko:x[0],en:x[1],id:ci>=0?sid(day,ci):undefined});});
-    }else{
-      guide(q,'반응 속도 높이기',cycle===1?'남은 시간에는 오늘 대화와 핵심 문장에 더 빠르게 반응합니다.':'같은 표현에 한 번 더 바로 반응합니다.');
-      d.d.forEach(x=>{if(x[0]==='s')q.push({t:'q',ph:'반응 속도 높이기',ko:x[1],kl:'en',en:'',listen:true});
-        else q.push({t:'q',ph:'반응 속도 높이기',ko:x[2],en:x[1]});});
-      d.c.slice(0,S.set.len===5?2:3).forEach((x,i)=>q.push({t:'q',ph:'반응 속도 높이기',ko:x[0],en:x[1],id:sid(day,i)}));
-    }
-    cycle++;
-  }
-  q.push(end);return q;
-}
 
 /* ═══════════ DRIVE ENGINE ═══════════ */
 const D={q:[],i:0,play:false,tok:0,kind:'am',el:{}};
@@ -1021,7 +1042,7 @@ async function run(from){
       D.el.count.textContent='♪';D.el.count.className='count idle mono';sw(0);lit(0,'cool');
       setMedia(s.ph,'상대방');
       await speak(s.ko,'en',S.set.rate);if(tok!==D.tok)return;
-      await sleep(300);if(tok!==D.tok)return;D.i++;continue;
+      await sleep(1000);if(tok!==D.tok)return;D.i++;continue;
     }
 
     /* question */
@@ -1042,7 +1063,7 @@ async function run(from){
 
     D.el.answer.textContent=s.en;D.el.answer.className='answer show';
     D.el.hint.textContent='따라 말하세요';D.el.count.textContent='✓';D.el.count.className='count idle mono';lit(1,'cool');
-    const reps=Math.max(1,Math.min(3,S.set.rep));
+    const reps=Math.max(1,Math.min(3,s.rep??S.set.rep));
     for(let r=0;r<reps;r++){await speak(s.en,'en',r===0?Math.max(.68,S.set.rate-.12):S.set.rate);
       if(tok!==D.tok)return;if(r<reps-1){await sleep(260);if(tok!==D.tok)return;}}
     await sleep(340);if(tok!==D.tok)return;D.i++;
@@ -1050,6 +1071,7 @@ async function run(from){
 }
 
 function openDrive(kind){
+  initSilent();
   D.kind=kind;
   D.q = kind==='am'?qMorning(S.day):kind==='pm'?qEvening(S.day):qWeak();
   D.i=0;D.play=false;
@@ -1066,6 +1088,7 @@ function togglePlay(){
     try{silentEl&&silentEl.pause();}catch(e){}
     D.el.play.textContent='이어서';D.el.play.classList.add('ps');D.el.hint.textContent='일시정지';
   }else{D.play=true;reqWake();
+    try{initSilent();silentEl.currentTime=0;silentEl.play().catch(()=>{});}catch(e){}
     try{speechSynthesis.cancel();speechSynthesis.resume();}catch(e){}
     D.el.play.textContent='일시정지';D.el.play.classList.remove('ps');run(D.i);}
 }
@@ -1093,7 +1116,7 @@ function finish(){
   const trained=D.q.filter(x=>x.t==='q'&&x.en&&!x.listen&&x.id);
   pend=[...new Map(trained.map(x=>[x.id,{id:x.id,ko:x.ko,en:x.en,lv:null}])).values()];
   if(!pend.length){
-    const d=dd(S.day),count=D.kind==='pm'?3:PLAN[S.set.len].core;
+    const d=dd(S.day),count=PLAN[S.set.len].core;
     pend=d.c.slice(0,count).map((x,i)=>({id:sid(S.day,i),ko:x[0],en:x[1],lv:null}));
   }
   S.pending={kind:D.kind,day:S.day,items:pend};save();
@@ -1102,7 +1125,7 @@ function finish(){
 function openReview(recovered=false){
   document.getElementById('rv-h').textContent=recovered?'지난 세션의 평가가 남아 있습니다':
     (D.kind==='pm'?'상대 말에 바로 답했나요?':'오늘 몇 초 만에 나왔나요?');
-  const goal=S.day<=10?'7초':S.day<=20?'5초':'3초';
+  const goal=`${S.set.gap}초`;
   document.getElementById('rv-s').textContent=
     `${goal} 안에 나온 문장만 ⭕입니다. △는 3일 뒤, ❌는 내일 다시 나옵니다.`;
   document.getElementById('rv-items').innerHTML=pend.map((p,i)=>`
@@ -1124,17 +1147,18 @@ function applyMark(id,ko,en,lv){
   }else{m.ok=0;m.lastOkDate=null;m.miss=(m.miss||0)+1;}
   m.auto=m.ok>=3;
   const days=lv==='x'?1:lv==='t'?3:(m.auto?30:7);
-  m.dueAt=Date.now()+days*86400000;
+  m.dueKey=addDaysKey(tKey(),days);m.dueAt=Date.now()+days*86400000;
   S.marks[id]=m;
 }
 function markDone(dayOverride=S.day){
-  const completedDay=dayOverride,k=tKey();S.done[k]=S.done[k]||{};
-  if(D.kind==='am'||D.kind==='pm')S.done[k][D.kind]=completedDay;
-  if(S.last!==k){const y=yesterdayKey();
-    S.streak=(S.last===y)?S.streak+1:1;S.last=k;}
-  const vals=Object.values(S.done);
-  const amDone=vals.some(v=>v.am===completedDay),pmDone=vals.some(v=>v.pm===completedDay);
-  if(amDone&&pmDone&&S.day===completedDay&&completedDay<30)S.day++;
+  const completedDay=dayOverride,k=tKey();
+  if(D.kind==='am'||D.kind==='pm'){
+    S.done[completedDay]=S.done[completedDay]||{am:null,pm:null};
+    S.done[completedDay][D.kind]=k;
+    if(S.last!==k){const y=yesterdayKey();S.streak=(S.last===y)?S.streak+1:1;S.last=k;}
+    const rec=S.done[completedDay];
+    if(rec.am&&rec.pm&&S.day===completedDay&&completedDay<30)S.day++;
+  }
 }
 async function saveReview(skip){
   const completedDay=(S.pending&&S.pending.day)||S.day;
@@ -1183,22 +1207,28 @@ function render(){
   document.getElementById('t-pat').textContent=d.p;
   document.getElementById('t-mean').textContent=d.m;
   document.getElementById('m-streak').innerHTML=`<b>${S.streak}</b>일 연속`;
-  document.getElementById('t-est').textContent=`약 ${Math.max(1,Math.round(estMin(qMorning(n))))}분`;
+  const amMin=Math.max(1,Math.round(estMin(qMorning(n)))),pmMin=Math.max(1,Math.round(estMin(qEvening(n))));
+  document.getElementById('t-est').textContent=`예상 출근 ${amMin}분 · 퇴근 ${pmMin}분`;
+  document.querySelector('#btn-am .s').innerHTML=`한국어 → 영어로<br>먼저 꺼내기 · 약 ${amMin}분`;
+  document.querySelector('#btn-pm .s').innerHTML=`오늘 표현으로<br>바로 대응하기 · 약 ${pmMin}분`;
 
   // daybar
-  const k=tKey(),dn=S.done[k]||{};
+  const rec=S.done[n]||{am:null,pm:null};
   const amS=new Set(),pmS=new Set();
-  Object.values(S.done).forEach(v=>{if(v.am)amS.add(v.am);if(v.pm)pmS.add(v.pm);});
+  Object.entries(S.done).forEach(([day,v])=>{if(v&&v.am)amS.add(Number(day));if(v&&v.pm)pmS.add(Number(day));});
   const bar=document.getElementById('daybar');
   bar.innerHTML=Array.from({length:30},(_,i)=>{const x=i+1;
     return `<button class="dchip ${x===n?'on':''} ${amS.has(x)&&pmS.has(x)?'done':''}" data-d="${x}">
       <b>${String(x).padStart(2,'0')}</b><i>W${wk(x)}</i></button>`;}).join('');
-  bar.querySelectorAll('.dchip').forEach(b=>b.onclick=async()=>{S.day=+b.dataset.d;await save();render();});
+  bar.querySelectorAll('.dchip').forEach(b=>b.onclick=async()=>{const target=+b.dataset.d;
+    const unlocked=target<=S.day||((S.done[target]||{}).am||(S.done[target]||{}).pm);
+    if(!unlocked){alert('현재 Day를 완료한 뒤 다음 Day로 이동할 수 있습니다.');return;}
+    S.day=target;await save();render();});
   setTimeout(()=>bar.children[n-1]?.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'}),40);
 
   // suggest am/pm by hour
   const h=new Date().getHours();
-  const amDone=dn.am===n,pmDone=dn.pm===n;
+  const amDone=!!rec.am,pmDone=!!rec.pm;
   document.getElementById('btn-am').classList.toggle('sug',h<12&&!amDone);
   document.getElementById('btn-pm').classList.toggle('sug',h>=12&&!pmDone);
   document.getElementById('btn-am').classList.toggle('done',amDone);
@@ -1251,9 +1281,10 @@ function render(){
       <div class="bars"><div class="b ${amS.has(x)?'f':''}"></div><div class="b ${pmS.has(x)?'f2':''}"></div></div></div>`;}).join('');
 
   // weekly
-  const wStart=new Date();wStart.setDate(wStart.getDate()-6);
-  let am=0,pm=0;Object.entries(S.done).forEach(([dt,v])=>{
-    if(new Date(dt)>=wStart){if(v.am)am++;if(v.pm)pm++;}});
+  const wStart=new Date();wStart.setHours(0,0,0,0);wStart.setDate(wStart.getDate()-6);
+  let am=0,pm=0;Object.values(S.done).forEach(v=>{
+    if(v&&v.am&&new Date(v.am+'T12:00:00')>=wStart)am++;
+    if(v&&v.pm&&new Date(v.pm+'T12:00:00')>=wStart)pm++;});
   document.getElementById('weekly').innerHTML=
     `최근 7일 &nbsp; 출근 <b>${am}회</b> · 퇴근 <b>${pm}회</b><br>
      자동화 문장 <b>${auto}개</b> · 다시 볼 문장 <b>${wkc}개</b><br>
