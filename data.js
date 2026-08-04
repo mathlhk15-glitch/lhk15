@@ -389,9 +389,9 @@ const resources = [
   {
     id: "career-lab",
     icon: "🏫",
-    title: "대학별 전공 가이드",
+    title: "내 경헙에서 시작하는 진로 실험실",
     section: "career-data",
-    description: "내 경헙에서 시작하는 진로 실험실",
+    description: "진로 가설 → 질문 → 탐구 설계 → 성장 로드맵",
     tags: ["질문", "텀구 설계", "성장로드맵"],
     featured: true,
     isNew: true,
