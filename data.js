@@ -50,7 +50,7 @@ const resources = [
 
     {
     id: "admission-guide-2028",
-    icon: "🎯",
+    icon: "🌰",
     title: "2027·2028 대입, 대학은 무엇을 보고 학생은 무엇을 준비해야 할까?",
     section: "admission",
     description: "2027,20288 주요대학 입학 관계자 간담회 내용 정리",
@@ -350,7 +350,7 @@ const resources = [
   },
     {
     id: "saeteck seosul",
-    icon: "✨",
+    icon: "🦐",
     title: "박정민 선생님의 세특 작성 사용 서술형 문장 모음",
     section: "ai-tools",
     description: "세특 작성 도와주는 서술형 문장 모음",
@@ -362,7 +362,7 @@ const resources = [
   },
       {
     id: "saeteck seosul",
-    icon: "✨",
+    icon: "🗺️",
     title: "박정민 선생님의 세특 작성 사용 서술형 문장 모음",
     section: "ai-tools",
     description: "세특 작성 도와주는 서술형 문장 모음",
