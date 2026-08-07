@@ -86,7 +86,7 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/", platform: "html" }]
   },  
   {
-    id: "admission2027,
+    id: "admission2027",
     icon: "🏥",
     title: "2027 학생·학부모를 위한 데이터 기반 입시 안내",
     section: "admission",
