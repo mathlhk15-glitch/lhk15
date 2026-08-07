@@ -73,7 +73,7 @@ const resources = [
   updatedAt: "2026-06",
   links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/2027-susi-counsel-hub.html", platform: "html" }]
 },
-  {
+    {
     id: "ipsi-2027",
     icon: "🏥",
     title: "2027 대입 대학별 핵심 가이드",
@@ -84,6 +84,18 @@ const resources = [
     isNew: true,
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/", platform: "html" }]
+  },  
+  {
+    id: "admission2027,
+    icon: "🏥",
+    title: "2027 학생·학부모를 위한 데이터 기반 입시 안내",
+    section: "admission",
+    description: "2027 복잡한 대입 자료를 이해하고, 비교하고, 결정하는 웹 가이드",
+    tags: ["2027", "입시 안내"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/admission2027/", platform: "html" }]
   },  
   {
   id: "suwan-korean-2027",
