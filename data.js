@@ -3,7 +3,8 @@ const SECTIONS = {
   "curriculum":  { label: "📚 교육과정·배치표",    desc: "교육과정 편제, 학급 배치 등 학교 운영 자료" },
   "ai-tools":    { label: "🤖 AI 도우미",          desc: "탐구·세특·면접 등 학습 전반을 지원하는 AI 도구" },
   "career-data": { label: "📊 진로·취업 데이터",   desc: "진로 탐색 및 학과 선택을 위한 통계 자료" },
-  "personal":    { label: "🔒 개인",               desc: "개인 전용 자료" }
+  "personal":    { label: "🔒 개인",               desc: "개인 전용 자료" },
+  "etc":         { label: "🗂️ 기타",               desc: "그 외 만들어둔 자료" }
 };
 
 // ★ 카드 추가/수정은 이 배열만 편집하세요
@@ -517,6 +518,32 @@ const resources = [
     isNew: true,
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/good-writing", platform: "html" }]
+  },
+
+    // ── 기타 ──────────────────────────────────────────────────
+  {
+    id: "commute-english",
+    icon: "🗣️",
+    title: "출퇴근 여행영어 코치",
+    section: "etc",
+    description: "운전 중 듣고 먼저 말하는 방식으로 익히는 70일 여행 생존 영어",
+    tags: ["여행영어", "영어", "듣기말하기"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "commute-english-v4.html", platform: "html" }]
+  },
+  {
+    id: "breakfast-soup",
+    icon: "🍲",
+    title: "한 달 아침국 30가지",
+    section: "etc",
+    description: "가족 식단을 위한 한 달치 아침국 추천 및 계획 도구",
+    tags: ["아침국", "식단", "가족"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "breakfast_soup.html", platform: "html" }]
   },
 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
