@@ -580,6 +580,7 @@
           <button class="ws-filter-btn" data-section="curriculum" onclick="setFilter('curriculum', this)">교육과정</button>
           <button class="ws-filter-btn" data-section="ai-tools" onclick="setFilter('ai-tools', this)">AI 도우미</button>
           <button class="ws-filter-btn" data-section="career-data" onclick="setFilter('career-data', this)">진로 데이터</button>
+          <button class="ws-filter-btn" data-section="etc" onclick="setFilter('etc', this)">기타</button>
 
         </div>
       </div>
@@ -632,12 +633,13 @@
     (function () {
       if (typeof SECTIONS === 'undefined' || typeof resources === 'undefined') return;
 
-      const sectionOrder = ['admission', 'curriculum', 'ai-tools', 'career-data'];
+      const sectionOrder = ['admission', 'curriculum', 'ai-tools', 'career-data', 'etc'];
       const sectionMeta = {
         admission:    { title: '📄 수시 입시 자료' },
         curriculum:   { title: '📘 교육과정 자료' },
         'ai-tools':   { title: '🤖 AI 도우미' },
-        'career-data':{ title: '🎯 진로 데이터' }
+        'career-data':{ title: '🎯 진로 데이터' },
+        etc:          { title: '🗂️ 기타' }
       };
 
       window.ARCHIVE_DATA = {
