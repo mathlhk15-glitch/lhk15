@@ -533,6 +533,42 @@ const resources = [
     updatedAt: "2026-08",
     links: [{ label: "바로가기", url: "breakfast_soup.html", platform: "html" }]
   },
+  {
+    id: "elderly-appetite-guide",
+    icon: "🍵",
+    title: "식욕·소화불량·우울감 개선 가이드",
+    section: "etc",
+    description: "식전 소량 온음료 + 부드러운 고단백 식사로 노인 식욕부진·소화불량·우울감을 개선하는 방법 정리",
+    tags: ["건강", "노인식단", "식욕부진"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "elderly-appetite-guide.png", platform: "image" }]
+  },
+  {
+    id: "jaunggo-guide",
+    icon: "🌿",
+    title: "자운고 만들기",
+    section: "etc",
+    description: "자근·당귀·진피·감초로 만드는 전통 한방 연고, 효능·준비물·제조법 정리",
+    tags: ["한방", "자운고", "천연연고"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "jaunggo-guide.png", platform: "image" }]
+  },
+  {
+    id: "saengmaeksan-guide",
+    icon: "🍹",
+    title: "생맥산 만들기",
+    section: "etc",
+    description: "맥문동·오미자·황기·백출·진피로 만드는 여름철 갈증 해소·기력 보충 한방 음료 레시피",
+    tags: ["한방", "생맥산", "여름음료"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "saengmaeksan-guide.png", platform: "image" }]
+  },
 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
