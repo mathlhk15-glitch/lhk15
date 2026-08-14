@@ -253,7 +253,18 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeongil-admissions-compass/", platform: "html" }]
   },
-
+        {
+    id: "teacher-edu-guide",
+    icon: "🍧",
+    title: "교대·사범대·교원양성기관 통합 정리",
+    section: "admission",
+    description: "교대·사범대·교원양성기관 통합 정리",
+    tags: ["교대", "사범대"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/teacher-edu-guide/", platform: "html" }]
+  },
     // ── 교육과정·배치표 ────────────────────────────────────────
   {
     id: "curriculum-2026",
