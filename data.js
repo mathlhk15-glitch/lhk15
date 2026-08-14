@@ -263,7 +263,7 @@ const resources = [
     featured: false,
     isNew: true,
     updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/teacher-edu-guide/", platform: "html" }]
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/teacher-edu-guide", platform: "html" }]
   },
     // ── 교육과정·배치표 ────────────────────────────────────────
   {
