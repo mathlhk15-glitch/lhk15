@@ -37,6 +37,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/college-admissions-2027-2028/", platform: "html" }]
   },
     {
+    id: "admission-guide-2028",
+    icon: "🌰",
+    title: "의·치·한·약·수 수시입결 상담도구(2023–2026 입시결과 · 2026/2027 수능최저 참고)",
+    section: "admission",
+    description: "의·치·한·약·수 수시입결 상담도구(2023–2026 입시결과 · 2026/2027 수능최저 참고)",
+    tags: ["의치한약수"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/med-admission-2026", platform: "html" }]
+  },    
+    {
     id: "2028ipsi",
     icon: "🎯",
     title: "2027,2028 15개 대학 대입전형 한눈에 보기, 비교 정리",
@@ -60,8 +72,7 @@ const resources = [
     isNew: true,
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/admission-guide-2028", platform: "html" }]
-  },  
-  
+  },    
     {
   id: "2027-susi-counsel-hub",
   icon: "📚",
