@@ -591,6 +591,57 @@ const resources = [
     updatedAt: "2026-08",
     links: [{ label: "바로가기", url: "saengmaeksan-guide.png", platform: "image" }]
   },
+  {
+    id: "korea-independence-movement",
+    icon: "🇰🇷",
+    title: "한국의 광복은 왜 독립운동의 결과라고 배우는가",
+    section: "etc",
+    description: "광복이 독립운동의 결과라고 배우는 이유를 정리한 자료",
+    tags: ["광복", "독립운동", "역사"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "korea-independence-movement.html", platform: "html" }]
+  },
+  {
+    id: "seoul-apartment-search",
+    icon: "🏠",
+    title: "딸의 서울 첫 주택 마련 가족 실행안",
+    section: "etc",
+    description: "딸의 서울 첫 주택 마련을 위한 가족 최종 실행안",
+    tags: ["주택", "서울", "가족"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "seoul-apartment-search.html", platform: "html" }]
+  },
+  {
+    id: "laundry-aci-guide",
+    icon: "🧺",
+    title: "속옷은 한 번, 브라는 2~3번…옷은 언제 빨아야 할까?",
+    section: "etc",
+    description: "속옷·브라 등 의류별 세탁 주기 가이드",
+    tags: ["세탁", "생활정보"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "laundry_aci_guide.html", platform: "html" }]
+  },
+  {
+    id: "radio-shortcut",
+    icon: "📻",
+    title: "라디오 바로가기",
+    section: "etc",
+    description: "즐겨듣는 라디오 사이트 바로가기 모음",
+    tags: ["라디오", "음악"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [
+      { label: "BSOD 라디오", url: "https://radio.bsod.kr/", platform: "html" },
+      { label: "수학쌤 라디오", url: "https://mathlhk15-glitch.github.io/radio/", platform: "html" }
+    ]
+  },
 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
