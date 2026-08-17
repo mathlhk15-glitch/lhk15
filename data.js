@@ -616,7 +616,7 @@ const resources = [
     links: [{ label: "바로가기", url: "seoul-apartment-search.html", platform: "html" }]
   },
   {
-    id: "laundry-aci-guide",
+    id: "laundry_pocket_guide",
     icon: "🧺",
     title: "속옷은 한 번, 브라는 2~3번…옷은 언제 빨아야 할까?",
     section: "etc",
@@ -625,7 +625,7 @@ const resources = [
     featured: false,
     isNew: true,
     updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "laundry_aci_guide.html", platform: "html" }]
+    links: [{ label: "바로가기", url: "laundry_pocket_guide.html", platform: "html" }]
   },
   {
     id: "radio-shortcut",
