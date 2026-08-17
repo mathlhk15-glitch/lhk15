@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>딸의 서울 첫 주택 마련 가족 실행안</title>
+<style>
+:root{
+  --bg:#f4f7fb;
+  --card:#ffffff;
+  --ink:#172033;
+  --muted:#667085;
+  --line:#e6eaf0;
+  --navy:#1f3b64;
+  --blue:#365f91;
+  --soft:#eef4fb;
+  --green:#1f7a5c;
+  --green-bg:#edf8f3;
+  --amber:#9a6510;
+  --amber-bg:#fff7e8;
+  --red:#a93a3a;
+  --red-bg:#fff0f0;
+  --shadow:0 12px 30px rgba(31,59,100,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+.hero{background:linear-gradient(135deg,#17345d,#365f91);color:#fff;border-radius:24px;padding:34px 34px 30px;box-shadow:var(--shadow)}
+.hero h1{margin:0 0 10px;font-size:34px;line-height:1.25;letter-spacing:-.5px}
+.hero p{margin:0;color:#e9f1fb;font-size:16px}
+.hero .date{margin-top:14px;font-size:13px;color:#cfe0f4}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+.kpi{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:16px}
+.kpi b{display:block;font-size:20px;margin-bottom:4px}.kpi span{font-size:12px;color:#dce8f7}
+nav{position:sticky;top:0;z-index:5;margin:18px 0;background:rgba(244,247,251,.92);backdrop-filter:blur(8px);padding:10px;border-radius:14px;border:1px solid var(--line)}
+nav a{display:inline-block;padding:7px 10px;font-size:13px;font-weight:700;color:var(--navy)}
+section{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:0 4px 16px rgba(31,59,100,.04)}
+h2{margin:0 0 14px;font-size:24px;color:var(--navy);letter-spacing:-.3px}
+h3{margin:20px 0 8px;font-size:18px;color:#234d7a}
+.lead{font-size:17px}.muted{color:var(--muted)}
+.callout{border-left:5px solid var(--blue);background:var(--soft);padding:16px 18px;border-radius:12px;margin:14px 0}
+.good{border-left-color:var(--green);background:var(--green-bg)}
+.warn{border-left-color:var(--amber);background:var(--amber-bg)}
+.danger{border-left-color:var(--red);background:var(--red-bg)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{border:1px solid var(--line);border-radius:16px;padding:18px;background:#fff}.card h3{margin-top:0}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--soft);color:var(--navy);margin-right:6px}
+.badge.green{background:var(--green-bg);color:var(--green)}.badge.amber{background:var(--amber-bg);color:var(--amber)}.badge.red{background:var(--red-bg);color:var(--red)}
+table{width:100%;border-collapse:collapse;margin:12px 0 4px;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:11px 10px;text-align:left;vertical-align:top}
+th{background:#f8fafc;color:#344054;font-size:13px}
+.money{font-weight:800;color:#17345d;white-space:nowrap}
+ul,ol{padding-left:22px}.tight li{margin:3px 0}
+.timeline{display:grid;grid-template-columns:40px 1fr;gap:10px 14px}.stepnum{width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}.step{padding:4px 0 14px;border-bottom:1px dashed var(--line)}
+.score{display:flex;gap:6px;align-items:center}.dot{width:10px;height:10px;border-radius:50%;background:#d7dde7}.dot.on{background:#365f91}
+footer{margin-top:24px;color:#7a8494;font-size:12px;text-align:center;padding:16px}
+.print-note{font-size:12px;color:#667085;margin-top:8px}
+@media(max-width:900px){.summary-grid,.grid3,.grid2{grid-template-columns:1fr 1fr}.hero h1{font-size:28px}}
+@media(max-width:640px){.wrap{padding:14px 10px 40px}.hero{padding:24px 20px}.summary-grid,.grid3,.grid2{grid-template-columns:1fr}section{padding:20px}nav{position:static}.hero h1{font-size:24px}table{font-size:12px;display:block;overflow-x:auto;white-space:nowrap}}
+@media print{body{background:#fff}.wrap{max-width:none;padding:0}.hero,section{box-shadow:none}nav{display:none}a{color:#000;text-decoration:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <h1>딸의 서울 첫 주택 마련<br>가족 최종 실행안</h1>
+    <p>세무 · 증여 · 부모차용 · 은행대출 · 생애최초 취득세 · 실제 서울 후보지역을 한 번에 비교하는 가족용 의사결정 자료</p>
+    <div class="date">검증 기준: 2026년 8월 16일 · 실제 계약 전에는 최신 실거래가·규제·세금·대출조건 재확인 필요</div>
+    <div class="summary-grid">
+      <div class="kpi"><b>2.20~2.35억</b><span>기본 매매가 목표</span></div>
+      <div class="kpi"><b>0.8~1.0억</b><span>정식 증여 권장 범위</span></div>
+      <div class="kpi"><b>약 1억 전후</b><span>부모 실제 차용 목표</span></div>
+      <div class="kpi"><b>공동 1순위</b><span>봉천·신림 빌라 / 쌍문 한양 비교</span></div>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#conclusion">핵심 결론</a><a href="#tax">세무·차용</a><a href="#budget">예산</a><a href="#taxbenefit">취득세</a><a href="#loan">은행대출</a><a href="#permit">토지거래허가</a><a href="#candidates">후보지역</a><a href="#compare">비교표</a><a href="#costplan">총비용</a><a href="#flow">실행순서</a><a href="#checklist">계약 체크</a><a href="#sources">근거</a>
+  </nav>
+
+  <section id="conclusion">
+    <h2>1. 가족이 먼저 합의할 핵심 결론</h2>
+    <div class="callout good lead"><b>집값을 2억6,600만원까지 꽉 채우지 않는다.</b><br>매매가는 <span class="money">2억2천만~2억3,500만원</span>을 기본 목표로 하고, 취득·등기·수리·이사·증여세·비상자금을 남긴다.</div>
+    <div class="grid3">
+      <div class="card"><h3>자금 구조</h3><p><b>증여 8천만~1억원</b><br>+ 실제 승인된 은행대출<br>+ 부족분만 부모차용</p></div>
+      <div class="card"><h3>부모 차용</h3><p><b>가능하면 1억원 안팎</b><br>무이자 우선 검토<br>실제 원금상환 필수</p></div>
+      <div class="card"><h3>주택 후보</h3><p><b>공동 1위</b><br>관악 봉천·신림 정상 빌라<br>도봉 쌍문 한양2·3·4차</p></div>
+    </div>
+    <div class="callout warn"><b>가장 중요한 원칙</b><br>“2억1,700만원까지 빌릴 수 있느냐”가 아니라, <b>딸의 실제 소득으로 얼마를 지속적으로 갚을 수 있느냐</b>를 기준으로 차용액을 정한다.</div>
+  </section>
+
+  <section id="tax">
+    <h2>2. 2억1,700만원 차용의 정확한 의미</h2>
+    <p>국세청은 <b>2026년 6월 17일</b> 정책브리핑에서 가족 간 무이자 차용에 대해 <b>2억1,700만원이 원금 비과세 한도가 아니라는 점</b>과, 차용증만으로 충분하지 않고 상환능력·사전 계약·실제 원금상환 금융기록 등으로 대여의 실질을 입증해야 한다고 안내했다.</p>
+    <div class="callout">
+      <b>왜 2억1,700만원이 자주 등장하나?</b><br>
+      2억1,700만원 × 4.6% ≈ 998만원 → 무이자 사용이익이 연 1천만원 미만이 되는 수준을 역산한 숫자.
+    </div>
+    <p><b>즉, 이 숫자는 이자이익 계산 기준일 뿐 원금 차용의 안전한도가 아니다.</b></p>
+
+    <h3>부모차용은 무이자 + 실제 원금상환을 우선 검토</h3>
+    <p>예를 들어 부모차용이 1억원이면 적정이자 상당액은 연 460만원으로 1천만원보다 작다. 다만 이것은 무이자 사용이익 문제이고, 원금 1억원이 실제 대여로 인정되려면 별도로 상환능력과 상환기록이 필요하다.</p>
+
+    <h3>실제 상환 예시</h3>
+    <table>
+      <thead><tr><th>시기</th><th>월 원금상환 예시</th><th>조정 원칙</th><th>만기 관련 원칙</th></tr></thead>
+      <tbody>
+        <tr><td>취업 준비·알바 기간</td><td class="money">30만~50만원</td><td>실제 순소득·생활비 범위에서 상환</td><td>최종 만기일은 계약서에 <b>특정 날짜</b>로 명시</td></tr>
+        <tr><td>취업 후 3개월부터</td><td class="money">월 100만원 이상 목표</td><td>실제 순소득과 생활비를 반영해 조정</td><td>무기한 연장 금지. 변경 시 서면 변경계약</td></tr>
+        <tr><td>소득 상승 후</td><td class="money">120만~150만원 이상 목표</td><td>원금 실질 축소가 보이도록 단계적으로 증액</td><td>기존 만기를 유지하고 필요 시 조기상환 우선</td></tr>
+        <tr><td>상여금·목돈 발생 시</td><td>일부 조기상환</td><td>장기 미상환 리스크 완화</td><td>잔액 축소 중심으로 처리</td></tr>
+      </tbody>
+    </table>
+    <p class="muted">차용증에는 대여일·무이자 여부·상환개시일·월 상환액·<b>최종 만기일</b>·조기상환 조건을 구체적으로 적는다. 취업·소득 변화로 상환액을 바꿔야 한다면 상환액 조정 사유와 절차를 계약서에 두고, 실제 변경 시에는 서면 변경계약을 남긴다. 상환은 딸의 근로소득 계좌에서 부모 계좌로 직접 이체하는 것이 좋다.</p>
+  </section>
+
+  <section id="budget">
+    <h2>3. 증여와 총예산 설계</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>왜 증여를 5천만원보다 늘리나?</h3>
+        <p><b>최근 10년 내 동일인 및 직계존속으로부터 받은 증여로 성년 자녀 증여재산공제 5천만원을 이미 사용한 사실이 없고</b>, 1억원을 증여받아 기한 내 신고한다는 전제에서는 과세표준이 5천만원, 산출세액이 500만원이다. <b>증여일이 속하는 달의 말일부터 3개월 이내</b> 신고하면 신고세액공제 3%를 적용받아 단순 계산상 납부세액은 <b>약 485만원</b>이다.</p>
+        <p><b>수백만원의 증여세를 내고 가족 간 채무를 5천만원 줄이는 선택</b>으로 이해하면 된다.</p><div class="callout warn"><b>증여세·부대비용 자금흐름</b><br>부모가 증여세나 취득 부대비용을 별도로 대신 부담하면 그 부담액 자체가 추가적인 경제적 이익으로 보아 <b>추가 증여 문제가 생길 수 있다</b>. 필요한 총액을 미리 계산해 증여 규모를 설계하고, 증여세·취득 부대비용은 가능하면 <b>딸 명의 계좌에서 직접 납부</b>하도록 자금흐름을 남긴다. 따라서 <b>증여세와 부대비용까지 포함한 총증여 규모를 처음부터 계산</b>해 두는 것이 바람직하다.</div>
+      </div>
+      <div class="card">
+        <h3>집값을 낮춰야 하는 이유</h3>
+        <p>총예산에는 매매가뿐 아니라 증여세·취득세·중개보수·등기·법무·수리·이사·가전·비상자금이 포함된다.</p>
+        <p><b>2.4억원은 조건부 상한</b>으로 보고, 기본은 2.2~2.35억원이 안전하다.</p>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>항목</th><th>권장 범위</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>매매가</td><td class="money">2.20~2.35억원</td><td>취득세 감면·수리비가 유리하면 2.4억까지 검토</td></tr>
+        <tr><td>정식 증여</td><td class="money">0.8~1.0억원</td><td>최근 10년 증여 이력 확인 필요</td></tr>
+        <tr><td>은행대출</td><td>실제 승인액만</td><td>승인 전에는 0원으로 계산</td></tr>
+        <tr><td>부모차용</td><td class="money">약 1억원 전후</td><td>불가피해도 딸 상환능력 범위에서 결정</td></tr>
+        <tr><td>예비비</td><td>별도 확보</td><td>세금·등기·중개·수리·이사·가전·비상금</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="taxbenefit">
+    <h2>4. 생애최초 취득세 감면</h2>
+    <p>주택 취득일 현재 <b>딸 본인과 배우자(배우자가 있는 경우)</b>가 과거 주택을 소유한 사실이 없고, 본인이 거주할 목적으로 취득가액 12억원 이하 주택을 유상 취득하는 등 법정 요건을 충족하면 생애최초 취득세 감면을 검토할 수 있다.</p>
+    <div class="grid2">
+      <div class="card"><h3>일반 주택</h3><p>생애최초 요건을 충족하면 산출 취득세액에서 <b>최대 200만원</b> 감면.</p></div>
+      <div class="card"><h3>소형 비아파트 등 특례</h3><p><b>전용 60㎡ 이하 + 수도권 취득가액 6억원 이하 + 아파트 제외 공동주택</b> 등 법정 소형주택 요건을 충족하면 <b>최대 300만원</b> 감면.</p></div>
+    </div>
+    <p>따라서 서울의 정상적인 다세대·연립 2억대 매물은 취득세 측면에서 경쟁력이 있을 수 있다. 다만 감면 한도는 <b>모든 빌라에 자동 적용되는 것이 아니라</b> 면적·가격·주택유형 등 법정 요건을 충족해야 한다.</p>
+    <div class="callout"><b>세대분리와 생애최초 판단은 구분</b><br>생애최초 감면의 무주택 여부는 법상 <b>취득자 본인과 배우자</b>를 기준으로 확인한다. 부모와 주민등록상 세대를 분리했는지가 이 감면의 무주택 판단 기준 자체는 아니다. 다만 일반 취득세 주택 수 판정 등 다른 규정에서는 세대·소득 요건이 문제될 수 있으므로 별도 확인한다.</div>
+    <div class="callout warn"><b>사후관리 주의</b><br>감면 후 취득일부터 3년 이내 매각·증여하거나 임대를 포함해 다른 용도로 사용하는 등 법정 추징 사유가 발생하면 감면세액이 추징될 수 있다. 실제 계약 전 관할 구청 세무부서에서 적용 여부를 재확인한다.</div>
+  </section>
+
+  <section id="loan">
+    <h2>5. 은행대출 전략</h2>
+    <p>은행대출은 가족 간 차용보다 세무적으로 투명하지만, 딸이 취업준비 중이므로 실제 승인 가능액은 소득·DSR·재직기간·신용·담보가치에 따라 달라진다.</p>
+    <div class="callout danger"><b>가장 안전한 원칙</b><br>은행 사전심사 전에는 <b>대출 가능액을 0원으로 계산</b>한다.</div>
+    <p>2026년 6월 금융위원회 안내 기준으로 규제지역 주담대의 일반 LTV는 <b>40%</b>이며, 생애최초 주택구입·정책모기지 등은 별도 요건에 따라 <b>60~70%</b>의 완화된 LTV가 적용될 수 있다. 그러나 실제 승인액은 소득·DSR·재직기간·신용·담보가치에 따라 달라지므로, 생애최초라는 이유만으로 대출 가능액을 미리 확정해서는 안 된다.</p>
+  </section>
+
+
+  <section id="permit">
+    <h2>6. 토지거래허가구역은 ‘서울 전역 지정’과 ‘개별 매물 허가대상’을 구분</h2>
+    <p>국토교통부는 2025년 10월 15일 서울 전역을 규제지역 및 토지거래허가구역으로 확대 지정했다. 다만 <b>서울에 있는 모든 빌라가 자동으로 토지거래허가 대상이라는 뜻은 아니다.</b> 실제 허가 필요 여부는 해당 주소, 주택 유형, 토지지분, 지정 공고의 적용대상과 면적기준 등에 따라 달라질 수 있다.</p>
+    <div class="callout warn"><b>계약금 지급 전에 확인</b><br>후보가 정해지면 <b>서울부동산정보광장 + 관할 구청</b>에서 해당 주소의 토지거래허가 대상 여부, 허가 선행 필요 여부, 허가 시 이용·실거주 의무를 확인한다. 특히 쌍문 한양처럼 아파트 후보는 반드시 개별 확인한다.</div>
+    <p class="muted">토지거래허가 대상 매물은 허가 절차를 거치지 않으면 계약 체결 및 이행에 법적 문제가 생길 수 있으므로, 계약금 지급 전에 관할 구청과 지정 공고문 기준으로 허가 대상 여부를 확인하고 중개사의 구두 설명만으로 판단하지 않는다. 취득세 감면의 3년 사후관리와 토지거래허가에 따른 이용의무는 서로 다른 제도이므로 각각 확인한다.</p>
+  </section>
+
+  <section id="candidates">
+    <h2>7. 실제 후보 지역과 주택 유형</h2>
+
+    <div class="grid2">
+      <div class="card">
+        <span class="badge green">공동 1위</span>
+        <h3>관악구 봉천·신림 정상 빌라</h3>
+        <p><b>목표:</b> 2.1~2.35억원 / 전용 35~45㎡ / 2층 이상 / 역 도보 10~15분</p>
+        <ul class="tight">
+          <li>2호선·신림선, 강남·서초·G밸리·여의도 접근</li>
+          <li>쌍문 소형 아파트보다 넓은 생활공간 확보 가능</li>
+          <li>생애최초 취득세 감면 활용 가능성</li>
+        </ul>
+        <p><b>가격 앵커 예시:</b> 봉천동 신흥빌라·송림빌라C동 등은 매수 추천이 아니라 40㎡ 안팎 구축 빌라의 가격 기준점으로만 활용.</p>
+      </div>
+      <div class="card">
+        <span class="badge green">공동 1위</span>
+        <h3>도봉구 쌍문 한양2·3·4차</h3>
+        <p><b>특징:</b> 1988년 준공, 대단지, 소형 평형 존재</p>
+        <ul class="tight">
+          <li>아파트·환금성·가격 비교 용이</li>
+          <li>단지 관리체계</li>
+          <li>대신 면적이 작고 주차·배관·누수·수리비 리스크</li>
+        </ul>
+        <p><b>현장 우선 확인:</b> 배관 → 누수 → 창호 → 보일러 → 전기용량 → 주차 → 실제 통근시간.</p>
+        <div class="callout warn"><b>예산 상단 후보</b><br>쌍문 한양 소형은 면적·동·층·수리상태에 따라 2억대 초중반에서도 차이가 크다. 가족의 기본 목표가 2.20~2.35억원이므로, <b>2.35억원을 넘는 매물은 수리비·부대비용까지 포함한 총예산</b>을 다시 계산한 뒤 검토한다. 특히 구축 아파트는 배관·창호·욕실·주방 등 입주 직후 지출이 예상보다 커질 수 있으므로, <b>매매가가 예산 상단에 가까울수록 실질 총비용 기준으로 판단</b>한다.</div>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:16px">
+      <div class="card">
+        <span class="badge amber">조건부 2위</span>
+        <h3>마포 성산동 상암두산위브센티움</h3>
+        <p><b>전략:</b> 1억원대 중반 수준의 소형 오피스텔로 부모차용을 크게 줄이는 대안.</p>
+        <ul class="tight">
+          <li>관리·보안·상암·마포권 장점</li>
+          <li>상암·마포·여의도·광화문 취업 가능성 높을 때 적합</li>
+          <li>면적·관리비·오피스텔 취득세·장기 자산가치 확인 필요</li><li><b>생애최초 ‘주택’ 취득세 감면을 아파트·빌라와 동일하게 적용한다고 전제하지 않음</b></li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="badge amber">조건부 3위</span>
+        <h3>구로 오류동 칸타빌레5차</h3>
+        <p><b>전략:</b> 1억원대 초반의 소형 오피스텔로 서울 거점과 채무 최소화.</p>
+        <ul class="tight">
+          <li>취업 초기 1~3년 거점형 주거에 적합</li>
+          <li>20㎡대면 장기 실거주 만족도는 낮을 수 있음</li>
+          <li>G밸리·서남권 생활권일 때 의미</li><li><b>오피스텔은 주택과 취득세 체계가 다르므로 매물별 세율·부대세목 확인</b></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>추가 탐색 지역</h3>
+    <ul>
+      <li><b>구로 개봉·오류·고척:</b> 30~40㎡ 구축·준구축 빌라 중심. G밸리·서남권 취업에 적합.</li>
+      <li><b>은평 응암·역촌·불광:</b> 광화문·종로·마포권 취업 시 재검토. 현재 예산에서는 면적·연식·역거리 타협 필요 가능성.</li>
+    </ul>
+    <div class="callout"><b>후보 단지명 표기 원칙</b><br>쌍문 한양2·3·4차, 상암두산위브센티움, 칸타빌레5차 등은 <b>확정 매수 추천이 아니라 예산·면적·생활권을 비교하기 위한 현장 검증 후보</b>다. 계약 전에는 동일 건물·면적·층의 최신 실거래가, 현재 매도호가, 관리비, 권리관계, 취득세, 실제 통근시간을 다시 확인한다.</div>
+  </section>
+
+  <section id="compare">
+    <h2>8. 가족 의사결정용 비교표</h2>
+    <table>
+      <thead><tr><th>후보</th><th>순위</th><th>장점</th><th>단점</th><th>가족이 선택할 상황</th></tr></thead>
+      <tbody>
+        <tr><td><b>봉천·신림 빌라</b></td><td>공동 1위</td><td>공간, 교통, 생활권, 취득세 감면 가능성</td><td>개별 권리·대지권·건물관리 확인 필요</td><td>방 2개·출퇴근·생활공간 중시</td></tr>
+        <tr><td><b>쌍문 한양</b></td><td>공동 1위</td><td>아파트, 거래량, 환금성</td><td>노후도, 작은 면적, 주차</td><td>좁아도 아파트·환금성 중시</td></tr>
+        <tr><td><b>상암두산위브센티움</b></td><td>조건부 2위</td><td>보안, 관리, 낮은 부모차용</td><td>작은 면적, 관리비, 오피스텔 세금</td><td>마포·도심권 + 낮은 채무 중시</td></tr>
+        <tr><td><b>칸타빌레5차</b></td><td>조건부 3위</td><td>낮은 매수가, 채무 최소화</td><td>20㎡대, 장기 거주성 낮음</td><td>최저비용 서울 거점</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>9. 실제 자금 시나리오</h2>
+    <div class="grid3">
+      <div class="card"><h3>봉천 빌라 2.3억</h3><p><b>은행대출 없음</b><br>증여 1억 + 부모차용 1.3억</p><p><b>은행 3천 승인</b><br>증여 1억 + 은행 3천 + 부모차용 1억</p></div>
+      <div class="card"><h3>쌍문 아파트 2.3~2.4억</h3><p>증여 1억 + 승인된 은행대출 + 나머지 부모차용</p><p class="muted">구축 수리비 별도 확보 필수</p></div>
+      <div class="card"><h3>상암 오피스텔 1.5억 가정</h3><p>증여 1억 + 부모차용 5천만원</p><p class="muted">증여세·취득세·등기·중개·이사비는 별도. 오피스텔은 생애최초 주택 감면을 동일하게 전제하지 말고 취득세를 별도 계산.</p></div>
+    </div>
+  </section>
+
+  <section id="costplan">
+    <h2>10. 총비용 계산표 — 매매대금 외 돈을 먼저 남긴다</h2>
+    <p>가족이 실제 후보를 비교할 때는 <b>매매가가 아니라 총취득비용</b>으로 비교한다. 아래 표의 마지막 열을 매물별로 채워서 비교하면 된다.</p>
+    <table>
+      <thead><tr><th>항목</th><th>계산 원칙</th><th>2.3억 주택 예시</th><th>실제 후보 입력</th></tr></thead>
+      <tbody>
+        <tr><td>매매대금</td><td>계약서상 가격</td><td class="money">2억3천만원</td><td>＿＿＿＿＿</td></tr>
+        <tr><td>증여세</td><td>최근 10년 증여이력 반영</td><td>1억원 증여·공제 5천만원 가정 시 약 <b>485만원</b></td><td>＿＿＿＿＿</td></tr>
+        <tr><td>취득세</td><td>주택유형·생애최초 감면 여부 확인</td><td>빌라·아파트·오피스텔별 별도 계산</td><td>＿＿＿＿＿</td></tr>
+        <tr><td>중개보수</td><td>법정 상한 및 협의액</td><td>매물별 확인</td><td>＿＿＿＿＿</td></tr>
+        <tr><td>등기·법무비</td><td>등기 비용·채권 등 포함</td><td>법무사 견적 확인</td><td>＿＿＿＿＿</td></tr>
+        <tr><td>수리·이사·가전</td><td>구축일수록 충분히 반영</td><td>현장 견적</td><td>＿＿＿＿＿</td></tr>
+        <tr><td><b>총 필요자금</b></td><td>위 항목 합계</td><td><b>2억6,600만원 이내인지 확인</b></td><td>＿＿＿＿＿</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn"><b>오피스텔 비용 주의</b><br>오피스텔은 일반 주택과 취득세 체계가 다르고, 생애최초 주택 취득세 감면을 동일하게 적용할 수 있다고 전제하면 안 된다. ‘4.6% 고정’처럼 단정하지 말고 실제 취득일의 과세구분과 부가세목을 관할 구청·위택스에서 계산한다.</div>
+  </section>
+
+  <section id="flow">
+    <h2>11. 실제 실행 순서</h2>
+    <div class="timeline">
+      <div class="stepnum">1</div><div class="step"><b>사전 자격·자금 확인</b><br><span class="muted">은행 사전심사로 실제 대출 가능액을 확인하고, 최근 10년 증여이력·생애최초 무주택 요건도 함께 확인. 승인 전 대출은 0원으로 계산.</span></div>
+      <div class="stepnum">2</div><div class="step"><b>매물 비교</b><br><span class="muted">봉천·신림 빌라 / 쌍문 한양 / 상암 오피스텔을 병렬 비교.</span></div>
+      <div class="stepnum">3</div><div class="step"><b>권리·세금 검토</b><br><span class="muted">등기부·건축물대장·대지권·위반건축·토지거래허가 대상·생애최초 감면 여부 확인.</span></div>
+      <div class="stepnum">4</div><div class="step"><b>증여금 송금</b><br><span class="muted">부모 → 딸 계좌. 증여세는 증여일이 속하는 달의 말일부터 3개월 이내 신고하며, 증여세·취득 부대비용도 가능하면 딸 명의 계좌에서 직접 납부해 자금흐름을 남긴다.</span></div>
+      <div class="stepnum">5</div><div class="step"><b>차용계약 작성</b><br><span class="muted">차용금 송금 전에 금전소비대차계약 작성. 상환일정 명시.</span></div>
+      <div class="stepnum">6</div><div class="step"><b>차용금 송금 및 잔금</b><br><span class="muted">부모 → 딸 계좌 → 매도인 계좌로 자금흐름을 일관되게 유지.</span></div>
+      <div class="stepnum">7</div><div class="step"><b>입주 후 원금상환 시작</b><br><span class="muted">딸 급여계좌 → 부모 계좌로 정기 상환.</span></div>
+    </div>
+  </section>
+
+  <section id="checklist">
+    <h2>12. 계약 전 체크리스트</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>빌라 필수 확인</h3>
+        <ul class="tight">
+          <li>호별 개별등기 정상</li>
+          <li>대지권 정상</li>
+          <li>위반건축물 표시 없음</li>
+          <li>근린생활시설 불법 주거전환 아님</li>
+          <li>건축물대장과 실제 구조 일치</li>
+          <li>신탁·압류·가압류·과도한 근저당 확인</li>
+          <li>반지하 제외</li>
+          <li>동일 건물 및 인근 유사매물 실거래 비교</li>
+          <li>토지거래허가 대상 여부 주소별 확인</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>아파트 필수 확인</h3>
+        <ul class="tight">
+          <li>배관·녹물</li>
+          <li>누수 흔적</li>
+          <li>창호·결로</li>
+          <li>보일러 상태</li>
+          <li>전기용량</li>
+          <li>주차 실사용 체감</li>
+          <li>관리비</li>
+          <li>수리비 예상</li>
+          <li>실제 출퇴근시간</li>
+        </ul>
+      </div>
+    </div>
+    <h3>계약서에 검토할 특약 예시</h3>
+    <div class="grid2">
+      <div class="card"><h3>공부상·불법 하자</h3><p>“잔금 전 건축물대장상 위반건축물 표시, 불법 증·개축, 공부와 실제 구조의 중대한 불일치 또는 등기·권리관계상 중대한 하자가 확인되어 정상적인 소유권 이전이나 주거 이용에 중대한 장애가 발생하는 경우, 계약의 해제·계약금 반환·비용 부담은 본 특약에서 정한 바에 따른다.”</p></div>
+      <div class="card"><h3>권리 말소·대출 절차</h3><p>“잔금일 기준 등기부등본상 말소하기로 한 근저당권·압류·가압류·신탁 관련 권리는 매도인이 책임지고 말소하며, 말소 확인과 잔금 지급의 동시이행 방법을 정한다. 또한 매수인 귀책이 아닌 공부상·권리상 하자로 금융기관의 취득자금 대출 또는 소유권 이전이 불가능해지는 경우의 처리방법을 계약서에 명시한다.”</p></div>
+    </div>
+    <p class="muted">※ 특약 문구는 물건별 사실관계와 중개·법무 검토에 따라 조정한다. ‘생애최초 감면이 안 되면 무조건 해제’처럼 매도인이 통제할 수 없는 세무 사유까지 일률적으로 계약해제 조건으로 두는 것은 협의가 필요하다.</p>
+    <div class="callout warn"><b>특정 건물명과 가격은 ‘매수 확정 추천’이 아니라 가격 앵커다.</b><br>계약 전에는 반드시 동일 건물·면적·층의 최신 실거래, 현재 매도호가, 등기부·건축물대장을 다시 확인한다.</div>
+  </section>
+
+  <section>
+    <h2>13. 가족 최종 선택 가이드</h2>
+    <table>
+      <thead><tr><th>딸의 우선순위</th><th>추천 방향</th></tr></thead>
+      <tbody>
+        <tr><td>방 2개 + 생활공간 + 출퇴근</td><td><b>봉천·신림 정상 빌라</b></td></tr>
+        <tr><td>좁아도 아파트 + 환금성</td><td><b>쌍문 한양2·3·4차</b></td></tr>
+        <tr><td>마포·여의도·도심 + 부모차용 최소화</td><td><b>상암두산위브센티움</b></td></tr>
+        <tr><td>가장 싼 서울 거점</td><td><b>오류동 칸타빌레5차</b></td></tr>
+      </tbody>
+    </table>
+    <div class="callout good lead"><b>현재 가족의 실제 다음 단계</b><br>2억3,500만원 이하 조건으로 <b>봉천·신림 빌라 5개 + 쌍문 한양 2~3개 + 상암 오피스텔 2~3개</b>를 실제 최신 매물 기준으로 뽑아, 총취득비용·면적·역거리·통근·주차·환금성·권리안전을 같은 표에서 점수화한다.</div>
+  </section>
+
+  <section id="sources">
+    <h2>14. 주요 근거 및 확인처</h2>
+    <ul>
+      <li><a href="https://www.korea.kr/news/policyNewsView.do?newsId=148966673" target="_blank">정책브리핑 · 국세청 가족 간 무이자 차용 관련 안내</a></li>
+      <li><a href="https://www.law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1025285313" target="_blank">국가법령정보센터 · 지방세특례제한법 제36조의3(생애최초 취득세)</a></li><li><a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7730&mi=2338" target="_blank">국세청 · 증여세 신고기한 및 신고세액공제 안내</a></li>
+      <li><a href="https://www.molit.go.kr/USR/NEWS/m_71/dtl.jsp?id=95091308" target="_blank">국토교통부 · 2025.10.15 주택시장 안정화 대책(규제지역·토지거래허가구역 확대)</a></li>
+      <li><a href="https://www.law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1032931907" target="_blank">국가법령정보센터 · 부동산거래신고법 제11조(허가구역 내 토지거래)</a></li>
+      <li><a href="https://www.fsc.go.kr/no010101/87222" target="_blank">금융위원회 · 2026년 규제지역 LTV 및 가계대출 관련 안내</a></li>
+      <li><a href="https://land.seoul.go.kr/" target="_blank">서울부동산정보광장 · 실거래가·토지거래허가구역 확인</a></li>
+      <li><a href="https://rt.molit.go.kr/" target="_blank">국토교통부 실거래가 공개시스템</a></li>
+    </ul>
+    <p class="print-note">※ 검증 메모: 정책브리핑의 해당 국세청 카드뉴스·정책뉴스 페이지에는 <b>2026.06.17 국세청</b>으로 표시되어 있어 본문은 6월 17일을 사용함. 생애최초 취득세 감면은 일반 주택 최대 200만원, 법정 소형 비아파트 등은 최대 300만원 구조임.<br>※ 이 문서는 가족 의사결정용 정리 자료입니다. 실제 계약·증여·대출 실행 전에는 해당 시점의 세법, 규제지역, 토지거래허가 대상 여부, 실거래가, 대출심사 결과를 다시 확인해야 합니다.</p>
+  </section>
+
+  <footer>딸의 서울 첫 주택 마련 가족 실행안 · 2026</footer>
+</div>
+</body>
+</html>
