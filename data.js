@@ -643,6 +643,19 @@ const resources = [
     ]
   },
 
+  {
+    id: "family-cash-gift-tax-guide-2026",
+    icon: "💰",
+    title: "가족 현금증여·홈택스 신고 실행 가이드 (2026)",
+    section: "etc",
+    description: "엄마가 아들·딸에게 각 5,000만 원 현금 증여 시 계약서 작성부터 홈택스 신고, 증빙 보관까지 따라 하는 가족 공유용 가이드",
+    tags: ["증여세", "홈택스", "가족", "세금"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "family-cash-gift-tax-guide-2026.html", platform: "html" }]
+  },
+
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
   //   id: "고유-아이디",          ← 영문+하이픈, 다른 항목과 겹치지 않게

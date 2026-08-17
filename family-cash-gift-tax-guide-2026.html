@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026년 엄마 → 아들·딸 각 5,000만 원 현금증여 최종 실행 가이드</title>
+<style>
+:root{
+  --bg:#f5f7fb; --card:#fff; --text:#172033; --muted:#667085; --line:#e4e7ec;
+  --blue:#175cd3; --blueSoft:#eff6ff; --green:#067647; --greenSoft:#ecfdf3;
+  --amber:#b54708; --amberSoft:#fffaeb; --red:#b42318; --redSoft:#fef3f2;
+  --navy:#101828;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;
+  line-height:1.7;
+}
+.wrap{max-width:980px;margin:0 auto;padding:24px 16px 64px}
+.hero{
+  background:linear-gradient(135deg,#0f172a,#175cd3);color:#fff;border-radius:24px;
+  padding:34px 28px;box-shadow:0 18px 48px rgba(16,24,40,.16)
+}
+.eyebrow{font-size:13px;font-weight:700;color:#dbeafe;margin-bottom:8px}
+.hero h1{margin:0;font-size:clamp(29px,5vw,44px);line-height:1.22;letter-spacing:-.03em}
+.hero p{margin:12px 0 0;color:#dbeafe}
+.money{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.money div{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.18);border-radius:15px;padding:15px}
+.money span{display:block;font-size:13px;color:#dbeafe}
+.money strong{font-size:22px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:24px 22px;margin-top:18px;box-shadow:0 5px 20px rgba(16,24,40,.045)
+}
+.card h2{margin:0 0 14px;font-size:23px;line-height:1.35;letter-spacing:-.02em}
+.card h3{margin:20px 0 8px;font-size:18px}
+.card p{margin:9px 0}
+.lead{font-size:18px;font-weight:750}
+.box{padding:15px 16px;border-radius:13px;margin:13px 0;border-left:5px solid var(--blue);background:var(--blueSoft)}
+.box.good{border-left-color:var(--green);background:var(--greenSoft)}
+.box.warn{border-left-color:var(--amber);background:var(--amberSoft)}
+.box.stop{border-left-color:var(--red);background:var(--redSoft)}
+.checkgrid{display:grid;gap:9px;margin-top:12px}
+.check{
+  display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);
+  border-radius:13px;padding:12px 13px;background:#fff
+}
+.check i{
+  font-style:normal;width:24px;height:24px;border-radius:6px;background:#f2f4f7;
+  display:flex;align-items:center;justify-content:center;flex:0 0 24px;font-weight:800
+}
+.flow{display:grid;gap:9px;margin-top:10px}
+.step{
+  display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);
+  border-radius:14px;padding:13px 14px;background:white
+}
+.num{
+  width:31px;height:31px;border-radius:50%;background:var(--navy);color:white;
+  display:flex;align-items:center;justify-content:center;flex:0 0 31px;font-weight:800;font-size:14px
+}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px}
+th,td{padding:11px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f9fafb}
+ul.clean{list-style:none;padding:0;margin:10px 0}
+ul.clean li{position:relative;padding-left:29px;margin:8px 0}
+ul.clean li:before{
+  content:"✓";position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;
+  background:#dcfae6;color:#067647;display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:900
+}
+.contract{border:1px dashed #98a2b3;border-radius:15px;padding:19px;background:#fcfcfd}
+.contract h3{text-align:center;margin-top:0;letter-spacing:.1em}
+.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#f2f4f7;font-size:12px;font-weight:700}
+details{border-top:1px solid var(--line);padding:13px 0}
+details:first-of-type{border-top:0}
+summary{cursor:pointer;font-weight:750;color:#344054}
+.sources a{color:var(--blue);text-decoration:none;word-break:break-all}
+.sources a:hover{text-decoration:underline}
+.small{font-size:13px;color:var(--muted)}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:22px}
+@media(max-width:700px){
+  .money{grid-template-columns:1fr}.hero{padding:27px 20px}.card{padding:20px 16px}table{font-size:14px}
+}
+@media print{
+  body{background:#fff}.wrap{max-width:none;padding:0}.hero,.card{box-shadow:none}.card{break-inside:avoid}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="hero">
+  <div class="eyebrow">가족 공유용 · 2026년 8월 기준 · 국세청 공식 안내 재검증</div>
+  <h1>엄마가 아들·딸에게<br>각 5,000만 원 현금 증여하기</h1>
+  <p>이 파일 하나로 송금 전 확인 → 계약서 → 계좌이체 → 홈택스 신고 → 증빙 보관까지 진행합니다.</p>
+  <div class="money">
+    <div><span>엄마 → 아들</span><strong>50,000,000원</strong></div>
+    <div><span>엄마 → 딸</span><strong>50,000,000원</strong></div>
+  </div>
+</section>
+
+<section class="card">
+  <h2>가장 먼저 알아둘 결론</h2>
+  <p class="lead">엄마의 실제 자금을 엄마 명의 계좌에서 아들과 딸의 <strong>각자 본인 명의 계좌</strong>로 직접 보내고, 돈을 받은 자녀가 각각 자기 홈택스에서 신고합니다.</p>
+  <div class="box good">
+    최근 10년의 직계존속 증여를 반영한 뒤에도 각 자녀에게 적용 가능한 <strong>증여재산공제 잔액이 5,000만 원</strong>이라면,<br>
+    <strong>5,000만 원 증여 − 5,000만 원 공제 = 과세표준 0원 → 납부세액 0원</strong>입니다.
+  </div>
+</section>
+
+<section class="card">
+  <h2>🚨 송금 전 멈춤 체크</h2>
+  <p><strong>아래 중 하나라도 해당하면 먼저 부모님과 확인하고, 5,000만 원 송금을 서두르지 않습니다.</strong></p>
+  <div class="checkgrid">
+    <div class="check"><i>□</i><div>최근 10년 내 아빠 또는 엄마가 내 은행·증권계좌에 <strong>목돈이나 투자원금</strong>을 넣어준 적이 있다.</div></div>
+    <div class="check"><i>□</i><div>부모 돈으로 내 명의 <strong>예금·주식·자동차·전세·주택</strong> 등 재산을 마련한 적이 있다.</div></div>
+    <div class="check"><i>□</i><div>부모·조부모에게 받은 과거 목돈이 있었는데 <strong>증여세 신고 여부나 금액이 기억나지 않는다.</strong></div></div>
+    <div class="check"><i>□</i><div>홈택스에서 확인한 과거 자료와 실제 기억하는 자금이전 내역이 서로 다르다.</div></div>
+    <div class="check"><i>□</i><div>이번 1억 원의 실질적인 자금이 <strong>엄마가 증여하는 엄마의 자금인지 확실하지 않다.</strong></div></div>
+  </div>
+  <div class="box stop">
+    위 항목에 해당하는 내용이 있으면 <strong>“무조건 5천만 원을 보내고 세금 0원으로 신고”하면 안 됩니다.</strong>
+    과거 증여와 실제 공제잔액을 먼저 확인한 뒤 송금액과 신고내용을 정합니다.
+  </div>
+</section>
+
+<section class="card">
+  <h2>STEP 0. 송금 전 과거 증여 확인</h2>
+  <p>홈택스에서 자녀 본인이 먼저 <strong>증여세 결정정보</strong>를 확인합니다.</p>
+  <div class="box">
+    <strong>국세청 안내 경로:</strong><br>
+    홈택스 → 조회/발급 → 세금 신고 납부 → 증여세 결정정보 조회
+  </div>
+  <p>다만 홈택스에 자료가 없다고 해서 과거 증여가 반드시 없었다는 뜻은 아닙니다. 과거 무신고 증여 등은 결정정보에 나타나지 않을 수 있으므로, 실제로 부모가 재산형성 자금을 준 적이 있는지도 함께 확인합니다.</p>
+</section>
+
+<section class="card">
+  <h2>기존 주식계좌는 현재 평가액보다 ‘원금 출처’</h2>
+  <p>현재 주식 평가액이 5천만 원·6천만 원이라는 사실 자체가 과거 증여액을 뜻하지는 않습니다.</p>
+  <div class="box">
+    예: 과거 부모가 자녀에게 1,000만 원을 주어 투자했고 그 주식이 지금 5,000만 원이 됐다면,
+    먼저 확인할 것은 <strong>당시 이전한 1,000만 원과 그 시점</strong>입니다.
+  </div>
+  <p>명절·생일 등에 친척 등이 자녀에게 직접 준 돈을 부모가 모아 자녀 계좌에 넣은 경우도 자동으로 엄마의 새 증여라고 단정하지 않고 실제 출처를 확인합니다.</p>
+</section>
+
+<section class="card">
+  <h2>1,000만 원과 5,000만 원은 다른 기준</h2>
+  <table>
+    <tr><th>숫자</th><th>의미</th></tr>
+    <tr>
+      <td><strong>1,000만 원</strong></td>
+      <td>동일인으로부터 증여일 전 10년 이내 받은 증여재산의 과세가액 합계가 1,000만 원 이상이면, 그 과거 증여재산을 이번 증여세 과세가액에 <strong>합산하여 신고하는 기준</strong></td>
+    </tr>
+    <tr>
+      <td><strong>5,000만 원</strong></td>
+      <td>성년 자녀가 부모 등 직계존속에게서 받을 때 적용되는 <strong>10년간 누계 증여재산공제 한도</strong></td>
+    </tr>
+  </table>
+  <div class="box warn">
+    <strong>1,000만 원은 비과세 한도가 아닙니다.</strong><br>
+    이번 증여자가 엄마라면 아빠는 엄마의 배우자이므로 동일인 합산 범위에 포함됩니다. 조부모 등의 증여를 엄마와 무조건 같은 동일인으로 묶는 것은 아니지만, 직계존속 증여재산공제 잔액을 판단할 때는 과거 직계존속 증여와 공제 이력도 함께 확인합니다.
+  </div>
+</section>
+
+<section class="card">
+  <h2>STEP 1. 현금 증여계약서 작성</h2>
+  <p>아들용 1부, 딸용 1부를 각각 작성합니다. 계약서는 신고의 필수요건이라고 단정할 필요는 없지만, 누가 누구에게 언제 얼마를 무상으로 주었는지 남기는 증빙자료로 유용합니다.</p>
+  <div class="contract">
+    <h3>현 금 증 여 계 약 서</h3>
+    <p><strong>1. 당사자</strong></p>
+    <p>증여자(모): 임인숙<br>생년월일: ____________________ / 주소: ______________________________</p>
+    <p>수증자(자녀): ____________________<br>생년월일: ____________________ / 주소: ______________________________</p>
+    <p><strong>2. 증여재산</strong></p>
+    <p>증여금액: 금 50,000,000원 (금 오천만 원 정)<br>
+       지급방법: 증여자 명의 은행계좌에서 수증자 본인 명의 은행계좌로 계좌이체</p>
+    <p><strong>3. 계약내용</strong></p>
+    <p>증여자는 위 금액을 수증자에게 아무런 대가나 반환의무 없이 무상으로 증여하고, 수증자는 이를 수락한다.</p>
+    <p><strong>증여일: 2026년 8월 ____일</strong></p>
+    <p>증여자: 임인숙 ____________________ (서명 또는 인)</p>
+    <p>수증자: _________________________ (서명 또는 인)</p>
+  </div>
+  <p class="small">※ 가능하면 계약서상 증여일과 실제 계좌이체일을 같은 날짜로 맞춥니다. 이체일이 바뀌면 계약서 날짜도 실제 이체일에 맞춥니다. 계약서에는 주민등록번호 전체를 적을 필요는 없습니다.</p>
+</section>
+
+<section class="card">
+  <h2>STEP 2. 엄마가 각 자녀에게 계좌이체</h2>
+  <div class="flow">
+    <div class="step"><div class="num">1</div><div><strong>엄마 → 아들 본인 명의 계좌</strong><br>50,000,000원</div></div>
+    <div class="step"><div class="num">2</div><div><strong>엄마 → 딸 본인 명의 계좌</strong><br>50,000,000원</div></div>
+    <div class="step"><div class="num">3</div><div><strong>이체 메모</strong><br><span class="pill">증여금</span> 정도로 간단히 남깁니다.</div></div>
+    <div class="step"><div class="num">4</div><div><strong>이체확인증 저장</strong><br>엄마 계좌 → 각 자녀 계좌 5천만 원 이체내역을 PDF 또는 이미지로 보관합니다.</div></div>
+  </div>
+  <div class="box"><strong>홈택스 신고의 증여일은 실제 돈이 자녀 계좌에 입금된 날짜</strong>로 맞춥니다.</div>
+</section>
+
+<section class="card">
+  <h2>STEP 3. 자녀가 신고 전에 준비할 것</h2>
+  <ul class="clean">
+    <li>자녀 본인의 홈택스 로그인 수단: 간편인증·공동인증서·금융인증서 등</li>
+    <li><strong>엄마 주민등록번호</strong></li>
+    <li>실제 5,000만 원 입금일</li>
+    <li>엄마 → 본인 계좌 이체확인증</li>
+    <li>본인과 엄마가 서명한 증여계약서</li>
+    <li>송금 전에 확인한 과거 증여 및 공제잔액 정보</li>
+  </ul>
+  <p class="small">가족관계증명서는 필요할 때 관계 확인 자료로 제출할 수 있도록 준비해 두면 됩니다. 단순 현금증여에서 반드시 첨부해야만 공제가 인정되는 서류라고 단정할 필요는 없습니다.</p>
+</section>
+
+<section class="card">
+  <h2>STEP 4. 홈택스 신고 — 그대로 따라 하는 9단계</h2>
+  <div class="flow">
+    <div class="step"><div class="num">1</div><div><strong>자녀 본인으로 홈택스 로그인</strong><br>간편인증 또는 인증서로 로그인합니다.</div></div>
+    <div class="step"><div class="num">2</div><div><strong>메뉴 이동</strong><br>세금신고 → 증여세 신고 → 맞춤신고 찾기</div></div>
+    <div class="step"><div class="num">3</div><div><strong>기본정보 입력</strong><br>실제 증여일과 <strong>엄마 주민등록번호</strong> 입력 → 조회 → 관계 <strong>‘모’</strong> 선택</div></div>
+    <div class="step"><div class="num">4</div><div><strong>기본 확인</strong><br>세대생략 증여 <strong>‘아니오’</strong> · 국내 거주자라면 거주자 · 연락처 입력</div></div>
+    <div class="step"><div class="num">5</div><div><strong>현금 입력</strong><br>“현금만 증여받았나요?” → <strong>예</strong> → 현금 <strong>50,000,000원</strong> → 증여세 대납 여부 <strong>아니오</strong></div></div>
+    <div class="step"><div class="num">6</div><div><strong>계산값 반영</strong><br>화면에서 계산된 내용을 확인 → <strong>반영하기 → 증여세 정기 신고하기</strong></div></div>
+    <div class="step"><div class="num">7</div><div><strong>과거 합산자료 확인</strong><br>증여재산가산액(과거 10년 내 합산할 증여금) → 입력/수정 → <strong>10년이내 증여 합산신고 대상 불러오기</strong> → 해당 자료가 있으면 확인·반영</div></div>
+    <div class="step"><div class="num">8</div><div><strong>증여재산공제 확인</strong><br>증여자와의 관계에 따라 공제가 자동계산·설정됩니다. 과거 같은 직계존속 공제 범위에서 이미 공제받은 금액이 있다면 차감되어야 합니다. 공제잔액이 5천만 원인 경우 이번 공제가 <strong>50,000,000원</strong>으로 반영되는지 확인합니다.</div></div>
+    <div class="step"><div class="num">9</div><div><strong>제출 완료까지 확인</strong><br>조건이 충족된 경우 과세표준 0원·납부세액 0원 확인 → <strong>이대로 신고하기 → 신고서 저장 → 신고서 제출하기</strong> → <strong>‘신고서 제출 완료’ 화면 또는 접수번호가 생성되었는지 반드시 확인</strong> → 신고서 PDF와 접수증 저장</div></div>
+  </div>
+  <div class="box stop">
+    <strong>납부세액이 0원이 아니면 숫자를 임의로 바꾸지 않습니다.</strong><br>
+    과거 증여·공제잔액·입력값을 다시 확인한 뒤 제출합니다.
+  </div>
+</section>
+
+<section class="card">
+  <h2>홈택스 입력값 한눈에 보기</h2>
+  <table>
+    <tr><th>항목</th><th>입력·확인 내용</th></tr>
+    <tr><td>증여일</td><td>실제 50,000,000원이 입금된 날짜</td></tr>
+    <tr><td>증여자</td><td>엄마 임인숙</td></tr>
+    <tr><td>증여자 주민등록번호</td><td><strong>엄마 주민등록번호</strong> 입력 후 조회</td></tr>
+    <tr><td>증여자와의 관계</td><td><strong>모</strong></td></tr>
+    <tr><td>수증자(돈 받은 사람)</td><td>로그인한 아들 또는 딸 본인</td></tr>
+    <tr><td>거주자 여부</td><td>국내 거주자라면 거주자</td></tr>
+    <tr><td>세대생략 증여</td><td><strong>아니오</strong></td></tr>
+    <tr><td>재산 종류</td><td>현금</td></tr>
+    <tr><td>증여금액</td><td><strong>50,000,000원</strong></td></tr>
+    <tr><td>증여세 대납 여부</td><td><strong>아니오</strong></td></tr>
+    <tr><td>직계존속 증여재산공제</td><td>자동계산·설정된 금액 확인. 과거 공제내역을 반영한 <strong>실제 공제잔액</strong> 적용</td></tr>
+    <tr><td>최종 납부세액</td><td>공제잔액이 5,000만 원인 경우 <strong>0원</strong></td></tr>
+  </table>
+</section>
+
+<section class="card">
+  <h2>STEP 5. 제출 직후 반드시 저장할 4개</h2>
+  <ol>
+    <li><strong>엄마 → 내 계좌 50,000,000원 이체확인증</strong></li>
+    <li><strong>엄마와 내가 서명한 현금 증여계약서</strong></li>
+    <li><strong>홈택스 증여세 신고서 PDF</strong></li>
+    <li><strong>홈택스 신고 접수증 또는 접수번호 화면</strong></li>
+  </ol>
+  <p>추가로 기존 주식계좌 자금출처 관련 자료나 필요 시 가족관계증명서도 같은 폴더에 보관합니다.</p>
+</section>
+
+<section class="card">
+  <h2>신고기한</h2>
+  <div class="box good"><strong>2026년 8월 중 증여 → 신고기한 2026년 11월 30일</strong></div>
+  <p>일반적인 증여세 신고기한은 증여받은 날이 속하는 달의 말일부터 3개월 이내입니다. 자료가 준비되면 마감일까지 기다리지 않고 신고해 두면 됩니다.</p>
+</section>
+
+<section class="card">
+  <h2>증여 후에는 자녀 재산으로 관리</h2>
+  <ul class="clean">
+    <li>자녀 본인 명의 은행·증권계좌에서 관리</li>
+    <li>주식·ETF 배당금은 자녀 계좌로 수령</li>
+    <li>매도대금도 자녀 계좌에 귀속</li>
+    <li>증여한 돈을 다시 부모가 회수해 부모 생활비·투자금·대출상환 등에 사용하는 흐름은 피하기</li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>부록 · 딸의 2024년 전세보증금</h2>
+  <p>이 내용은 이번 5천만 원 현금증여의 직접 입력절차와는 분리해서 관리합니다.</p>
+  <details open>
+    <summary>핵심</summary>
+    <p>2024년 2월 8일 부모가 임대인에게 직접 보증금 5천만 원을 지급했고 계약 종료 후 부모가 회수하기로 한 구조라면, 이번 현금증여와 자동으로 같은 증여라고 단정하지 않습니다. 반대로 가족 내부의 의사만으로 자동 비증여라고 단정할 수도 없습니다.</p>
+  </details>
+  <details>
+    <summary>보관할 자료</summary>
+    <ul class="clean">
+      <li>임대차계약서</li>
+      <li>2024년 2월 8일 부모 → 임대인 송금내역</li>
+      <li>부모가 실제 보증금을 부담한 사실을 보여주는 자료</li>
+      <li>계약 종료 후 실제 보증금 반환내역</li>
+    </ul>
+  </details>
+  <details>
+    <summary>가장 설명하기 쉬운 반환 흐름</summary>
+    <p><strong>실제 보증금을 부담한 부모 → 임대인 → 실제 보증금을 부담한 부모</strong>로 자금흐름이 이어지면 설명하기 쉽습니다. 임차인 명의와 반환청구권의 구체적 귀속은 계약 내용에 따라 따로 봅니다.</p>
+  </details>
+</section>
+
+<section class="card">
+  <h2>가족이 기억할 핵심 7가지</h2>
+  <ol>
+    <li><strong>증여자·송금계좌·계약서·홈택스는 모두 엄마로 일치</strong></li>
+    <li>받는 계좌는 <strong>각 자녀 본인 명의</strong></li>
+    <li>송금 전에 <strong>과거 실제 증여와 공제잔액</strong>을 먼저 확인</li>
+    <li><strong>1천만 원 합산기준</strong>과 <strong>5천만 원 공제한도</strong>는 다른 개념</li>
+    <li>기존 주식계좌는 현재 평가액보다 <strong>부모 투입 원금·시점·출처</strong>가 중요</li>
+    <li>홈택스 조회 0건이 과거 미신고 증여까지 없다는 보증은 아님</li>
+    <li>공제잔액이 5천만 원이면 <strong>5천만 원 증여 → 과세표준 0원 → 납부세액 0원</strong></li>
+  </ol>
+</section>
+
+<section class="card sources">
+  <h2>공식 사이트 · 참고자료</h2>
+  <p><a href="https://www.hometax.go.kr/" target="_blank" rel="noopener">① 국세청 홈택스 — 실제 증여세 신고</a></p>
+  <p class="small">홈택스 로그인 후 <strong>세금신고 → 증여세 신고 → 맞춤신고 찾기</strong> 순서로 진행합니다. 메뉴가 바뀐 경우 홈택스에서 ‘증여세 신고’를 검색합니다.</p>
+  <p><a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7728&mi=2340" target="_blank" rel="noopener">② 국세청 · 증여세 세액계산 흐름도 — 증여재산가산액·공제·세율</a></p>
+  <p><a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7730&mi=2342" target="_blank" rel="noopener">③ 국세청 · 증여세 신고 시 유의사항 — 신고기한·전자신고·제출서류</a></p>
+  <p><a href="https://call.nts.go.kr/call/qna/selectQnaInfo.do?ctgId=CTG11688&mi=2787" target="_blank" rel="noopener">④ 국세청 세법상담 Q&amp;A · 직계존속 증여재산공제 적용</a></p>
+  <p class="small">※ 특정 게시물의 깊은 링크는 국세청 사이트 개편에 따라 바뀔 수 있어 가족용 최종본에서는 제외했습니다. 실제 신고는 홈택스 메인에서 위 메뉴 순서대로 진행하면 됩니다.</p>
+</section>
+
+<div class="footer">
+  가족 내부 공유용 최종 완성본 · 2026-08-17 검수 · 실제 신고는 홈택스 화면의 최신 안내를 우선합니다.
+</div>
+
+</div>
+</body>
+</html>
