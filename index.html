@@ -576,9 +576,14 @@
         </div>
         <div class="ws-filter-btns">
           <button class="ws-filter-btn active" data-section="all" onclick="setFilter('all', this)">전체</button>
-          <button class="ws-filter-btn" data-section="admission" onclick="setFilter('admission', this)">수시 입시</button>
+          <button class="ws-filter-btn" data-section="admission-info" onclick="setFilter('admission-info', this)">수시 입시·전형</button>
+          <button class="ws-filter-btn" data-section="admission-cutline" onclick="setFilter('admission-cutline', this)">배치표·등급환산</button>
+          <button class="ws-filter-btn" data-section="admission-by-field" onclick="setFilter('admission-by-field', this)">계열별 입시</button>
+          <button class="ws-filter-btn" data-section="admission-essay" onclick="setFilter('admission-essay', this)">논술전형</button>
+          <button class="ws-filter-btn" data-section="department-explore" onclick="setFilter('department-explore', this)">학과 탐색</button>
           <button class="ws-filter-btn" data-section="curriculum" onclick="setFilter('curriculum', this)">교육과정</button>
-          <button class="ws-filter-btn" data-section="ai-tools" onclick="setFilter('ai-tools', this)">AI 도우미</button>
+          <button class="ws-filter-btn" data-section="seteuk-ai" onclick="setFilter('seteuk-ai', this)">세특·생기부 AI</button>
+          <button class="ws-filter-btn" data-section="inquiry-ai" onclick="setFilter('inquiry-ai', this)">탐구·질문 AI</button>
           <button class="ws-filter-btn" data-section="career-data" onclick="setFilter('career-data', this)">진로 데이터</button>
           <button class="ws-filter-btn" data-section="etc" onclick="setFilter('etc', this)">기타</button>
 
@@ -633,13 +638,18 @@
     (function () {
       if (typeof SECTIONS === 'undefined' || typeof resources === 'undefined') return;
 
-      const sectionOrder = ['admission', 'curriculum', 'ai-tools', 'career-data', 'etc'];
+      const sectionOrder = ['admission-info', 'admission-cutline', 'admission-by-field', 'admission-essay', 'department-explore', 'curriculum', 'seteuk-ai', 'inquiry-ai', 'career-data', 'etc'];
       const sectionMeta = {
-        admission:    { title: '📄 수시 입시 자료' },
-        curriculum:   { title: '📘 교육과정 자료' },
-        'ai-tools':   { title: '🤖 AI 도우미' },
-        'career-data':{ title: '🎯 진로 데이터' },
-        etc:          { title: '🗂️ 기타' }
+        'admission-info':     { title: '🎓 수시 입시·전형 가이드' },
+        'admission-cutline':  { title: '📐 배치표·등급환산' },
+        'admission-by-field': { title: '🧭 계열별 입시가이드' },
+        'admission-essay':    { title: '✍️ 논술전형 자료' },
+        'department-explore': { title: '🔬 학과 탐색 도구' },
+        curriculum:           { title: '📘 교육과정·학습자료' },
+        'seteuk-ai':          { title: '✏️ 세특·생기부 AI 도구' },
+        'inquiry-ai':         { title: '💡 탐구·질문 AI 도구' },
+        'career-data':        { title: '📊 진로 데이터' },
+        etc:                  { title: '🗂️ 기타' }
       };
 
       window.ARCHIVE_DATA = {
