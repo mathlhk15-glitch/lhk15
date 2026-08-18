@@ -169,6 +169,18 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "중간고사 성적으로 9등급 환산.html", platform: "html" }]
   },
+    {
+    id: "modu-baechipyo-2027",
+    icon: "🧮",
+    title: "박상근 선생님의 모두의 2027 대입 배치표",
+    section: "admission",
+    description: "박상근 선생님의 모두의 2027 대입 배치표",
+    tags: ["2027", "박상근", "배치표"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://park-sanggeun-all.github.io/modu-baechipyo-2027/", platform: "html" }]
+  },
       {
     id: "localdoctor",
     icon: "🦉",
