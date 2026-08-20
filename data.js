@@ -175,6 +175,19 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "중간고사 성적으로 9등급 환산.html", platform: "html" }]
   },
+    {
+    id: "jinhak-system",
+    icon: "🦌",
+    title: "생기부 성적분석 시스템",
+    section: "admission-cutline",
+    description: "상담카드 생성을 위한 생기부 성적분석 시스템",
+    tags: ["상담카드", "성적 분석"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/jinhak-system/", platform: "html" }]
+  },
+
 
   // ── 🧭 계열별 입시가이드 ──────────────────────────────────
   {
@@ -569,7 +582,7 @@ const resources = [
   },
   {
     id: "2026-career-compass",
-    icon: "🐦‍⬛",
+    icon: "🕊️",
     title: "2026 지역산업 진로진학나침반",
     section: "career-data",
     description: "2026 지역산업 진로진학나침반",
