@@ -567,7 +567,19 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeongil-parent-test", platform: "html" }]
   },
-
+  {
+    id: "2026-career-compass",
+    icon: "🐦‍⬛",
+    title: "2026 지역산업 진로진학나침반",
+    section: "career-data",
+    description: "2026 지역산업 진로진학나침반",
+    tags: ["지역산업", "지역인재육성법"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "2026-career-compass.html", platform: "html" }]
+  },
+  
   // ── 🗂️ 기타 ──────────────────────────────────────────────
   {
     id: "commute-english",
