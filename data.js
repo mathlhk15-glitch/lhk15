@@ -187,7 +187,18 @@ const resources = [
     updatedAt: "2026-08",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/jinhak-system/", platform: "html" }]
   },
-
+    {
+    id: "mock-percentile",
+    icon: "🦌",
+    title: "백분위 속에 숨어 있던 다음 목표를 찾아드려요",
+    section: "admission-cutline",
+    description: "국어·수학·탐구(또는 통합사회·통합과학) 백분위 4개만입력하면, 지금 위치와 다음 참고등급까지 남은 거리를 바로 보여드립니다.",
+    tags: ["백분위", "위치", "수능때의 등급 예상"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/mock-percentile/", platform: "html" }]
+  },
 
   // ── 🧭 계열별 입시가이드 ──────────────────────────────────
   {
