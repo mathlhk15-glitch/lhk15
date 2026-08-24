@@ -165,7 +165,7 @@ const resources = [
   },
   {
     id: "ipsi-9grade-calc",
-    icon: "🧮",
+    icon: "🏃🏼‍♀️‍➡️",
     title: "중간고사 성적으로 9등급 환산",
     section: "admission-cutline",
     description: "중간고사 성적을 기준으로 9등급을 예상 환산해보는 도구",
@@ -177,7 +177,7 @@ const resources = [
   },
     {
     id: "jinhak-system",
-    icon: "🦌",
+    icon: "✒️",
     title: "학생부 성적 OCR·가중평균 분석기 (개별 학생용)",
     section: "admission-cutline",
     description: "학생부 PDF나 성적표 사진을 올리면 자동으로 읽어 단위수 가중평균, 목표등급 역산, 상담용 Excel까지 만들어주는 개별 학생 성적 분석 도구. 대학 검색·전형 비교 기능은 없음.",
