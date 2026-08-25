@@ -752,6 +752,30 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/good-writing", platform: "html" }]
   },
+  {
+    id: "free-learning-economy-hub",
+    icon: "📚",
+    title: "무료 학습·경제 허브",
+    section: "etc",
+    description: "무료 학습 자료와 경제 관련 콘텐츠를 한곳에서 활용하는 허브",
+    tags: ["무료학습", "경제", "학습자료"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/free_learning_economy_hub/", platform: "html" }]
+  },
+  {
+    id: "trip-planner",
+    icon: "🧳",
+    title: "여행 플래너",
+    section: "etc",
+    description: "여행지와 일정을 정리하고 여행 계획을 세우는 도구",
+    tags: ["여행", "여행계획", "일정"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/trip-planner/", platform: "html" }]
+  },
 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
