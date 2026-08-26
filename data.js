@@ -381,6 +381,18 @@ const resources = [
     ]
   },
   {
+    id: "interview-hub",
+    icon: "🎙️",
+    title: "2027 대입 면접 준비 허브",
+    section: "seteuk-ai",
+    description: "생활기록부 PDF를 선택적으로 불러오면 면접 핵심 기록과 예상 질문을 자동 정리하고, 30·60초 말하기 연습·AI 심화분석 프롬프트·면접 직전 점검까지 지원하는 무료 면접 준비 도구",
+    tags: ["면접", "생활기록부", "예상질문", "말하기연습", "2027"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/interview-hub/", platform: "html" }]
+  },
+  {
     id: "seteuk-edit",
     icon: "✏️",
     title: "세특 내용 수정·보완",
