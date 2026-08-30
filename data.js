@@ -788,6 +788,18 @@ const resources = [
     updatedAt: "2026-08",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/trip-planner/", platform: "html" }]
   },
+  {
+    id: "highway-rest-area-food",
+    icon: "🍽️",
+    title: "고속도로 휴게소 맛집",
+    section: "etc",
+    description: "전국 고속도로 휴게소별 추천 음식과 대표 메뉴를 찾아보는 맛집 가이드",
+    tags: ["고속도로", "휴게소", "맛집", "여행"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/highway-rest-area-food/", platform: "html" }]
+  },
 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
