@@ -441,6 +441,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://fastidious-brigadeiros-07cdae.netlify.app/", platform: "html" }]
   },
   {
+    id: "action242",
+    icon: "🧩",
+    title: "학생 실제수행기반 행동서술 242선 — 검색·문장화 도구",
+    section: "seteuk-ai",
+    description: "세특에 쓸 수 있는 실제 수행 기반 행동 서술 242개를 검색·필터링하고, 대상·근거·판단기준·결과·한계를 채워 초안 문장으로 조립하는 도구. NEIS 기준 바이트 계산기 포함, 학생 개인정보는 저장하지 않음.",
+    tags: ["세특", "행동서술", "문장조립", "AI교차검증"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/neis-action242/", platform: "html" }]
+  },
+  {
     id: "teacher-growth-studio",
     icon: "✨",
     title: "교사 수업·평가·기록 설계실",
