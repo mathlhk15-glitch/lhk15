@@ -836,6 +836,18 @@ const resources = [
     updatedAt: "2026-09",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/family_death_inheritance_guide_2026/", platform: "html" }]
   },
+  {
+    id: "playhanja",
+    icon: "🈶",
+    title: "한자야 놀자! — 초등 애니메이션 한자 학습",
+    section: "etc",
+    description: "부수가 그림처럼 합쳐지는 애니메이션으로 한자를 익히는 초등 학습 사이트. 급수별 한자(9~1급), 천자문 250구, A4 쓰기 연습장, 퀴즈 복습 제공",
+    tags: ["한자", "초등", "애니메이션", "쓰기연습"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://playhanja.vercel.app/", platform: "html" }]
+  },
 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
