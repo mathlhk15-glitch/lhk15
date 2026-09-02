@@ -125,6 +125,18 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "https://jinhak.esteacher.kr/", platform: "html" }]
   },
+  {
+    id: "susi-competition-rate-tracker-2026",
+    icon: "📈",
+    title: "시간대별·대학별 수시 경쟁률 비교 분석기",
+    section: "admission-info",
+    description: "수시 원서접수 기간 중 시간대별·대학별 경쟁률 변화를 최종 마감까지 비교·분석하는 도구",
+    tags: ["수시", "경쟁률", "실시간", "비교분석"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2026-susi-competition-rate-tracker/", platform: "html" }]
+  },
 
   // ── 📐 배치표·등급환산 ────────────────────────────────────
   {
@@ -811,6 +823,18 @@ const resources = [
     isNew: true,
     updatedAt: "2026-08",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/highway-rest-area-food/", platform: "html" }]
+  },
+  {
+    id: "family-death-inheritance-guide-2026",
+    icon: "🕊️",
+    title: "가족 사망·상속 절차 가이드 (2026)",
+    section: "etc",
+    description: "가족 사망 시 필요한 상속 절차와 준비사항을 정리한 가이드",
+    tags: ["상속", "사망신고", "가족", "절차"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/family_death_inheritance_guide_2026/", platform: "html" }]
   },
 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
