@@ -135,7 +135,7 @@ const resources = [
     featured: false,
     isNew: true,
     updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/2026-susi-competition-rate-tracker/", platform: "html" }]
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/2026-susi-competition-rate-tracker.html/", platform: "html" }]
   },
 
   // ── 📐 배치표·등급환산 ────────────────────────────────────
