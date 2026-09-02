@@ -128,10 +128,10 @@ const resources = [
   {
     id: "susi-competition-rate-tracker-2026",
     icon: "📈",
-    title: "시간대별·대학별 수시 경쟁률 비교 분석기",
+    title: "2026학년도 시간대별·대학별 수시 경쟁률 정리",
     section: "admission-info",
-    description: "수시 원서접수 기간 중 시간대별·대학별 경쟁률 변화를 최종 마감까지 비교·분석하는 도구",
-    tags: ["수시", "경쟁률", "실시간", "비교분석"],
+    description: "2026 수시 원서접수 기간 중 시간대별·대학별 경쟁률 변화",
+    tags: ["2026 수시", "경쟁률"],
     featured: false,
     isNew: true,
     updatedAt: "2026-09",
