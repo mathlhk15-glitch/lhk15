@@ -853,7 +853,7 @@ const resources = [
     icon: "🪴",
     title: "난 키우는 법",
     section: "etc",
-    description: "난 키우는 ",
+    description: "난 키우는 법",
     tags: ["동양란", "서양란"],
     featured: false,
     isNew: true,
