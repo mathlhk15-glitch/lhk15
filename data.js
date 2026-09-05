@@ -17,7 +17,19 @@ const SECTIONS = {
 const resources = [
 
   // ── 🎓 수시 입시·전형 가이드 ──────────────────────────────
-  {
+   {
+    id: "grade5-calc",
+    icon: "🦉",
+    title: "5등급제 내신, 실제 위치는 어디쯤일까합",
+    section: "admission-info",
+    description: "부산 지역 15,978명의 실제 누적 성적 분포 자료를 바탕으로, 입력한 등급평균이 표본 내 어느 위치인지 확인할 수 있도록 만든 참고 도구입니다.",
+    tags: ["5등급", "내신", "변환"],
+    featured: true,
+    isNew: false,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/grade5-calc/", platform: "html" }]
+  },
+    {
     id: "ipsi-3rd",
     icon: "🐼",
     title: "경일 진학상담 Navigator — 성적입력·입결탐색 통합",
