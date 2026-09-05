@@ -149,7 +149,19 @@ const resources = [
     updatedAt: "2026-09",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/2026-susi-competition-rate-tracker.html", platform: "html" }]
   },
-
+  {
+    id: "susi-mincheck-2027",
+    icon: "🍋",
+    title: "2027학년도 수시모집 수능최저학력기준 자가진단",
+    section: "admission-info",
+    description: "6월 모의평가 성적표의 표준점수·등급 또는 9월 모의평가 가채점 원점수를 입력해 수능최저 충족 여부를 확인합니다.",
+    tags: ["2027 수시", "최저 충족 여부 확인"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/susi-mincheck-2027/", platform: "html" }]
+  },
+  
   // ── 📐 배치표·등급환산 ────────────────────────────────────
   {
     id: "modu-baechipyo-2027",
