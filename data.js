@@ -849,12 +849,12 @@ const resources = [
     links: [{ label: "바로가기", url: "https://playhanja.vercel.app/", platform: "html" }]
   },
   {
-    id: "playhanja",
+    id: "orchid-guide",
     icon: "🪴",
-    title: "한자야 놀자! — 초등 애니메이션 한자 학습",
+    title: "난 키우는 법",
     section: "etc",
-    description: "부수가 그림처럼 합쳐지는 애니메이션으로 한자를 익히는 초등 학습 사이트. 급수별 한자(9~1급), 천자문 250구, A4 쓰기 연습장, 퀴즈 복습 제공",
-    tags: ["한자", "초등", "애니메이션", "쓰기연습"],
+    description: "난 키우는 ",
+    tags: ["동양란", "서양란"],
     featured: false,
     isNew: true,
     updatedAt: "2026-09",
