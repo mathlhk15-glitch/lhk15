@@ -542,6 +542,18 @@ const resources = [
     ]
   },
   {
+    id: "arts-inquiry-guide",
+    icon: "🎨",
+    title: "예체능 탐구 가이드",
+    section: "inquiry-ai",
+    description: "미술·음악·체육 활동에서 질문을 만들고, 다른 교과 개념과 연결해 직접 확인한 뒤 다시 작품·연주·경기에 적용하는 탐구 방법을 안내합니다.",
+    tags: ["예체능", "탐구", "미술", "음악", "체육"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/arts-inquiry-guide/", platform: "html" }]
+  },
+  {
     id: "news-inquiry",
     icon: "📰",
     title: "오늘의 뉴스로 탐구활동 만들기",
