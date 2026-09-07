@@ -150,6 +150,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/2026-susi-competition-rate-tracker.html", platform: "html" }]
   },
   {
+    id: "2027-susi-rate",
+    icon: "📊",
+    title: "2027 수시 경쟁률 분석·지원전략 도우미",
+    section: "admission-info",
+    description: "2024~2026학년도 경쟁률 흐름을 확인하고, 2027학년도 현재 경쟁률을 진학어플라이에서 확인·기록해 과거 자료와 비교할 수 있는 수시 지원전략 도구입니다.",
+    tags: ["2027 수시", "경쟁률", "실시간 경쟁률", "지원전략"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2027-susi-rate/", platform: "html" }]
+  },
+  {
     id: "susi-mincheck-2027",
     icon: "🍋",
     title: "2027학년도 수시모집 수능최저학력기준 자가진단",
