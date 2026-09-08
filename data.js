@@ -223,6 +223,18 @@ const resources = [
     updatedAt: "2026-05",
     links: [{ label: "바로가기", url: "중간고사 성적으로 9등급 환산.html", platform: "html" }]
   },
+  {
+    id: "kangseok-grade-converter",
+    icon: "🎯",
+    title: "김강석 선생님의 5등급→9등급 환산·수시 지원대학 찾기",
+    section: "admission-cutline",
+    description: "숭신고 김강석 선생님이 만든 상담 도구. 부산광역시교육청 최신 자료와 2026학년도 어디가 입결을 바탕으로 현재 성적의 지원 가능 대학을 계열·전형별로 찾고, 남은 학기 성적 향상 가정에 따른 지원 가능 대학과 목표 대학에 필요한 남은 학기 성적을 역산할 수 있습니다. 2026학년도 모집인원·경쟁률·추합인원도 함께 확인할 수 있습니다.",
+    tags: ["5등급", "9등급", "등급환산", "수시", "지원가능대학", "목표등급", "입결"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://kangseok-hub.github.io/converter/", platform: "html" }]
+  },
     {
     id: "jinhak-system",
     icon: "✒️",
