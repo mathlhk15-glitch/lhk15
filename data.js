@@ -453,6 +453,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/interview-hub/", platform: "html" }]
   },
   {
+    id: "modu-interview-coach",
+    icon: "🗣️",
+    title: "박상근 선생님의 모두의 학생·학부모를 위한 자기주도 면접 연습기",
+    section: "seteuk-ai",
+    description: "강원사대부고 박상근 선생님이 만든 학생·학부모용 자기주도 면접 연습 도구입니다. 질문을 음성으로 읽어주면 학생이 정해진 시간 안에 답하고, 표정·시선·자세·어깨·손의 움직임을 실시간으로 분석해 점수와 피드백을 제공합니다. 답변은 자동으로 텍스트로 변환되어 저장·인쇄할 수 있습니다. 미리보기에서 원하는 문항만 선택해 연습하거나 교사가 만든 질문을 직접 입력할 수 있고, 문항 수·답변 시간·생각할 시간을 자유롭게 조절할 수 있습니다. 결과 리포트에는 종합 점수, 문항별 답변 전문, 개선 조언이 제공되며 인쇄·PDF·파일 저장을 지원합니다. 노트북과 Chrome 사용을 권장하며, 휴대폰에서는 음성 텍스트 변환이 불안정할 수 있습니다. 질문 음성 출제와 답변 텍스트 변환은 노트북+Chrome 환경에서 가장 안정적입니다. (박상근 선생님이 ‘고등학교 담임샘들의 시너지’ 밴드에 작성한 소개글을 바탕으로 정리)",
+    tags: ["박상근", "면접", "자기주도", "음성질문", "답변텍스트변환", "표정분석", "자세분석", "면접리포트"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://park-sanggeun-all.github.io/interview-coach/", platform: "html" }]
+  },
+  {
     id: "seteuk-edit",
     icon: "✏️",
     title: "세특 내용 수정·보완",
