@@ -78,6 +78,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/admission-guide-2028", platform: "html" }]
   },
   {
+    id: "contract-major-guide-2027",
+    icon: "🤝",
+    title: "계약학과·첨단학과, 제대로 알고 준비하기",
+    section: "admission-info",
+    description: "기업체취업형·조기취업형·군의무복무형 계약학과와 첨단학과의 차이, 4년제·전문대·과학기술원·대학원 운영 현황, 전문대 주문식 교육과정까지 정리한 학생·학부모용 안내 자료.",
+    tags: ["계약학과", "첨단학과", "조기취업형", "학부모"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "2027-contract-major-guide.html", platform: "html" }]
+  },
+  {
     id: "2027-susi-counsel-hub",
     icon: "📚",
     title: "2027 수시 전형 검색·비교 허브 (308개 전형)",
