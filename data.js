@@ -548,6 +548,18 @@ const resources = [
     updatedAt: "2026-08",
     links: [{ label: "바로가기", url: "https://park-sanggeun-all.github.io/teacher-console/", platform: "html" }]
   },
+  {
+    id: "seteuk-guide",
+    icon: "🎒",
+    title: "질문이 배움이 되는 순간 — 학생용 수업·탐구·세특 종합 안내서",
+    section: "seteuk-ai",
+    description: "수업의 작은 궁금증을 탐구로 이어가는 4단계 방법과 교과별 61가지 예시, 탐구 보고서·자기평가 작성법을 담은 학생용 안내서. 마지막에 직접 정리해보는 워크시트 포함.",
+    tags: ["세특", "탐구활동", "학생용", "예시61가지"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/seteuk-guide/", platform: "html" }]
+  },
 
   // ── 💡 탐구·질문 AI 도구 ──────────────────────────────────
   {
