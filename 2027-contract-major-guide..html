@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>계약학과·첨단학과, 제대로 알고 준비하기 | 학생·학부모 안내</title>
+<style>
+  :root{
+    --navy:#113f67; --blue:#2f7dd3; --sky:#eef6ff; --teal:#0f8b8d;
+    --green:#2c7a54; --orange:#c2660a; --purple:#6b4fa0; --red:#b42318; --ink:#182230;
+    --muted:#5f6b7a; --line:#dde5ee; --paper:#ffffff; --bg:#f3f6fa;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;line-height:1.64;font-size:16px}
+  .page{max-width:1080px;margin:28px auto;background:var(--paper);box-shadow:0 14px 40px rgba(23,43,77,.10);border-radius:26px;overflow:hidden}
+
+  header{padding:46px 56px 30px;background:linear-gradient(135deg,#e9f5ff 0%,#f7fbff 55%,#eefaf6 100%);border-bottom:1px solid #dceaf5}
+  .eyebrow{display:inline-block;font-weight:800;color:var(--blue);background:#fff;border:1px solid #bcd7f5;border-radius:999px;padding:7px 14px;font-size:13.5px;letter-spacing:.01em}
+  h1{font-size:38px;line-height:1.2;margin:16px 0 12px;color:var(--navy);letter-spacing:-.03em}
+  .lead{font-size:19px;margin:0;color:#274c6f;font-weight:600;max-width:820px}
+  .updatebar{margin-top:18px;font-size:13.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 18px}
+  .updatebar span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block}
+
+  nav.toc{margin:0;padding:16px 56px;background:#fff;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 10px}
+  nav.toc a{font-size:13.5px;font-weight:700;color:#33556f;text-decoration:none;background:#f1f6fb;border:1px solid #dde8f2;border-radius:999px;padding:7px 13px;white-space:nowrap}
+  nav.toc a:hover{background:var(--sky);border-color:#bcd7f5}
+
+  main{padding:38px 56px 54px}
+  section{margin:0 0 46px;scroll-margin-top:16px}
+  section:last-of-type{margin-bottom:0}
+  .sec-num{display:inline-block;font-size:13px;font-weight:800;color:#fff;background:var(--navy);border-radius:8px;padding:3px 9px;margin-right:9px;vertical-align:middle}
+  h2{font-size:25px;line-height:1.3;color:var(--navy);margin:0 0 18px;letter-spacing:-.02em;display:flex;align-items:center}
+  h3{font-size:18.5px;margin:0 0 10px;color:#213547}
+  p{margin:8px 0 12px}
+
+  .callout{border-left:6px solid var(--blue);background:#f5f9ff;padding:16px 20px;border-radius:0 14px 14px 0;margin:16px 0;font-size:15px}
+  .callout strong{color:var(--navy)}
+  .warning{border-left-color:var(--orange);background:#fff9ee}
+  .good{border-left-color:var(--green);background:#f2faf6}
+  .tip-box{border-left-color:var(--purple);background:#f8f5fc}
+
+  /* taxonomy */
+  .taxonomy{display:grid;grid-template-columns:1fr 1.7fr;gap:16px;align-items:stretch}
+  .tax-box{border:1px solid var(--line);border-radius:18px;padding:20px;background:#fff}
+  .tax-box .tag{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800;background:#eef2f7;color:#52606d;margin-bottom:8px}
+  .tax-children{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+  .child{padding:13px;border-radius:14px;background:var(--sky);border:1px solid #cfe1f6;font-size:13.5px}
+  .child b{display:block;color:var(--navy);margin-bottom:4px;font-size:14.5px}
+
+  /* 첨단학과 대비 박스 */
+  .vs{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin:18px 0}
+  .vs .side{border:1.5px solid var(--line);border-radius:16px;padding:18px;background:#fff}
+  .vs .side.a{border-color:#bcd7f5;background:#f7fbff}
+  .vs .side.b{border-color:#f3d6ae;background:#fffaf2}
+  .vs .side h4{margin:0 0 8px;font-size:16px;color:var(--navy)}
+  .vs .vsmark{font-weight:900;color:var(--muted);font-size:14px;text-align:center}
+  .vs ul{margin:0;padding-left:19px;font-size:14px}
+  .vs li{margin:4px 0}
+
+  /* 3 type cards */
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .card{border:1px solid var(--line);border-radius:20px;padding:20px;background:#fff}
+  .card.enterprise{border-top:7px solid var(--navy)}
+  .card.early{border-top:7px solid var(--teal)}
+  .card.military{border-top:7px solid var(--purple)}
+  .card h3{font-size:19px}
+  .card .summary{font-weight:800;font-size:14.5px;margin:2px 0 12px;color:#334e68}
+  .kv{display:grid;grid-template-columns:82px 1fr;border-top:1px solid #e9eef4;font-size:13.5px}
+  .kv div{padding:8px 0;border-bottom:1px solid #e9eef4}
+  .kv .k{font-weight:800;color:#486581;padding-right:8px}
+  .badge{display:inline-block;border-radius:999px;padding:3px 9px;font-size:11.5px;font-weight:800;margin:2px 4px 2px 0;background:#eef6ff;color:#1e5f9d}
+
+  /* pros / cons */
+  .proscons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+  .pc{border-radius:16px;padding:18px 20px;border:1px solid var(--line)}
+  .pc.pro{background:#f2faf6;border-color:#cdeadb}
+  .pc.con{background:#fff5f2;border-color:#f7d3c6}
+  .pc h4{margin:0 0 10px;font-size:15.5px}
+  .pc.pro h4{color:var(--green)}
+  .pc.con h4{color:#a13d24}
+  .pc ul{margin:0;padding-left:0;list-style:none;font-size:14px}
+  .pc li{margin:7px 0;padding-left:22px;position:relative}
+  .pc.pro li:before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:900}
+  .pc.con li:before{content:"！";position:absolute;left:1px;color:#a13d24;font-weight:900;font-size:12.5px}
+
+  table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:14px;margin:6px 0}
+  th{background:#edf4fb;color:#284b63;text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);font-weight:800}
+  td{padding:10px 12px;border-bottom:1px solid #e8edf3;vertical-align:top}
+  tr:last-child td{border-bottom:0}
+  td small{color:var(--muted)}
+  caption{caption-side:top;text-align:left;font-weight:800;color:#284b63;font-size:14.5px;margin-bottom:8px}
+
+  .examples{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .example{border:1px solid var(--line);border-radius:16px;padding:15px 17px;background:#fff}
+  .example .uni{font-weight:900;color:var(--navy);font-size:16px}
+  .example .company{color:var(--teal);font-weight:800;margin:2px 0 6px;font-size:13.5px}
+  .example p{font-size:13.5px;margin:4px 0;color:#455a64}
+
+  .subhead{display:inline-block;font-size:12.5px;font-weight:800;color:#fff;background:var(--teal);border-radius:7px;padding:3px 9px;margin:22px 0 10px}
+
+  .tipgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .tip{border-radius:16px;padding:16px;border:1px solid var(--line);background:#fbfcfe;font-size:14px}
+  .tip b{color:var(--navy);display:block;margin-bottom:6px;font-size:15px}
+
+  ul{padding-left:21px;margin:8px 0}
+  li{margin:5px 0}
+  .checklist{counter-reset:item;display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;padding:0;list-style:none}
+  .checklist li{position:relative;padding:12px 14px 12px 42px;border:1px solid var(--line);border-radius:14px;background:#fff;margin:0;font-size:14px}
+  .checklist li:before{counter-increment:item;content:counter(item);position:absolute;left:12px;top:11px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-size:12px;font-weight:900}
+
+  .footnote{font-size:12.5px;color:var(--muted)}
+  .sourcebox{background:#f7f9fc;border:1px solid var(--line);border-radius:16px;padding:17px 20px;font-size:13px;color:#53606f}
+  .sourcebox a{color:#225ea8;text-decoration:none}
+  .sourcebox a:hover{text-decoration:underline}
+
+  .toolbar{position:sticky;bottom:14px;display:flex;justify-content:flex-end;max-width:1080px;margin:0 auto;pointer-events:none;padding:0 16px 14px}
+  .printbtn{pointer-events:auto;border:0;background:var(--navy);color:#fff;padding:11px 17px;border-radius:999px;font-weight:800;box-shadow:0 8px 22px rgba(17,63,103,.22);cursor:pointer;font-size:14px}
+  .printbtn:hover{background:#0c3456}
+  .em{color:var(--red);font-weight:900}
+
+  @media(max-width:900px){
+    .page{margin:0;border-radius:0}
+    .taxonomy,.three,.examples,.tipgrid,.proscons,.vs,.checklist{grid-template-columns:1fr}
+    .tax-children{grid-template-columns:1fr}
+    .vs .vsmark{transform:rotate(90deg);padding:6px 0}
+    header,main{padding-left:20px;padding-right:20px}
+    nav.toc{padding:14px 20px}
+    h1{font-size:29px}.lead{font-size:17px}
+    table{font-size:13px;display:block;overflow:auto;white-space:nowrap}
+  }
+  @media print{
+    @page{size:A4;margin:12mm}
+    body{background:#fff;font-size:10.6pt;line-height:1.46}
+    .page{max-width:none;margin:0;box-shadow:none;border-radius:0}
+    header{padding:10mm 8mm 6mm;background:#eef6ff !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    nav.toc{display:none}
+    main{padding:6mm 8mm}
+    h1{font-size:22pt} h2{font-size:15pt} h3{font-size:12pt}
+    section{margin-bottom:7mm}
+    .toolbar{display:none}
+    .card,.tax-box,.example,.tip,.callout,.sourcebox,table,.pc,.vs .side{break-inside:avoid}
+    .three,.examples,.tipgrid,.taxonomy,.proscons,.vs{gap:7px}
+    a{color:inherit;text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+<header>
+  <span class="eyebrow">학생·학부모 진로진학 안내</span>
+  <h1>계약학과·첨단학과, 제대로 알고 준비하기</h1>
+  <p class="lead">“취업이 보장되는 학과”라는 한 문장보다 중요한 것은 <b>언제 취업하고, 어디에서 일하며, 어떤 조건을 지켜야 하는지</b>입니다.</p>
+  <div class="updatebar">
+    <span><span class="dot"></span>일반 4년제·전문대학·과학기술원·대학원 과정 총정리</span>
+    <span><span class="dot"></span>2026학년도 최신 모집 현황 기준</span>
+    <span><span class="dot"></span>지원 전 최종 확인은 각 대학 모집요강 필수</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#sec1">① 용어 정리</a>
+  <a href="#sec2">② 첨단학과와 무엇이 다른가</a>
+  <a href="#sec3">③ 세 가지 채용조건형 비교</a>
+  <a href="#sec4">④ 조기취업형 현실 A to Z</a>
+  <a href="#sec5">⑤ 4년제 대학 사례</a>
+  <a href="#sec6">⑥ 조기취업형 운영 대학</a>
+  <a href="#sec7">⑦ 전문대학 진학 희망자</a>
+  <a href="#sec8">⑧ 군의무복무형</a>
+  <a href="#sec9">⑨ 수능최저 한눈에</a>
+  <a href="#sec10">⑩ 나에게 맞는 길</a>
+  <a href="#sec11">⑪ 체크리스트</a>
+</nav>
+
+<main>
+
+<section id="sec1">
+  <h2><span class="sec-num">1</span>먼저 용어부터 정확히 이해하기</h2>
+  <div class="callout">
+    <strong>핵심 정리</strong><br>
+    흔히 “채용조건형 vs 조기취업형”이라고 비교하지만, 정확히 말하면 <b>조기취업형도 채용조건형에 포함</b>됩니다.
+    계약학과는 크게 <b>재교육형</b>과 <b>채용조건형</b>으로 나뉘고, 고등학생이 주로 지원하는 채용조건형 안에
+    <b>기업체취업형·조기취업형·군의무복무형</b>이 있습니다.
+  </div>
+
+  <div class="taxonomy">
+    <div class="tax-box">
+      <span class="tag">재직자 대상</span>
+      <h3>재교육형 계약학과</h3>
+      <p>산업체에 이미 근무 중인 재직자의 직무역량 향상을 위해 운영되는 과정입니다. 정원 외 전형으로 선발되며, 고3 대입 상담의 중심 대상은 아닙니다.</p>
+    </div>
+    <div class="tax-box">
+      <span class="tag">고교 졸업(예정)자 지원</span>
+      <h3>채용조건형 계약학과</h3>
+      <div class="tax-children">
+        <div class="child"><b>기업체취업형</b>대학에서 전공을 이수한 뒤 협약기업 취업으로 연결</div>
+        <div class="child"><b>조기취업형</b>입학 단계에서 기업을 정하고, 이후 일과 학업을 병행</div>
+        <div class="child"><b>군의무복무형</b>졸업 후 장교로 임관하여 정해진 기간 의무복무</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sec2">
+  <h2><span class="sec-num">2</span>“첨단학과”와는 무엇이 다른가요?</h2>
+  <p>뉴스나 입시설명회에서 계약학과와 첨단학과가 자주 함께 등장하다 보니 <b>같은 개념으로 오해</b>하는 경우가 많습니다. 둘은 만들어진 목적 자체가 다릅니다.</p>
+  <div class="vs">
+    <div class="side a">
+      <h4>계약학과</h4>
+      <ul>
+        <li>대학과 <b>기업·기관 사이의 계약(협약)</b>이 핵심</li>
+        <li>졸업(또는 입학) 후 <b>채용이 보장</b>되거나 조건부로 확정</li>
+        <li>등록금 지원, 의무근무·의무복무 조건이 따라옴</li>
+      </ul>
+    </div>
+    <div class="vsmark">VS</div>
+    <div class="side b">
+      <h4>첨단학과</h4>
+      <ul>
+        <li>AI·빅데이터·반도체·미래자동차 등 <b>4차 산업 정원을 늘리기 위한 제도</b>로 신설</li>
+        <li>특정 기업과의 채용 계약이 <b>있는 것은 아님</b></li>
+        <li>일반 학과와 동일하게 <b>본인이 취업을 준비</b>해야 함</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout warning">
+    <strong>가장 흔한 오해:</strong> “AI학과, 반도체학과라고 하니 취업이 보장되겠지”라는 생각은 위험합니다.
+    전남교육청 안내자료에도 <b>“첨단학과는 졸업 후 취업을 보장하는 계약학과와는 다르므로 지원 전 반드시 취업연계 여부를 확인해야 함”</b>이라고 명시되어 있습니다.
+    학과 이름이 아니라 <b>전형명과 모집요강</b>에서 계약학과 여부를 직접 확인해야 합니다.
+  </div>
+</section>
+
+<section id="sec3">
+  <h2><span class="sec-num">3</span>가장 많이 궁금해하는 세 가지 길</h2>
+  <div class="three">
+    <article class="card enterprise">
+      <h3>기업체취업형</h3>
+      <div class="summary">대학에서 충분히 공부한 뒤 협약기업 취업으로</div>
+      <div class="kv">
+        <div class="k">취업시점</div><div>졸업 후, 조건 충족 시</div>
+        <div class="k">학업방식</div><div>일반 대학생처럼 전공수업 중심</div>
+        <div class="k">기간</div><div>일반 4년제와 동일 (예외 있음)</div>
+        <div class="k">기업예시</div><div><span class="badge">삼성전자</span><span class="badge">SK하이닉스</span><span class="badge">현대자동차</span></div>
+      </div>
+    </article>
+    <article class="card early">
+      <h3>조기취업형</h3>
+      <div class="summary">입학 단계에서 취업 확정, 일·학업 병행</div>
+      <div class="kv">
+        <div class="k">취업시점</div><div>입학과 동시(1학년 후)</div>
+        <div class="k">학업방식</div><div>1학년 전일제 → 2학년부터 재직자</div>
+        <div class="k">기간</div><div>4년제 3년 / 전문대 1.5년(압축)</div>
+        <div class="k">참여기업</div><div>중소·중견기업 위주</div>
+      </div>
+    </article>
+    <article class="card military">
+      <h3>군의무복무형</h3>
+      <div class="summary">졸업 후 장교로 임관, 병과 지정</div>
+      <div class="kv">
+        <div class="k">취업시점</div><div>졸업 후 장교 임관</div>
+        <div class="k">학업방식</div><div>일반 학과와 동일</div>
+        <div class="k">기간</div><div>일반 4년제와 동일</div>
+        <div class="k">복무처</div><div><span class="badge">육군</span><span class="badge">해군</span><span class="badge">공군</span><span class="badge">해병대</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="sec4">
+  <h2><span class="sec-num">4</span>조기취업형, 현실은 어떨까요?</h2>
+  <p>조기취업형은 학비 부담이 적고 빠른 취업이 가능하다는 장점만 부각되기 쉽지만, 실제 운영 방식을 보면 <b>학생 개인의 성향과 각오</b>가 매우 중요한 전형입니다.</p>
+  <div class="proscons">
+    <div class="pc pro">
+      <h4>이런 점이 좋습니다</h4>
+      <ul>
+        <li>학교에서 배운 내용을 업무에 바로 적용, 이론·실무 역량을 빠르게 습득</li>
+        <li>교수진이 업계 선배처럼 1:1 멘토링을 해주어 업무 어려움 해결에 도움</li>
+        <li>2학년(전문대 1학년 2학기)부터 근로계약서를 쓰는 재직자 신분 → 급여를 받아 경제적 여유</li>
+        <li>정규직 입사가 원칙, 의무기간을 채운 뒤 경력직 이직도 선택 가능</li>
+      </ul>
+    </div>
+    <div class="pc con">
+      <h4>이런 점은 각오해야 합니다</h4>
+      <ul>
+        <li>주중 근무 + 주말·야간 수업으로 <b>일정이 매우 빡빡함</b></li>
+        <li><b>캠퍼스 낭만, 동아리·교류 등 대학 생활</b>을 누릴 시간적 여유가 거의 없음</li>
+        <li>희망사다리 장학금 수혜 시 보통 10개월~1년 이상의 <b>의무 재직기간</b> 발생, 이 기간 퇴직·이직 제한</li>
+        <li>학과가 아니라 <b>기업과 계약</b>하는 구조라, 같은 학과라도 참여 기업이 학생마다 다를 수 있음</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout warning">
+    <strong>“조기취업형 4년제는 무조건 3년”이라고 외우지 마세요.</strong>
+    다수 과정이 압축 운영되지만 대학별로 예외가 있습니다. 가천대 조기취업형 계약학과는 2026학년도 입학생부터
+    <b>4년 교육과정(1~2학년 전일제, 3~4학년 학업·실무 병행)</b>으로 운영합니다. 또한 조기취업형은 <b>대부분 수시에서 선발</b>하며,
+    정시는 수시 미충원 인원만 이월 선발하는 구조입니다. 지원연도 모집요강을 반드시 확인해야 합니다.
+  </div>
+</section>
+
+<section id="sec5">
+  <h2><span class="sec-num">5</span>기업체취업형, 어디에 있을까?</h2>
+  <p>기업체취업형은 <b>수도권 주요 대학뿐 아니라 과학기술원(KAIST 등)과 지방거점국립대</b>에도 폭넓게 개설되어 있습니다.</p>
+
+  <span class="subhead">수도권 대학 사례</span>
+  <div class="examples">
+    <div class="example"><div class="uni">고려대 반도체공학과</div><div class="company">SK하이닉스</div><p>학생부종합전형(학업우수·계열적합) 중심으로 선발합니다.</p></div>
+    <div class="example"><div class="uni">고려대 차세대통신학과</div><div class="company">삼성전자</div><p>차세대 통신·전자 분야의 기업 맞춤형 인재를 양성합니다.</p></div>
+    <div class="example"><div class="uni">연세대 시스템반도체공학과</div><div class="company">삼성전자</div><p>추천형·활동우수형·논술 등 여러 전형 경로가 운영됩니다.</p></div>
+    <div class="example"><div class="uni">성균관대 배터리학과</div><div class="company">삼성SDI</div><p>이차전지·배터리 산업과 직접 연결되는 계약학과입니다.</p></div>
+    <div class="example"><div class="uni">숭실대 정보보호학과</div><div class="company">LG유플러스</div><p>반도체뿐 아니라 정보보호·보안 분야에도 있습니다.</p></div>
+    <div class="example"><div class="uni">가천대 클라우드공학과</div><div class="company">카카오엔터프라이즈</div><p>클라우드·소프트웨어 분야로 확장되는 사례입니다.</p></div>
+  </div>
+
+  <span class="subhead">과학기술원·지방거점국립대 사례 (놓치기 쉬운 선택지)</span>
+  <div class="examples">
+    <div class="example"><div class="uni">KAIST 반도체시스템공학과</div><div class="company">삼성전자</div><p>수시 창의도전·학교장추천·일반·고른기회 등 100명 규모로 선발합니다.</p></div>
+    <div class="example"><div class="uni">POSTECH(포항공대) 반도체공학과</div><div class="company">삼성전자</div><p>학생부종합 반도체공학인재전형으로 40명을 선발합니다.</p></div>
+    <div class="example"><div class="uni">UNIST 반도체공학과</div><div class="company">삼성전자</div><p>수시 일반전형과 정시 수능우수자전형으로 나누어 선발합니다.</p></div>
+    <div class="example"><div class="uni">DGIST 반도체공학과</div><div class="company">삼성전자</div><p>수시 일반전형 서류100%로 선발합니다.</p></div>
+    <div class="example"><div class="uni">GIST 반도체학과</div><div class="company">삼성전자</div><p>1단계 서류, 2단계 면접을 포함한 종합전형입니다.</p></div>
+    <div class="example"><div class="uni">경북대 모바일공학전공</div><div class="company">삼성전자</div><p>모바일 과학인재전형, 논술(AAT) 등 지방거점국립대의 대표 사례입니다.</p></div>
+  </div>
+  <p class="footnote">※ 학과명·협약기업·모집인원·전형방법은 연도별로 바뀔 수 있습니다. 실제 지원 시 해당 대학의 최신 수시모집요강을 최종 확인하세요.</p>
+</section>
+
+<section id="sec6">
+  <h2><span class="sec-num">6</span>조기취업형은 어느 학교에서 운영할까?</h2>
+  <p>조기취업형은 <b>4년제(학사)·전문대(전문학사)·대학원(석·박사)</b> 세 단계 모두에 존재합니다. “학과명”보다 “참여기업”이 더 중요하다는 점을 꼭 기억해야 합니다.</p>
+
+  <span class="subhead">① 4년제 대학 (3년 압축, 2026학년도 8개교)</span>
+  <table>
+    <thead><tr><th>권역</th><th>대학</th><th>전공·분야 예시</th></tr></thead>
+    <tbody>
+      <tr><td>수도권</td><td><b>가천대, 한국공학대, 한양대(ERICA)</b></td><td>반도체·디스플레이, 미래자동차, AI·소프트웨어, 스마트전자, 소재·부품, 로봇, ICT 등</td></tr>
+      <tr><td>충청권</td><td><b>순천향대, 선문대(2026 신설)</b></td><td>스마트모빌리티, 스마트팩토리, 바이오헬스 / AI모빌리티융합, 스마트팩토리융합</td></tr>
+      <tr><td>대경·강원</td><td><b>경일대</b></td><td>스마트팩토리, 전력인프라, 에너지, 경영공학, 방위산업 등</td></tr>
+      <tr><td>동남권</td><td><b>동의대</b></td><td>미래모빌리티, 소프트웨어융합, 호스피탈리티 등</td></tr>
+      <tr><td>호남권</td><td><b>전남대(여수)</b></td><td>스마트전기·제어, 스마트융합공정, 기계IT융합 등</td></tr>
+    </tbody>
+  </table>
+  <p class="footnote">※ 선문대는 2026학년도 신설 참여 대학입니다. 일부 구자료에 등장하는 목포대는 2026학년도 최신 명단에서는 확인되지 않으니, 지원 전 반드시 해당 대학 입학처에 참여 여부를 재확인하세요.</p>
+
+  <span class="subhead">② 전문대학 (1년 6개월 압축, 2026학년도 7개교)</span>
+  <table>
+    <thead><tr><th>지역</th><th>대학</th><th>전공·분야 예시</th></tr></thead>
+    <tbody>
+      <tr><td>서울</td><td>명지전문대</td><td>AI·빅데이터, AI뮤직콘텐츠기획, 헤어·메이크업, 스파·메디컬스킨케어 등</td></tr>
+      <tr><td>경기</td><td>경기과학기술대</td><td>미래모빌리티, 영상콘텐츠, 컴퓨터기계융합, 패션매니지먼트 등</td></tr>
+      <tr><td>충청</td><td>백석문화대</td><td>베이커리·카페, 뷰티디자인, 스마트소프트웨어공학 등</td></tr>
+      <tr><td>광주</td><td>동강대</td><td>스마트전기</td></tr>
+      <tr><td>경북</td><td>구미대</td><td>AI뷰티클러스터, 스마트비즈니스융합 등</td></tr>
+      <tr><td>부산</td><td>동의과학대, 부산과학기술대</td><td>스마트뷰티케어 / 3D NFT캐릭터디자인, GQE(용접·배관), 스마트팜치유산업 등</td></tr>
+    </tbody>
+  </table>
+
+  <span class="subhead">③ 대학원(석·박사) 과정도 있습니다</span>
+  <p><b>가천대, 경일대, 공주대, 부산대, 서울시립대, 한밭대, 한양대(ERICA)</b>에서는 조기취업형 계약학과 대학원 과정도 운영합니다. 학부 조기취업형을 마친 뒤 심화 진학을 고려하는 경우 참고할 수 있습니다.</p>
+
+  <div class="callout good">
+    <strong>조기취업형은 ‘학과명’만 보면 안 됩니다.</strong><br>
+    같은 학과라도 어떤 기업과 협약되어 있는지, 기업별 채용인원과 근무지역·급여·직무가 어떻게 다른지가 실제 선택에 더 중요할 수 있습니다.
+    반드시 <a href="https://www.earlyuniv.kr" target="_blank" rel="noopener">조기취업형 계약학과 공식 포털(earlyuniv.kr)</a>의 <b>참여기업 정보</b>와 대학별 모집요강을 함께 확인하세요.
+  </div>
+</section>
+
+<section id="sec7">
+  <h2><span class="sec-num">7</span>전문대학 진학을 고려한다면 — 주문식 교육과정도 있습니다</h2>
+  <p>전문대학에는 계약학과 외에도 <b>‘주문식 교육과정’</b>이라는 제도가 있습니다. 100% 취업 보장은 아니지만, 취업 연계 가능성을 높이는 방법이라 함께 알아두면 좋습니다.</p>
+  <table>
+    <caption>전문대학 계약학과 및 주문식 교육과정 비교</caption>
+    <thead><tr><th>유형</th><th>주관</th><th>학사학위 취득</th><th>취업</th><th>등록금</th></tr></thead>
+    <tbody>
+      <tr><td><b>조기취업형 계약학과</b></td><td>교육부</td><td>1.5년</td><td>보장</td><td>1학년 100%+2학년 50% 지원</td></tr>
+      <tr><td><b>기업체취업형 계약학과</b></td><td>해당 산업체</td><td>2년</td><td>보장</td><td>50% 지원</td></tr>
+      <tr><td><b>주문식 교육과정(채용약정형·채용우대형)</b></td><td>해당 산업체</td><td>2년(일반과정과 동일)</td><td>채용 약정 또는 우대</td><td>지원 없음</td></tr>
+    </tbody>
+  </table>
+  <div class="callout tip-box">
+    <strong>주문식 교육과정이란?</strong> 대학과 산업체가 자율적인 협약을 맺어 산업체 맞춤형 교육을 실시하고, 교육이수생의 취업을 연계하는 과정입니다.
+    <b>채용약정형</b>(합의된 인원을 채용하기로 약정)과 <b>채용우대형</b>(채용 시 우대 조건 부여)으로 나뉘며, 계약학과처럼 취업이 100% 보장되지는 않지만
+    일반 학과보다 취업 연계 가능성이 높습니다. 수도권만 해도 동양미래대·명지전문대·인덕대·경기과학기술대·동서울대 등 다수의 전문대학이
+    다양한 학과(기계, IT, 디자인, 뷰티, 호텔·관광, 사회복지 등)에서 운영하고 있으니, 지원을 고려하는 학과가 있다면 대학알리미에서
+    ‘주문식 교육과정 설치·운영 현황’을 확인해보길 권합니다.
+  </div>
+</section>
+
+<section id="sec8">
+  <h2><span class="sec-num">8</span>군의무복무형은 별도의 진로 트랙입니다</h2>
+  <p>군의무복무형은 기업 취업과는 성격이 다릅니다. <b>고려대, 세종대, 아주대, 영남대, 충남대, 한양대(ERICA)</b> 6개 대학에서 육군·해군·공군·해병대와 협약해
+  첨단기술 분야(사이버국방, 국방AI, 국토·해양안보 등) 장교를 양성합니다.</p>
+  <table>
+    <thead><tr><th>대학</th><th>협약기관</th><th>모집단위</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>고려대</td><td>국방부</td><td>사이버국방학과</td><td>7년 복무</td></tr>
+      <tr><td>세종대</td><td>공군·육군·해군·해병대</td><td>항공시스템공학, 사이버국방, 국방AI융합시스템공학, 국방AI로봇융합공학</td><td>공군은 조종 인력 13년</td></tr>
+      <tr><td>아주대</td><td>공군</td><td>국방디지털융합학과</td><td>7년 복무</td></tr>
+      <tr><td>영남대</td><td>육군</td><td>군사학과</td><td>7년 복무</td></tr>
+      <tr><td>충남대</td><td>육군·해군</td><td>국토안보학전공, 해양안보학전공</td><td>7년 복무</td></tr>
+      <tr><td>한양대(ERICA)</td><td>해군</td><td>국방전략기술공학과</td><td>7년 복무</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warning">
+    <strong>중요한 표현:</strong> “졸업 후 장교로 임관하여 정해진 기간 의무복무”하는 구조입니다. 다른 대학의 군사학과·해병대군사학과와 달리
+    <b>병과가 미리 지정</b>된다는 차이점이 있습니다. 체력검정·신체검사·군 면접·신원조회 등이 전형에 포함되는 경우가 많습니다.
+  </div>
+</section>
+
+<section id="sec9">
+  <h2><span class="sec-num">9</span>수능최저학력기준, 유형별로 크게 다릅니다</h2>
+  <p>같은 계약학과라도 <b>전형 유형에 따라 수능최저 적용 여부가 다릅니다.</b> 지원 전략을 세울 때 꼭 확인해야 할 부분입니다.</p>
+  <div class="tipgrid">
+    <div class="tip"><b>기업체취업형</b>교과전형·논술전형은 수능최저가 있는 경우가 많고(예: 국·수·영·탐 조합), 학생부종합전형은 없는 경우가 많습니다.</div>
+    <div class="tip"><b>조기취업형</b>대부분 서류·면접 중심 전형으로, 수능최저를 적용하지 않는 대학이 많습니다.</div>
+    <div class="tip"><b>군의무복무형</b>전형에 따라 다릅니다. 세종대 항공시스템(공군)처럼 수능최저가 있는 전형도 있고, 사이버국방 특별전형처럼 없는 전형도 있습니다.</div>
+  </div>
+</section>
+
+<section id="sec10">
+  <h2><span class="sec-num">10</span>어떤 학생에게 더 잘 맞을까?</h2>
+  <div class="tipgrid">
+    <div class="tip"><b>기업체취업형이 잘 맞는 학생</b>대기업·첨단산업 취업 목표가 비교적 분명하고, 대학에서 수학·과학·전공 역량을 충분히 쌓은 뒤 취업하고 싶은 학생</div>
+    <div class="tip"><b>조기취업형이 잘 맞는 학생</b>실무경험을 빠르게 쌓고 싶고, 빡빡한 일정과 대학 생활의 아쉬움을 감수하더라도 일과 학업을 함께 해낼 자기관리 능력과 경제적 자립 의지가 있는 학생</div>
+    <div class="tip"><b>군의무복무형이 잘 맞는 학생</b>장교 진로가 분명하고, 국방·사이버·AI·항공 등 군 첨단기술 분야와 장기간의 의무복무를 진지하게 받아들일 수 있는 학생</div>
+  </div>
+  <div class="callout">
+    <strong>경남 지역 학생을 위한 참고:</strong> 2026학년도 기준 경남권에는 조기취업형·기업체취업형 계약학과를 운영하는 대학이 없습니다.
+    가장 가까운 조기취업형 대학은 대경·강원권의 <b>경일대(경북 경산)</b>이며, 부산·동남권까지 넓히면 <b>동의대</b>가 있습니다.
+    첨단학과(계약학과 아님)는 경상국립대, 국립창원대 등 경남 지역 대학에도 개설되어 있으니 목적에 맞게 구분해서 상담하세요.
+  </div>
+</section>
+
+<section id="sec11">
+  <h2><span class="sec-num">11</span>지원 전, 반드시 확인할 9가지</h2>
+  <ol class="checklist">
+    <li><b>실제 협약기업</b>이 어디인지</li>
+    <li><b>취업 확정 시점</b>이 입학 때인지, 졸업 때인지</li>
+    <li><b>성적·자격·면접 등 채용 유지 조건</b>이 있는지</li>
+    <li><b>등록금 지원 범위</b>와 장학금 반환 조건</li>
+    <li><b>의무근무·의무재직 기간</b>이 얼마나 되는지</li>
+    <li><b>중도퇴사·전과·휴학</b> 시 불이익이 무엇인지</li>
+    <li><b>근무지역·직무·급여</b>가 내가 원하는 조건인지</li>
+    <li><b>수능최저학력기준</b> 적용 여부와 충족 가능성</li>
+    <li><b>해당 연도 최종 모집요강</b>에서 모집인원·전형방법이 바뀌지 않았는지</li>
+  </ol>
+</section>
+
+<section>
+  <h2 style="margin-bottom:12px">학생과 학부모님께 드리는 한 문장</h2>
+  <div class="callout good" style="font-size:16.5px">
+    <strong>계약학과는 “취업이 잘되는 학과”라기보다, 전공과 직업을 비교적 일찍 연결하는 선택입니다.</strong><br>
+    회사 이름만 보고 지원하기보다 “내가 이 분야를 공부하고, 이 산업에서 실제로 일하고 싶은가?”를 먼저 확인하세요.
+  </div>
+</section>
+
+<section>
+  <h2 style="margin-bottom:12px">자료 확인처</h2>
+  <div class="sourcebox">
+    <b>이 안내문에 반영한 자료</b>
+    <ul>
+      <li>전라남도교육청 「다(多)담아DREAM 4호: 계약학과 및 첨단학과 정리」</li>
+      <li>2027 교대-계약학과 수시 전형 정리(장진호·전북 정읍고) — 조기취업형 계약학과 세부자료</li>
+      <li>경기진학정보센터 「꿈진 2025-26호: 2026학년도 계약학과 안내(일반대학)」</li>
+      <li>경기진학정보센터 「꿈진 2025-27호: 2026학년도 계약학과 안내(전문대학)」</li>
+      <li>한국대학교육협의회 「2026학년도 대입정보119 — 계약학과·첨단학과」</li>
+      <li>조기취업형 계약학과 공식 포털: <a href="https://www.earlyuniv.kr" target="_blank" rel="noopener">www.earlyuniv.kr</a></li>
+    </ul>
+    <div class="em">※ 모집학과·협약기업·모집인원·전형방법은 매년 변동될 수 있으므로, 실제 지원 전 대학별 입학처의 최종 모집요강을 반드시 확인하세요.</div>
+  </div>
+</section>
+
+</main>
+</div>
+<div class="toolbar"><button class="printbtn" onclick="window.print()">인쇄하기</button></div>
+</body>
+</html>
