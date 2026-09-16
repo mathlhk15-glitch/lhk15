@@ -1,39 +1,29 @@
 const SECTIONS = {
-  "admission-info":     { label: "🎓 수시 입시·전형 가이드",   desc: "수시 전형 종합 안내, 대학별 가이드, 설명회 정리 자료" },
-  "admission-cutline":  { label: "📐 배치표·등급환산",         desc: "정시/수시 배치표 및 내신·모의고사 등급 환산 도구" },
-  "admission-by-field": { label: "🧭 계열별 입시가이드",       desc: "의약학·간호·체육·교대사범·이공계 등 계열별 전형 자료" },
-  "admission-essay":    { label: "✍️ 논술전형 자료",           desc: "논술·약술형 전형 정리 자료" },
-  "department-explore": { label: "🔬 학과 탐색 도구",          desc: "학과별 탐구 주제 및 학과 사례 비교 콘솔" },
-  "curriculum":         { label: "📘 교육과정·학습자료",       desc: "교육과정 편제, 과목 선택, 교과 학습맵 등 자료" },
-  "seteuk-ai":          { label: "✏️ 세특·생기부 AI 도구",     desc: "세특 작성·수정, 면접자료, 생기부 정성평가 상담 AI 도구" },
-  "inquiry-ai":         { label: "💡 탐구·질문 AI 도구",       desc: "질문·탐구 주제 발굴 및 AI 토론 지원 도구" },
-  "career-data":        { label: "📊 진로 데이터",             desc: "진로 탐색 및 학과 선택을 위한 통계·상담 자료" },
-  "personal":           { label: "🔒 개인",                    desc: "개인 전용 자료" },
-  "etc":                { label: "🗂️ 기타",                    desc: "그 외 만들어둔 생활·교양 자료" }
+  "admission-guide":       { label: "🎓 수시 전형 가이드·설명자료", desc: "종합 전형 안내, 대학별·계열별 가이드, 입학처 설명회 정리 자료" },
+  "admission-live":        { label: "📈 경쟁률·수능최저 실시간", desc: "수시 경쟁률 추이 및 수능최저학력기준 자가진단 도구" },
+  "admission-cutline":     { label: "📐 배치표·등급환산", desc: "정시/수시 배치표 및 내신·모의고사 등급 환산 도구" },
+  "admission-by-field":    { label: "🧭 계열별 입시가이드", desc: "의약학·간호·체육·교대사범·이공계 등 계열별 전형 자료" },
+  "admission-essay":       { label: "✍️ 논술전형 자료", desc: "논술·약술형 전형 정리 자료" },
+  "department-explore":    { label: "🔬 학과 탐색 도구", desc: "학과별 탐구 주제 및 학과 사례 비교 콘솔" },
+  "curriculum":            { label: "📘 교육과정·학습자료", desc: "교육과정 편제, 과목 선택, 교과 학습맵 등 자료" },
+  "seteuk-writing":        { label: "✏️ 세특 작성 AI 도구", desc: "세특 작성·수정·검수, 생기부 정성평가 상담 AI 도구" },
+  "interview-prep":        { label: "🎤 면접 준비 도구", desc: "생기부 기반 예상질문, 말하기 연습·AI 분석 면접 준비 도구" },
+  "inquiry-ai":            { label: "💡 탐구·질문 AI 도구", desc: "질문·탐구 주제 발굴 및 AI 토론 지원 도구" },
+  "career-data":           { label: "📊 진로 데이터·탐색 도구", desc: "진로 탐색 및 학과 선택을 위한 통계·상담·테스트 자료" },
+  "external-links":        { label: "🔗 외부 유용 자료", desc: "타 기관·타 교사가 제공하는 참고용 외부 링크 (직접 관리하지 않음)" },
+  "personal":              { label: "🧺 생활·개인 자료", desc: "입시 업무와는 별개로 만들어둔 생활 정보 모음" }
 };
 
 // ★ 카드 추가/수정은 이 배열만 편집하세요
 //    icon 은 이모지 하나, 없으면 "📄" 로 표시됩니다
 const resources = [
 
-  // ── 🎓 수시 입시·전형 가이드 ──────────────────────────────
-   {
-    id: "grade5-calc",
-    icon: "🦉",
-    title: "5등급제 내신, 실제 위치는 어디쯤일까합",
-    section: "admission-info",
-    description: "부산 15,978명 누적 성적 분포로 내 등급평균 위치 확인",
-    tags: ["5등급", "내신", "변환"],
-    featured: true,
-    isNew: false,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/grade5-calc/", platform: "html" }]
-  },
-    {
+  // ── 🎓 수시 전형 가이드·설명자료 ─────────────────────────────────
+  {
     id: "ipsi-3rd",
     icon: "🐼",
     title: "경일 진학상담 Navigator — 성적입력·입결탐색 통합",
-    section: "admission-info",
+    section: "admission-guide",
     description: "성적 입력 → 입결 비교·학과 비교·상담 리포트 통합 처리 (학교 내부 상담용)",
     tags: ["수시", "정시", "입결", "배치표", "성적입력", "통합"],
     featured: true,
@@ -45,7 +35,7 @@ const resources = [
     id: "college-admissions-2027-2028",
     icon: "🌳",
     title: "이동균선생님의 2027,8 주요대학, 메디컬계열 대입전형 정리",
-    section: "admission-info",
+    section: "admission-guide",
     description: "2027,2028 주요대학 전형 정리",
     tags: ["2027", "2028", "대입", "전형정리"],
     featured: false,
@@ -57,7 +47,7 @@ const resources = [
     id: "2028ipsi",
     icon: "🎯",
     title: "2027,2028 15개 대학 대입전형 한눈에 보기, 비교 정리",
-    section: "admission-info",
+    section: "admission-guide",
     description: "2027,20288 15개 대학 대입전형 정리",
     tags: ["2027,8", "15개 대학", "전형 정리"],
     featured: false,
@@ -69,7 +59,7 @@ const resources = [
     id: "admission-briefing-2028",
     icon: "🌰",
     title: "2027·2028 대입, 대학은 무엇을 보고 학생은 무엇을 준비해야 할까?",
-    section: "admission-info",
+    section: "admission-guide",
     description: "2027,20288 주요대학 입학 관계자 간담회 내용 정리",
     tags: ["2027,8", "14개 대학", "간담회"],
     featured: false,
@@ -81,7 +71,7 @@ const resources = [
     id: "contract-major-guide-2027",
     icon: "🤝",
     title: "계약학과·첨단학과, 제대로 알고 준비하기",
-    section: "admission-info",
+    section: "admission-guide",
     description: "계약학과 3유형과 첨단학과의 차이, 대학별 운영 현황 정리",
     tags: ["계약학과", "첨단학과", "조기취업형", "학부모"],
     featured: false,
@@ -93,7 +83,7 @@ const resources = [
     id: "2027-susi-counsel-hub",
     icon: "📚",
     title: "2027 수시 전형 검색·비교 허브 (308개 전형)",
-    section: "admission-info",
+    section: "admission-guide",
     description: "조건별 검색으로 전형 최대 4개 비교·인쇄 (성적 입력 없음)",
     tags: ["2027", "수시", "전형검색", "비교"],
     featured: false,
@@ -105,7 +95,7 @@ const resources = [
     id: "ipsi-2027",
     icon: "🏥",
     title: "[저장소 랜딩페이지] 2027 대입 대학별 핵심 가이드",
-    section: "admission-info",
+    section: "admission-guide",
     description: "전형 검색 허브·전략가이드 뷰어를 담은 저장소 첫 화면",
     tags: ["2027", "핵심 가이드", "랜딩페이지"],
     featured: false,
@@ -117,7 +107,7 @@ const resources = [
     id: "admission2027",
     icon: "🏥",
     title: "2027 대입 전략 가이드 216쪽 뷰어",
-    section: "admission-info",
+    section: "admission-guide",
     description: "216쪽 입시 자료 검색·확대 뷰어, 용어사전·체크리스트 포함",
     tags: ["2027", "입시 안내", "216쪽", "뷰어"],
     featured: false,
@@ -125,35 +115,13 @@ const resources = [
     updatedAt: "2026-08",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/admission2027/", platform: "html" }]
   },
-  {
-    id: "gyeonggi-ipsi",
-    icon: "🧭",
-    title: "경기진협 자료",
-    section: "admission-info",
-    description: "경기진협에서 제공하는 대입정보 모음",
-    tags: ["경기", "대입정보", "나침반", "입시"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://specialzoker.github.io/", platform: "html" }]
-  },
-  {
-    id: "esteacher",
-    icon: "🐜",
-    title: "대입정보를 정리한 진학정보실",
-    section: "admission-info",
-    description: "진학정보실",
-    tags: ["진학", "정보실"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://jinhak.esteacher.kr/", platform: "html" }]
-  },
+
+  // ── 📈 경쟁률·수능최저 실시간 ───────────────────────────────────
   {
     id: "susi-competition-rate-tracker-2026",
     icon: "📈",
     title: "2026학년도 시간대별·대학별 수시 경쟁률 정리",
-    section: "admission-info",
+    section: "admission-live",
     description: "2026 수시 원서접수 기간 중 시간대별·대학별 경쟁률 변화",
     tags: ["2026 수시", "경쟁률"],
     featured: false,
@@ -165,7 +133,7 @@ const resources = [
     id: "2027-susi-rate",
     icon: "📊",
     title: "2027 수시 경쟁률 분석·지원전략 도우미",
-    section: "admission-info",
+    section: "admission-live",
     description: "2024~2026 경쟁률 흐름과 2027 실시간 경쟁률 비교 도구",
     tags: ["2027 수시", "경쟁률", "실시간 경쟁률", "지원전략"],
     featured: true,
@@ -177,7 +145,7 @@ const resources = [
     id: "susi-mincheck-2027",
     icon: "🍋",
     title: "2027학년도 수시모집 수능최저학력기준 자가진단",
-    section: "admission-info",
+    section: "admission-live",
     description: "모의평가 성적을 입력해 수능최저 충족 여부 확인",
     tags: ["2027 수시", "최저 충족 여부 확인"],
     featured: false,
@@ -185,8 +153,20 @@ const resources = [
     updatedAt: "2026-09",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/susi-mincheck-2027/", platform: "html" }]
   },
-  
-  // ── 📐 배치표·등급환산 ────────────────────────────────────
+
+  // ── 📐 배치표·등급환산 ───────────────────────────────────────
+  {
+    id: "grade5-calc",
+    icon: "🦉",
+    title: "5등급제 내신, 실제 위치는 어디쯤일까합",
+    section: "admission-cutline",
+    description: "부산 15,978명 누적 성적 분포로 내 등급평균 위치 확인",
+    tags: ["5등급", "내신", "변환"],
+    featured: true,
+    isNew: false,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/grade5-calc/", platform: "html" }]
+  },
   {
     id: "modu-baechipyo-2027",
     icon: "🧮",
@@ -247,7 +227,7 @@ const resources = [
     updatedAt: "2026-09",
     links: [{ label: "바로가기", url: "https://kangseok-hub.github.io/converter/", platform: "html" }]
   },
-    {
+  {
     id: "jinhak-system",
     icon: "✒️",
     title: "학생부 성적 OCR·가중평균 분석기 (개별 학생용)",
@@ -259,7 +239,7 @@ const resources = [
     updatedAt: "2026-08",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/jinhak-system/", platform: "html" }]
   },
-    {
+  {
     id: "mock-percentile",
     icon: "🦌",
     title: "백분위 속에 숨어 있던 다음 목표를 찾아드려요",
@@ -272,7 +252,7 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/mock-percentile/", platform: "html" }]
   },
 
-  // ── 🧭 계열별 입시가이드 ──────────────────────────────────
+  // ── 🧭 계열별 입시가이드 ──────────────────────────────────────
   {
     id: "med-admission-2026",
     icon: "🌰",
@@ -358,7 +338,7 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/teacher-edu-guide.html", platform: "html" }]
   },
 
-  // ── ✍️ 논술전형 자료 ──────────────────────────────────────
+  // ── ✍️ 논술전형 자료 ────────────────────────────────────────
   {
     id: "2027_essay",
     icon: "🐓",
@@ -384,7 +364,7 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/2027-yaksul-nonsul", platform: "html" }]
   },
 
-  // ── 🔬 학과 탐색 도구 (박상근 선생님 자료) ───────────────
+  // ── 🔬 학과 탐색 도구 ───────────────────────────────────────
   {
     id: "modu-dept-map",
     icon: "🗺️",
@@ -410,7 +390,7 @@ const resources = [
     links: [{ label: "바로가기", url: "https://park-sanggeun-all.github.io/teacher-console-cases/", platform: "html" }]
   },
 
-  // ── 📘 교육과정·학습자료 ──────────────────────────────────
+  // ── 📘 교육과정·학습자료 ──────────────────────────────────────
   {
     id: "curriculum-2026",
     icon: "🧩",
@@ -435,52 +415,37 @@ const resources = [
     updatedAt: "2026-06",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/suwan-korean-2027.html", platform: "html" }]
   },
-
-  // ── ✏️ 세특·생기부 AI 도구 ────────────────────────────────
   {
-    id: "interview-helper",
-    icon: "🎤",
-    title: "생기부 기반 면접 자료 생성",
-    section: "seteuk-ai",
-    description: "학생부 내용을 바탕으로 예상 질문과 답변 방향을 정리하는 AI 도구",
-    tags: ["면접", "생기부", "AI도구"],
-    featured: false,
-    isNew: false,
-    updatedAt: "2026-04",
-    links: [
-      { label: "GPTs로 열기",    url: "https://chatgpt.com/g/g-69dc98128764819197bf1ddbc92b4e47-saenggibu-giban-myeonjeob-jaryo-saengseong", platform: "gpt" },
-      { label: "Gemini로 열기",  url: "https://gemini.google.com/gem/1GMiZ4pV5Rbmoc2s3puoYkJiI_OT53bRh?usp=sharing", platform: "gemini" }
-    ]
-  },
-  {
-    id: "interview-hub",
-    icon: "🎙️",
-    title: "2027 대입 면접 준비 허브",
-    section: "seteuk-ai",
-    description: "생기부로 예상질문 정리, 말하기 연습·AI 분석까지 지원하는 면접 준비 도구",
-    tags: ["면접", "생활기록부", "예상질문", "말하기연습", "2027"],
+    id: "korea-independence-movement",
+    icon: "🇰🇷",
+    title: "한국의 광복은 왜 독립운동의 결과라고 배우는가",
+    section: "curriculum",
+    description: "광복이 독립운동의 결과라고 배우는 이유를 정리한 자료",
+    tags: ["광복", "독립운동", "역사"],
     featured: false,
     isNew: true,
     updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/interview-hub/", platform: "html" }]
+    links: [{ label: "바로가기", url: "korea-independence-movement.html", platform: "html" }]
   },
   {
-    id: "modu-interview-coach",
-    icon: "🗣️",
-    title: "박상근 선생님의 모두의 학생·학부모를 위한 자기주도 면접 연습기",
-    section: "seteuk-ai",
-    description: "음성 질문에 답하면 표정·자세를 분석해 점수·피드백을 주는 면접 연습기 (노트북+Chrome 권장)",
-    tags: ["박상근", "면접", "자기주도", "음성질문", "답변텍스트변환", "표정분석", "자세분석", "면접리포트"],
-    featured: true,
+    id: "free-learning-economy-hub",
+    icon: "📚",
+    title: "무료 학습·경제 허브",
+    section: "curriculum",
+    description: "무료 학습 자료와 경제 관련 콘텐츠를 한곳에서 활용하는 허브",
+    tags: ["무료학습", "경제", "학습자료"],
+    featured: false,
     isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://park-sanggeun-all.github.io/interview-coach/", platform: "html" }]
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/free_learning_economy_hub/", platform: "html" }]
   },
+
+  // ── ✏️ 세특 작성 AI 도구 ────────────────────────────────────
   {
     id: "seteuk-edit",
     icon: "✏️",
     title: "세특 내용 수정·보완",
-    section: "seteuk-ai",
+    section: "seteuk-writing",
     description: "작성된 세특 초안의 표현과 내용을 평가 기준에 맞게 개선하는 AI 도구",
     tags: ["세특", "수정", "AI도구"],
     featured: false,
@@ -492,7 +457,7 @@ const resources = [
     id: "seteuk-gen",
     icon: "⚡",
     title: "탐구활동지로 세특 생성",
-    section: "seteuk-ai",
+    section: "seteuk-writing",
     description: "학생의 탐구 결과물을 입력하면 세특 초안을 자동 작성해 주는 AI 도구",
     tags: ["세특", "생성", "탐구", "AI도구"],
     featured: false,
@@ -504,7 +469,7 @@ const resources = [
     id: "saetuk-prompt",
     icon: "🪄",
     title: "탐구활동지로 세특 프롬프트 생성기",
-    section: "seteuk-ai",
+    section: "seteuk-writing",
     description: "탐구활동 후 탐구활동지를 바탕으로 세특 프롬프트 생성",
     tags: ["탐구활동", "세특", "프롬프트 생성"],
     featured: false,
@@ -516,7 +481,7 @@ const resources = [
     id: "saeteuk-seosul",
     icon: "🗺️",
     title: "박정민 선생님의 세특 작성 사용 서술형 문장 모음",
-    section: "seteuk-ai",
+    section: "seteuk-writing",
     description: "세특 작성 도와주는 서술형 문장 모음",
     tags: ["세특", "문장"],
     featured: false,
@@ -528,7 +493,7 @@ const resources = [
     id: "action242",
     icon: "🧩",
     title: "학생 실제수행기반 행동서술 242선 — 검색·문장화 도구",
-    section: "seteuk-ai",
+    section: "seteuk-writing",
     description: "행동서술 242개 검색·조립해 세특 초안 작성, NEIS 바이트 계산기 포함",
     tags: ["세특", "행동서술", "문장조립", "AI교차검증"],
     featured: false,
@@ -540,7 +505,7 @@ const resources = [
     id: "teacher-growth-studio",
     icon: "✨",
     title: "교사 수업·평가·기록 설계실",
-    section: "seteuk-ai",
+    section: "seteuk-writing",
     description: "수행평가 설계·성장 근거 점검·안전한 AI 프롬프트 제작",
     tags: ["수행평가 설계", "세특 점검, 검수"],
     featured: false,
@@ -552,7 +517,7 @@ const resources = [
     id: "modu-saengibu-console",
     icon: "🧾",
     title: "박상근 선생님의 모두의 생기부 정성평가 상담 콘솔",
-    section: "seteuk-ai",
+    section: "seteuk-writing",
     description: "생기부 정성평가 관점에서 상담을 지원하는 콘솔",
     tags: ["박상근", "생기부", "정성평가", "상담"],
     featured: false,
@@ -564,7 +529,7 @@ const resources = [
     id: "seteuk-guide",
     icon: "🎒",
     title: "질문이 배움이 되는 순간 — 학생용 수업·탐구·세특 종합 안내서",
-    section: "seteuk-ai",
+    section: "seteuk-writing",
     description: "궁금증을 탐구로 잇는 4단계 방법과 교과별 예시 61가지 안내서",
     tags: ["세특", "탐구활동", "학생용", "예시61가지"],
     featured: false,
@@ -573,7 +538,45 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/seteuk-guide/", platform: "html" }]
   },
 
-  // ── 💡 탐구·질문 AI 도구 ──────────────────────────────────
+  // ── 🎤 면접 준비 도구 ───────────────────────────────────────
+  {
+    id: "interview-helper",
+    icon: "🎤",
+    title: "생기부 기반 면접 자료 생성",
+    section: "interview-prep",
+    description: "학생부 내용을 바탕으로 예상 질문과 답변 방향을 정리하는 AI 도구",
+    tags: ["면접", "생기부", "AI도구"],
+    featured: false,
+    isNew: false,
+    updatedAt: "2026-04",
+    links: [{ label: "GPTs로 열기", url: "https://chatgpt.com/g/g-69dc98128764819197bf1ddbc92b4e47-saenggibu-giban-myeonjeob-jaryo-saengseong", platform: "gpt" }, { label: "Gemini로 열기", url: "https://gemini.google.com/gem/1GMiZ4pV5Rbmoc2s3puoYkJiI_OT53bRh?usp=sharing", platform: "gemini" }]
+  },
+  {
+    id: "interview-hub",
+    icon: "🎙️",
+    title: "2027 대입 면접 준비 허브",
+    section: "interview-prep",
+    description: "생기부로 예상질문 정리, 말하기 연습·AI 분석까지 지원하는 면접 준비 도구",
+    tags: ["면접", "생활기록부", "예상질문", "말하기연습", "2027"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-08",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/interview-hub/", platform: "html" }]
+  },
+  {
+    id: "modu-interview-coach",
+    icon: "🗣️",
+    title: "박상근 선생님의 모두의 학생·학부모를 위한 자기주도 면접 연습기",
+    section: "interview-prep",
+    description: "음성 질문에 답하면 표정·자세를 분석해 점수·피드백을 주는 면접 연습기 (노트북+Chrome 권장)",
+    tags: ["박상근", "면접", "자기주도", "음성질문", "답변텍스트변환", "표정분석", "자세분석", "면접리포트"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://park-sanggeun-all.github.io/interview-coach/", platform: "html" }]
+  },
+
+  // ── 💡 탐구·질문 AI 도구 ────────────────────────────────────
   {
     id: "question-helper",
     icon: "💡",
@@ -584,10 +587,7 @@ const resources = [
     featured: false,
     isNew: false,
     updatedAt: "2026-04",
-    links: [
-      { label: "GPTs로 열기",    url: "https://chatgpt.com/g/g-69d4bd3bbe808191924ff384d664273b-cangweongyeongilgo-jilmun-tamgu-juje-doumi", platform: "gpt" },
-      { label: "Gemini로 열기",  url: "https://gemini.google.com/gem/1QPoxJSX7herq_XQoZ_1pIdmo7ZuPkq5j?usp=sharing", platform: "gemini" }
-    ]
+    links: [{ label: "GPTs로 열기", url: "https://chatgpt.com/g/g-69d4bd3bbe808191924ff384d664273b-cangweongyeongilgo-jilmun-tamgu-juje-doumi", platform: "gpt" }, { label: "Gemini로 열기", url: "https://gemini.google.com/gem/1QPoxJSX7herq_XQoZ_1pIdmo7ZuPkq5j?usp=sharing", platform: "gemini" }]
   },
   {
     id: "arts-inquiry-guide",
@@ -626,7 +626,7 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/AI_Council_Room", platform: "html" }]
   },
 
-  // ── 📊 진로 데이터 ────────────────────────────────────────
+  // ── 📊 진로 데이터·탐색 도구 ───────────────────────────────────
   {
     id: "career-lab",
     icon: "🏫",
@@ -735,13 +735,39 @@ const resources = [
     updatedAt: "2026-08",
     links: [{ label: "바로가기", url: "2026-career-compass.html", platform: "html" }]
   },
-  
-  // ── 🗂️ 기타 ──────────────────────────────────────────────
+
+  // ── 🔗 외부 유용 자료 ───────────────────────────────────────
+  {
+    id: "gyeonggi-ipsi",
+    icon: "🧭",
+    title: "경기진협 자료",
+    section: "external-links",
+    description: "경기진협에서 제공하는 대입정보 모음",
+    tags: ["경기", "대입정보", "나침반", "입시"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://specialzoker.github.io/", platform: "html" }]
+  },
+  {
+    id: "esteacher",
+    icon: "🐜",
+    title: "대입정보를 정리한 진학정보실",
+    section: "external-links",
+    description: "진학정보실",
+    tags: ["진학", "정보실"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-05",
+    links: [{ label: "바로가기", url: "https://jinhak.esteacher.kr/", platform: "html" }]
+  },
+
+  // ── 🔒 개인·생활 자료 ───────────────────────────────────────
   {
     id: "commute-english",
     icon: "🗣️",
     title: "출퇴근 여행영어 코치",
-    section: "etc",
+    section: "personal",
     description: "운전 중 듣고 먼저 말하는 방식으로 익히는 70일 여행 생존 영어",
     tags: ["여행영어", "영어", "듣기말하기"],
     featured: false,
@@ -753,7 +779,7 @@ const resources = [
     id: "breakfast-soup",
     icon: "🍲",
     title: "한 달 아침국 30가지",
-    section: "etc",
+    section: "personal",
     description: "가족 식단을 위한 한 달치 아침국 추천 및 계획 도구",
     tags: ["아침국", "식단", "가족"],
     featured: false,
@@ -765,7 +791,7 @@ const resources = [
     id: "elderly-appetite-guide",
     icon: "🍵",
     title: "식욕·소화불량·우울감 개선 가이드",
-    section: "etc",
+    section: "personal",
     description: "온음료+고단백 식사로 노인 식욕부진·소화불량 개선법",
     tags: ["건강", "노인식단", "식욕부진"],
     featured: false,
@@ -777,7 +803,7 @@ const resources = [
     id: "jaunggo-guide",
     icon: "🌿",
     title: "자운고 만들기",
-    section: "etc",
+    section: "personal",
     description: "자근·당귀·진피·감초로 만드는 전통 한방 연고, 효능·준비물·제조법 정리",
     tags: ["한방", "자운고", "천연연고"],
     featured: false,
@@ -789,7 +815,7 @@ const resources = [
     id: "saengmaeksan-guide",
     icon: "🍹",
     title: "생맥산 만들기",
-    section: "etc",
+    section: "personal",
     description: "맥문동·오미자 등으로 만드는 여름 갈증해소 한방음료 레시피",
     tags: ["한방", "생맥산", "여름음료"],
     featured: false,
@@ -798,22 +824,10 @@ const resources = [
     links: [{ label: "바로가기", url: "saengmaeksan-guide.png", platform: "image" }]
   },
   {
-    id: "korea-independence-movement",
-    icon: "🇰🇷",
-    title: "한국의 광복은 왜 독립운동의 결과라고 배우는가",
-    section: "etc",
-    description: "광복이 독립운동의 결과라고 배우는 이유를 정리한 자료",
-    tags: ["광복", "독립운동", "역사"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "korea-independence-movement.html", platform: "html" }]
-  },
-  {
     id: "seoul-apartment-search",
     icon: "🏠",
     title: "딸의 서울 첫 주택 마련 가족 실행안",
-    section: "etc",
+    section: "personal",
     description: "딸의 서울 첫 주택 마련을 위한 가족 최종 실행안",
     tags: ["주택", "서울", "가족"],
     featured: false,
@@ -825,7 +839,7 @@ const resources = [
     id: "laundry_pocket_guide",
     icon: "🧺",
     title: "속옷은 한 번, 브라는 2~3번…옷은 언제 빨아야 할까?",
-    section: "etc",
+    section: "personal",
     description: "속옷·브라 등 의류별 세탁 주기 가이드",
     tags: ["세탁", "생활정보"],
     featured: false,
@@ -837,22 +851,19 @@ const resources = [
     id: "radio-shortcut",
     icon: "📻",
     title: "라디오 바로가기",
-    section: "etc",
+    section: "personal",
     description: "즐겨듣는 라디오 사이트 바로가기 모음",
     tags: ["라디오", "음악"],
     featured: false,
     isNew: true,
     updatedAt: "2026-08",
-    links: [
-      { label: "BSOD 라디오", url: "https://radio.bsod.kr/", platform: "html" },
-      { label: "수학쌤 라디오", url: "https://mathlhk15-glitch.github.io/radio/", platform: "html" }
-    ]
+    links: [{ label: "BSOD 라디오", url: "https://radio.bsod.kr/", platform: "html" }, { label: "수학쌤 라디오", url: "https://mathlhk15-glitch.github.io/radio/", platform: "html" }]
   },
   {
     id: "family-cash-gift-tax-guide-2026",
     icon: "💰",
     title: "가족 현금증여·홈택스 신고 실행 가이드 (2026)",
-    section: "etc",
+    section: "personal",
     description: "현금 증여 계약서 작성부터 홈택스 신고까지 따라하는 가이드",
     tags: ["증여세", "홈택스", "가족", "세금"],
     featured: false,
@@ -864,7 +875,7 @@ const resources = [
     id: "44law",
     icon: "☘️",
     title: "재미난 44가지 법칙",
-    section: "etc",
+    section: "personal",
     description: "재미난 44가지 법칙",
     tags: ["재미", "머피의 법칙", "44가지"],
     featured: false,
@@ -876,7 +887,7 @@ const resources = [
     id: "good-writingt",
     icon: "⚔️",
     title: "좋은 글 모음",
-    section: "etc",
+    section: "personal",
     description: "좋은 글 모음",
     tags: ["좋은 글"],
     featured: false,
@@ -885,22 +896,10 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/good-writing", platform: "html" }]
   },
   {
-    id: "free-learning-economy-hub",
-    icon: "📚",
-    title: "무료 학습·경제 허브",
-    section: "etc",
-    description: "무료 학습 자료와 경제 관련 콘텐츠를 한곳에서 활용하는 허브",
-    tags: ["무료학습", "경제", "학습자료"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/free_learning_economy_hub/", platform: "html" }]
-  },
-  {
     id: "trip-planner",
     icon: "🧳",
     title: "여행 플래너",
-    section: "etc",
+    section: "personal",
     description: "여행지와 일정을 정리하고 여행 계획을 세우는 도구",
     tags: ["여행", "여행계획", "일정"],
     featured: false,
@@ -912,7 +911,7 @@ const resources = [
     id: "highway-rest-area-food",
     icon: "🍽️",
     title: "고속도로 휴게소 맛집",
-    section: "etc",
+    section: "personal",
     description: "전국 고속도로 휴게소별 추천 음식과 대표 메뉴를 찾아보는 맛집 가이드",
     tags: ["고속도로", "휴게소", "맛집", "여행"],
     featured: false,
@@ -924,7 +923,7 @@ const resources = [
     id: "family-death-inheritance-guide-2026",
     icon: "🕊️",
     title: "가족 사망·상속 절차 가이드 (2026)",
-    section: "etc",
+    section: "personal",
     description: "가족 사망 시 필요한 상속 절차와 준비사항을 정리한 가이드",
     tags: ["상속", "사망신고", "가족", "절차"],
     featured: false,
@@ -936,7 +935,7 @@ const resources = [
     id: "playhanja",
     icon: "🈶",
     title: "한자야 놀자! — 초등 애니메이션 한자 학습",
-    section: "etc",
+    section: "personal",
     description: "부수 애니메이션으로 배우는 초등 한자 학습 사이트",
     tags: ["한자", "초등", "애니메이션", "쓰기연습"],
     featured: false,
@@ -948,7 +947,7 @@ const resources = [
     id: "orchid-guide",
     icon: "🪴",
     title: "난 키우는 법",
-    section: "etc",
+    section: "personal",
     description: "난 키우는 법",
     tags: ["동양란", "서양란"],
     featured: false,
@@ -957,14 +956,12 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/orchid-guide/", platform: "html" }]
   },
 
-
- 
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
   //   id: "고유-아이디",          ← 영문+하이픈, 다른 항목과 겹치지 않게
   //   icon: "📄",                 ← 원하는 이모지 하나 (없으면 📄 로 표시)
   //   title: "자료 제목",
-  //   section: "admission-info",  ← 위 SECTIONS 객체의 키 중 하나
+  //   section: "admission-guide", ← 위 SECTIONS 객체의 키 중 하나
   //   description: "자료 설명",
   //   tags: ["태그1", "태그2"],
   //   featured: false,            ← true 면 상단 퀵 액세스에도 표시

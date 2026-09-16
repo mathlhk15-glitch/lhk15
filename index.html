@@ -356,11 +356,24 @@
       text-decoration: none;
       color: inherit;
       transition: all 0.15s;
+      position: relative;
     }
     .ws-archive-card:hover {
       box-shadow: var(--shadow-sm);
       border-color: var(--accent);
       text-decoration: none;
+    }
+    .ws-archive-card__badge {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: #fff7ed;
+      color: #9a3412;
+      border: 1px solid #fed7aa;
+      white-space: nowrap;
     }
     .ws-archive-card__icon {
       font-size: 22px;
@@ -574,19 +587,9 @@
                  oninput="filterArchive()"
                  autocomplete="off" />
         </div>
-        <div class="ws-filter-btns">
+        <div class="ws-filter-btns" id="filterBtnGroup">
           <button class="ws-filter-btn active" data-section="all" onclick="setFilter('all', this)">전체</button>
-          <button class="ws-filter-btn" data-section="admission-info" onclick="setFilter('admission-info', this)">수시 입시·전형</button>
-          <button class="ws-filter-btn" data-section="admission-cutline" onclick="setFilter('admission-cutline', this)">배치표·등급환산</button>
-          <button class="ws-filter-btn" data-section="admission-by-field" onclick="setFilter('admission-by-field', this)">계열별 입시</button>
-          <button class="ws-filter-btn" data-section="admission-essay" onclick="setFilter('admission-essay', this)">논술전형</button>
-          <button class="ws-filter-btn" data-section="department-explore" onclick="setFilter('department-explore', this)">학과 탐색</button>
-          <button class="ws-filter-btn" data-section="curriculum" onclick="setFilter('curriculum', this)">교육과정</button>
-          <button class="ws-filter-btn" data-section="seteuk-ai" onclick="setFilter('seteuk-ai', this)">세특·생기부 AI</button>
-          <button class="ws-filter-btn" data-section="inquiry-ai" onclick="setFilter('inquiry-ai', this)">탐구·질문 AI</button>
-          <button class="ws-filter-btn" data-section="career-data" onclick="setFilter('career-data', this)">진로 데이터</button>
-          <button class="ws-filter-btn" data-section="etc" onclick="setFilter('etc', this)">기타</button>
-
+          <!-- 나머지 필터 버튼은 data.js의 SECTIONS를 기준으로 자동 생성됩니다 (personal 섹션 제외) -->
         </div>
       </div>
 
@@ -638,24 +641,13 @@
     (function () {
       if (typeof SECTIONS === 'undefined' || typeof resources === 'undefined') return;
 
-      const sectionOrder = ['admission-info', 'admission-cutline', 'admission-by-field', 'admission-essay', 'department-explore', 'curriculum', 'seteuk-ai', 'inquiry-ai', 'career-data', 'etc'];
-      const sectionMeta = {
-        'admission-info':     { title: '🎓 수시 입시·전형 가이드' },
-        'admission-cutline':  { title: '📐 배치표·등급환산' },
-        'admission-by-field': { title: '🧭 계열별 입시가이드' },
-        'admission-essay':    { title: '✍️ 논술전형 자료' },
-        'department-explore': { title: '🔬 학과 탐색 도구' },
-        curriculum:           { title: '📘 교육과정·학습자료' },
-        'seteuk-ai':          { title: '✏️ 세특·생기부 AI 도구' },
-        'inquiry-ai':         { title: '💡 탐구·질문 AI 도구' },
-        'career-data':        { title: '📊 진로 데이터' },
-        etc:                  { title: '🗂️ 기타' }
-      };
+      // data.js의 SECTIONS 객체를 그대로 기준(Source of Truth)으로 사용합니다.
+      const sectionOrder = Object.keys(SECTIONS);
 
       window.ARCHIVE_DATA = {
         sections: sectionOrder.map(sid => ({
           id: sid,
-          title: sectionMeta[sid].title,
+          title: SECTIONS[sid].label,
           items: resources
             .filter(r => r.section === sid)
             .map(r => ({
@@ -668,6 +660,7 @@
             }))
         })),
         quick: [
+          { title: '경일 진학상담 Navigator', url: 'https://mathlhk15-glitch.github.io/ipsi/', icon: '🐼' },
           { title: '대학어디가', url: 'https://www.adiga.kr', icon: '🏫' },
           { title: '대학알리미', url: 'https://www.academyinfo.go.kr', icon: '📊' },
           { title: '커리어넷', url: 'https://www.career.go.kr/', icon: '🧭' },
@@ -676,6 +669,20 @@
           { title: '입시자료모음', url: 'https://xn--vk1bt41a12ci0t.com/univ-admission-search/', icon: '📚' }
         ]
       };
+
+      // 필터 버튼도 SECTIONS 기준으로 자동 생성 (신규 섹션 추가 시 index.html 수정 불필요)
+      const btnGroup = document.getElementById('filterBtnGroup');
+      if (btnGroup) {
+        sectionOrder.forEach(sid => {
+          const btn = document.createElement('button');
+          btn.className = 'ws-filter-btn';
+          btn.dataset.section = sid;
+          // 라벨의 이모지를 떼고 버튼에는 텍스트만 표시 (아이콘은 섹션 타이틀에서 이미 보여줌)
+          btn.textContent = SECTIONS[sid].label.replace(/^\S+\s/, '');
+          btn.onclick = function () { setFilter(sid, btn); };
+          btnGroup.appendChild(btn);
+        });
+      }
     })();
   </script>
 
@@ -792,9 +799,11 @@
           </div>`;
 
         const items = section.items || [];
+        const isExternal = section.id === 'external-links';
         const cardsHtml = items.map(item => `
           <a class="ws-archive-card" href="${item.url || '#'}" target="${item.newTab !== false ? '_blank' : '_self'}" rel="noopener"
              data-title="${item.title || ''}" data-desc="${item.desc || ''}" data-tags="${(item.tags || []).join(',')}">
+            ${isExternal ? `<span class="ws-archive-card__badge">외부 제작</span>` : ''}
             <span class="ws-archive-card__icon">${item.icon || '📎'}</span>
             <div class="ws-archive-card__info">
               <div class="ws-archive-card__title">${item.title || ''}</div>
