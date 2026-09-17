@@ -628,6 +628,18 @@ const resources = [
 
   // ── 📊 진로 데이터·탐색 도구 ───────────────────────────────────
   {
+    id: "personality-self-understanding",
+    icon: "🧠",
+    title: "성격유형 자기이해 프로그램",
+    section: "career-data",
+    description: "93문항 성격유형 검사와 선호지표·학습 특성·강점·성찰 내용을 함께 확인하는 자기이해 도구",
+    tags: ["성격유형", "자기이해", "진로탐색", "학습특성", "테스트"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/mbti/", platform: "html" }]
+  },
+  {
     id: "career-lab",
     icon: "🏫",
     title: "내 경헙에서 시작하는 진로 실험실",
