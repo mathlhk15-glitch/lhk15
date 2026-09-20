@@ -980,6 +980,19 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/orchid-guide/", platform: "html" }]
   },
 
+  {
+    id: "neck-stretch",
+    icon: "🧘",
+    title: "목·어깨 자세 리셋 스트레칭",
+    section: "personal",
+    description: "아침 5분·퇴근 후 8분, 목과 어깨가 뻐근할 때 따라 하는 자세 리셋 스트레칭 영상",
+    tags: ["스트레칭", "목", "어깨", "자세교정", "건강"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/neck-stretch/", platform: "html" }]
+  },
+
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
   //   id: "고유-아이디",          ← 영문+하이픈, 다른 항목과 겹치지 않게
