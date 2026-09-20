@@ -800,6 +800,18 @@ const resources = [
     links: [{ label: "바로가기", url: "breakfast_soup.html", platform: "html" }]
   },
   {
+    id: "sauce-recipes",
+    icon: "🧂",
+    title: "소스·양념 레시피 34종",
+    section: "personal",
+    description: "간장·고추장·마요·파스타 소스 등 34종의 재료·조리법과 알레르기·안전 안내, 선택 인쇄·조리 타이머를 갖춘 레시피 모음",
+    tags: ["소스", "양념", "레시피", "요리"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/sauce-recipes/", platform: "html" }]
+  },
+  {
     id: "elderly-appetite-guide",
     icon: "🍵",
     title: "식욕·소화불량·우울감 개선 가이드",
