@@ -6,6 +6,7 @@ const SECTIONS = {
   "admission-essay":       { label: "✍️ 논술전형 자료", desc: "논술·약술형 전형 정리 자료" },
   "department-explore":    { label: "🔬 학과 탐색 도구", desc: "학과별 탐구 주제 및 학과 사례 비교 콘솔" },
   "curriculum":            { label: "📘 교육과정·학습자료", desc: "교육과정 편제, 과목 선택, 교과 학습맵 등 자료" },
+  "ai-learning":           { label: "🤖 AI 활용·프롬프트 학습", desc: "AI 스킬과 Gemini 프롬프트를 학습하고 실무에 활용하기 위한 자료" },
   "seteuk-writing":        { label: "✏️ 세특 작성 AI 도구", desc: "세특 작성·수정·검수, 생기부 정성평가 상담 AI 도구" },
   "interview-prep":        { label: "🎤 면접 준비 도구", desc: "생기부 기반 예상질문, 말하기 연습·AI 분석 면접 준비 도구" },
   "inquiry-ai":            { label: "💡 탐구·질문 AI 도구", desc: "질문·탐구 주제 발굴 및 AI 토론 지원 도구" },
@@ -438,6 +439,32 @@ const resources = [
     isNew: true,
     updatedAt: "2026-08",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/free_learning_economy_hub/", platform: "html" }]
+  },
+
+  // ── 🤖 AI 활용·프롬프트 학습 ────────────────────────────────
+  {
+    id: "skill-study",
+    icon: "🧠",
+    title: "AI 스킬 교과서",
+    section: "ai-learning",
+    description: "AI 스킬을 검색하고 학습하며 즐겨찾기·메모·학습 기록으로 정리하는 학습 사이트",
+    tags: ["AI", "스킬", "학습", "교과서", "프롬프트"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/skill-study/", platform: "html" }]
+  },
+  {
+    id: "gemini-prompts",
+    icon: "💎",
+    title: "Gemini 프롬프트 모음",
+    section: "ai-learning",
+    description: "Gemini 활용에 필요한 프롬프트를 찾아보고 업무·수업에 적용할 수 있도록 정리한 자료",
+    tags: ["Gemini", "프롬프트", "AI", "활용", "업무"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gemini-prompts/", platform: "html" }]
   },
 
   // ── ✏️ 세특 작성 AI 도구 ────────────────────────────────────
