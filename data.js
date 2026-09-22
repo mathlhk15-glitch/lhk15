@@ -12,12 +12,27 @@ const SECTIONS = {
   "inquiry-ai":            { label: "💡 탐구·질문 AI 도구", desc: "질문·탐구 주제 발굴 및 AI 토론 지원 도구" },
   "career-data":           { label: "📊 진로 데이터·탐색 도구", desc: "진로 탐색 및 학과 선택을 위한 통계·상담·테스트 자료" },
   "external-links":        { label: "🔗 외부 유용 자료", desc: "타 기관·타 교사가 제공하는 참고용 외부 링크 (직접 관리하지 않음)" },
+  "staff-training":        { label: "🏫 교직원 연수·학교업무", desc: "교직원 대상 연수자료와 학교 업무에 필요한 실무 안내 자료" },
   "personal":              { label: "🧺 생활·개인 자료", desc: "입시 업무와는 별개로 만들어둔 생활 정보 모음" }
 };
 
 // ★ 카드 추가/수정은 이 배열만 편집하세요
 //    icon 은 이모지 하나, 없으면 "📄" 로 표시됩니다
 const resources = [
+
+  // ── 🏫 교직원 연수·학교업무 ─────────────────────────────────
+  {
+    id: "staff-training",
+    icon: "🏫",
+    title: "창원경일고등학교 교직원 연수 포털",
+    section: "staff-training",
+    description: "복무·공문서·청렴·학교회계·교육활동 보호 등 교직원 연수자료를 한곳에서 검색·열람·인쇄",
+    tags: ["교직원", "연수", "복무", "공문서", "청렴", "학교회계", "교육활동보호"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/staff-training/index.html", platform: "html" }]
+  },
 
   // ── 🎓 수시 전형 가이드·설명자료 ─────────────────────────────────
   {
