@@ -33,6 +33,18 @@ const resources = [
     updatedAt: "2026-09",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/staff-training/index.html", platform: "html" }]
   },
+  {
+    id: "fire-safety-training",
+    icon: "🔥",
+    title: "2026 기숙사 화재대피훈련 통합 안전 가이드",
+    section: "staff-training",
+    description: "창원경일고등학교 기숙사 야간 화재대피훈련을 위한 학생 안전교육·훈련 시나리오·역할 분담·운영 기록·사후 점검 가이드",
+    tags: ["화재", "기숙사", "대피훈련", "안전교육", "소방", "재난안전", "학생안전", "훈련시나리오"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/fire/", platform: "html" }]
+  },
 
   // ── 🎓 수시 전형 가이드·설명자료 ─────────────────────────────────
   {
