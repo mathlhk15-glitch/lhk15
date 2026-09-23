@@ -839,7 +839,7 @@ const resources = [
     featured: false,
     isNew: true,
     updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "commute-english-v4.html", platform: "html" }]
+    links: [{ label: "바로가기", url: "commute-english.html", platform: "html" }]
   },
   {
     id: "breakfast-soup",
