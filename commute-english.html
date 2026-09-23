@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#070E16">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>출퇴근 여행영어 코치 v7.0 · 70일 + 생활회화</title>
+<title>출퇴근 여행영어 코치 v8.2 · 70일 + 생활회화</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
@@ -546,14 +546,14 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
 
 
 /* ═══════════════════════════════════════════════════════════
-   v7.0 LIFE EXPRESSIONS · verified conversation layer
+   v8.0 LIFE EXPRESSIONS · unified review + safety layer
    ═══════════════════════════════════════════════════════════ */
 .life-hero{padding:20px;border:1px solid rgba(84,223,207,.18);border-radius:var(--r-xl);background:radial-gradient(100% 120% at 100% 0%,rgba(84,223,207,.11),transparent 52%),linear-gradient(155deg,#142538,#0B1825 74%);box-shadow:var(--shadow-sm)}
 .life-count{font:600 10px 'IBM Plex Mono',monospace;color:var(--signal);letter-spacing:.08em;margin-top:8px}
-.life-tools{display:grid;grid-template-columns:1fr auto;gap:9px;margin-top:14px}
+.life-tools{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:9px;margin-top:14px}.life-tools .btn{height:44px;white-space:nowrap}
 .life-search{width:100%;height:44px;border:1px solid var(--line);border-radius:13px;background:rgba(8,18,29,.78);color:var(--text);padding:0 13px;font-size:13px;outline:none}
 .life-search:focus{border-color:rgba(84,223,207,.55);box-shadow:0 0 0 3px rgba(84,223,207,.06)}
-.life-chips{display:flex;gap:7px;overflow-x:auto;padding:1px 0 7px;scrollbar-width:none}.life-chips::-webkit-scrollbar{display:none}
+.life-chips{display:flex;gap:7px;flex-wrap:wrap;padding:1px 0 7px}.life-chips::-webkit-scrollbar{display:none}
 .life-chip{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;padding:8px 11px;font:600 10px 'IBM Plex Mono',monospace;color:var(--dim);background:rgba(14,27,40,.72)}
 .life-chip.on{color:#06171B;background:var(--signal);border-color:var(--signal)}
 .expr-group{margin-top:20px}.expr-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin-bottom:8px}.expr-head b{font-size:14px}.expr-head span{font:500 9px 'IBM Plex Mono',monospace;color:var(--dim2)}
@@ -563,9 +563,21 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
 .expr-warn{margin-top:9px;padding:8px 9px;border-radius:10px;background:rgba(243,183,101,.055);color:#C8AA7D;font-size:10.5px;line-height:1.55}.expr-actions{display:flex;gap:6px;flex:0 0 auto}.iconbtn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center;color:var(--dim);background:rgba(255,255,255,.018);font-size:14px}.iconbtn.fav.on{color:var(--amber);border-color:rgba(243,183,101,.32);background:rgba(243,183,101,.07)}
 .today-life{display:grid;gap:8px}.today-life .expr-card{margin:0}.life-empty{padding:25px 12px;text-align:center;color:var(--dim2);font-size:12px;line-height:1.7}
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.compare-card{border:1px solid var(--line);border-radius:13px;padding:12px;background:rgba(255,255,255,.018)}.compare-card .en{font:700 14px 'Archivo',sans-serif}.compare-card .ko{font-size:10.5px;color:var(--dim);line-height:1.45;margin-top:4px}
-.corr-row{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:10px 0;border-top:1px solid rgba(162,190,214,.08)}.corr-wrong{font:600 12px 'Archivo',sans-serif;color:var(--red);text-decoration:line-through}.corr-right{font:700 12px 'Archivo',sans-serif;color:var(--signal)}.corr-arrow{color:var(--dim2)}
+.corr-row{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:10px 0;border-top:1px solid rgba(162,190,214,.08)}.corr-wrong{font:600 12px 'Archivo',sans-serif;color:var(--red);text-decoration:line-through}.corr-right{font:700 12px 'Archivo',sans-serif;color:var(--signal)}.corr-arrow{color:var(--dim2)}.corr-note{font-size:10.5px;color:var(--dim);line-height:1.5;margin-top:4px}.more-row{display:flex;justify-content:center;margin:12px 0 4px}.backup-alert{display:none;margin-top:12px}.backup-alert.on{display:block}.search-hidden{display:none!important}
 .life-statline{display:flex;justify-content:space-between;gap:8px;font-size:10.5px;color:var(--dim);margin-top:11px}.life-statline b{color:var(--text)}
-@media(max-width:380px){.life-tools{grid-template-columns:1fr}.compare-grid{grid-template-columns:1fr}.expr-en{font-size:15px}}
+.rt-card{padding:16px;border:1px solid rgba(84,223,207,.2);border-radius:16px;background:linear-gradient(160deg,rgba(84,223,207,.07),rgba(10,22,34,.6))}.rt-num{font:700 30px 'Archivo',sans-serif;color:var(--signal);line-height:1}.rt-num small{font-size:13px;color:var(--dim);margin-left:4px}.rt-split{font-size:11px;color:var(--dim);margin-top:6px}
+.tag.core{color:#06171B;background:var(--signal);border-color:var(--signal)}
+.qsum{display:flex;gap:14px;justify-content:center;font:700 18px 'Archivo',sans-serif;margin-top:14px}.qsum .o{color:var(--signal)}.qsum .t{color:var(--amber)}.qsum .x{color:var(--red)}
+#q-replay{display:none;margin:14px auto 0}
+.pc{padding:14px 16px 13px;border:1px solid rgba(84,223,207,.2);border-radius:16px;background:linear-gradient(160deg,rgba(84,223,207,.06),rgba(14,26,39,.72));margin-bottom:14px}
+.pc-h{display:flex;justify-content:space-between;align-items:center;font:600 10px 'IBM Plex Mono',monospace;color:var(--dim);letter-spacing:.06em}
+.pc-row{display:grid;grid-template-columns:62px 1fr;gap:8px;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(162,190,214,.07)}
+.pc-row .k{font-weight:700}.pc-st.ok{color:var(--signal)}.pc-st.pause{color:var(--amber)}.pc-st.wait{color:var(--violet)}.pc-st.no{color:var(--dim2)}
+.pc-next{margin-top:10px;font-size:12.5px;line-height:1.5}.pc-next b{color:var(--signal)}.pc-last{font-size:10.5px;color:var(--dim);margin-top:4px}
+#pc-resume{margin-top:10px}
+.dchip .db{display:flex;gap:2px;justify-content:center;margin-top:4px}.dchip .db u{width:9px;height:3px;border-radius:2px;background:rgba(162,190,214,.2)}.dchip .db u.a{background:var(--signal)}.dchip .db u.p{background:var(--violet)}.dchip.on .db u{background:rgba(4,20,26,.25)}.dchip.on .db u.a,.dchip.on .db u.p{background:#04141A}
+.log-day{display:grid;grid-template-columns:64px 1fr;gap:8px;padding:7px 0;border-top:1px solid rgba(162,190,214,.08);font-size:11.5px;line-height:1.55}.log-day:first-child{border-top:0}.log-day .d{color:var(--dim);font-family:'IBM Plex Mono',monospace;font-size:10.5px}
+@media(max-width:380px){.life-tools{grid-template-columns:1fr 1fr}.life-tools .life-search{grid-column:1/-1}.life-tools .btn{height:44px;padding:0 10px!important}.compare-grid{grid-template-columns:1fr}.expr-en{font-size:15px}}
 
 </style>
 </head>
@@ -575,11 +587,18 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
 <!-- ════════ 오늘 ════════ -->
 <section class="screen on" id="s-today">
   <div class="mast">
-    <div class="brand">출퇴근 <span>여행영어 코치</span> <small style="color:var(--dim2);font-size:9px">v7.0</small></div>
+    <div class="brand">출퇴근 <span>여행영어 코치</span> <small style="color:var(--dim2);font-size:9px">v8.2</small></div>
     <div class="mstat" id="m-streak"><b>0</b>일 연속</div>
   </div>
 
   <div class="daybar" id="daybar"></div>
+  <div class="pc" id="pc">
+    <div class="pc-h"><span>오늘의 진행</span><span id="pc-date"></span></div>
+    <div id="pc-rows"></div>
+    <div class="pc-next" id="pc-next"></div>
+    <div class="pc-last" id="pc-last"></div>
+    <button class="btn pri" id="pc-resume" style="display:none">이어서 하기</button>
+  </div>
 
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
@@ -603,6 +622,15 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
         <div class="k">퇴근길</div><div class="s">오늘 표현 →<br>바로 대응하기</div></button>
     </div>
     <div class="note" style="margin-top:9px"><b>출근길</b>은 오늘 문장을 먼저 꺼내는 연습, <b>퇴근길</b>은 같은 문장을 대화 속에서 바로 쓰는 복습입니다.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">오늘 복습</div><div class="eyebrow">70일 과정 + 생활회화</div></div>
+    <div class="rt-card">
+      <div class="rt-num" id="rt-n">0<small>개</small></div>
+      <div class="rt-split" id="rt-split"></div>
+      <button class="btn pri" id="rt-btn" style="margin-top:12px">오늘 복습 시작</button>
+    </div>
   </div>
 
   <div class="sec">
@@ -630,6 +658,8 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
   <div class="sec">
     <div class="sechead"><div class="eyebrow">오늘의 생활회화 +3</div><button class="link" id="today-life-more">전체 보기</button></div>
     <div class="today-life" id="today-life"></div>
+    <button class="btn" id="today-life-quiz" style="margin-top:9px">이 3개 퀴즈</button>
+    <div class="note backup-alert" id="backup-reminder"></div>
   </div>
 </section>
 
@@ -683,16 +713,18 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
     <h1 class="h1" style="margin-top:7px">표현</h1>
     <div class="sub" style="margin-bottom:0">70일 과정과 검증된 생활회화를 한곳에서 찾고, 실제로 쓸 표현만 따로 익힙니다.</div>
     <div class="life-count" id="life-count"></div>
-    <div class="life-statline"><span>⭐ 내 표현 <b id="life-fav-count">0</b></span><span>자동화 <b id="life-auto-count">0</b></span><span>취약 <b id="life-weak-count">0</b></span></div>
+    <div class="life-statline"><span>⭐ 내 표현 <b id="life-fav-count">0</b></span><span>생활회화 자동화 <b id="life-auto-count">0</b></span><span>생활회화 취약 <b id="life-weak-count">0</b></span></div>
+    <button class="btn" id="fav-quiz-btn" style="margin-top:10px">⭐ 내 표현만 복습</button>
   </div>
 
   <div class="life-tools">
     <input class="life-search" id="life-search" type="search" placeholder="영어·한국어·카테고리 검색" autocomplete="off">
-    <button class="btn" id="life-quiz-btn" style="width:auto;padding:0 15px">생활회화 퀴즈</button>
+    <button class="btn" id="life-quiz-btn" style="width:auto;padding:0 15px">말하기 퀴즈</button>
+    <button class="btn" id="life-recog-btn" style="width:auto;padding:0 15px">듣고 뜻 말하기</button>
   </div>
   <div class="life-chips" id="life-chips" style="margin-top:10px">
     <button class="life-chip" data-f="all">전체</button><button class="life-chip on" data-f="extra">생활회화</button><button class="life-chip" data-f="course">70일 과정</button>
-    <button class="life-chip" data-f="fav">⭐ 내 표현</button><button class="life-chip" data-f="g">🟢</button><button class="life-chip" data-f="y">🟡</button><button class="life-chip" data-f="r">🔴</button>
+    <button class="life-chip" data-f="core">생활핵심</button><button class="life-chip" data-f="fav">⭐ 내 표현</button><button class="life-chip" data-f="g">🟢</button><button class="life-chip" data-f="y">🟡</button><button class="life-chip" data-f="r">🔴</button>
   </div>
   <div id="expr-list"></div>
 
@@ -709,7 +741,8 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
 
   <div class="sec">
     <div class="sechead"><div class="eyebrow">✏ 정정노트</div></div>
-    <div class="acc" open><div class="bodyx" id="corr-list" style="padding-top:6px"></div></div>
+    <details class="acc" open><summary>명백한 오류</summary><div class="bodyx" id="corr-list" style="padding-top:6px"></div></details>
+    <details class="acc"><summary>더 자연스럽게</summary><div class="bodyx" id="natural-list" style="padding-top:6px"></div></details>
   </div>
 </section>
 
@@ -718,8 +751,8 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
   <h1 class="h1">진도</h1>
   <p class="sub">중요한 건 며칠 했는지가 아니라 몇 문장이 몸에 붙었는지입니다.</p>
   <div class="stats">
-    <div class="stat"><div class="v" id="p-auto">0</div><div class="l">자동화 문장</div></div>
-    <div class="stat"><div class="v" id="p-weak">0</div><div class="l">취약 문장</div></div>
+    <div class="stat"><div class="v" id="p-auto">0</div><div class="l">자동화 문장<br><span id="p-auto-split" style="font-size:9px;opacity:.75"></span></div></div>
+    <div class="stat"><div class="v" id="p-weak">0</div><div class="l">취약 문장<br><span id="p-weak-split" style="font-size:9px;opacity:.75"></span></div></div>
     <div class="stat"><div class="v" id="p-streak">0</div><div class="l">연속 학습</div></div>
   </div>
   <div class="corebox">
@@ -734,6 +767,10 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
   <div class="sec">
     <div class="sechead"><div class="eyebrow">이번 주</div></div>
     <div class="note" id="weekly"></div>
+  </div>
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">최근 학습 기록 · 14일</div></div>
+    <div class="note" id="log-list"></div>
   </div>
   <div class="sec">
     <div class="note">
@@ -760,6 +797,8 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
     <div class="seg sm" id="seg-txt"><button data-v="0">숨김</button><button data-v="1">표시</button></div></div>
   <div class="setrow"><div><div class="lbl">화면 켜두기</div><div class="desc">재생 중 화면이 꺼지지 않게</div></div>
     <div class="seg sm" id="seg-wake"><button data-v="0">끔</button><button data-v="1">켬</button></div></div>
+  <div class="setrow"><div><div class="lbl">퇴근길 생활회화 +3</div><div class="desc">복습 날짜가 된 생활회화를 퇴근길 끝에 최대 3문장 추가</div></div>
+    <div class="seg sm" id="seg-lifeRide"><button data-v="0">끔</button><button data-v="1">켬</button></div></div>
 
   <div class="sec">
     <div class="eyebrow" style="margin-bottom:9px">운전 중 사용법</div>
@@ -774,11 +813,21 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
 
   <div class="sec">
     <div class="eyebrow" style="margin-bottom:9px">기록 백업</div>
-    <textarea id="backup" placeholder="내보내기를 누르면 여기에 기록이 나옵니다. 다른 기기에서는 이 내용을 붙여넣고 불러오기를 누르세요."></textarea>
+    <textarea id="backup" placeholder="텍스트 백업을 복사해 두거나, JSON 파일로 저장할 수 있습니다. 다른 기기에서는 붙여넣거나 JSON 파일을 선택해 복원하세요."></textarea>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
-      <button class="btn" id="exp-btn">내보내기</button>
-      <button class="btn" id="imp-btn">불러오기</button>
+      <button class="btn" id="exp-btn">텍스트 복사</button>
+      <button class="btn" id="imp-btn">텍스트 불러오기</button>
+      <button class="btn" id="file-exp-btn">JSON 파일 저장</button>
+      <button class="btn" id="file-imp-btn">JSON 파일 불러오기</button>
+      <input id="backup-file" type="file" accept="application/json,.json" hidden>
     </div>
+    <div class="note" style="margin-top:9px">브라우저 저장소는 기기·브라우저 설정에 따라 지워질 수 있습니다. <b>주기적으로 JSON 파일을 저장</b>하고, 모바일에서는 홈 화면에 추가해 사용하는 것을 권장합니다.</div>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow" style="margin-bottom:9px">안전백업</div>
+    <div class="note" id="safety-info">불러오기·초기화·버전 업데이트 직전 상태가 자동으로 1개 보관됩니다.</div>
+    <button class="btn" id="safety-restore" style="margin-top:8px">직전 상태로 되돌리기</button>
   </div>
 
   <button class="btn dz" style="margin-top:20px" id="reset-btn">모든 기록 지우기</button>
@@ -870,11 +919,12 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
 
 <!-- TRANSIT QUIZ -->
 <div class="sheet" id="quiz">
-  <div class="dtop"><div class="phase">3초 목표 인출 퀴즈</div><button class="dx" id="q-close">✕</button></div>
+  <div class="dtop"><div class="phase" id="q-title">3초 목표 인출 퀴즈</div><button class="dx" id="q-close">✕</button></div>
   <div class="qstage">
     <div class="qtimer mono" id="q-timer">3</div>
     <div class="qko" id="q-ko"></div>
     <div class="qen" id="q-en"></div>
+    <button class="link" id="q-replay">🔊 다시 듣기</button>
     <div class="qprog" style="margin-top:26px" id="q-prog"></div>
   </div>
   <button class="btn pri" id="q-show" style="margin-bottom:9px">정답 보기</button>
@@ -1487,7 +1537,7 @@ const RAW_LIFE_EXPR=[
  ['Easy does it.','천천히 해. / 조심조심 해.','격려·위로','g','active',''],
  ['Either will do.','둘 다 괜찮아.','수락·거절','g','active',''],
  ['Enough is enough.','이제 충분해. / 이제 그만해.','주의·경고','y','active',''],
- ['For good?','영원히? / 완전히?','동의·반응','y','active','문맥에 따라 영구적으로라는 뜻'],
+ ['For good?','영원히? / 완전히?','모름·이해','y','active','문맥에 따라 영구적으로라는 뜻'],
  ['Get it over with.','얼른 끝내 버리자.','행동·업무','y','active',''],
  ['Hang in there.','조금만 더 버텨. / 힘내.','격려·위로','g','active',''],
  ['Hold it!','잠깐! / 멈춰!','주의·경고','y','active',''],
@@ -1498,18 +1548,18 @@ const RAW_LIFE_EXPR=[
  ["I'm nearsighted.",'나는 근시예요.','건강·몸','g','active',''],
  ["I'm on duty.",'근무 중이에요.','상태·감정','g','active',''],
  ["I'm stuffed.",'배불러요.','상태·감정','y','active','비격식'],
- ['I can tell.','알겠어. / 보면 알 수 있어.','동의·반응','g','active',''],
+ ['I can tell.','티 나네. / 보면 알아.','동의·반응','g','active',''],
  ["I can't thank you enough.",'아무리 감사해도 부족해요.','인사·사교','g','active',''],
  ['I get a kick out of it.','그게 정말 재미있어요.','상태·감정','y','active','비격식'],
  ["I didn't mean to.",'일부러 그런 건 아니었어요.','실수·사과','g','active',''],
  ['I doubt it.','그건 아닐 것 같은데.','동의·반응','g','active',''],
  ["I've had it.",'이제 못 참겠어. / 진절머리가 나.','상태·감정','y','active','강한 불만'],
- ['I made it.','해냈어! / 제시간에 도착했어.','성공·실수','g','active','문맥에 따라 뜻이 달라짐'],
+ ['I made it.','해냈어! / 제시간에 도착했어.','성공·성취','g','active','문맥에 따라 뜻이 달라짐'],
  ['I mean it.','진심이야.','동의·반응','g','active',''],
  ['I owe you one.','신세졌어. / 다음에 갚을게.','인사·사교','y','active',''],
  ['I taught myself.','독학했어요.','행동·업무','g','active',''],
  ["I'll be in touch.",'연락할게.','연락·이동','g','active',''],
- ["It's muggy.",'후텁지근해요.','상태·감정','g','active',''],
+ ["It's muggy.",'후텁지근해요.','인사·사교','g','active',''],
  ["I've got to get going.",'이제 가봐야겠어요.','연락·이동','g','active',''],
  ["It's now or never.",'지금 아니면 기회가 없어.','격려·위로','g','active',''],
  ["It's on the house.",'가게에서 서비스로 드리는 겁니다.','식당·쇼핑','g','active',''],
@@ -1522,9 +1572,9 @@ const RAW_LIFE_EXPR=[
  ['Make mine well done.','제 것은 웰던으로 해주세요.','식당·쇼핑','g','active',''],
  ['Many thanks in advance.','미리 감사드립니다.','인사·사교','g','active',''],
  ['Maybe some other time.','다음 기회에 하죠.','수락·거절','g','active',''],
- ['Money talks.','돈이 힘을 발휘한다.','동의·반응','y','recognition','속담성 표현'],
+ ['Money talks.','돈이 힘을 발휘한다. / 돈이면 다 된다.','동의·반응','y','recognition','속담성 표현'],
  ['Money is no object.','돈은 문제가 아니야.','식당·쇼핑','g','active',''],
- ['My dog got loose.','우리 개가 풀려났어요. / 달아났어요.','여행·길','g','active',''],
+ ['My dog got loose.','우리 개가 풀려났어요. / 달아났어요.','부탁·도움','g','active',''],
  ['Never better.','더할 나위 없이 좋아.','상태·감정','g','active',''],
  ['Never say die.','절대 포기하지 마.','격려·위로','g','active',''],
  ['No sweat.','문제없어. / 별거 아니야.','격려·위로','y','active','비격식'],
@@ -1534,36 +1584,36 @@ const RAW_LIFE_EXPR=[
  ['Poor thing.','안됐네. / 가엾어라.','격려·위로','g','active',''],
  ['Same here.','나도 그래.','동의·반응','g','active',''],
  ['Skip it.','됐어요. / 그냥 넘어가요.','수락·거절','y','active',''],
- ["Something's fishy.",'뭔가 수상해.','동의·반응','y','active',''],
+ ["Something's fishy.",'뭔가 수상해.','상태·감정','y','active',''],
  ['Stay cool.','침착해.','격려·위로','y','active',''],
  ['Stick around.','가지 말고 좀 더 있어.','행동·업무','y','active',''],
  ['Super!','좋아! / 최고야!','동의·반응','g','active',''],
- ['Take my word for it.','내 말을 믿어.','부탁·도움','y','active',''],
+ ['Take my word for it.','내 말을 믿어.','부탁·도움','g','active',''],
  ["Couldn't be better.",'이보다 더 좋을 수 없어. / 최고야.','상태·감정','g','active',''],
- ['Far from it!','전혀 아니야!','직역주의','y','active','‘아직 멀었다’로 외우지 않기'],
+ ['Far from it!','전혀 아니야!','동의·반응','y','active','‘아직 멀었다’로 외우지 않기'],
  ['Give it a rest.','그 얘기 좀 그만해. / 그만 좀 해.','주의·경고','y','active','‘내버려 둬’가 핵심 뜻이 아님'],
- ['I know what!','아, 좋은 생각이 있어!','직역주의','y','active','아이디어가 떠올랐을 때'],
+ ['I know what!','아, 좋은 생각이 있어!','모름·이해','y','active','아이디어가 떠올랐을 때'],
  ['I was shortchanged.','거스름돈을 덜 받았어요.','식당·쇼핑','g','active',''],
- ["I wouldn't say no.",'좋죠. / 마다하지 않겠어요.','직역주의','y','active','제안을 완곡하게 받아들이는 표현'],
- ['Just about.','거의. / 대략.','직역주의','y','recognition','항상 ‘간신히’라는 뜻은 아님'],
+ ["I wouldn't say no.",'좋죠. / 마다하지 않겠어요.','수락·거절','y','active','제안을 완곡하게 받아들이는 표현'],
+ ['Just about.','거의. / 대략.','모름·이해','y','recognition','항상 ‘간신히’라는 뜻은 아님'],
  ['Lucky you!','좋겠다! / 운 좋네!','동의·반응','g','active',''],
  ['Make way!','길을 비켜 주세요!','여행·길','y','active','긴급하거나 사람이 지나갈 공간을 만들 때'],
  ['Do you speak Korean?','한국어 하세요?','부탁·도움','g','active',''],
- ['That figures.','그럴 줄 알았어. / 역시 그렇군.','직역주의','y','active','예상한 일이 벌어졌을 때'],
- ['Tell me about it!','그러게 말이야! / 내 말이 그 말이야!','직역주의','y','active','문맥에 따라 문자 그대로 “말해 줘”도 가능'],
- ["Don't I know it!",'누가 아니래! / 나도 너무 잘 알지.','직역주의','y','active','강한 공감'],
+ ['That figures.','그럴 줄 알았어. / 역시 그렇군.','동의·반응','y','active','예상한 일이 벌어졌을 때'],
+ ['Tell me about it!','그러게 말이야! / 내 말이 그 말이야!','동의·반응','y','active','문맥에 따라 문자 그대로 “말해 줘”도 가능'],
+ ["Don't I know it!",'누가 아니래! / 나도 너무 잘 알지.','동의·반응','y','active','강한 공감'],
  ['Fair enough.','그 말도 일리가 있네. / 그 정도면 이해돼.','동의·반응','g','active',''],
  ['No wonder.','어쩐지.','동의·반응','g','active',''],
  ['That makes two of us.','나도 마찬가지야.','동의·반응','g','active',''],
  ['Beats me.','나도 몰라.','모름·이해','y','active','비격식'],
- ['You can say that again.','정말 그래. / 누가 아니래.','직역주의','y','active','“다시 말해”가 아니라 강한 동의'],
+ ['You can say that again.','정말 그래. / 누가 아니래.','동의·반응','y','active','“다시 말해”가 아니라 강한 동의'],
  ['You bet.','물론이지. / 당연하지.','동의·반응','y','active','비격식'],
  ['Good for you!','잘됐네! / 잘했어!','동의·반응','g','active','억양에 따라 비꼼 가능'],
  ["I'm all ears.",'잘 듣고 있어. / 말해 봐.','부탁·도움','g','active',''],
  ['Count me in.','나도 낄게.','수락·거절','y','active',''],
  ['Count me out.','나는 빠질게.','수락·거절','y','active',''],
  ["I'll pass.",'난 사양할게.','수락·거절','g','active',''],
- ["I'm good, thanks.",'괜찮아요, 됐어요.','직역주의','g','active','제안을 정중히 거절할 때 자주 사용'],
+ ["I'm good, thanks.",'괜찮아요, 됐어요.','수락·거절','g','active','제안을 정중히 거절할 때 자주 사용'],
  ['Let me sleep on it.','하룻밤 생각해 볼게.','수락·거절','g','active',''],
  ['Can I take a rain check?','이번에는 미루고 다음에 해도 될까요?','수락·거절','g','active',''],
  ["It's up to you.",'네가 결정해. / 당신에게 달렸어요.','수락·거절','g','active',''],
@@ -1593,7 +1643,7 @@ const RAW_LIFE_EXPR=[
  ['Heads up!','조심해! / 미리 알려줄게.','주의·경고','y','active','Just a heads-up은 “미리 알려두는데”'],
  ['Watch your step.','발밑 조심하세요.','주의·경고','g','active',''],
  ["Don't get me wrong.",'오해하지 마.','주의·경고','g','active',''],
- ['Speak of the devil.','호랑이도 제 말 하면 온다더니.','동의·반응','y','active','비격식 관용 표현'],
+ ['Speak of the devil.','호랑이도 제 말 하면 온다더니.','인사·사교','y','active','비격식 관용 표현'],
  ["Let's call it a day.",'오늘은 여기까지 하자.','행동·업무','g','active',''],
  ['Sounds good.','좋아요. / 괜찮네요.','동의·반응','g','active',''],
  ['That makes sense.','그 말이 이해돼요. / 일리가 있네요.','동의·반응','g','active',''],
@@ -1607,7 +1657,7 @@ const RAW_LIFE_EXPR=[
  ['No problem.','문제없어요. / 괜찮아요.','격려·위로','g','active',''],
  ['My pleasure.','별말씀을요. / 제가 더 기쁘죠.','인사·사교','g','active',''],
  ['Anytime.','언제든지요.','인사·사교','g','active',''],
- ['You did it!','해냈네!','성공·실수','g','active',''],
+ ['You did it!','해냈네!','성공·성취','g','active',''],
  ['Keep it up!','계속 잘해!','격려·위로','g','active',''],
  ["Don't give up.",'포기하지 마.','격려·위로','g','active',''],
  ['Give it a try.','한번 해봐.','격려·위로','g','active',''],
@@ -1626,8 +1676,8 @@ const RAW_LIFE_EXPR=[
  ["That's fine.",'괜찮아요.','격려·위로','g','active',''],
  ['Are you okay?','괜찮아요?','건강·몸','g','active',''],
  ["What's wrong?",'무슨 일이에요? / 어디가 안 좋아요?','건강·몸','g','active',''],
- ["What's going on?",'무슨 일이야?','동의·반응','y','active',''],
- ['What happened?','무슨 일이 있었어요?','건강·몸','g','active',''],
+ ["What's going on?",'무슨 일이야? / 어떻게 된 거야?','모름·이해','y','active',''],
+ ['What happened?','무슨 일이 있었어요?','모름·이해','g','active',''],
  ["Don't worry about it.",'걱정하지 마세요.','격려·위로','g','active',''],
  ['Take care.','잘 지내요. / 조심히 가요.','인사·사교','g','active',''],
  ['Have a good one.','좋은 하루 보내세요.','인사·사교','y','active','비격식'],
@@ -1656,28 +1706,61 @@ const RAW_LIFE_EXPR=[
  ['Wish me luck.','잘되라고 빌어줘.','격려·위로','g','active',''],
  ['Good luck!','행운을 빌어요!','격려·위로','g','active',''],
  ['I blacked out.','의식을 잃었어. / 상황에 따라 기억이 끊겼어.','상태·감정','y','recognition','술 문맥에서는 기억이 끊겼다는 뜻도 가능'],
- ['Beat it!','꺼져!','주의 표현','r','recognition','상당히 무례함'],
- ["Didn't I make myself clear?",'내가 분명히 말하지 않았어?','주의 표현','r','recognition','강압적으로 들릴 수 있음'],
- ["Don't mess with me.",'나 건드리지 마.','주의 표현','r','recognition','공격적'],
- ["Don't push it.",'너무 나가지 마. / 선 넘지 마.','주의 표현','r','recognition','경고 표현'],
- ["Don't push me.",'날 몰아붙이지 마.','주의 표현','r','recognition','강한 표현'],
- ["Don't rub it in.",'자꾸 약 올리지 마. / 아픈 데를 계속 건드리지 마.','주의 표현','y','recognition',''],
- ['Get a life!','참견 그만하고 네 일이나 해.','주의 표현','r','recognition','상대를 깎아내리는 표현'],
- ['Get off my back!','그만 좀 들볶아!','주의 표현','r','recognition','공격적'],
- ['Get real!','현실 좀 봐! / 말도 안 돼!','주의 표현','r','recognition','상황에 따라 모욕적으로 들림'],
- ['Grow up!','철 좀 들어!','주의 표현','r','recognition','상대를 깎아내릴 수 있음'],
- ['Keep out of my way.','내 앞을 막지 마. / 방해하지 마.','주의 표현','r','recognition',''],
- ['Keep it to yourself.','남에게 말하지 마. / 혼자 알고 있어.','주의 표현','y','active',''],
- ['Knock it off!','그만해!','주의 표현','r','recognition','강한 명령'],
- ['Know your place.','네 분수를 알아.','주의 표현','r','recognition','모욕적일 수 있음'],
- ['Mind your own business.','네 일이나 신경 써.','주의 표현','r','recognition','공격적'],
- ['Suit yourself.','네 마음대로 해.','주의 표현','y','active','퉁명스럽게 들릴 수 있음'],
- ['Take it or leave it.','싫으면 말고. / 받아들이든지 말든지.','주의 표현','r','recognition','강압적으로 들릴 수 있음']
+ ['Beat it!','꺼져!','무례·공격 (알아듣기용)','r','recognition','상당히 무례함'],
+ ["Didn't I make myself clear?",'내가 분명히 말하지 않았어?','무례·공격 (알아듣기용)','r','recognition','강압적으로 들릴 수 있음'],
+ ["Don't mess with me.",'나 건드리지 마.','무례·공격 (알아듣기용)','r','recognition','공격적'],
+ ["Don't push it.",'너무 나가지 마. / 선 넘지 마.','주의·경고','y','active','가벼운 경고부터 강한 경고까지 문맥에 따라 달라짐'],
+ ["Don't push me.",'날 몰아붙이지 마.','무례·공격 (알아듣기용)','r','recognition','강한 표현'],
+ ["Don't rub it in.",'자꾸 약 올리지 마. / 아픈 데를 계속 건드리지 마.','주의·경고','y','active','상대가 실수나 약점을 계속 들먹일 때'],
+ ['Get a life!','할 일 그렇게 없냐? / 인생 좀 제대로 살아.','무례·공격 (알아듣기용)','r','recognition','상대를 깎아내리는 공격적 표현'],
+ ['Get off my back!','그만 좀 들볶아!','무례·공격 (알아듣기용)','r','recognition','공격적'],
+ ['Get real!','현실 좀 봐! / 말도 안 돼!','무례·공격 (알아듣기용)','r','recognition','상황에 따라 모욕적으로 들림'],
+ ['Grow up!','철 좀 들어!','무례·공격 (알아듣기용)','r','recognition','상대를 깎아내릴 수 있음'],
+ ['Keep out of my way.','내 앞을 막지 마. / 방해하지 마.','무례·공격 (알아듣기용)','r','recognition',''],
+ ['Keep it to yourself.','남에게 말하지 마. / 혼자 알고 있어.','주의·경고','y','active',''],
+ ['Knock it off!','그만해!','무례·공격 (알아듣기용)','r','recognition','강한 명령'],
+ ['Know your place.','네 분수를 알아.','무례·공격 (알아듣기용)','r','recognition','모욕적일 수 있음'],
+ ['Mind your own business.','네 일이나 신경 써.','무례·공격 (알아듣기용)','r','recognition','공격적'],
+ ['Suit yourself.','네 마음대로 해.','주의·경고','y','active','퉁명스럽게 들릴 수 있음'],
+ ['Take it or leave it.','싫으면 말고. / 받아들이든지 말든지.','무례·공격 (알아듣기용)','r','recognition','강압적으로 들릴 수 있음'],
+ ['Depends.','경우에 따라 달라.','모름·이해','g','active',''],
+ ['Give me a break.','좀 봐줘. / 말도 안 돼! / 그만 좀 해!','주의·경고','y','active','부탁(봐줘)·불신(말도 안 돼)·짜증(그만해) 모두 가능. 억양으로 구별'],
+ ['Get the picture?','무슨 상황인지 알겠어?','모름·이해','y','active','상대에게 다소 직설적으로 들릴 수 있음'],
+ ['Hold your horses!','잠깐만! / 서두르지 마!','주의·경고','y','active','비격식'],
+ ['Say that again?','다시 말해 줄래?','모름·이해','y','active','You can say that again과 구별'],
+ ['Let me get this straight.','내가 제대로 이해했는지 확인해 볼게.','모름·이해','g','active',''],
+ ["Don't push your luck.",'너무 욕심부리지 마. / 선 넘지 마.','주의·경고','y','active',''],
+ ["I'll drink to that.",'그 말 좋네! / 나도 동감이야.','동의·반응','y','active','비격식. 강한 동의'],
+ ['Hang loose.','긴장 풀고 편하게 있어.','격려·위로','y','active','비격식'],
+ ['Much obliged.','정말 고맙습니다.','인사·사교','y','recognition','다소 옛스럽거나 격식 있게 들릴 수 있음'],
+ ['Could you drop me off downtown?','시내에서 내려 주시겠어요?','연락·이동','g','active','drop off(내려 주다)가 표준 형태'],
+ ["Let's give him a big hand!",'큰 박수 부탁드립니다!','인사·사교','g','active',''],
+ ["Let's go by the book.",'원칙대로 하자.','행동·업무','g','active',''],
+ ['Charge it, please.','카드로 계산할게요.','식당·쇼핑','y','recognition',"요즘은 I'll pay by card가 더 일반적"],
+ ["Let's split the bill.",'나눠서 내자.','식당·쇼핑','g','active','기존 Can we split the bill?의 자연스러운 변형']
 ].map(x=>({id:lifeId(x[0]),en:x[0],ko:x[1],cat:x[2],tone:x[3],use:x[4],warn:x[5]}));
 
+/* v8.0 · 생활회화 우선순위: CORE → USEFUL(기본) → OPTIONAL. 알아듣기 전용 표현은 말하기 우선순위에서 제외 */
+const CORE_LIFE=["Sounds good.","That makes sense.","I see what you mean.","Fair enough.","No wonder.","Same here.","Depends.","Could be.","I doubt it.","I mean it.",
+ "It's up to you.","I'm on it.","I'm running late.","I'm on my way.","I'm almost there.","I've got to get going.","I'll get back to you.","I'll let you know.","Keep in touch.",
+ "No worries.","No rush.","Take your time.","My pleasure.","Anytime.","Never mind.","It doesn't matter.","That's okay.","It's no big deal.","Don't worry about it.",
+ "I'm not sure.","Let me think.","What does that mean?","How do you say this in English?","Got it.","I don't get it.","Say that again?","Let me get this straight.",
+ "Are you okay?","What's wrong?","What's going on?","Take care.","Long time no see.","How's it going?","Here you go.","After you.","Go ahead.","Excuse me.","Sorry to bother you.",
+ "That's my fault.","My bad.","It slipped my mind.","I didn't mean to.","I can't thank you enough.","I owe you one.","I'm good, thanks.","I'll pass.","Let me sleep on it.","Count me in.",
+ "Can I get the check?","For here or to go?","Is this seat taken?","It's on me.","Let's split the bill.","I'm all set.","I'm stuffed.","Watch your step.","Heads up!","You've got this.","Good luck!","Why not?"];
+const OPTIONAL_LIFE=["Money talks.","Much obliged.","Charge it, please.","Hang loose.","Let's go by the book.","Let's give him a big hand!","I'll drink to that.","Never say die.",
+ "Speak of the devil.","What's the damage?","It's muggy.","Lie on your back.","Lie on your stomach.","Make mine well done.","My dog got loose.","Back it in.","Don't miss the boat.",
+ "For good?","I'm dead set against it.","I get a kick out of it.","I'm nearsighted.","Just about.","Super!","Money is no object.","Keep your chin up.","I blacked out.","Make way!","Act your age."];
+const TIER_BY_NORM=new Map([...CORE_LIFE.map(e=>[normExpr(e),'core']),...OPTIONAL_LIFE.map(e=>[normExpr(e),'optional'])]);
+function isRecogItem(x){return x&&x.type!=='course'&&(x.tone==='r'||x.use==='recognition');}
+function courseStableId(en){return 'course:'+normExpr(en).replace(/\s+/g,'-');}
 function collectCourseExpr(){
-  const out=[],seen=new Set();
-  const add=(en,ko,ref)=>{const k=normExpr(en);if(!k||seen.has(k))return;seen.add(k);out.push({id:'course:'+ref,en,ko,cat:'70일 과정',tone:'g',use:'active',type:'course',courseRef:ref,warn:''});};
+  const byNorm=new Map();
+  const add=(en,ko,ref)=>{
+    const k=normExpr(en);if(!k)return;
+    if(!byNorm.has(k))byNorm.set(k,{id:courseStableId(en),en,ko,cat:'70일 과정',tone:'',use:'active',type:'course',courseRefs:[],warn:''});
+    const x=byNorm.get(k);if(!x.courseRefs.includes(ref))x.courseRefs.push(ref);
+  };
   DAYS.forEach((d,di)=>{
     if(/^[A-Za-z'"]/.test(d.p||''))add(d.p,d.m,`DAY ${di+1} 패턴`);
     d.c.forEach((x,i)=>add(x[1],x[0],`DAY ${di+1} 핵심 ${i+1}`));
@@ -1686,15 +1769,16 @@ function collectCourseExpr(){
   });
   CORE24.forEach((x,i)=>add(x[0],x[1],`CORE24 ${i+1}`));
   RESCUE.forEach((x,i)=>add(x[1],x[0],`RESCUE ${i+1}`));
-  return out;
+  return [...byNorm.values()];
 }
 const COURSE_EXPR=collectCourseExpr();
 const COURSE_NORM=new Set(COURSE_EXPR.map(x=>normExpr(x.en)));
-const LIFE_EXPR=RAW_LIFE_EXPR.filter(x=>!COURSE_NORM.has(normExpr(x.en))).map(x=>({...x,type:'extra'}));
+const LIFE_EXPR=RAW_LIFE_EXPR.filter(x=>!COURSE_NORM.has(normExpr(x.en))).map(x=>({...x,type:'extra',tier:(x.tone==='r'||x.use==='recognition')?'optional':(TIER_BY_NORM.get(normExpr(x.en))||'useful')}));
 const META_BY_NORM=new Map(RAW_LIFE_EXPR.map(x=>[normExpr(x.en),x]));
 const COURSE_WITH_META=COURSE_EXPR.map(x=>{const m=META_BY_NORM.get(normExpr(x.en));return m?{...x,cat:m.cat,tone:m.tone,use:m.use,warn:m.warn}:x;});
 const ALL_EXPR=[...COURSE_WITH_META,...LIFE_EXPR];
 const EXPR_BY_ID=new Map(ALL_EXPR.map(x=>[x.id,x]));
+const COURSE_BY_NORM=new Map(COURSE_WITH_META.map(x=>[normExpr(x.en),x]));
 const LIFE_BY_TEXT=new Map(LIFE_EXPR.map(x=>[normExpr(x.en),x]));
 
 const MISLEADING=[
@@ -1709,32 +1793,32 @@ const MISLEADING=[
 ];
 
 const PAIR_EXPR=[
- {title:'BEAT',ids:[lifeId('Beat it!'),lifeId("I'm beat.")]},
+ {title:'BEAT',ids:[lifeId('Beat it!'),lifeId("I'm beat."),lifeId('Beats me.')]},
  {title:'SWEAT',ids:[lifeId('No sweat.'),lifeId("Don't sweat it.")]},
- {title:'ON',ids:[lifeId("It's on me."),lifeId("It's on the house.")]},
- {title:'SAY',ids:[lifeId('You can say that again.'), lifeId('Tell me about it!')]},
- {title:'OUT',ids:[lifeId('I blacked out.'),lifeId('I zoned out.')]}
+ {title:'ON · PAYMENT',ids:[lifeId("It's on me."),lifeId("It's on the house.")]},
+ {title:'ON · STATUS',ids:[lifeId("I'm on it."),lifeId("I'm on duty.")]},
+ {title:'SAY',ids:[lifeId('Say that again?'),lifeId('You can say that again.')]},
+ {title:'OUT',ids:[lifeId('I blacked out.'),lifeId('I zoned out.')]} 
 ];
 
 const CORRECTIONS=[
- {wrong:'Luck you!',rightId:lifeId('Lucky you!')},
- {wrong:'Make a way!',rightId:lifeId('Make way!')},
- {wrong:'Speaking Korean?',rightId:lifeId('Do you speak Korean?')},
- {wrong:"I'm short-changed.",rightId:lifeId('I was shortchanged.')},
- {wrong:"Can't be better than this.",rightId:lifeId("Couldn't be better.")},
- {wrong:'That figures. = 바로 그거군요',rightId:lifeId('That figures.')},
- {wrong:'Far from it. = 아직 멀었어요',rightId:lifeId('Far from it!')},
- {wrong:"I wouldn't say no. = 아니라고 말 못해요",rightId:lifeId("I wouldn't say no.")},
- {wrong:'Get a life! = 재미있게 살아라',rightId:lifeId('Get a life!')},
- {wrong:'Give it a rest. = 내버려 둬',rightId:lifeId('Give it a rest.')},
- {wrong:'Do I know it? (누가 아니래 의미)',rightId:lifeId("Don't I know it!")}
+ {wrong:'Luck you!',rightId:lifeId('Lucky you!'),note:'Lucky가 필요한 명백한 형태 오류'},
+ {wrong:'Make a way!',rightId:lifeId('Make way!'),note:'길을 비키라는 관용 표현은 make way'}
+];
+const NATURAL_NOTES=[
+ {wrong:'Speaking Korean?',rightId:lifeId('Do you speak Korean?'),note:'일반적인 능력을 묻는 질문으로 더 자연스러움'},
+ {wrong:"I'm short-changed.",rightId:lifeId('I was shortchanged.'),note:'계산 후 거스름돈을 덜 받은 상황에서는 과거형이 자연스러움'},
+ {wrong:'Can you drop me downtown?',rightId:lifeId('Could you drop me off downtown?'),note:'내려 주다는 drop off가 표준. 공손하게는 Could you'},
+ {wrong:"Can't be better than this.",rightId:lifeId("Couldn't be better."),note:'틀린 문장은 아니지만 회화에서는 이 표현이 더 관용적'}
 ];
 
 /* ═══════════ STATE ═══════════ */
-const DEF={day:1,progressDay:1,done:{},marks:{},lifeMarks:{},favorites:[],streak:0,last:null,pending:null,
-  set:{gap:5,rate:0.88,rep:2,txt:1,wake:1,len:10}};
+const DEF={appVer:'8.2',log:[],partial:null,day:1,progressDay:1,done:{},marks:{},lifeMarks:{},hearMarks:{},favorites:[],todayPick:null,streak:0,last:null,pending:null,
+  lastBackup:'',set:{gap:5,rate:0.88,rep:2,txt:1,wake:1,lifeRide:0,len:10}};
 let S=JSON.parse(JSON.stringify(DEF));
 const KEY='cec-v7';
+const SAFETY_KEY='cec-safety-backup';
+const APP_VER='8.2';
 const LEGACY_KEYS=['cec-v6','cec-v5','cec-v4','cec-v3'];
 const MAX_PENDING_ITEMS=100;
 const RESCUE_WEEKS=new Set([3,6,7,10,12,13,14]);
@@ -1785,17 +1869,48 @@ function normalizeState(v){
   const set={
     len:pick(vs.len,[5,10,15],DEF.set.len),gap:pick(vs.gap,[2,3,5,7],DEF.set.gap),
     rate:pick(vs.rate,[0.75,0.88,1],DEF.set.rate),rep:pick(vs.rep,[1,2,3],DEF.set.rep),
-    txt:pick(vs.txt,[0,1],DEF.set.txt),wake:pick(vs.wake,[0,1],DEF.set.wake)
+    txt:pick(vs.txt,[0,1],DEF.set.txt),wake:pick(vs.wake,[0,1],DEF.set.wake),lifeRide:pick(vs.lifeRide,[0,1],DEF.set.lifeRide)
   };
-  const pending=(v.pending&&typeof v.pending==='object'&&Array.isArray(v.pending.items))?{kind:['am','pm','weak'].includes(v.pending.kind)?v.pending.kind:'am',day:Math.min(TOTAL_DAYS,Math.max(1,Number(v.pending.day)||day)),items:v.pending.items.slice(0,MAX_PENDING_ITEMS).map(x=>({id:cleanText(x?.id,80),ko:cleanText(x?.ko),en:cleanText(x?.en),lv:['o','t','x'].includes(x?.lv)?x.lv:null})).filter(x=>x.id&&x.en)}:null;
-  const lifeMarks={};if(v.lifeMarks&&typeof v.lifeMarks==='object')Object.entries(v.lifeMarks).forEach(([id,m])=>{if(m&&typeof m==='object')lifeMarks[cleanText(id,100)]={...m,lv:['o','t','x'].includes(m.lv)?m.lv:null,auto:!!m.auto,ok:Math.max(0,Number(m.ok)||0),miss:Math.max(0,Number(m.miss)||0),at:Math.max(0,Number(m.at)||0)}});
-  const favorites=Array.isArray(v.favorites)?[...new Set(v.favorites.map(x=>cleanText(x,100)).filter(Boolean))].slice(0,500):[];
-  return {...JSON.parse(JSON.stringify(DEF)),...v,day,progressDay,done,marks,lifeMarks,favorites,set,pending};
+  const pending=(v.pending&&typeof v.pending==='object'&&Array.isArray(v.pending.items))?{kind:['am','pm','weak'].includes(v.pending.kind)?v.pending.kind:'am',day:Math.min(TOTAL_DAYS,Math.max(1,Number(v.pending.day)||day)),items:v.pending.items.slice(0,MAX_PENDING_ITEMS).map(x=>({id:cleanText(x?.id,140),ko:cleanText(x?.ko),en:cleanText(x?.en),life:!!x?.life,lv:['o','t','x'].includes(x?.lv)?x.lv:null})).filter(x=>x.id&&x.en)}:null;
+  // v8.0: 생활회화 기록 정규화. 복습 날짜가 없는 구버전(v7.0) 기록은 ⭕가 아니면 오늘, ⭕면 7일(자동화 30일) 뒤로 채워 복습 대기열에 다시 들어오게 한다.
+  const normLM=src=>{const out={};if(src&&typeof src==='object')Object.entries(src).forEach(([id,m])=>{if(!m||typeof m!=='object')return;
+    const lv=['o','t','x'].includes(m.lv)?m.lv:null,auto=!!m.auto;let dueKey=/^\d{4}-\d{2}-\d{2}$/.test(m.dueKey||'')?m.dueKey:'';const dueAt=Math.max(0,Number(m.dueAt)||0);
+    if(!dueKey&&!dueAt&&lv)dueKey=lv==='o'?addDaysKey(localDateKey(),auto?30:7):localDateKey();
+    out[cleanText(id,140)]={...m,lv,auto,ok:Math.max(0,Number(m.ok)||0),miss:Math.max(0,Number(m.miss)||0),at:Math.max(0,Number(m.at)||0),lastOkDate:/^\d{4}-\d{2}-\d{2}$/.test(m.lastOkDate||'')?m.lastOkDate:null,dueKey,dueAt};});return out;};
+  const lifeMarks=normLM(v.lifeMarks),hearMarks=normLM(v.hearMarks);
+  // v8.0: 알아듣기 전용 표현은 '듣고 뜻 말하기'에서만 평가되므로, 구버전에서 lifeMarks에 섞여 있던 기록을 hearMarks로 옮긴다.
+  LIFE_EXPR.forEach(x=>{if(isRecogItem(x)&&lifeMarks[x.id]){if(!hearMarks[x.id])hearMarks[x.id]=lifeMarks[x.id];delete lifeMarks[x.id];}});
+  const todayPick=(v.todayPick&&typeof v.todayPick==='object'&&/^\d{4}-\d{2}-\d{2}$/.test(v.todayPick.date||'')&&Array.isArray(v.todayPick.ids))?{date:v.todayPick.date,ids:v.todayPick.ids.map(x=>cleanText(x,140)).slice(0,3)}:null;
+  const favorites=Array.isArray(v.favorites)?[...new Set(v.favorites.map(x=>{const id=cleanText(x,140);if(id.startsWith('course:DAY ')||id.startsWith('course:CORE24 ')||id.startsWith('course:RESCUE ')){const ref=id.slice(7);return COURSE_WITH_META.find(c=>(c.courseRefs||[]).includes(ref))?.id||id;}return id;}).filter(Boolean))].slice(0,500):[];
+  // v8.2: 학습 기록(log)과 중단된 세션(partial) 정규화
+  const log=Array.isArray(v.log)?v.log.filter(x=>x&&/^\d{4}-\d{2}-\d{2}$/.test(x.date||'')&&typeof x.k==='string').slice(-400).map(x=>({date:x.date,t:cleanText(x.t,5),day:Math.min(TOTAL_DAYS,Math.max(0,Number(x.day)||0)),k:cleanText(x.k,20),n:Math.max(0,Number(x.n)||0)})):[];
+  const pq=v.partial;let partial=null;
+  if(pq&&typeof pq==='object'&&['am','pm','weak'].includes(pq.kind)&&Array.isArray(pq.q)&&pq.q.length&&pq.q.length<=300){
+    const q=pq.q.filter(x=>x&&typeof x==='object'&&typeof x.t==='string').map(x=>({t:cleanText(x.t,10),ph:cleanText(x.ph),ko:cleanText(x.ko),en:cleanText(x.en),...(x.id?{id:cleanText(x.id,140)}:{}),...(x.life?{life:true}:{}),...(x.listen?{listen:true}:{}),...(x.kl?{kl:cleanText(x.kl,4)}:{}),...(x.rep?{rep:Number(x.rep)||1}:{})}));
+    const i=Math.min(q.length-1,Math.max(0,Number(pq.i)||0));
+    if(q.length)partial={kind:pq.kind,day:Math.min(TOTAL_DAYS,Math.max(1,Number(pq.day)||day)),i,total:q.length,date:/^\d{4}-\d{2}-\d{2}$/.test(pq.date||'')?pq.date:'',at:Math.max(0,Number(pq.at)||0),q};
+  }
+  return {...JSON.parse(JSON.stringify(DEF)),...v,log,partial,appVer:APP_VER,day,progressDay,done,marks,lifeMarks,hearMarks,todayPick,favorites,lastBackup:/^\d{4}-\d{2}-\d{2}$/.test(v.lastBackup||'')?v.lastBackup:'',set,pending};
 }
 async function load(){try{let raw=localStorage.getItem(KEY);
     if(!raw){for(const k of LEGACY_KEYS){raw=localStorage.getItem(k);if(raw)break;}}
-    if(raw){S=normalizeState(JSON.parse(raw));localStorage.setItem(KEY,JSON.stringify(S));}}
-  catch(e){S=JSON.parse(JSON.stringify(DEF));}}
+    if(raw){const parsed=JSON.parse(raw);
+      // v8.0: 버전이 바뀌어 데이터 구조를 정규화하기 전에 원본을 안전백업으로 1회 남긴다.
+      if(parsed&&parsed.appVer!==APP_VER)writeSafety('버전 업데이트 전 ('+(parsed.appVer||'v7.x 이하')+')',raw);
+      S=normalizeState(parsed);localStorage.setItem(KEY,JSON.stringify(S));}}
+  catch(e){
+    // v8.1: 메인 저장값이 손상되면 조용히 초기화하지 않는다. 손상본을 따로 보관하고, 안전백업이 있으면 복원을 제안한다.
+    try{const bad=localStorage.getItem(KEY);if(bad)localStorage.setItem('cec-corrupt-copy',bad);}catch(_){}
+    S=JSON.parse(JSON.stringify(DEF));
+    const sb=readSafety();let restored=false;
+    if(sb){try{const v=normalizeState(JSON.parse(sb.raw));
+      if(confirm(`저장된 학습 기록을 읽을 수 없습니다.\n\n최근 안전백업이 있습니다 (${sb.reason}, ${String(sb.at).slice(0,10)}).\n${stateSummary(v)}\n\n이 안전백업으로 복원할까요?`)){S=v;restored=true;}}catch(_){}}
+    if(!restored)alert('저장된 학습 기록을 읽을 수 없어 새로 시작합니다.'+(sb?'':'\n복원할 안전백업이 없습니다.')+'\n백업 파일이 있다면 설정 → JSON 파일 불러오기를 이용하세요.');
+    try{localStorage.setItem(KEY,JSON.stringify(S));}catch(_){}
+  }}
+function writeSafety(reason,raw){try{localStorage.setItem(SAFETY_KEY,JSON.stringify({reason,at:new Date().toISOString(),raw:typeof raw==='string'?raw:JSON.stringify(raw)}));}catch(e){console.warn('안전백업 저장 실패',e);}}
+function readSafety(){try{const v=JSON.parse(localStorage.getItem(SAFETY_KEY)||'null');return v&&typeof v.raw==='string'?v:null;}catch(e){return null;}}
+function stateSummary(v){const marks=Object.keys(v.marks||{}).length,life=Object.keys(v.lifeMarks||{}).length+Object.keys(v.hearMarks||{}).length;return `Day ${v.progressDay||v.day||1} · 과정 기록 ${marks}개 · 생활회화 기록 ${life}개 · 즐겨찾기 ${(v.favorites||[]).length}개`;}
 async function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}
   catch(e){console.warn('학습 기록을 저장하지 못했습니다.',e);}}
 function localDateKey(date=new Date()){
@@ -1919,6 +2034,13 @@ function due(n,{coreOnly=true,maxDay=TOTAL_DAYS}={}){const today=tKey(),o=[];
     if(!dueKey||dueKey>today)return;
     o.push({id,ko:m.ko,en:m.en,miss:m.miss||0,seen:m.at||0});});
   o.sort((a,b)=>(b.miss-a.miss)||(a.seen-b.seen));return o.slice(0,n);}
+// v8.1: 말하기 기록 대상 = 생활회화 + ⭐로 복습해 기록이 생긴 70일 과정 표현(핵심 5문장 외 보조·역할극 등)
+function lifeTrackPool(){return [...LIFE_EXPR,...COURSE_WITH_META.filter(x=>S.lifeMarks?.[x.id])];}
+function dueLife(n=999,{includeRecognition=false,store='lifeMarks'}={}){const today=tKey(),o=[];
+  (store==='hearMarks'?LIFE_EXPR:lifeTrackPool()).forEach(x=>{if(!includeRecognition&&isRecogItem(x))return;const m=S[store]?.[x.id];if(!m)return;let dueKey=m.dueKey||'';if(!dueKey&&Number(m.dueAt)>0)dueKey=localDateKey(new Date(Number(m.dueAt)));if(!dueKey||dueKey>today)return;o.push({...x,miss:m.miss||0,seen:m.at||0});});
+  o.sort((a,b)=>(b.miss-a.miss)||(a.seen-b.seen));return o.slice(0,n);}
+// v8.0: 통합 복습은 화면에서 보고 있는 DAY(S.day)가 아니라 실제 도달 진도(progressDay)를 기준으로 한다.
+function dueAll(n=12,{maxDay=S.progressDay}={}){const c=due(n,{coreOnly:true,maxDay:Math.max(1,maxDay)}).map(x=>({...x,kind:'course'}));const l=dueLife(n).map(x=>({...x,kind:'life'}));const h=dueLife(n,{includeRecognition:true,store:'hearMarks'}).map(x=>({...x,kind:'hear'}));return [...c,...l,...h].sort((a,b)=>(b.miss-a.miss)||(a.seen-b.seen)).slice(0,n);}
 function guide(q,ph,ko){q.push({t:'say',ph,ko,en:''});}
 
 function qMorning(day){
@@ -1960,6 +2082,7 @@ function qEvening(day){
     shuffle(RESCUE.slice()).slice(0,S.set.len===5?1:Math.min(2,P.fix)).forEach(x=>q.push({t:'q',ph:'되묻기',ko:x[0],en:x[1]}));}
   if(NUMBER_WEEKS.has(week)&&P.num){guide(q,'숫자와 시간','이번 주 교통·통합 주제와 연결해 숫자와 시간을 확인합니다.');
     shuffle(NUMBERS.slice()).slice(0,P.num).forEach(x=>q.push({t:'q',ph:'숫자와 시간',ko:x[0],en:x[1]}));}
+  if(S.set.lifeRide){const lw=dueLife(3),ids=new Set(lw.map(x=>x.id));todayLife().forEach(x=>{if(lw.length<3&&!ids.has(x.id)&&!isRecogItem(x)){lw.push(x);ids.add(x.id);}});if(lw.length){guide(q,'생활회화','오늘의 생활회화와 복습 날짜가 된 문장을 마무리로 꺼냅니다.');lw.forEach(x=>q.push({t:'q',ph:'생활회화',ko:x.ko,en:x.en,id:x.id,life:true}));}}
   q.push({t:'end'});return capSession(q,day,'pm');
 }
 function capSession(q,day,kind){
@@ -1988,9 +2111,11 @@ function allWeak(n=20){return Object.entries(S.marks)
   .slice(0,n).map(([id,m])=>({id,ko:m.ko,en:m.en}));}
 
 function qWeak(){
-  const w=allWeak(20),q=[{t:'say',ph:'취약 문장',ko:'막혔던 문장만 다시 돌립니다.',en:''}];
-  if(!w.length)q.push({t:'say',ph:'취약 문장',ko:'다시 볼 문장이 아직 없습니다.',en:''});
-  w.forEach(x=>q.push({t:'q',ph:'취약 문장',ko:x.ko,en:x.en,rep:2,id:x.id}));
+  const cw=allWeak(20).map(x=>({...x,life:false}));
+  const lw=lifeTrackPool().filter(x=>{const m=S.lifeMarks?.[x.id];return m&&!m.auto&&m.lv&&m.lv!=='o'&&!isRecogItem(x);}).sort((a,b)=>(S.lifeMarks[b.id]?.miss||0)-(S.lifeMarks[a.id]?.miss||0)).slice(0,20).map(x=>({id:x.id,ko:x.ko,en:x.en,life:true}));
+  const w=[...cw,...lw].sort((a,b)=>((a.life?S.lifeMarks[a.id]?.miss:S.marks[a.id]?.miss)||0)-((b.life?S.lifeMarks[b.id]?.miss:S.marks[b.id]?.miss)||0)).reverse().slice(0,20),q=[{t:'say',ph:'통합 취약 복습',ko:'70일 과정과 생활회화에서 막혔던 문장을 함께 다시 돌립니다.',en:''}];
+  if(!w.length)q.push({t:'say',ph:'통합 취약 복습',ko:'다시 볼 문장이 아직 없습니다.',en:''});
+  w.forEach(x=>q.push({t:'q',ph:'통합 취약 복습',ko:x.ko,en:x.en,rep:2,id:x.id,life:!!x.life}));
   q.push({t:'end'});return q;
 }
 function speechSec(text,lang='ko',rate=1){
@@ -2053,6 +2178,7 @@ async function run(from){
     D.el.phase.textContent=s.ph||'';
     const pct=((D.i/Math.max(D.q.length-1,1))*100).toFixed(1);D.el.bar.style.width=pct+'%';D.el.bar.parentElement?.setAttribute('aria-valuenow',pct);
     if(s.t==='mk'){D.i++;continue;}
+    if(s.t==='q')savePartial();
 
     if(s.t==='say'){
       D.el.prompt.className='prompt';D.el.prompt.textContent=s.ko;
@@ -2109,18 +2235,20 @@ async function run(from){
   }
 }
 
-function openDrive(kind){
+function openDrive(kind,resume=null){
   // 학습 탭의 대화 듣기가 재생 중이면 즉시 무효화하고 음성을 정리한다.
   dlgTok++;safeSpeechCancel();
   initSilent();
   D.kind=kind;
-  D.q = kind==='am'?qMorning(S.day):kind==='pm'?qEvening(S.day):qWeak();
-  D.i=0;D.play=false;
+  // v8.2: 중단된 세션은 저장된 문장 순서 그대로 이어서 재생한다.
+  if(resume){D.q=resume.q;D.i=resume.i;D.day=resume.day;}
+  else{D.day=S.day;D.q = kind==='am'?qMorning(S.day):kind==='pm'?qEvening(S.day):qWeak();D.i=0;}
+  D.play=false;
   document.getElementById('drive').classList.add('on');
   D.el.play.textContent='시작';D.el.play.classList.remove('ps');
   D.el.prompt.className='prompt';D.el.prompt.textContent='재생을 누르고 화면을 두세요';
   D.el.answer.textContent='';D.el.answer.className='answer';
-  D.el.hint.textContent=`약 ${Math.max(1,Math.round(estMin(D.q)))}분 · 문장 ${D.q.filter(x=>x.t==='q').length}개`;
+  D.el.hint.textContent=resume?`이어서 · ${D.i+1} / ${D.q.length} 지점부터`:`약 ${Math.max(1,Math.round(estMin(D.q)))}분 · 문장 ${D.q.filter(x=>x.t==='q').length}개`;
   D.el.count.textContent='—';D.el.count.className='count idle mono';
   D.el.bar.style.width='0%';D.el.bar.parentElement?.setAttribute('aria-valuenow','0');sw(0);lit(0,'cool');
 }
@@ -2144,7 +2272,7 @@ function jump(dir){D.tok++;safeSpeechCancel();cancelSleep();
       D.el.answer.textContent='';D.el.answer.className='answer';
       D.el.hint.textContent='이어서 재생을 누르세요';}}
   if(D.play)run(D.i);}
-function exitDrive(){D.tok++;safeSpeechCancel();cancelSleep();D.play=false;relWake();
+function exitDrive(){D.tok++;safeSpeechCancel();cancelSleep();D.play=false;relWake();savePartial();setTimeout(render,0);
   try{silentEl&&silentEl.pause();}catch(e){}
   document.getElementById('drive').classList.remove('on');}
 
@@ -2153,17 +2281,18 @@ let pend=[];
 function finish(){
   D.play=false;relWake();try{silentEl&&silentEl.pause();}catch(e){}
   document.getElementById('drive').classList.remove('on');
+  S.partial=null;const dDay=D.day||S.day;
   const trained=D.q.filter(x=>x.t==='q'&&x.en&&!x.listen&&x.id);
-  pend=[...new Map(trained.map(x=>[x.id,{id:x.id,ko:x.ko,en:x.en,lv:null}])).values()];
+  pend=[...new Map(trained.map(x=>[x.id,{id:x.id,ko:x.ko,en:x.en,life:!!x.life,lv:null}])).values()];
   if(D.kind==='weak'){
-    if(!pend.length){save();render();return;}
-    S.pending={kind:'weak',day:S.day,items:pend};save();openReview();return;
+    if(!pend.length){logSession('weak',0,0);save();render();return;}
+    S.pending={kind:'weak',day:dDay,items:pend};save();openReview();return;
   }
   if(!pend.length){
-    const d=dd(S.day),count=PLAN[S.set.len].core;
-    pend=d.c.slice(0,count).map((x,i)=>({id:sid(S.day,i),ko:x[0],en:x[1],lv:null}));
+    const d=dd(dDay),count=PLAN[S.set.len].core;
+    pend=d.c.slice(0,count).map((x,i)=>({id:sid(dDay,i),ko:x[0],en:x[1],lv:null}));
   }
-  S.pending={kind:D.kind,day:S.day,items:pend};save();
+  S.pending={kind:D.kind,day:dDay,items:pend};save();try{renderProgressCard();}catch(e){}
   openReview();
 }
 function openReview(recovered=false){
@@ -2174,7 +2303,7 @@ function openReview(recovered=false){
     `${goal} 안에 나온 문장만 ⭕입니다. 일반 문장은 △ 3일 · ❌ 1일 뒤, 자동화 이력이 있는 문장은 △ 7일 · ❌ 3일 뒤 다시 나옵니다.`;
   document.getElementById('rv-items').innerHTML=pend.map((p,i)=>`
    <div class="rvi"><div class="ko">${esc(p.ko)}</div><div class="en">${esc(p.en)}</div>
-   ${S.marks[p.id]?.auto?'<span class="badge auto">자동화 이력</span>':''}
+   ${(p.life?S.lifeMarks[p.id]:S.marks[p.id])?.auto?'<span class="badge auto">자동화 이력</span>':''}
    <div class="marks" data-i="${i}"><button class="mk" data-m="o">⭕ 바로</button>
    <button class="mk" data-m="t">△ 느림</button><button class="mk" data-m="x">❌ 못함</button></div></div>`).join('');
   document.querySelectorAll('#rv-items .marks').forEach(g=>g.addEventListener('click',e=>{
@@ -2213,6 +2342,50 @@ function markDone(dayOverride=S.day){
     if(rec.am&&rec.pm&&completedDay===S.progressDay&&completedDay<TOTAL_DAYS){S.progressDay++;if(S.day===completedDay)S.day=S.progressDay;}
   }
 }
+// v8.2: 학습 기록. 출근·퇴근·취약복습 완료와 퀴즈 완료를 시각과 함께 남긴다(최근 400건).
+const LOG_NAME={am:'출근길',pm:'퇴근길',weak:'취약복습','q:course':'인출퀴즈','q:review':'오늘복습','q:life':'생활회화','q:recognition':'듣기퀴즈','q:favorites':'⭐복습'};
+const WD='일월화수목금토';
+function mdLabel(key){const d=new Date(key+'T12:00:00');return `${d.getMonth()+1}/${d.getDate()}(${WD[d.getDay()]})`;}
+function renderProgressCard(){
+  const today=tKey(),log=S.log||[],todayLog=log.filter(x=>x.date===today),lastOf=k=>[...todayLog].reverse().find(x=>x.k===k);
+  document.getElementById('pc-date').textContent=mdLabel(today);
+  const P=S.partial,rows=['am','pm'].map(k=>{
+    const e=lastOf(k);let st,cls;
+    const doneDay=Object.entries(S.done||{}).find(([,v])=>v&&v[k]===today);
+    if(e){st=`✅ ${e.t} 완료 · DAY ${e.day}`;cls='ok';}
+    else if(doneDay){st=`✅ 완료 · DAY ${doneDay[0]}`;cls='ok';}
+    else if(S.pending&&S.pending.kind===k){st=`📝 끝까지 들음 · 평가 대기 (DAY ${S.pending.day})`;cls='wait';}
+    else if(P&&P.kind===k){st=`⏸ ${P.i+1}/${P.total}에서 멈춤 · DAY ${P.day}${P.date&&P.date!==today?' ('+mdLabel(P.date)+')':''}`;cls='pause';}
+    else{st='⬜ 아직';cls='no';}
+    return `<div class="pc-row"><span class="k">${LOG_NAME[k]}</span><span class="pc-st ${cls}">${st}</span></div>`;});
+  const extra=todayLog.filter(x=>x.k!=='am'&&x.k!=='pm');
+  if(extra.length)rows.push(`<div class="pc-row"><span class="k">복습</span><span class="pc-st ok">${[...new Map(extra.map(x=>[x.k,x])).values()].map(x=>`${LOG_NAME[x.k]||x.k} ${x.t}`).join(' · ')}</span></div>`);
+  document.getElementById('pc-rows').innerHTML=rows.join('');
+  // 다음 할 일: 진도(DAY) 기준
+  const d=S.progressDay,rec=S.done[d]||{},dayView=S.day!==d?` <span style="color:var(--dim)">(지금 DAY ${S.day} 화면)</span>`:'';
+  let next;
+  if(S.pending)next=`다음 할 일: <b>${LOG_NAME[S.pending.kind]||'세션'} 평가</b> 저장하기`;
+  else if(P)next=`다음 할 일: <b>${LOG_NAME[P.kind]} 이어서 하기</b> · DAY ${P.day}`;
+  else if(!rec.am)next=`다음 할 일: <b>DAY ${d} 출근길</b>${dayView}`;
+  else if(!rec.pm)next=`다음 할 일: <b>DAY ${d} 퇴근길</b> · 출근길은 ${rec.am===today?'오늘':mdLabel(rec.am)} 완료${dayView}`;
+  else next=`<b>DAY ${d} 출퇴근 완료</b>${d>=TOTAL_DAYS?' · 70일 과정을 모두 마쳤습니다':''}`;
+  const amT=lastOf('am'),pmT=lastOf('pm');
+  if(amT&&pmT&&!S.pending&&!P)next=`<b>오늘 출퇴근 모두 완료</b> · 다음은 DAY ${d} 출근길(내일)`;
+  document.getElementById('pc-next').innerHTML=next;
+  const prev=[...log].reverse().find(x=>x.date!==today&&(x.k==='am'||x.k==='pm'));
+  document.getElementById('pc-last').textContent=prev?`마지막 출퇴근 학습: ${mdLabel(prev.date)} ${LOG_NAME[prev.k]} ${prev.t} · DAY ${prev.day}`:'';
+  const rb=document.getElementById('pc-resume');rb.style.display=P&&!S.pending?'':'none';
+  if(P)rb.textContent=`${LOG_NAME[P.kind]} 이어서 하기 (${P.i+1}/${P.total})`;
+}
+function renderLog(){
+  const el=document.getElementById('log-list');if(!el)return;const by=new Map();
+  (S.log||[]).forEach(x=>{if(!by.has(x.date))by.set(x.date,[]);by.get(x.date).push(x);});
+  const days=[...by.keys()].sort().reverse().slice(0,14);
+  el.innerHTML=days.length?days.map(k=>`<div class="log-day"><span class="d">${mdLabel(k)}</span><span>${by.get(k).map(x=>`${x.k==='am'||x.k==='pm'?'<b>':''}${LOG_NAME[x.k]||x.k}${x.k==='am'||x.k==='pm'?'</b>':''} ${x.t}${x.day&&(x.k==='am'||x.k==='pm')?' · D'+x.day:''}${x.n&&x.k!=='am'&&x.k!=='pm'?' · '+x.n+'문장':''}`).join('<br>')}</span></div>`).join(''):'아직 기록이 없습니다. 출근길·퇴근길을 마치고 평가를 저장하면 시각과 함께 남습니다.';
+}
+function nowHM(){const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+function logSession(k,day,n){S.log=Array.isArray(S.log)?S.log:[];S.log.push({date:tKey(),t:nowHM(),day:day||0,k,n:n||0});if(S.log.length>400)S.log=S.log.slice(-400);}
+function savePartial(){if(!D.q.length||D.i<=0||D.i>=D.q.length-1)return;S.partial={kind:D.kind,day:D.day||S.day,i:D.i,total:D.q.length,date:tKey(),at:Date.now(),q:D.q};save();}
 async function saveReview(skip){
   const completedDay=(S.pending&&S.pending.day)||S.day;
   if(!skip&&pend.some(p=>!p.lv)){
@@ -2220,84 +2393,125 @@ async function saveReview(skip){
     document.querySelector('#rv-items .rvi.unmarked')?.scrollIntoView({block:'center',behavior:'smooth'});
     alert('평가하지 않은 문장이 있습니다. 표시된 문장을 평가해 주세요.');return;
   }
-  if(!skip)pend.forEach(p=>applyMark(p.id,p.ko,p.en,p.lv));
-  S.pending=null;markDone(completedDay);await save();
+  if(!skip)pend.forEach(p=>p.life?applyLifeMark({id:p.id,en:p.en,ko:p.ko,type:'extra'},p.lv):applyMark(p.id,p.ko,p.en,p.lv));
+  S.pending=null;markDone(completedDay);logSession(D.kind==='am'||D.kind==='pm'||D.kind==='weak'?D.kind:'am',completedDay,pend.length);await save();
   document.getElementById('review').classList.remove('on');render();
   const rec=S.done[completedDay];if(rec?.am&&rec?.pm)haptic(20);maybeMilestone(completedDay);
 }
 
 
 /* ═══════════ LIFE EXPRESSIONS ENGINE ═══════════ */
-let lifeFilter='extra',lifeQuery='';
-function lifeToneLabel(t){return t==='g'?'🟢 무난':t==='y'?'🟡 주의':'🔴 알아듣기';}
+let lifeFilter='extra',lifeQuery='',lifeVisible=60,lifeSearchTimer=null,specialRendered=false;
+function lifeToneLabel(t){return t==='g'?'🟢 무난':t==='y'?'🟡 주의':t==='r'?'🔴 알아듣기':'70일 과정';}
 function isFav(id){return (S.favorites||[]).includes(id);}
 async function toggleFav(id){S.favorites=S.favorites||[];S.favorites=isFav(id)?S.favorites.filter(x=>x!==id):[...S.favorites,id];await save();renderLife();renderTodayLife();}
-function applyLifeMark(item,lv){
-  const m=S.lifeMarks[item.id]||{ok:0,miss:0};const wasAuto=!!m.auto;m.lv=lv;m.at=Date.now();m.en=item.en;m.ko=item.ko;
-  if(lv==='o')m.ok=(m.ok||0)+1;else{m.ok=wasAuto?(lv==='t'?2:1):0;m.miss=(m.miss||0)+1;}m.auto=m.ok>=3;S.lifeMarks[item.id]=m;
+function courseMarkFor(item){let best=null;Object.values(S.marks||{}).forEach(m=>{if(normExpr(m?.en)===normExpr(item.en)&&(!best||(m.at||0)>(best.at||0)))best=m;});return best||{};}
+function markForExpr(item){if(item.type==='course'){const cm=courseMarkFor(item);return cm.lv?cm:(S.lifeMarks?.[item.id]||cm);}return ((isRecogItem(item)?S.hearMarks:S.lifeMarks)?.[item.id]||{});}
+function applyLifeMark(item,lv,store='lifeMarks'){
+  S[store]=S[store]||{};const m=S[store][item.id]||{ok:0,miss:0};const wasAuto=!!m.auto;m.lv=lv;m.at=Date.now();m.en=item.en;m.ko=item.ko;
+  if(lv==='o'){const today=tKey();if(m.lastOkDate!==today){m.ok=(m.ok||0)+1;m.lastOkDate=today;}}
+  else{m.ok=wasAuto?(lv==='t'?2:1):0;m.lastOkDate=null;m.miss=(m.miss||0)+1;}
+  m.auto=(m.ok||0)>=3;const days=lv==='x'?(wasAuto?3:1):lv==='t'?(wasAuto?7:3):(m.auto?30:7);m.dueKey=addDaysKey(tKey(),days);m.dueAt=Date.now()+days*86400000;S[store][item.id]=m;
 }
 function lifeCardHTML(x,compact=false){
-  const m=S.lifeMarks[x.id]||{},src=x.type==='course'?(x.courseRef||'70일 과정'):(x.use==='recognition'?'알아듣기 우선':'생활회화');
-  return `<div class="expr-card" data-id="${esc(x.id)}"><div class="expr-top"><div class="expr-copy"><div class="expr-en">${esc(x.en)}</div><div class="expr-ko">${esc(x.ko)}</div><div class="expr-meta"><span class="tag ${x.tone}">${lifeToneLabel(x.tone)}</span><span class="tag">${esc(x.cat)}</span><span class="tag">${esc(src)}</span>${m.auto?'<span class="tag g">자동화</span>':m.lv&&m.lv!=='o'?'<span class="tag y">복습 필요</span>':''}</div>${x.warn&&!compact?`<div class="expr-warn">${esc(x.warn)}</div>`:''}</div><div class="expr-actions"><button class="iconbtn fav ${isFav(x.id)?'on':''}" data-act="fav" aria-label="즐겨찾기">★</button><button class="iconbtn" data-act="speak" aria-label="듣기">▶</button></div></div></div>`;
+  const m=markForExpr(x),refs=x.type==='course'?(x.courseRefs||[]).slice(0,3).join(' · '):(x.use==='recognition'?'알아듣기 우선':'생활회화');
+  const tone=x.type==='extra'?`${x.tier==='core'?'<span class="tag core">생활핵심</span>':''}<span class="tag ${x.tone}">${lifeToneLabel(x.tone)}</span>`:'';
+  return `<div class="expr-card" data-id="${esc(x.id)}"><div class="expr-top"><div class="expr-copy"><div class="expr-en">${esc(x.en)}</div><div class="expr-ko">${esc(x.ko)}</div><div class="expr-meta">${tone}<span class="tag">${esc(x.cat)}</span><span class="tag">${esc(refs||'70일 과정')}</span>${m.auto?'<span class="tag g">자동화</span>':m.lv&&m.lv!=='o'?'<span class="tag y">복습 필요</span>':''}</div>${x.warn&&!compact?`<div class="expr-warn">${esc(x.warn)}</div>`:''}</div><div class="expr-actions"><button class="iconbtn fav ${isFav(x.id)?'on':''}" data-act="fav" aria-label="즐겨찾기">★</button><button class="iconbtn" data-act="speak" aria-label="듣기">▶</button></div></div></div>`;
 }
 function todayLife(){
-  if(!LIFE_EXPR.length)return[];const key=Number(tKey().replaceAll('-',''))+S.day*17;const base=((key%LIFE_EXPR.length)+LIFE_EXPR.length)%LIFE_EXPR.length;const safe=LIFE_EXPR.filter(x=>x.tone!=='r'&&x.use!=='recognition');const a=safe.length?safe:LIFE_EXPR;return [0,1,2].map(i=>a[(base+i*11)%a.length]);
+  // v8.0 우선순위: ① 오늘 복습 예정 → ② 한 번도 안 본 CORE → ③ △/❌였던 문장 → ④ 오래 안 본 ⭐ → ⑤ 안 본 USEFUL → ⑥ 안 본 OPTIONAL.
+  // 자동화 문장은 30일 복습 예정일에만 ①로 들어온다. 하루 동안은 같은 3개를 유지한다.
+  if(!LIFE_EXPR.length)return[];const today=tKey();
+  if(S.todayPick&&S.todayPick.date===today){const kept=S.todayPick.ids.map(id=>LIFE_EXPR.find(x=>x.id===id)).filter(Boolean);if(kept.length===3)return kept;}
+  const pool=LIFE_EXPR.filter(x=>!isRecogItem(x)),lm=S.lifeMarks||{},seen=x=>!!lm[x.id],out=[],used=new Set();
+  const take=arr=>{for(const x of arr){if(out.length>=3)return;if(!used.has(x.id)){used.add(x.id);out.push(x);}}};
+  take(dueLife(3));
+  take(pool.filter(x=>x.tier==='core'&&!seen(x)));
+  take(pool.filter(x=>{const m=lm[x.id];return m&&!m.auto&&m.lv&&m.lv!=='o';}).sort((a,b)=>(lm[b.id].miss||0)-(lm[a.id].miss||0)));
+  take(pool.filter(x=>isFav(x.id)&&!lm[x.id]?.auto).sort((a,b)=>(lm[a.id]?.at||0)-(lm[b.id]?.at||0)));
+  take(pool.filter(x=>x.tier==='useful'&&!seen(x)));
+  take(pool.filter(x=>x.tier==='optional'&&!seen(x)));
+  take(pool.filter(x=>!lm[x.id]?.auto).sort((a,b)=>(lm[a.id]?.at||0)-(lm[b.id]?.at||0)));
+  S.todayPick={date:today,ids:out.map(x=>x.id)};save();return out;
 }
-function renderTodayLife(){const el=document.getElementById('today-life');if(!el)return;el.innerHTML=todayLife().map(x=>lifeCardHTML(x,true)).join('');bindExprActions(el);}
+function renderBackupReminder(){const el=document.getElementById('backup-reminder');if(!el)return;const hasData=Object.keys(S.done||{}).length||Object.keys(S.marks||{}).length||Object.keys(S.lifeMarks||{}).length||Object.keys(S.hearMarks||{}).length;let stale=!!hasData;if(S.lastBackup){const d=new Date(S.lastBackup+'T12:00:00'),now=new Date();stale=!!hasData&&(now-d)>=7*86400000;}
+  el.innerHTML=S.lastBackup?'<b>기록 백업 권장</b><br>마지막 백업 후 7일 이상 지났습니다. 설정에서 백업 파일을 저장해 두세요.':'<b>아직 백업한 적이 없습니다</b><br>설정 → 기록 백업에서 백업 파일을 한 번 저장해 두세요.';el.classList.toggle('on',stale);}
+function renderTodayReview(){const all=dueAll(9999),c=all.filter(x=>x.kind==='course').length,h=all.filter(x=>x.kind==='hear').length,l=all.length-c-h,btn=document.getElementById('rt-btn');if(!btn)return;
+  document.getElementById('rt-n').innerHTML=`${all.length}<small>개</small>`;document.getElementById('rt-split').textContent=all.length?`말하기 ${c+l} (70일 과정 ${c} · 생활회화 ${l}) · 듣기 ${h} · 한 번에 최대 15개`:'오늘 복습할 문장이 없습니다. 출근길·퇴근길로 새 문장을 익히세요.';btn.disabled=!all.length;btn.style.opacity=all.length?'':'.45';}
+function openTodayReview(){const xs=dueAll(15).map(x=>x.kind==='hear'?{...x,track:true,recognition:true}:x.kind==='life'?{...x,track:true,life:true}:{id:x.id,ko:x.ko,en:x.en,track:true});if(!xs.length){alert('오늘 복습할 문장이 없습니다.');return;}quizOpen(xs,'review',15);}
+function renderTodayLife(){const el=document.getElementById('today-life');if(!el)return;el.innerHTML=todayLife().map(x=>lifeCardHTML(x,true)).join('');bindExprActions(el);renderBackupReminder();renderTodayReview();}
 function bindExprActions(root=document){
   root.querySelectorAll('[data-act="speak"]').forEach(b=>b.onclick=()=>{const card=b.closest('.expr-card'),x=EXPR_BY_ID.get(card?.dataset.id)||LIFE_EXPR.find(v=>v.id===card?.dataset.id);if(x)speakNow(x.en,'en',S.set.rate)});
   root.querySelectorAll('[data-act="fav"]').forEach(b=>b.onclick=()=>toggleFav(b.closest('.expr-card')?.dataset.id));
 }
 function filteredExpressions(){
-  let arr=ALL_EXPR;const q=lifeQuery.trim().toLowerCase();if(lifeFilter==='extra')arr=arr.filter(x=>x.type==='extra');else if(lifeFilter==='course')arr=arr.filter(x=>x.type==='course');else if(lifeFilter==='fav')arr=arr.filter(x=>isFav(x.id));else if(['g','y','r'].includes(lifeFilter))arr=arr.filter(x=>x.tone===lifeFilter);
-  if(q)arr=arr.filter(x=>`${x.en} ${x.ko} ${x.cat} ${x.courseRef||''}`.toLowerCase().includes(q));return arr;
+  let arr=ALL_EXPR;const q=lifeQuery.trim().toLowerCase();if(lifeFilter==='extra')arr=arr.filter(x=>x.type==='extra');else if(lifeFilter==='course')arr=arr.filter(x=>x.type==='course');else if(lifeFilter==='fav')arr=arr.filter(x=>isFav(x.id));else if(lifeFilter==='core')arr=arr.filter(x=>x.tier==='core');else if(['g','y','r'].includes(lifeFilter))arr=arr.filter(x=>x.type==='extra'&&x.tone===lifeFilter);
+  if(q)arr=arr.filter(x=>`${x.en} ${x.ko} ${x.cat} ${(x.courseRefs||[]).join(' ')}`.toLowerCase().includes(q));return arr;
+}
+function renderSpecial(){if(specialRendered)return;specialRendered=true;
+  const mis=document.getElementById('mislead-list');mis.innerHTML=MISLEADING.map(o=>{const x=EXPR_BY_ID.get(o.id)||RAW_LIFE_EXPR.find(v=>v.id===o.id);return x?`<div class="expr-card"><div class="expr-en">${esc(x.en)}</div><div class="expr-ko">❌ ${esc(o.wrong)}<br><b style="color:var(--signal)">⭕ ${esc(x.ko)}</b></div></div>`:''}).join('');
+  const pairs=document.getElementById('pair-list');pairs.innerHTML=PAIR_EXPR.map(p=>{const xs=p.ids.map(id=>EXPR_BY_ID.get(id)||RAW_LIFE_EXPR.find(v=>v.id===id)).filter(Boolean);return `<details class="acc"><summary>${esc(p.title)}</summary><div class="bodyx"><div class="compare-grid">${xs.map(x=>`<div class="compare-card"><div class="en">${esc(x.en)}</div><div class="ko">${esc(x.ko)}</div><div class="expr-meta"><span class="tag ${x.tone}">${lifeToneLabel(x.tone)}</span></div></div>`).join('')}</div></div></details>`}).join('');
+  const row=c=>{const x=EXPR_BY_ID.get(c.rightId)||RAW_LIFE_EXPR.find(v=>v.id===c.rightId);return x?`<div class="corr-row"><div><div class="corr-wrong">${esc(c.wrong)}</div>${c.note?`<div class="corr-note">${esc(c.note)}</div>`:''}</div><div class="corr-arrow">→</div><div><div class="corr-right">${esc(x.en)}</div><div class="ko" style="margin-top:3px">${esc(x.ko)}</div></div></div>`:''};
+  document.getElementById('corr-list').innerHTML=CORRECTIONS.map(row).join('');document.getElementById('natural-list').innerHTML=NATURAL_NOTES.map(row).join('');
 }
 function renderLife(){
-  const host=document.getElementById('expr-list');if(!host)return;const arr=filteredExpressions();
+  const host=document.getElementById('expr-list');if(!host)return;renderSpecial();const arr=filteredExpressions();const shown=arr.slice(0,lifeVisible);
   document.getElementById('life-count').textContent=`70일 과정 ${COURSE_EXPR.length} · 신규 생활회화 ${LIFE_EXPR.length} · 통합 ${ALL_EXPR.length}`;
-  const vals=Object.values(S.lifeMarks||{});document.getElementById('life-fav-count').textContent=(S.favorites||[]).length;document.getElementById('life-auto-count').textContent=vals.filter(x=>x.auto).length;document.getElementById('life-weak-count').textContent=vals.filter(x=>x.lv&&x.lv!=='o'&&!x.auto).length;
+  const vals=Object.values(S.lifeMarks||{});/* 말하기 기록 기준 */document.getElementById('life-fav-count').textContent=(S.favorites||[]).length;document.getElementById('life-auto-count').textContent=vals.filter(x=>x.auto).length;document.getElementById('life-weak-count').textContent=vals.filter(x=>x.lv&&x.lv!=='o'&&!x.auto).length;
+  document.querySelectorAll('#mislead-list,#pair-list,#corr-list,#natural-list').forEach(el=>el.closest('.sec,details')?.classList.toggle('search-hidden',!!lifeQuery.trim()));
   if(!arr.length){host.innerHTML='<div class="life-empty">조건에 맞는 표현이 없습니다.</div>';return;}
-  const groups=new Map();arr.forEach(x=>{const k=x.cat||'기타';if(!groups.has(k))groups.set(k,[]);groups.get(k).push(x)});
-  host.innerHTML=[...groups].map(([cat,items])=>`<div class="expr-group"><div class="expr-head"><b>${esc(cat)}</b><span>${items.length} PHRASES</span></div>${items.map(x=>lifeCardHTML(x)).join('')}</div>`).join('');bindExprActions(host);
-  const mis=document.getElementById('mislead-list');mis.innerHTML=MISLEADING.map(o=>{const x=EXPR_BY_ID.get(o.id)||RAW_LIFE_EXPR.find(v=>v.id===o.id);return x?`<div class="expr-card"><div class="expr-en">${esc(x.en)}</div><div class="expr-ko">❌ ${esc(o.wrong)}<br><b style="color:var(--signal)">⭕ ${esc(x.ko)}</b></div></div>`:''}).join('');
-  const pairs=document.getElementById('pair-list');pairs.innerHTML=PAIR_EXPR.map(p=>{const xs=p.ids.map(id=>EXPR_BY_ID.get(id)||RAW_LIFE_EXPR.find(v=>v.id===id)).filter(Boolean);return `<div class="acc" open><summary>${esc(p.title)}</summary><div class="bodyx"><div class="compare-grid">${xs.map(x=>`<div class="compare-card"><div class="en">${esc(x.en)}</div><div class="ko">${esc(x.ko)}</div><div class="expr-meta"><span class="tag ${x.tone}">${lifeToneLabel(x.tone)}</span></div></div>`).join('')}</div></div></div>`}).join('');
-  const corr=document.getElementById('corr-list');corr.innerHTML=CORRECTIONS.map(c=>{const x=EXPR_BY_ID.get(c.rightId)||RAW_LIFE_EXPR.find(v=>v.id===c.rightId);return x?`<div class="corr-row"><div class="corr-wrong">${esc(c.wrong)}</div><div class="corr-arrow">→</div><div><div class="corr-right">${esc(x.en)}</div><div class="ko" style="margin-top:3px">${esc(x.ko)}</div></div></div>`:''}).join('');
+  const groups=new Map();shown.forEach(x=>{const k=x.cat||'기타';if(!groups.has(k))groups.set(k,[]);groups.get(k).push(x)});
+  host.innerHTML=[...groups].map(([cat,items])=>`<div class="expr-group"><div class="expr-head"><b>${esc(cat)}</b><span>${items.length} PHRASES</span></div>${items.map(x=>lifeCardHTML(x)).join('')}</div>`).join('')+(arr.length>shown.length?`<div class="more-row"><button class="btn" id="life-more-btn" style="width:auto;padding:10px 18px">더 보기 (${shown.length}/${arr.length})</button></div>`:'');bindExprActions(host);document.getElementById('life-more-btn')?.addEventListener('click',()=>{lifeVisible+=60;renderLife();});
 }
-function openLifeQuiz(){
-  let pool=LIFE_EXPR.filter(x=>x.tone!=='r'&&x.use!=='recognition');const weak=pool.filter(x=>S.lifeMarks[x.id]?.lv&&S.lifeMarks[x.id].lv!=='o');const fav=pool.filter(x=>isFav(x.id));const mixed=[...weak,...fav,...shuffle(pool)];Q.pool=[...new Map(mixed.map(x=>[x.id,{...x,track:true}])).values()].slice(0,12);Q.mode='life';Q.i=0;document.getElementById('quiz').classList.add('on');nextQ();
-}
+const QUIZ_TITLE={course:'3초 목표 인출 퀴즈',life:'생활회화 · 말하기',recognition:'듣고 뜻 말하기',favorites:'⭐ 내 표현 복습',review:'오늘 복습'};
+function quizOpen(pool,mode,limit=12){Q.pool=pool.slice(0,limit);Q.mode=mode;Q.i=0;Q.res={o:0,t:0,x:0};Q.logged=false;document.getElementById('q-title').textContent=QUIZ_TITLE[mode]||QUIZ_TITLE.course;document.getElementById('quiz').classList.add('on');nextQ();}
+function openLifeQuiz(){let pool=LIFE_EXPR.filter(x=>x.tone!=='r'&&x.use!=='recognition');const dueNow=dueLife(20),fav=pool.filter(x=>isFav(x.id)),mixed=[...dueNow,...fav,...shuffle(pool)];quizOpen([...new Map(mixed.map(x=>[x.id,{...x,track:true}])).values()],'life');}
+function openRecognitionQuiz(){let pool=LIFE_EXPR.filter(x=>x.tone==='r'||x.use==='recognition'||MISLEADING.some(m=>m.id===x.id));const dueRec=dueLife(20,{includeRecognition:true,store:'hearMarks'}).filter(x=>pool.some(p=>p.id===x.id));const mixed=[...dueRec,...shuffle(pool)];quizOpen([...new Map(mixed.map(x=>[x.id,{...x,track:true,recognition:true}])).values()],'recognition');}
+function openTodayLifeQuiz(){quizOpen(todayLife().map(x=>({...x,track:true})),'life');}
+function courseTrackId(x){for(const ref of (x.courseRefs||[])){const m=/^DAY (\d+) 핵심 (\d+)$/.exec(ref);if(m)return sid(Number(m[1]),Number(m[2])-1);}return null;}
+function openFavoriteQuiz(){const xs=ALL_EXPR.filter(x=>isFav(x.id)).map(x=>{if(x.type==='extra')return {...x,track:true,recognition:isRecogItem(x)};const tid=courseTrackId(x);return tid?{...x,id:tid,track:true,type:'course'}:{...x,track:true,life:true,type:'course'};});if(!xs.length){alert('즐겨찾기한 표현이 없습니다.');return;}quizOpen(shuffle(xs),'favorites');}
 
 /* ═══════════ TRANSIT QUIZ ═══════════ */
-const Q={pool:[],i:0,cur:null,timer:null,mode:'course'};
+const Q={pool:[],i:0,cur:null,timer:null,mode:'course',tok:0,res:{o:0,t:0,x:0}};
+const isRecQ=()=>Q.mode==='recognition'||!!Q.cur?.recognition;
 function openQuiz(){
-  Q.mode='course';
+  Q.mode='course';Q.res={o:0,t:0,x:0};Q.logged=false;document.getElementById('q-title').textContent=QUIZ_TITLE.course;
   const d=dd(S.day),week=wk(S.day);
   const base=d.c.map((x,i)=>({id:sid(S.day,i),ko:x[0],en:x[1],track:true}));
-  const rev=due(S.day<=2?0:4,{coreOnly:true,maxDay:Math.max(1,S.day-1)}).map(x=>({id:x.id,ko:x.ko,en:x.en,track:true}));
+  // DAY 학습 퀴즈의 과정 복습은 지금 보고 있는 DAY까지만 (통합 '오늘 복습'은 progressDay 기준)
+  // v8.2: 듣기 전용(hear) 복습은 '오늘 복습'과 '듣고 뜻 말하기'에서만 다룬다. 한→영 인출 퀴즈에서는 제외.
+  const rev=dueAll(S.day<=2?0:4,{maxDay:S.day}).filter(x=>x.kind!=='hear').map(x=>x.kind==='life'?({id:x.id,ko:x.ko,en:x.en,track:true,life:true}):({id:x.id,ko:x.ko,en:x.en,track:true}));
   const rescue=(RESCUE_WEEKS.has(week)?RESCUE.slice(0,3):[]).map((x,i)=>({id:'rescue:'+i,ko:x[0],en:x[1],track:false}));
   const unique=[...new Map([...base,...rev,...rescue].map(x=>[x.id,x])).values()];
   Q.pool=shuffle(unique).slice(0,12);
   Q.i=0;document.getElementById('quiz').classList.add('on');nextQ();
 }
+function startQTimer(){let n=3;const t=document.getElementById('q-timer');t.textContent=n;clearInterval(Q.timer);
+  Q.timer=setInterval(()=>{n--;t.textContent=n>0?n:'말하세요';if(n<=0)clearInterval(Q.timer);},1000);}
 function nextQ(){
-  clearInterval(Q.timer);
+  clearInterval(Q.timer);const tok=++Q.tok;
+  const qko=document.getElementById('q-ko'),qen=document.getElementById('q-en'),rp=document.getElementById('q-replay');
   if(Q.i>=Q.pool.length){
-    document.getElementById('q-ko').textContent='끝났습니다';
-    document.getElementById('q-en').textContent='';document.getElementById('q-en').className='qen';
+    qko.textContent='끝났습니다';
+    const r=Q.res||{o:0,t:0,x:0},miss=r.t+r.x;
+    qen.innerHTML=Q.pool.length?`<div class="qsum"><span class="o">⭕ ${r.o}</span><span class="t">△ ${r.t}</span><span class="x">❌ ${r.x}</span></div><div style="font-size:12px;color:var(--dim);margin-top:12px;font-family:inherit;font-weight:500">${miss?'❌는 1일, △는 3일 뒤 다시 나옵니다.':'모두 ⭕. 다음 복습은 7일 뒤입니다.'}</div>`:'';
+    qen.className='qen show';rp.style.display='none';
     document.getElementById('q-timer').textContent='✓';
     document.getElementById('q-show').style.display='none';
     document.getElementById('q-mk').style.display='none';
     document.getElementById('q-prog').textContent=`${Q.pool.length}문장 완료`;
+    if(Q.pool.length&&!Q.logged){Q.logged=true;logSession('q:'+Q.mode,S.day,Q.pool.length);}
     save();render();return;}
   Q.cur=Q.pool[Q.i];
-  document.getElementById('q-ko').textContent=Q.cur.ko;
-  document.getElementById('q-en').textContent=Q.cur.en;
-  document.getElementById('q-en').className='qen';
+  qen.className='qen';
   document.getElementById('q-show').style.display='';document.getElementById('q-mk').style.display='none';
   document.getElementById('q-prog').textContent=`${Q.i+1} / ${Q.pool.length}`;
-  let n=3;document.getElementById('q-timer').textContent=n;
-  Q.timer=setInterval(()=>{n--;document.getElementById('q-timer').textContent=n>0?n:'말하세요';
-    if(n<=0)clearInterval(Q.timer);},1000);
+  if(isRecQ()){
+    // v8.0: 영어 음성이 끝난 뒤에 3초 카운트다운을 시작한다.
+    qko.textContent='영어를 듣고 뜻을 말해 보세요';qen.textContent=Q.cur.ko;rp.style.display='block';
+    document.getElementById('q-timer').textContent='🔊';
+    setTimeout(async()=>{if(tok!==Q.tok)return;await speakNow(Q.cur.en,'en',S.set.rate);if(tok!==Q.tok)return;startQTimer();},120);
+  }else{qko.textContent=Q.cur.ko;qen.textContent=Q.cur.en;rp.style.display='none';startQTimer();}
 }
 
 /* ═══════════ RENDER ═══════════ */
@@ -2320,7 +2534,7 @@ function render(){
   const bar=document.getElementById('daybar');
   bar.innerHTML=Array.from({length:TOTAL_DAYS},(_,i)=>{const x=i+1;
     return `<button class="dchip ${x===n?'on':''} ${amS.has(x)&&pmS.has(x)?'done':''}" data-d="${x}">
-      <b>${String(x).padStart(2,'0')}</b><i>W${wk(x)}</i></button>`;}).join('');
+      <b>${String(x).padStart(2,'0')}</b><i>W${wk(x)}</i><span class="db"><u class="${amS.has(x)?'a':''}"></u><u class="${pmS.has(x)?'p':''}"></u></span></button>`;}).join('');
   bar.querySelectorAll('.dchip').forEach(b=>b.onclick=async()=>{const target=+b.dataset.d;
     const unlocked=target<=S.progressDay||((S.done[target]||{}).am||(S.done[target]||{}).pm);
     if(!unlocked){alert('현재 Day를 완료한 뒤 다음 Day로 이동할 수 있습니다.');return;}
@@ -2334,6 +2548,7 @@ function render(){
   document.getElementById('btn-pm').classList.toggle('sug',h>=12&&!pmDone);
   document.getElementById('btn-am').classList.toggle('done',amDone);
   document.getElementById('btn-pm').classList.toggle('done',pmDone);
+  try{renderProgressCard();renderLog();}catch(e){console.warn(e);}
 
   // survival
   const sv=RESCUE[(n-1)%RESCUE.length];
@@ -2361,14 +2576,15 @@ function render(){
   }else{phSec.style.display='none';ph.innerHTML='';}
 
   // weak
-  const weak=Object.entries(S.marks).filter(([id,m])=>isCoreId(id)&&!m.auto&&m.lv&&m.lv!=='o')
-    .sort((a,b)=>(b[1].miss||0)-(a[1].miss||0)).slice(0,5);
+  const courseWeak=Object.entries(S.marks).filter(([id,m])=>isCoreId(id)&&!m.auto&&m.lv&&m.lv!=='o').map(([id,m])=>({id,m,life:false}));
+  const lifeWeak=lifeTrackPool().filter(x=>{const m=S.lifeMarks?.[x.id];return m&&!m.auto&&m.lv&&m.lv!=='o'&&!isRecogItem(x);}).map(x=>({id:x.id,m:S.lifeMarks[x.id],life:true}));
+  const weak=[...courseWeak,...lifeWeak].sort((a,b)=>(b.m.miss||0)-(a.m.miss||0)).slice(0,5);
   document.getElementById('weak-n').textContent=weak.length?weak.length+'개':'';
-  document.getElementById('weak-list').innerHTML=weak.length?weak.map(([id,m])=>
+  document.getElementById('weak-list').innerHTML=weak.length?weak.map(({id,m,life})=>
     `<div class="item"><div class="bd"><div class="en">${esc(m.en)}</div><div class="ko">${esc(m.ko)}</div></div>
-     <span class="badge ${m.lv}">${m.lv==='x'?'못함':'느림'}</span>
+     ${life?'<span class="badge t">생활</span>':''}<span class="badge ${m.lv}">${m.lv==='x'?'못함':'느림'}</span>
      <button class="spk" data-en="${esc(m.en)}">🔊</button></div>`).join('')
-    :`<div class="empty">아직 없습니다.<br>세션을 끝내고 자가 평가를 하면<br>막힌 문장이 여기 모여 다시 나옵니다.</div>`;
+    :`<div class="empty">아직 없습니다.<br>70일 과정과 생활회화에서 평가한 뒤<br>막힌 문장이 여기 함께 모입니다.</div>`;
   document.querySelectorAll('#weak-list .spk').forEach(b=>b.onclick=()=>speakNow(b.dataset.en,'en',S.set.rate));
 
   // dialogue
@@ -2386,8 +2602,10 @@ function render(){
   const autoEnglish=new Set(coreMarks.filter(([,m])=>m.auto).map(([,m])=>m.en));
   const core24Auto=CORE24.filter(([en])=>autoEnglish.has(en)).length;
   const core24Pct=Math.round(core24Auto/CORE24.length*100);
-  document.getElementById('p-auto').textContent=auto;
-  document.getElementById('p-weak').textContent=wkc;
+  // v8.1: 진도 통계는 70일 과정 + 생활회화(말하기, ⭐ 표현 포함)를 합산한다.
+  const lvals=Object.values(S.lifeMarks||{}),lAuto=lvals.filter(m=>m&&m.auto).length,lWeak=lvals.filter(m=>m&&!m.auto&&m.lv&&m.lv!=='o').length;
+  document.getElementById('p-auto').textContent=auto+lAuto;document.getElementById('p-auto-split').textContent=`과정 ${auto} · 생활 ${lAuto}`;
+  document.getElementById('p-weak').textContent=wkc+lWeak;document.getElementById('p-weak-split').textContent=`과정 ${wkc} · 생활 ${lWeak}`;
   document.getElementById('p-streak').textContent=S.streak;
   document.getElementById('core24-count').textContent=`${core24Auto} / ${CORE24.length}`;
   const coreBar=document.getElementById('core24-bar'),coreBarWrap=coreBar.parentElement;coreBar.style.width=core24Pct+'%';coreBarWrap.setAttribute('aria-valuenow',String(core24Auto));
@@ -2403,8 +2621,8 @@ function render(){
     if(v&&v.pm&&v.pm>=wStartKey)pm++;});
   document.getElementById('weekly').innerHTML=
     `최근 7일 &nbsp; 출근 <b>${am}회</b> · 퇴근 <b>${pm}회</b><br>
-     자동화 문장 <b>${auto}개</b> · CORE24 <b>${core24Auto}/${CORE24.length}</b> · 다시 볼 문장 <b>${wkc}개</b><br>
-     ${wkc===0&&auto>0?'취약 문장이 비었습니다. 다음 Day로 넘어가세요.':'취약 문장이 줄어드는 게 진짜 진도입니다.'}`;
+     자동화 문장 <b>${auto+lAuto}개</b> (과정 ${auto} · 생활 ${lAuto}) · CORE24 <b>${core24Auto}/${CORE24.length}</b> · 다시 볼 문장 <b>${wkc+lWeak}개</b><br>
+     ${wkc+lWeak===0&&auto+lAuto>0?'취약 문장이 비었습니다. 다음 Day로 넘어가세요.':'취약 문장이 줄어드는 게 진짜 진도입니다.'}`;
 
   // reference
   document.getElementById('ref-core').innerHTML=CORE24.map((x,i)=>
@@ -2446,10 +2664,10 @@ function render(){
     `want · need · have · get · go · come · take · find · lose · pay · book · change · wait · help · leave · arrive
      <div class="vtab" style="margin-top:12px">${VERBS.map(v=>`<div><i>${v[0]}</i> → <b>${v[1]}</b></div>`).join('')}</div>`;
   document.querySelectorAll('.acc .spk').forEach(b=>b.onclick=()=>speakNow(b.dataset.en,'en',S.set.rate));
-  renderTodayLife();renderLife();
+  renderTodayLife();renderLife();try{renderSafetyInfo();}catch(e){}
 
-  ['len','gap','rate','rep','txt','wake'].forEach(k=>{
-    const id={len:'seg-len',gap:'seg-gap',rate:'seg-rate',rep:'seg-rep',txt:'seg-txt',wake:'seg-wake'}[k];
+  ['len','gap','rate','rep','txt','wake','lifeRide'].forEach(k=>{
+    const id={len:'seg-len',gap:'seg-gap',rate:'seg-rate',rep:'seg-rep',txt:'seg-txt',wake:'seg-wake',lifeRide:'seg-lifeRide'}[k];
     document.querySelectorAll('#'+id+' button').forEach(b=>
       b.classList.toggle('on',parseFloat(b.dataset.v)===parseFloat(S.set[k])));});
 }
@@ -2461,9 +2679,15 @@ document.querySelectorAll('.nbtn').forEach(b=>b.onclick=()=>{
   document.getElementById('s-'+b.dataset.s).classList.add('on');if(b.dataset.s==='expr')renderLife();window.scrollTo(0,0);});
 function openExprScreen(){const b=document.querySelector('.nbtn[data-s="expr"]');if(b)b.click();}
 document.getElementById('today-life-more').onclick=openExprScreen;
+document.getElementById('today-life-quiz').onclick=openTodayLifeQuiz;
+document.getElementById('rt-btn').onclick=openTodayReview;
+document.getElementById('pc-resume').onclick=()=>{const P=S.partial;if(!P)return;openDrive(P.kind,P);};
+document.getElementById('q-replay').onclick=()=>{if(Q.cur)speakNow(Q.cur.en,'en',S.set.rate);};
 document.getElementById('life-quiz-btn').onclick=openLifeQuiz;
-document.getElementById('life-search').addEventListener('input',e=>{lifeQuery=e.target.value;renderLife();});
-document.getElementById('life-chips').addEventListener('click',e=>{const b=e.target.closest('.life-chip');if(!b)return;lifeFilter=b.dataset.f;document.querySelectorAll('#life-chips .life-chip').forEach(x=>x.classList.toggle('on',x===b));renderLife();});
+document.getElementById('life-recog-btn').onclick=openRecognitionQuiz;
+document.getElementById('fav-quiz-btn').onclick=openFavoriteQuiz;
+document.getElementById('life-search').addEventListener('input',e=>{lifeQuery=e.target.value;lifeVisible=60;clearTimeout(lifeSearchTimer);lifeSearchTimer=setTimeout(renderLife,200);});
+document.getElementById('life-chips').addEventListener('click',e=>{const b=e.target.closest('.life-chip');if(!b)return;lifeFilter=b.dataset.f;lifeVisible=60;document.querySelectorAll('#life-chips .life-chip').forEach(x=>x.classList.toggle('on',x===b));renderLife();});
 
 document.getElementById('audio-test').onclick=async e=>{const b=e.currentTarget,oldText=b.textContent;b.textContent='🔊 재생 중…';b.disabled=true;
   initSilent();try{await silentEl.play();}catch(err){}try{pv();safeSpeechCancel();speechSynthesis.resume();}catch(err){}
@@ -2481,29 +2705,51 @@ document.getElementById('rv-skip').onclick=()=>saveReview(true);
 document.getElementById('hide-btn').onclick=e=>{hideKo=!hideKo;e.target.textContent=hideKo?'뜻 보이기':'뜻 가리기';render();};
 
 document.getElementById('quiz-btn').onclick=openQuiz;
-document.getElementById('q-close').onclick=()=>{clearInterval(Q.timer);safeSpeechCancel();document.getElementById('quiz').classList.remove('on');};
+document.getElementById('q-close').onclick=()=>{Q.tok++;clearInterval(Q.timer);safeSpeechCancel();document.getElementById('quiz').classList.remove('on');renderLife();renderTodayLife();render();};
 document.getElementById('q-show').onclick=()=>{clearInterval(Q.timer);
-  document.getElementById('q-en').classList.add('show');speakNow(Q.cur.en,'en',S.set.rate);
+  Q.tok++;document.getElementById('q-en').classList.add('show');if(isRecQ())document.getElementById('q-ko').textContent=Q.cur.en;speakNow(Q.cur.en,'en',S.set.rate);
   document.getElementById('q-show').style.display='none';document.getElementById('q-mk').style.display='';};
 document.getElementById('q-mk').onclick=async e=>{const b=e.target.closest('button');if(!b)return;
-  haptic(b.dataset.m==='o'?10:7);if(Q.cur.track!==false){if(Q.mode==='life')applyLifeMark(Q.cur,b.dataset.m);else applyMark(Q.cur.id,Q.cur.ko,Q.cur.en,b.dataset.m);}await save();Q.i++;nextQ();};
+  haptic(b.dataset.m==='o'?10:7);Q.res[b.dataset.m]=(Q.res[b.dataset.m]||0)+1;if(Q.cur.track!==false){if(isRecQ())applyLifeMark(Q.cur,b.dataset.m,'hearMarks');else if(Q.mode==='life'||(Q.mode==='favorites'&&Q.cur.type==='extra')||Q.cur.life)applyLifeMark(Q.cur,b.dataset.m);else applyMark(Q.cur.id,Q.cur.ko,Q.cur.en,b.dataset.m);}await save();Q.i++;nextQ();};
 
 document.getElementById('dlg-play').onclick=async()=>{const tok=++dlgTok;safeSpeechCancel();
   for(const x of dd(S.day).d){if(tok!==dlgTok)return;await speak(x[1],'en',S.set.rate);if(tok!==dlgTok)return;await delay(400);}};
 
-[['seg-len','len'],['seg-gap','gap'],['seg-rate','rate'],['seg-rep','rep'],['seg-txt','txt'],['seg-wake','wake']]
+[['seg-len','len'],['seg-gap','gap'],['seg-rate','rate'],['seg-rep','rep'],['seg-txt','txt'],['seg-wake','wake'],['seg-lifeRide','lifeRide']]
  .forEach(([id,k])=>document.getElementById(id).addEventListener('click',async e=>{
    const b=e.target.closest('button');if(!b)return;S.set[k]=parseFloat(b.dataset.v);await save();render();}));
 
-document.getElementById('exp-btn').onclick=()=>{document.getElementById('backup').value=JSON.stringify(S);};
+function backupPayload(){return {app:'commute-english',version:'8.2',exportedAt:new Date().toISOString(),state:S};}
+function stampBackup(){S.lastBackup=tKey();save();renderBackupReminder();}
+function renderSafetyInfo(){const el=document.getElementById('safety-info');if(!el)return;const sb=readSafety();el.textContent=sb?`보관 중: ${sb.reason} · ${sb.at.slice(0,16).replace('T',' ')} (UTC)`:'불러오기·초기화·버전 업데이트 직전 상태가 자동으로 1개 보관됩니다. 아직 보관된 안전백업이 없습니다.';}
+// v8.1: 텍스트 백업은 클립보드 복사에 성공했을 때만 백업 날짜를 갱신한다.
+document.getElementById('exp-btn').onclick=async()=>{const ta=document.getElementById('backup');ta.value=JSON.stringify(backupPayload());
+  try{if(!navigator.clipboard?.writeText)throw 0;await navigator.clipboard.writeText(ta.value);stampBackup();alert('백업 텍스트를 클립보드에 복사했습니다. 메모 앱 등에 붙여넣어 보관하세요.');}
+  catch(e){ta.focus();ta.select();alert('자동 복사가 되지 않았습니다. 아래 텍스트를 길게 눌러 직접 복사해 보관하세요.\n(직접 복사는 백업 날짜에 기록되지 않으니 파일 저장도 함께 권장합니다.)');}};
+document.getElementById('file-exp-btn').onclick=()=>{const blob=new Blob([JSON.stringify(backupPayload(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`commute-english-backup-${tKey()}.json`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},0);stampBackup();};
+document.getElementById('file-imp-btn').onclick=()=>document.getElementById('backup-file').click();
+document.getElementById('backup-file').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{await importState(JSON.parse(await f.text()),'백업 파일');}catch(err){alert('올바른 백업 JSON 파일이 아닙니다.');}e.target.value='';};
+// v8.0: 텍스트·파일 불러오기 공통. 파일 백업의 {app,version,state} 포장을 풀고, 내용 확인 후 현재 기록을 안전백업한 뒤 복원한다.
+async function importState(obj,label){
+  const v=obj&&typeof obj==='object'&&obj.state&&typeof obj.state==='object'?obj.state:obj;
+  if(!v||typeof v!=='object'||!(v.done||v.marks||v.lifeMarks||v.day))throw new Error('empty');
+  const next=normalizeState(v);
+  if(!confirm(`${label}을 불러옵니다.\n\n불러올 기록: ${stateSummary(next)}\n현재 기록: ${stateSummary(S)}\n\n현재 기록은 안전백업으로 보관됩니다. 계속할까요?`))return;
+  writeSafety(label+' 불러오기 전',S);S=next;specialRendered=false;await save();render();alert('불러왔습니다. 문제가 있으면 설정 → 직전 상태로 되돌리기를 누르세요.');
+}
 document.getElementById('imp-btn').onclick=async()=>{
-  try{const v=JSON.parse(document.getElementById('backup').value);
-    if(!v||typeof v!=='object')throw 0;
-    S=normalizeState(v);await save();render();
-    alert('불러왔습니다.');}catch(e){alert('형식이 맞지 않습니다. 내보낸 내용을 그대로 붙여넣으세요.');}};
+  try{await importState(JSON.parse(document.getElementById('backup').value),'텍스트 백업');}
+  catch(e){alert('형식이 맞지 않습니다. 내보낸 내용을 그대로 붙여넣으세요.');}};
+document.getElementById('safety-restore').onclick=async()=>{const sb=readSafety();if(!sb){alert('보관된 안전백업이 없습니다.');return;}
+  let v;try{v=normalizeState(JSON.parse(sb.raw));}catch(e){alert('안전백업을 읽을 수 없습니다.');return;}
+  if(!confirm(`안전백업(${sb.reason}, ${sb.at.slice(0,10)})으로 되돌립니다.\n\n되돌릴 기록: ${stateSummary(v)}\n현재 기록: ${stateSummary(S)}\n\n현재 기록과 안전백업을 서로 맞바꿉니다. 계속할까요?`))return;
+  writeSafety('되돌리기 전',S);S=v;await save();render();alert('되돌렸습니다.');};
 document.getElementById('reset-btn').onclick=async()=>{
-  if(!confirm('진도와 평가 기록을 모두 지웁니다. 계속할까요?'))return;
-  S=JSON.parse(JSON.stringify(DEF));await save();render();};
+  if(!confirm('진도·평가·생활회화·즐겨찾기 기록과 온보딩·마일스톤 확인 기록을 모두 지웁니다.\n직전 상태는 안전백업으로 1개 보관됩니다. 계속할까요?'))return;
+  writeSafety('모든 기록 지우기 전',S);
+  // v8.0: S 외에 따로 저장되는 온보딩·마일스톤·구버전 키까지 지운다. 안전백업(SAFETY_KEY)만 남긴다.
+  try{const rm=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k!==SAFETY_KEY&&(k.startsWith('cec-')))rm.push(k);}rm.forEach(k=>localStorage.removeItem(k));}catch(e){}
+  S=JSON.parse(JSON.stringify(DEF));await save();render();setTimeout(openOnboarding,260);};
 
 /* boot — 미평가 세션 자동 회수 */
 (async()=>{await load();render();
