@@ -1,0 +1,2517 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070E16">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>출퇴근 여행영어 코치 v7.0 · 70일 + 생활회화</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+ --ink:#070E16;--panel:#0E1B27;--panel2:#142534;--line:#1E3547;--line2:#2A4459;
+ --text:#E6EEF4;--dim:#7C93A6;--dim2:#52697C;
+ --signal:#35D6C4;--violet:#8E7CF0;--amber:#F2A64B;--red:#E05C5C;
+ --sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%}
+body{background:var(--ink);color:var(--text);font-family:'Noto Sans KR','Archivo',-apple-system,sans-serif;
+ -webkit-font-smoothing:antialiased;overscroll-behavior:none}
+button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+.mono{font-family:'IBM Plex Mono',monospace}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;
+ text-transform:uppercase;color:var(--dim2);font-weight:500}
+#app{max-width:480px;margin:0 auto;min-height:100%}
+.screen{display:none;padding:calc(var(--st) + 18px) 16px calc(var(--sb) + 96px)}
+.screen.on{display:block}
+
+/* header */
+.mast{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px}
+.brand{font-family:'Archivo',sans-serif;font-weight:700;font-size:14.5px;letter-spacing:-.01em}
+.brand span{color:var(--signal)}
+.mstat{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim)}
+.mstat b{color:var(--amber);font-weight:600}
+
+/* daybar */
+.daybar{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.daybar::-webkit-scrollbar{display:none}
+.dchip{flex:0 0 auto;min-width:46px;border:1px solid var(--line);border-radius:11px;
+ padding:8px 6px;text-align:center;background:var(--panel);font-family:'IBM Plex Mono',monospace}
+.dchip b{display:block;font-size:13px;font-weight:600;color:var(--dim)}
+.dchip i{display:block;font-style:normal;font-size:8.5px;color:var(--dim2);margin-top:3px;letter-spacing:.08em}
+.dchip.on{background:var(--signal);border-color:var(--signal)}
+.dchip.on b,.dchip.on i{color:#04141A}
+.dchip.done b{color:var(--signal)}
+.dchip.done.on b{color:#04141A}
+
+/* today card */
+.card{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);
+ border-radius:18px;padding:18px 17px;position:relative;overflow:hidden}
+.card::after{content:'';position:absolute;top:-45%;right:-18%;width:70%;height:180%;
+ background:radial-gradient(circle,rgba(53,214,196,.10),transparent 68%);pointer-events:none}
+.pat{font-family:'Archivo',sans-serif;font-size:25px;font-weight:700;letter-spacing:-.025em;
+ margin:11px 0 5px;line-height:1.15}
+.mean{font-size:12.5px;color:var(--dim);line-height:1.5}
+.wchip{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.13em;
+ border:1px solid var(--line2);border-radius:99px;padding:5px 10px;color:var(--dim)}
+
+/* session length */
+.seg{display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--panel)}
+.seg button{flex:1;padding:11px 0;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--dim2)}
+.seg button.on{background:var(--signal);color:#04141A;font-weight:600}
+.seg.sm button{padding:9px 12px;font-size:11.5px;flex:0 0 auto}
+
+/* run buttons */
+.runs{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.run{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 14px;text-align:left;
+ transition:transform .12s}
+.run:active{transform:scale(.975)}
+.run .dot{width:8px;height:8px;border-radius:99px;display:block}
+.run .k{font-family:'Archivo',sans-serif;font-size:18px;font-weight:700;margin:8px 0 3px}
+.run .s{font-size:11px;color:var(--dim);line-height:1.5}
+.run.am{border-color:rgba(53,214,196,.34)} .run.am .dot{background:var(--signal);box-shadow:0 0 11px rgba(53,214,196,.7)}
+.run.pm{border-color:rgba(142,124,240,.34)} .run.pm .dot{background:var(--violet);box-shadow:0 0 11px rgba(142,124,240,.7)}
+.run.done{opacity:.5} .run.done .k::after{content:' ✓';color:var(--signal);font-size:14px}
+.run.sug{box-shadow:0 0 0 2px rgba(53,214,196,.22)}
+
+.sec{margin-top:22px}
+.sechead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.link{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--signal)}
+
+/* survival strip */
+.surv{background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--amber);
+ border-radius:13px;padding:14px 15px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.surv .en{font-family:'Archivo',sans-serif;font-size:16px;font-weight:700;letter-spacing:-.01em}
+.surv .ko{font-size:11.5px;color:var(--dim2);margin-top:3px}
+.spk{width:38px;height:38px;flex:0 0 auto;border:1px solid var(--line2);border-radius:11px;font-size:15px}
+.spk.mini{width:auto;height:auto;min-height:32px;padding:6px 10px;font-size:11px;line-height:1.35;white-space:normal;text-align:left}
+.corebox{margin-top:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 14px}
+.coretop{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:11px;color:var(--dim)}
+.coretop b{font-family:'IBM Plex Mono',monospace;color:var(--signal);font-size:14px}
+.corebar{height:6px;background:var(--line);border-radius:999px;overflow:hidden;margin-top:9px}
+.corebar i{display:block;height:100%;width:0;background:var(--signal);border-radius:999px;transition:width .35s}
+.pronhook{background:linear-gradient(180deg,rgba(92,124,250,.08),rgba(53,214,196,.04));border:1px solid rgba(92,124,250,.25);border-radius:14px;padding:14px}
+.pronhook .pt{font-family:'Archivo',sans-serif;font-weight:700;font-size:16px}
+.pronhook .pd{font-size:12px;color:var(--dim);line-height:1.65;margin-top:5px}
+.pronhook .pex{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+
+/* list */
+.list{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel)}
+.item{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;gap:11px;align-items:center}
+.item:last-child{border-bottom:0}
+.item .idx{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim2);min-width:14px}
+.item .bd{flex:1;min-width:0}
+.item .ko{font-size:11.5px;color:var(--dim);margin-bottom:3px}
+.item .en{font-family:'Archivo',sans-serif;font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.35}
+.item .ko.hide,.item .en.hide{filter:blur(6px);opacity:.55}
+.badge{font-family:'IBM Plex Mono',monospace;font-size:9px;padding:3px 7px;border-radius:99px;white-space:nowrap}
+.badge.auto{background:rgba(53,214,196,.15);color:var(--signal)}
+.badge.x{background:rgba(224,92,92,.15);color:var(--red)}
+.badge.t{background:rgba(242,166,75,.15);color:var(--amber)}
+
+.btn{width:100%;border:1px solid var(--line);border-radius:14px;padding:14px;font-size:13.5px;color:var(--dim)}
+.btn.pri{background:var(--signal);color:#04141A;font-weight:700;border-color:var(--signal);
+ font-family:'Archivo',sans-serif;font-size:15px;padding:17px}
+.btn.vio{background:var(--violet);color:#0C0620;font-weight:700;border-color:var(--violet)}
+.btn.dz{color:var(--red);border-color:rgba(224,92,92,.35)}
+.empty{color:var(--dim2);font-size:12px;line-height:1.75;text-align:center;padding:20px 10px}
+
+/* accordion */
+.acc{border:1px solid var(--line);border-radius:14px;background:var(--panel);margin-bottom:8px;overflow:hidden}
+.acc summary{padding:15px;font-size:14px;font-weight:600;list-style:none;display:flex;
+ justify-content:space-between;align-items:center;cursor:pointer}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:'+';color:var(--dim2);font-size:17px;font-family:'IBM Plex Mono',monospace}
+.acc[open] summary::after{content:'−'}
+.acc .bodyx{padding:0 15px 15px;font-size:13px;color:var(--dim);line-height:1.85}
+.acc .bodyx b{color:var(--text)}
+.rrow{display:flex;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.rrow .en{font-family:'Archivo',sans-serif;font-size:14px;font-weight:600;color:var(--text)}
+.rrow .ko{font-size:11px;color:var(--dim2);margin-top:2px}
+.vtab{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;font-family:'IBM Plex Mono',monospace;font-size:12.5px}
+.vtab i{font-style:normal;color:var(--dim2)} .vtab b{color:var(--signal);font-weight:600}
+
+/* stats + grid */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center}
+.stat .v{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;color:var(--signal);line-height:1}
+.stat .l{font-size:9.5px;color:var(--dim2);margin-top:6px;letter-spacing:.04em}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.cell{aspect-ratio:1;border:1px solid var(--line);border-radius:9px;display:flex;flex-direction:column;
+ align-items:center;justify-content:center;gap:3px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+ color:var(--dim2);background:var(--panel)}
+.cell .bars{display:flex;gap:2px}
+.cell .b{width:5px;height:3px;border-radius:1px;background:var(--line2)}
+.cell .b.f{background:var(--signal)} .cell .b.f2{background:var(--violet)}
+.cell.now{border-color:var(--signal);color:var(--text)}
+
+.setrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.setrow .lbl{font-size:13.5px;font-weight:500}
+.setrow .desc{font-size:11px;color:var(--dim2);margin-top:3px;line-height:1.5}
+.note{background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--amber);
+ border-radius:12px;padding:13px 14px;font-size:12px;line-height:1.8;color:var(--dim)}
+.note b{color:var(--text)}
+.h1{font-family:'Archivo',sans-serif;font-size:23px;font-weight:700;letter-spacing:-.025em;margin:0 0 5px}
+.sub{font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:20px}
+textarea{width:100%;height:110px;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+ color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:10.5px;padding:11px;resize:none}
+
+/* nav */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(7,14,22,.94);
+ backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px 0 calc(var(--sb) + 8px);display:flex;justify-content:center}
+.nav .w{display:flex;gap:4px;max-width:480px;width:100%;padding:0 16px}
+.nbtn{flex:1;padding:9px 0;border-radius:11px;font-family:'IBM Plex Mono',monospace;font-size:10px;
+ letter-spacing:.09em;color:var(--dim2);text-transform:uppercase}
+.nbtn.on{color:var(--signal);background:rgba(53,214,196,.09)}
+
+/* ===== DRIVE ===== */
+#drive{position:fixed;inset:0;z-index:100;background:var(--ink);display:none;flex-direction:column;
+ padding:calc(var(--st) + 12px) 16px calc(var(--sb) + 12px)}
+#drive.on{display:flex}
+.dtop{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.drivewarn{margin-top:8px;border:1px solid rgba(242,166,75,.38);background:rgba(242,166,75,.10);color:var(--amber);border-radius:10px;padding:8px 10px;text-align:center;font-size:10.5px;line-height:1.45;font-weight:600}
+.phase{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--signal)}
+.dx{font-size:21px;color:var(--dim2);padding:4px 8px;line-height:1}
+.pbar{height:2px;background:var(--line);border-radius:2px;margin-top:10px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--signal);width:0;transition:width .35s}
+.stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ring{position:relative;width:min(72vw,270px);aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+.ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.trk{fill:none;stroke:var(--line);stroke-width:2}
+.swp{fill:none;stroke:var(--amber);stroke-width:3;stroke-linecap:round}
+.tick{stroke:var(--line2);stroke-width:2}
+.tick.hot{stroke:var(--amber)} .tick.cool{stroke:var(--signal)}
+.count{position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:54px;font-weight:600;
+ color:var(--amber);line-height:1;letter-spacing:-.03em}
+.count.idle{color:var(--line2)}
+.prompt{font-size:25px;font-weight:700;line-height:1.35;word-break:keep-all;margin-top:22px;min-height:1.35em}
+.prompt.en{font-family:'Archivo',sans-serif;font-size:23px}
+.answer{font-family:'Archivo',sans-serif;font-size:27px;font-weight:700;color:var(--signal);
+ line-height:1.3;letter-spacing:-.02em;margin-top:20px;min-height:1.3em;opacity:0;transform:translateY(7px);
+ transition:opacity .28s,transform .28s}
+.answer.show{opacity:1;transform:none}
+.hint{font-size:11.5px;color:var(--dim2);margin-top:12px;font-family:'IBM Plex Mono',monospace;
+ letter-spacing:.07em;min-height:1.2em}
+.dctrl{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:9px}
+.cbtn{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:19px 0;
+ font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.09em;color:var(--dim)}
+.cbtn:active{background:var(--panel2)}
+.cbtn.main{background:var(--signal);color:#04141A;font-weight:600;font-size:14px;border-color:var(--signal);padding:23px 0}
+.cbtn.main.ps{background:var(--amber);color:#1A1004}
+
+/* ===== overlay sheets ===== */
+.sheet{position:fixed;inset:0;z-index:110;background:var(--ink);display:none;flex-direction:column;
+ padding:calc(var(--st) + 20px) 16px calc(var(--sb) + 18px);overflow-y:auto}
+.sheet.on{display:flex}
+.rvh{font-family:'Archivo',sans-serif;font-size:21px;font-weight:700;margin:7px 0 5px;letter-spacing:-.02em}
+.rvs{font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:18px}
+.rvi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:8px}
+.rvi.unmarked{border-color:rgba(224,92,92,.72);box-shadow:0 0 0 1px rgba(224,92,92,.16)}
+.rvi .ko{font-size:11px;color:var(--dim2);margin-bottom:4px}
+.rvi .en{font-family:'Archivo',sans-serif;font-size:15.5px;font-weight:600;margin-bottom:10px}
+.marks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.mk{padding:11px 0;border-radius:9px;border:1px solid var(--line);font-family:'IBM Plex Mono',monospace;
+ font-size:10.5px;color:var(--dim2)}
+.mk.sel[data-m="o"]{background:rgba(53,214,196,.16);border-color:var(--signal);color:var(--signal)}
+.mk.sel[data-m="t"]{background:rgba(242,166,75,.16);border-color:var(--amber);color:var(--amber)}
+.mk.sel[data-m="x"]{background:rgba(224,92,92,.16);border-color:var(--red);color:var(--red)}
+
+/* transit quiz */
+#quiz .qstage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0}
+.qtimer{font-family:'IBM Plex Mono',monospace;font-size:40px;font-weight:600;color:var(--amber);line-height:1}
+.qko{font-size:26px;font-weight:700;line-height:1.35;margin-top:22px;word-break:keep-all}
+.qen{font-family:'Archivo',sans-serif;font-size:25px;font-weight:700;color:var(--signal);margin-top:20px;
+ min-height:1.3em;opacity:0;transition:opacity .25s}
+.qen.show{opacity:1}
+.qmk{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.qmk button{padding:19px 0;border-radius:14px;border:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.qmk button[data-m="o"]{color:var(--signal);border-color:rgba(53,214,196,.4)}
+.qmk button[data-m="t"]{color:var(--amber);border-color:rgba(242,166,75,.4)}
+.qmk button[data-m="x"]{color:var(--red);border-color:rgba(224,92,92,.4)}
+.qprog{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim2);letter-spacing:.1em}
+@media (max-height:680px){#drive{padding-top:calc(var(--st) + 8px);padding-bottom:calc(var(--sb) + 8px)}.drivewarn{font-size:9.5px;padding:6px 8px}.ring{width:min(49vh,220px)}.prompt{font-size:21px;margin-top:12px}.prompt.en{font-size:20px}.answer{font-size:23px;margin-top:12px}.dctrl{gap:6px}.cbtn{padding:14px 0}.cbtn.main{padding:17px 0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ═══════════════════════════════════════════════════════════
+   PREMIUM COCKPIT · QUIET LUXURY DESIGN LAYER
+   Visual-only override. Content / data / application logic unchanged.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --ink:#07101A;
+  --ink2:#0A1420;
+  --panel:#0E1A27;
+  --panel2:#142333;
+  --panel3:#192A3C;
+  --line:rgba(162,190,214,.13);
+  --line2:rgba(162,190,214,.23);
+  --text:#F2F6F9;
+  --dim:#91A6B8;
+  --dim2:#61788B;
+  --signal:#54DFCF;
+  --signal2:#7BF4E5;
+  --violet:#9B8CF7;
+  --amber:#F3B765;
+  --red:#F17171;
+  --gold:#D9BC7A;
+  --r-sm:10px;
+  --r-md:14px;
+  --r-lg:20px;
+  --r-xl:26px;
+  --shadow-sm:0 8px 24px rgba(0,0,0,.16);
+  --shadow-md:0 18px 48px rgba(0,0,0,.26);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+html{background:#050B12}
+body{
+  background:
+    radial-gradient(900px 560px at 20% -10%,rgba(84,223,207,.085),transparent 58%),
+    radial-gradient(760px 520px at 108% 18%,rgba(155,140,247,.07),transparent 58%),
+    linear-gradient(180deg,#07101A 0%,#08121D 48%,#060D15 100%);
+  background-attachment:fixed;
+  font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  letter-spacing:-.008em;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.24;
+  background-image:linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.42),transparent 65%);
+}
+button{transition:transform .18s var(--ease),filter .18s ease,background-color .18s ease,border-color .18s ease,box-shadow .18s ease}
+button:active{transform:scale(.975)}
+button:focus-visible{outline:2px solid rgba(84,223,207,.75);outline-offset:3px}
+
+#app{max-width:520px;position:relative}
+.screen{padding:calc(var(--st) + 24px) 20px calc(var(--sb) + 112px)}
+.screen.on{animation:premiumEnter .28s var(--ease) both}
+@keyframes premiumEnter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Brand / top chrome */
+.mast{align-items:center;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:700;letter-spacing:-.025em;color:#EEF4F8}
+.brand::before{
+  content:'';width:27px;height:27px;flex:0 0 27px;border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 50%,#07101A 0 31%,transparent 33%),
+    conic-gradient(from 35deg,var(--signal),rgba(84,223,207,.16) 30%,rgba(155,140,247,.78) 54%,rgba(155,140,247,.13) 75%,var(--signal));
+  box-shadow:0 0 0 1px rgba(255,255,255,.08),0 0 22px rgba(84,223,207,.17);
+}
+.brand span{color:inherit;background:linear-gradient(110deg,#FFFFFF 10%,#AFC6D6 72%,#75E7DA);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand small{opacity:.58;font-weight:500!important}
+.mstat{font-size:10.5px;padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(14,26,39,.58);box-shadow:inset 0 1px rgba(255,255,255,.035)}
+.mstat b{color:var(--gold)}
+
+/* Day rail */
+.daybar{gap:8px;padding:2px 1px 14px;scroll-snap-type:x proximity}
+.dchip{min-width:50px;padding:9px 7px;border-radius:var(--r-md);border-color:var(--line);background:rgba(14,26,39,.66);box-shadow:inset 0 1px rgba(255,255,255,.025);scroll-snap-align:start}
+.dchip b{font-size:13px}.dchip i{font-size:8px}
+.dchip.on{background:linear-gradient(150deg,#79F0E1,#40CDBD);border-color:rgba(123,244,229,.84);box-shadow:0 10px 28px rgba(84,223,207,.22),inset 0 1px rgba(255,255,255,.44)}
+.dchip.done:not(.on){border-color:rgba(84,223,207,.25);background:linear-gradient(180deg,rgba(84,223,207,.075),rgba(14,26,39,.75))}
+
+/* Today's hero */
+.card{
+  min-height:178px;padding:22px 21px 24px;border-radius:var(--r-xl);border:1px solid rgba(172,206,231,.15);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),transparent 42%),
+    radial-gradient(120% 150% at 100% 0%,rgba(84,223,207,.14),transparent 47%),
+    radial-gradient(80% 110% at 10% 120%,rgba(155,140,247,.10),transparent 55%),
+    linear-gradient(155deg,#162638 0%,#0D1926 70%);
+  box-shadow:var(--shadow-md),inset 0 1px rgba(255,255,255,.07),inset 0 -1px rgba(0,0,0,.32);
+}
+.card::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(100deg,transparent 0 46%,rgba(255,255,255,.045) 50%,transparent 54%);transform:translateX(-130%);animation:heroSheen 10s ease-in-out infinite}
+.card::after{top:-70%;right:-27%;width:90%;height:210%;background:radial-gradient(circle,rgba(84,223,207,.13),transparent 64%);animation:heroBreath 7s ease-in-out infinite}
+@keyframes heroSheen{0%,68%{transform:translateX(-135%)}78%,100%{transform:translateX(135%)}}
+@keyframes heroBreath{0%,100%{opacity:.55;transform:scale(.96)}50%{opacity:1;transform:scale(1.05)}}
+.pat{font-size:31px;line-height:1.12;margin:28px 0 9px;font-weight:700;letter-spacing:-.038em;text-wrap:balance}
+.mean{font-size:13px;color:#9DB0C0;line-height:1.65}
+.wchip{border-color:rgba(255,255,255,.12);background:rgba(5,12,20,.28);color:#B3C5D3;padding:6px 10px;box-shadow:inset 0 1px rgba(255,255,255,.04)}
+.eyebrow{font-size:9.5px;letter-spacing:.19em;color:#6E8497}
+
+/* Sections / controls */
+.sec{margin-top:30px}
+.sechead{margin-bottom:12px}
+.seg{border-radius:var(--r-md);background:rgba(10,20,32,.75);border-color:var(--line);padding:3px;gap:3px}
+.seg button{border-radius:11px;padding:10px 0}
+.seg button.on{background:linear-gradient(180deg,#75EBDD,#4BD1C2);box-shadow:0 5px 18px rgba(84,223,207,.16),inset 0 1px rgba(255,255,255,.32)}
+.seg.sm{padding:3px}.seg.sm button{border-radius:9px}
+
+.runs{gap:12px}
+.run{padding:19px 17px;border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(21,36,51,.88),rgba(11,23,35,.92));border-color:var(--line);box-shadow:var(--shadow-sm),inset 0 1px rgba(255,255,255,.04);position:relative;overflow:hidden}
+.run::after{content:'';position:absolute;inset:auto -35% -60% 20%;height:110%;border-radius:50%;pointer-events:none;opacity:.6}
+.run.am::after{background:radial-gradient(circle,rgba(84,223,207,.12),transparent 67%)}
+.run.pm::after{background:radial-gradient(circle,rgba(155,140,247,.13),transparent 67%)}
+.run:hover{filter:brightness(1.06)}
+.run .dot{width:7px;height:7px}
+.run .k{font-size:20px;margin:13px 0 5px;letter-spacing:-.03em}
+.run .s{font-size:11.5px;line-height:1.65;color:#8095A7}
+.run.am{border-color:rgba(84,223,207,.22)}.run.pm{border-color:rgba(155,140,247,.22)}
+.run.sug{box-shadow:0 0 0 1px rgba(84,223,207,.34),0 16px 40px rgba(0,0,0,.24),0 0 32px rgba(84,223,207,.075)}
+
+.note,.surv,.corebox,.pronhook,.list,.acc,.stat,.rvi{
+  background:linear-gradient(180deg,rgba(18,33,48,.83),rgba(11,23,35,.88));
+  border-color:var(--line);box-shadow:inset 0 1px rgba(255,255,255,.035),0 12px 32px rgba(0,0,0,.11);
+}
+.note{border-radius:var(--r-md);padding:15px 16px;border-left:1px solid rgba(243,183,101,.34)}
+.surv{border-radius:var(--r-lg);padding:17px 17px;border-left:1px solid rgba(243,183,101,.42);position:relative}
+.surv::before{content:'';position:absolute;left:0;top:18%;bottom:18%;width:2px;background:linear-gradient(var(--amber),rgba(243,183,101,.1));border-radius:99px;box-shadow:0 0 13px rgba(243,183,101,.3)}
+.surv .en{font-size:17px}.surv .ko{color:#7890A3}
+
+.spk{border-radius:12px;background:rgba(255,255,255,.025);border-color:var(--line2);box-shadow:inset 0 1px rgba(255,255,255,.035)}
+.spk:hover{border-color:rgba(84,223,207,.45);color:var(--signal);background:rgba(84,223,207,.07)}
+.spk:not(.mini){font-size:0;position:relative}
+.spk:not(.mini)::before{content:'';width:17px;height:17px;position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);background:currentColor;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M11 5 6 9H2v6h4l5 4V5Zm4.5 3.5a5 5 0 0 1 0 7M18 6a8 8 0 0 1 0 12'/%3E%3C/svg%3E") center/contain no-repeat;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M11 5 6 9H2v6h4l5 4V5Zm4.5 3.5a5 5 0 0 1 0 7M18 6a8 8 0 0 1 0 12'/%3E%3C/svg%3E") center/contain no-repeat}
+.spk.mini{border-radius:999px;background:rgba(84,223,207,.055);border-color:rgba(84,223,207,.16);color:#BFEDE6;padding:7px 11px}
+
+/* Phrase list */
+.list{border-radius:var(--r-lg);overflow:hidden}
+.item{padding:15px 16px;border-bottom-color:rgba(161,190,214,.09);position:relative;transition:background .18s ease,padding-left .18s var(--ease)}
+.item:hover{background:rgba(84,223,207,.025);padding-left:19px}
+.item::before{content:'';position:absolute;left:0;top:24%;bottom:24%;width:2px;background:transparent;border-radius:99px;transition:background .18s ease,box-shadow .18s ease}
+.item:hover::before{background:var(--signal);box-shadow:0 0 10px rgba(84,223,207,.35)}
+.item .idx{font-size:10px;color:#536B7E}.item .ko{font-size:11.5px;color:#8399AB;margin-bottom:4px}.item .en{font-size:15.5px;line-height:1.42;font-weight:600;color:#F0F5F8}
+.badge{border:1px solid currentColor;box-shadow:inset 0 1px rgba(255,255,255,.05);background-clip:padding-box}
+.badge.auto{background:rgba(84,223,207,.08);border-color:rgba(84,223,207,.24)}
+.badge.t{background:rgba(243,183,101,.08);border-color:rgba(243,183,101,.22)}
+.badge.x{background:rgba(241,113,113,.08);border-color:rgba(241,113,113,.22)}
+
+/* Premium buttons */
+.btn{border-radius:var(--r-md);padding:15px 16px;background:rgba(15,28,41,.76);border-color:var(--line);box-shadow:inset 0 1px rgba(255,255,255,.03)}
+.btn:hover{filter:brightness(1.08);border-color:rgba(166,197,220,.25)}
+.btn.pri{border-radius:17px;padding:18px;background:linear-gradient(135deg,#75EBDD,#45CDBF);box-shadow:0 14px 34px rgba(84,223,207,.18),inset 0 1px rgba(255,255,255,.35);color:#061A1E;text-shadow:0 1px rgba(255,255,255,.16)}
+.btn.vio{background:linear-gradient(135deg,#A99AFB,#8F7BEF);box-shadow:0 12px 30px rgba(155,140,247,.16)}
+.btn.dz{background:rgba(241,113,113,.035)}
+.link{font-size:10px;padding:6px 2px}.link:hover{text-shadow:0 0 13px rgba(84,223,207,.45)}
+
+/* Pronunciation hook */
+.pronhook{border-radius:var(--r-lg);padding:17px 18px;background:linear-gradient(145deg,rgba(155,140,247,.09),rgba(84,223,207,.05) 65%,rgba(10,21,32,.82));border-color:rgba(155,140,247,.19);position:relative;overflow:hidden}
+.pronhook::after{content:'SOUND';position:absolute;right:14px;top:11px;font:600 8px/1 'IBM Plex Mono',monospace;letter-spacing:.2em;color:rgba(155,140,247,.42)}
+.pronhook .pt{font-size:17px}.pronhook .pd{color:#8DA3B5}
+
+/* CORE24 */
+.corebox{border-radius:var(--r-lg);padding:16px 17px}
+.coretop b{font-size:15px;text-shadow:0 0 16px rgba(84,223,207,.28)}
+.corebar{height:8px;background:rgba(255,255,255,.06);box-shadow:inset 0 1px 2px rgba(0,0,0,.35)}
+.corebar i{position:relative;background:linear-gradient(90deg,#45CFC0,#7BF4E5);box-shadow:0 0 16px rgba(84,223,207,.34)}
+.corebar i::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.45) 50%,transparent 80%);transform:translateX(-120%);animation:coreShimmer 4.8s ease-in-out infinite}
+@keyframes coreShimmer{0%,58%{transform:translateX(-120%)}75%,100%{transform:translateX(120%)}}
+
+/* Reference accordions */
+.acc{border-radius:var(--r-lg);margin-bottom:10px;overflow:hidden}
+.acc summary{padding:17px 16px;font-size:13.5px;letter-spacing:-.012em}
+.acc summary::after{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.025);border:1px solid var(--line);font-size:15px}
+.acc[open]{border-color:rgba(84,223,207,.18);box-shadow:0 16px 38px rgba(0,0,0,.16),inset 0 1px rgba(255,255,255,.04)}
+.acc[open] summary{color:#F4F8FA}
+.acc .bodyx{padding:0 17px 18px;line-height:1.9;color:#8FA4B5}
+.rrow{border-top-color:rgba(162,190,214,.08);padding:11px 0}
+
+/* Progress */
+.h1{font-size:29px;line-height:1.1;letter-spacing:-.04em;margin-bottom:8px;color:#F4F7FA}
+.sub{font-size:12.5px;color:#8197A9;line-height:1.75;margin-bottom:25px}
+.stats{gap:10px}
+.stat{border-radius:var(--r-lg);padding:17px 8px;background:linear-gradient(180deg,rgba(19,34,50,.86),rgba(10,22,34,.90))}
+.stat .v{font-size:27px;color:#DDFCF7;text-shadow:0 0 20px rgba(84,223,207,.16)}
+.stat .l{font-size:9px;letter-spacing:.065em;color:#687F92}
+.grid{gap:8px}
+.cell{border-radius:11px;border-color:var(--line);background:rgba(13,25,38,.72);box-shadow:inset 0 1px rgba(255,255,255,.02);transition:transform .16s var(--ease),border-color .16s ease,background .16s ease}
+.cell:hover{transform:translateY(-2px);border-color:rgba(84,223,207,.25)}
+.cell.now{border-color:rgba(84,223,207,.78);box-shadow:0 0 0 1px rgba(84,223,207,.10),0 0 18px rgba(84,223,207,.08);background:linear-gradient(180deg,rgba(84,223,207,.08),rgba(13,25,38,.78))}
+.cell .b{height:3px;border-radius:99px}.cell .b.f{box-shadow:0 0 6px rgba(84,223,207,.25)}.cell .b.f2{box-shadow:0 0 6px rgba(155,140,247,.25)}
+
+/* Settings */
+.setrow{padding:18px 0;border-bottom-color:rgba(162,190,214,.09)}
+.setrow .lbl{font-size:14px;font-weight:600;color:#E9F0F4}.setrow .desc{font-size:11px;color:#687F92;line-height:1.6}
+textarea{border-radius:var(--r-md);background:rgba(9,19,30,.74);border-color:var(--line);padding:13px;line-height:1.55;box-shadow:inset 0 2px 8px rgba(0,0,0,.18)}
+
+/* Bottom navigation — line-icon cockpit bar */
+.nav{background:linear-gradient(180deg,rgba(7,16,26,.72),rgba(7,16,26,.94));border-top-color:rgba(162,190,214,.10);backdrop-filter:blur(22px) saturate(125%);-webkit-backdrop-filter:blur(22px) saturate(125%);padding:8px 0 calc(var(--sb) + 9px);box-shadow:0 -18px 42px rgba(0,0,0,.22)}
+.nav .w{gap:6px;padding:0 18px}
+.nbtn{height:57px;padding:30px 0 7px;border-radius:15px;position:relative;font-size:9px;letter-spacing:.06em;color:#61798D;text-transform:none}
+.nbtn::before{content:'';position:absolute;top:8px;left:50%;width:18px;height:18px;transform:translateX(-50%);background:currentColor;-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
+.nbtn:nth-child(1)::before{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1v-9Z'/%3E%3C/svg%3E")}
+.nbtn:nth-child(2)::before{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14Zm0 0A2.5 2.5 0 0 0 6.5 22H20v-5'/%3E%3C/svg%3E")}
+.nbtn:nth-child(3)::before{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M12 3l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z'/%3E%3C/svg%3E")}
+.nbtn:nth-child(4)::before{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M4 19V9m6 10V5m6 14v-7m4 7H2'/%3E%3C/svg%3E")}
+.nbtn:nth-child(5)::before{-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.4-3.5a7.4 7.4 0 0 0-.1-1l2-1.6-2-3.4-2.5 1a7.8 7.8 0 0 0-1.7-1L14.7 3h-4L10 6a7.8 7.8 0 0 0-1.7 1l-2.5-1-2 3.4 2 1.6a7.4 7.4 0 0 0 0 2L3.8 14.6l2 3.4 2.5-1a7.8 7.8 0 0 0 1.7 1l.7 3h4l.6-3a7.8 7.8 0 0 0 1.7-1l2.5 1 2-3.4-2.1-1.6a7.4 7.4 0 0 0 .1-1Z'/%3E%3C/svg%3E")}
+.nbtn.on{color:var(--signal);background:linear-gradient(180deg,rgba(84,223,207,.095),rgba(84,223,207,.035));box-shadow:inset 0 1px rgba(255,255,255,.025)}
+.nbtn.on::after{content:'';position:absolute;bottom:2px;left:36%;right:36%;height:2px;border-radius:99px;background:var(--signal);box-shadow:0 0 10px rgba(84,223,207,.6)}
+
+/* DRIVE — premium instrument cluster */
+#drive{background:
+  radial-gradient(70% 46% at 50% 42%,rgba(84,223,207,.055),transparent 68%),
+  radial-gradient(48% 36% at 50% 46%,rgba(243,183,101,.045),transparent 72%),
+  linear-gradient(180deg,#07111B,#050B12);padding:calc(var(--st) + 15px) 20px calc(var(--sb) + 15px)}
+#drive.on{animation:driveIn .34s var(--ease) both}@keyframes driveIn{from{opacity:0;transform:scale(1.018)}to{opacity:1;transform:none}}
+.dtop{padding:0 2px}
+.phase{font-size:9.5px;color:#78E9DC;text-shadow:0 0 14px rgba(84,223,207,.28)}
+.dx{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.025);font-size:18px}
+.drivewarn{margin-top:11px;border-radius:999px;border-color:rgba(243,183,101,.19);background:rgba(243,183,101,.055);font-size:9.5px;color:#DAB37A;padding:7px 11px;font-weight:500}
+.pbar{height:3px;margin-top:14px;background:rgba(255,255,255,.055)}.pbar i{background:linear-gradient(90deg,#46CFC0,#80F4E7);box-shadow:0 0 9px rgba(84,223,207,.32)}
+.ring{width:min(74vw,300px);filter:drop-shadow(0 25px 35px rgba(0,0,0,.32))}
+.ring::before{content:'';position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle at 50% 40%,rgba(255,255,255,.035),rgba(8,18,28,.30) 58%,rgba(0,0,0,.16) 75%);border:1px solid rgba(255,255,255,.035);box-shadow:inset 0 0 28px rgba(0,0,0,.28),0 0 40px rgba(84,223,207,.035)}
+.trk{stroke:rgba(122,151,173,.17);stroke-width:2.4}.swp{stroke:var(--amber);stroke-width:3.4;filter:drop-shadow(0 0 4px rgba(243,183,101,.42))}.tick{stroke:rgba(101,129,150,.20)}.tick.hot{stroke:#F3B765;filter:drop-shadow(0 0 2px rgba(243,183,101,.45))}.tick.cool{stroke:#54DFCF;filter:drop-shadow(0 0 2px rgba(84,223,207,.42))}
+.count{font-size:64px;letter-spacing:-.055em;text-shadow:0 0 22px rgba(243,183,101,.18)}
+.prompt{font-size:27px;line-height:1.32;margin-top:28px;letter-spacing:-.035em;max-width:92%}.prompt.en{font-size:25px}.answer{font-size:30px;color:#76EFE0;text-shadow:0 0 22px rgba(84,223,207,.14);margin-top:22px;max-width:94%}.hint{color:#5D7488;margin-top:14px;font-size:10.5px}
+.dctrl{gap:11px}.cbtn{border-radius:var(--r-lg);padding:20px 0;background:linear-gradient(180deg,rgba(20,36,51,.84),rgba(11,23,34,.92));border-color:var(--line);box-shadow:inset 0 1px rgba(255,255,255,.035)}
+.cbtn.main{border-radius:21px;padding:24px 0;background:linear-gradient(145deg,#78EEDF,#46CDBF);box-shadow:0 14px 38px rgba(84,223,207,.20),inset 0 1px rgba(255,255,255,.38);font-size:14px}
+.cbtn.main.ps{background:linear-gradient(145deg,#F7C375,#EBA34B);box-shadow:0 14px 36px rgba(243,183,101,.16)}
+
+/* Sheets / review / quiz */
+.sheet{background:
+  radial-gradient(85% 60% at 50% 0%,rgba(84,223,207,.045),transparent 60%),
+  rgba(7,16,26,.985);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:calc(var(--st) + 24px) 20px calc(var(--sb) + 22px)}
+.sheet.on{animation:sheetIn .28s var(--ease) both}@keyframes sheetIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.rvh{font-size:26px;letter-spacing:-.035em;margin-top:10px}.rvs{line-height:1.75;color:#8298AA;margin-bottom:22px}
+.rvi{border-radius:var(--r-lg);padding:15px 16px;margin-bottom:10px}.rvi.unmarked{border-color:rgba(241,113,113,.52);box-shadow:0 0 0 1px rgba(241,113,113,.08),0 12px 30px rgba(0,0,0,.14)}
+.marks{gap:8px}.mk{border-radius:12px;padding:13px 0;background:rgba(255,255,255,.018);font-size:10px}.mk.sel[data-m='o']{box-shadow:0 0 18px rgba(84,223,207,.08)}.mk.sel[data-m='t']{box-shadow:0 0 18px rgba(243,183,101,.08)}.mk.sel[data-m='x']{box-shadow:0 0 18px rgba(241,113,113,.08)}
+.qtimer{font-size:48px;text-shadow:0 0 22px rgba(243,183,101,.18)}.qko{font-size:29px;letter-spacing:-.035em}.qen{font-size:28px;color:#75ECDD;text-shadow:0 0 20px rgba(84,223,207,.12)}
+.qmk{gap:10px}.qmk button{border-radius:14px;padding:19px 0;background:rgba(255,255,255,.018)}
+
+/* Tiny polish */
+.empty{padding:26px 12px;color:#61788B}.wchip,.mstat,.badge{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+::selection{background:rgba(84,223,207,.24);color:#fff}
+
+@media (max-width:380px){
+  .screen{padding-left:16px;padding-right:16px}.pat{font-size:27px}.run .k{font-size:18px}.prompt{font-size:24px}.answer{font-size:27px}.nav .w{padding:0 12px}
+}
+@media (min-width:640px){
+  body{padding:18px 0}#app{border-left:1px solid rgba(255,255,255,.035);border-right:1px solid rgba(255,255,255,.035);box-shadow:0 0 80px rgba(0,0,0,.28)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════
+   v6.3 PREMIUM EXPERIENCE · product-experience layer
+   Learning content and learning engine remain unchanged.
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --sp-1:8px;--sp-2:12px;--sp-3:16px;--sp-4:24px;--sp-5:32px;--sp-6:48px;
+}
+body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.brand,.run .k,.h1,.rvh,.qko{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.screen{padding-left:var(--sp-4);padding-right:var(--sp-4)}
+.sec{margin-top:var(--sp-5)}
+.card{padding:var(--sp-4);min-height:184px}
+.run{padding:var(--sp-4) var(--sp-3)}
+.note,.surv,.corebox,.pronhook{padding:var(--sp-3)}
+.item{padding:var(--sp-3)}
+.item:hover{padding-left:var(--sp-3);transform:translateX(4px)}
+.item{transition:background .18s ease,transform .18s var(--ease)}
+.acc summary{padding:var(--sp-3)}
+.acc .bodyx{padding:0 var(--sp-3) var(--sp-3)}
+.setrow{padding:var(--sp-4) 0}
+
+/* Week Journey — replaces the administrative 5×14 matrix visually */
+.grid{display:block!important}
+.weekjourney{position:relative;margin:0 0 var(--sp-3);padding:15px 15px 14px;border:1px solid var(--line);border-radius:var(--r-lg);background:linear-gradient(180deg,rgba(18,33,48,.83),rgba(10,22,34,.9));box-shadow:inset 0 1px rgba(255,255,255,.035),0 10px 28px rgba(0,0,0,.10)}
+.weekjourney.current{border-color:rgba(84,223,207,.28);box-shadow:0 0 0 1px rgba(84,223,207,.05),0 16px 38px rgba(0,0,0,.15)}
+.wj-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.wj-title{min-width:0}.wj-title b{display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.16em;color:var(--signal);margin-bottom:4px}.wj-title span{display:block;font-size:13px;font-weight:650;color:#DFE9EF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wj-score{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--dim);white-space:nowrap}
+.wj-track{display:grid;grid-template-columns:repeat(5,1fr);position:relative;gap:0}
+.wj-track::before{content:'';position:absolute;left:8%;right:8%;top:16px;height:1px;background:linear-gradient(90deg,rgba(84,223,207,.38),rgba(155,140,247,.18));z-index:0}
+.wj-node{position:relative;z-index:1;text-align:center;min-width:0}
+.wj-dot{width:33px;height:33px;margin:0 auto 7px;border-radius:50%;display:grid;place-items:center;font:600 9px 'IBM Plex Mono',monospace;color:#637C90;background:#0C1824;border:1px solid rgba(150,181,204,.18);box-shadow:0 0 0 5px #0E1B29}
+.wj-node.done .wj-dot{color:#07121B;border-color:rgba(84,223,207,.7);background:linear-gradient(145deg,#78EDDF,#43CDBE);box-shadow:0 0 0 5px #0E1B29,0 0 18px rgba(84,223,207,.18)}
+.wj-node.now .wj-dot{color:#EFFFFC;border-color:rgba(84,223,207,.82);background:#153348;box-shadow:0 0 0 5px #0E1B29,0 0 0 2px rgba(84,223,207,.13),0 0 21px rgba(84,223,207,.18)}
+.wj-bars{display:flex;justify-content:center;gap:3px}.wj-bars i{width:13px;height:2px;border-radius:99px;background:rgba(255,255,255,.08)}.wj-bars i.am{background:var(--signal);box-shadow:0 0 6px rgba(84,223,207,.25)}.wj-bars i.pm{background:var(--violet);box-shadow:0 0 6px rgba(155,140,247,.24)}
+
+/* First-run onboarding & milestone */
+.uxlayer{display:none;position:fixed;inset:0;z-index:300;background:rgba(3,9,15,.82);backdrop-filter:blur(18px) saturate(115%);-webkit-backdrop-filter:blur(18px) saturate(115%);padding:max(22px,var(--st)) 18px max(22px,var(--sb));align-items:center;justify-content:center}
+.uxlayer.on{display:flex;animation:uxFade .28s var(--ease) both}
+@keyframes uxFade{from{opacity:0}to{opacity:1}}
+.uxpanel{width:min(100%,440px);border-radius:30px;border:1px solid rgba(174,207,230,.15);background:radial-gradient(100% 85% at 100% 0%,rgba(84,223,207,.11),transparent 48%),linear-gradient(155deg,#142538,#0A1723 72%);box-shadow:0 30px 90px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.07);padding:28px 24px 22px;position:relative;overflow:hidden}
+.uxpanel::after{content:'';position:absolute;width:210px;height:210px;right:-100px;top:-105px;border-radius:50%;background:radial-gradient(circle,rgba(155,140,247,.13),transparent 68%);pointer-events:none}
+.uxbrand{display:flex;align-items:center;gap:9px;font:600 9px 'IBM Plex Mono',monospace;letter-spacing:.17em;color:#7290A5;margin-bottom:44px}.uxmark{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#0B1824 0 31%,transparent 33%),conic-gradient(from 35deg,var(--signal),rgba(84,223,207,.13),var(--violet),rgba(155,140,247,.12),var(--signal));box-shadow:0 0 17px rgba(84,223,207,.15)}
+.obstep{display:none;min-height:300px}.obstep.on{display:block;animation:obIn .32s var(--ease) both}@keyframes obIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.obnum{font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:var(--signal);margin-bottom:12px}.obstep h2,.mile-panel h2{font-size:31px;line-height:1.17;letter-spacing:-.045em;margin:0;color:#F5F8FA}.obstep p,.mile-panel p{color:#8FA4B5;font-size:13px;line-height:1.75;margin:15px 0 0}
+.obvisual{margin:42px auto 0;width:220px;height:90px;border:1px solid var(--line);border-radius:999px;display:flex;align-items:center;justify-content:center;gap:18px;background:rgba(4,12,19,.28);box-shadow:inset 0 1px rgba(255,255,255,.035)}.obvisual span,.obvisual strong{font:600 17px 'IBM Plex Mono',monospace}.obvisual span{color:#758EA1}.obvisual strong{color:var(--signal)}.obvisual i{width:50px;height:1px;background:linear-gradient(90deg,#536C80,var(--signal));position:relative}.obvisual i::after{content:'';position:absolute;right:-1px;top:-3px;border-left:6px solid var(--signal);border-top:3px solid transparent;border-bottom:3px solid transparent}
+.obdual{margin:48px auto 0;display:flex;align-items:center;justify-content:center;gap:18px}.obdual b{width:72px;height:72px;border-radius:20px;display:grid;place-items:center;font:600 14px 'IBM Plex Mono',monospace;border:1px solid var(--line)}.obdual b:first-child{color:var(--signal);background:rgba(84,223,207,.07)}.obdual b:last-child{color:var(--violet);background:rgba(155,140,247,.07)}.obdual span{width:28px;height:1px;background:var(--line2)}
+.obsafe{margin:44px auto 0;width:150px;height:150px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(243,183,101,.26);background:radial-gradient(circle,rgba(243,183,101,.08),transparent 65%);box-shadow:0 0 50px rgba(243,183,101,.06)}.obsafe span{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.16em;color:var(--amber)}
+.obdots{display:flex;gap:7px;justify-content:center;margin:2px 0 18px}.obdots i{width:6px;height:6px;border-radius:99px;background:#3C5365;transition:.2s}.obdots i.on{width:22px;background:var(--signal)}
+.uxcta{width:100%;margin-top:0}.uxskip{width:100%;padding:13px 0 3px;color:#617A8E;font-size:11px}
+.mile-panel{text-align:center;padding-top:30px}.mile-ring{width:150px;height:150px;border-radius:50%;margin:0 auto 25px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(84,223,207,.35);background:radial-gradient(circle,rgba(84,223,207,.10),transparent 64%);box-shadow:0 0 0 8px rgba(84,223,207,.025),0 0 55px rgba(84,223,207,.09)}.mile-ring span{font:600 48px 'IBM Plex Mono',monospace;letter-spacing:-.06em;color:#EFFFFC}.mile-ring small{font:500 9px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:var(--signal);margin-top:3px}.mile-panel .eyebrow{margin-bottom:10px}.mile-panel p{margin-left:auto;margin-right:auto;max-width:310px}.mile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:24px 0}.mile-stats>div{padding:13px 5px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.018)}.mile-stats b{display:block;font:600 14px 'IBM Plex Mono',monospace;color:#DFFAF6}.mile-stats span{display:block;font-size:9px;color:#688094;margin-top:5px}
+
+@media(max-width:380px){.screen{padding-left:var(--sp-3);padding-right:var(--sp-3)}.uxpanel{padding-left:20px;padding-right:20px}.obstep h2,.mile-panel h2{font-size:27px}}
+@media(prefers-reduced-motion:reduce){.uxlayer.on,.obstep.on{animation:none!important}}
+
+
+/* ═══════════════════════════════════════════════════════════
+   v7.0 LIFE EXPRESSIONS · verified conversation layer
+   ═══════════════════════════════════════════════════════════ */
+.life-hero{padding:20px;border:1px solid rgba(84,223,207,.18);border-radius:var(--r-xl);background:radial-gradient(100% 120% at 100% 0%,rgba(84,223,207,.11),transparent 52%),linear-gradient(155deg,#142538,#0B1825 74%);box-shadow:var(--shadow-sm)}
+.life-count{font:600 10px 'IBM Plex Mono',monospace;color:var(--signal);letter-spacing:.08em;margin-top:8px}
+.life-tools{display:grid;grid-template-columns:1fr auto;gap:9px;margin-top:14px}
+.life-search{width:100%;height:44px;border:1px solid var(--line);border-radius:13px;background:rgba(8,18,29,.78);color:var(--text);padding:0 13px;font-size:13px;outline:none}
+.life-search:focus{border-color:rgba(84,223,207,.55);box-shadow:0 0 0 3px rgba(84,223,207,.06)}
+.life-chips{display:flex;gap:7px;overflow-x:auto;padding:1px 0 7px;scrollbar-width:none}.life-chips::-webkit-scrollbar{display:none}
+.life-chip{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;padding:8px 11px;font:600 10px 'IBM Plex Mono',monospace;color:var(--dim);background:rgba(14,27,40,.72)}
+.life-chip.on{color:#06171B;background:var(--signal);border-color:var(--signal)}
+.expr-group{margin-top:20px}.expr-head{display:flex;align-items:end;justify-content:space-between;gap:10px;margin-bottom:8px}.expr-head b{font-size:14px}.expr-head span{font:500 9px 'IBM Plex Mono',monospace;color:var(--dim2)}
+.expr-card{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,rgba(18,33,48,.82),rgba(10,22,34,.9));padding:14px 14px 13px;margin-bottom:8px;box-shadow:inset 0 1px rgba(255,255,255,.025)}
+.expr-top{display:flex;gap:10px;align-items:flex-start}.expr-copy{flex:1;min-width:0}.expr-en{font-family:'Archivo',sans-serif;font-size:16px;font-weight:700;line-height:1.35;color:#F0F5F8}.expr-ko{font-size:12px;color:#8BA0B1;line-height:1.55;margin-top:4px}.expr-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}.tag{font:600 8.5px 'IBM Plex Mono',monospace;padding:4px 7px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+.tag.g{color:var(--signal);border-color:rgba(84,223,207,.25);background:rgba(84,223,207,.06)}.tag.y{color:var(--amber);border-color:rgba(243,183,101,.26);background:rgba(243,183,101,.06)}.tag.r{color:var(--red);border-color:rgba(241,113,113,.27);background:rgba(241,113,113,.06)}
+.expr-warn{margin-top:9px;padding:8px 9px;border-radius:10px;background:rgba(243,183,101,.055);color:#C8AA7D;font-size:10.5px;line-height:1.55}.expr-actions{display:flex;gap:6px;flex:0 0 auto}.iconbtn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center;color:var(--dim);background:rgba(255,255,255,.018);font-size:14px}.iconbtn.fav.on{color:var(--amber);border-color:rgba(243,183,101,.32);background:rgba(243,183,101,.07)}
+.today-life{display:grid;gap:8px}.today-life .expr-card{margin:0}.life-empty{padding:25px 12px;text-align:center;color:var(--dim2);font-size:12px;line-height:1.7}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.compare-card{border:1px solid var(--line);border-radius:13px;padding:12px;background:rgba(255,255,255,.018)}.compare-card .en{font:700 14px 'Archivo',sans-serif}.compare-card .ko{font-size:10.5px;color:var(--dim);line-height:1.45;margin-top:4px}
+.corr-row{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:10px 0;border-top:1px solid rgba(162,190,214,.08)}.corr-wrong{font:600 12px 'Archivo',sans-serif;color:var(--red);text-decoration:line-through}.corr-right{font:700 12px 'Archivo',sans-serif;color:var(--signal)}.corr-arrow{color:var(--dim2)}
+.life-statline{display:flex;justify-content:space-between;gap:8px;font-size:10.5px;color:var(--dim);margin-top:11px}.life-statline b{color:var(--text)}
+@media(max-width:380px){.life-tools{grid-template-columns:1fr}.compare-grid{grid-template-columns:1fr}.expr-en{font-size:15px}}
+
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ════════ 오늘 ════════ -->
+<section class="screen on" id="s-today">
+  <div class="mast">
+    <div class="brand">출퇴근 <span>여행영어 코치</span> <small style="color:var(--dim2);font-size:9px">v7.0</small></div>
+    <div class="mstat" id="m-streak"><b>0</b>일 연속</div>
+  </div>
+
+  <div class="daybar" id="daybar"></div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+      <div class="eyebrow" id="t-day">DAY 01 / 70</div>
+      <div class="wchip" id="t-week">WEEK 1</div>
+    </div>
+    <div class="pat" id="t-pat">I'd like…</div>
+    <div class="mean" id="t-mean">정중하게 원하는 것을 말하기</div>
+  </div>
+
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">세션 분량</div><div class="eyebrow" id="t-est"></div></div>
+    <div class="seg" id="seg-len"><button data-v="5">짧게</button><button data-v="10">기본</button><button data-v="15">집중</button></div>
+  </div>
+
+  <div class="sec">
+    <div class="runs">
+      <button class="run am" id="btn-am"><span class="dot"></span>
+        <div class="k">출근길</div><div class="s">한국어 → 영어로<br>먼저 꺼내기</div></button>
+      <button class="run pm" id="btn-pm"><span class="dot"></span>
+        <div class="k">퇴근길</div><div class="s">오늘 표현 →<br>바로 대응하기</div></button>
+    </div>
+    <div class="note" style="margin-top:9px"><b>출근길</b>은 오늘 문장을 먼저 꺼내는 연습, <b>퇴근길</b>은 같은 문장을 대화 속에서 바로 쓰는 복습입니다.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">오늘의 생존 1문장</div></div>
+    <div class="surv" id="surv"></div>
+  </div>
+
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">오늘의 핵심 5문장</div>
+      <button class="link" id="hide-btn">뜻 가리기</button></div>
+    <div class="list" id="t-list"></div>
+  </div>
+
+  <div class="sec" id="pron-hook-sec" style="display:none">
+    <div class="sechead"><div class="eyebrow">오늘의 발음 팁 · Day 1~5 온보딩</div></div>
+    <div class="pronhook" id="pron-hook"></div>
+  </div>
+
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">다시 꺼낼 문장</div><div class="eyebrow" id="weak-n"></div></div>
+    <div class="list" id="weak-list" style="margin-bottom:9px"></div>
+    <button class="btn" id="weak-run">취약 문장 복습</button>
+  </div>
+
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">오늘의 생활회화 +3</div><button class="link" id="today-life-more">전체 보기</button></div>
+    <div class="today-life" id="today-life"></div>
+  </div>
+</section>
+
+<!-- ════════ 학습 ════════ -->
+<section class="screen" id="s-learn">
+  <h1 class="h1">학습</h1>
+  <p class="sub">정차 중이거나 대중교통일 때 씁니다. 화면을 보며 손으로 조작하는 모드입니다.</p>
+
+  <button class="btn pri" id="quiz-btn">3초 목표 인출 퀴즈 시작</button>
+  <div class="eyebrow" style="text-align:center;margin-top:9px" id="quiz-src">오늘 문장 + 복습 예정 문장</div>
+
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">오늘의 미니 역할극</div>
+      <button class="link" id="dlg-play">대화 듣기</button></div>
+    <div class="list" id="dlg-list"></div>
+  </div>
+
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">참고서</div></div>
+    <details class="acc" open><summary>자동화 CORE 24 · 생존 12 + 실전 12</summary><div class="bodyx" id="ref-core"></div></details>
+    <details class="acc"><summary>비상 탈출구 · 못 알아들었을 때</summary><div class="bodyx" id="ref-rescue"></div></details>
+    <details class="acc"><summary>숫자와 시간 · 가장 자주 막히는 곳</summary><div class="bodyx" id="ref-num"></div></details>
+     <details class="acc"><summary>여행 치트키 · 결제·사이즈·단위·상황</summary><div class="bodyx">
+      <b>결제</b> — Is tax included? / Is service included? / Is there an extra fee? / Can I get a tax refund?<br><br>
+      <b>사이즈</b> — small / medium / large · one size up/down · shoe size<br><br>
+      <b>거리·시간</b> — within walking distance / one block / two stops / about ten minutes<br><br>
+      <b>연료·렌터카</b> — petrol/gasoline / diesel / full tank / Is insurance included?<br><br>
+      <b>디지털</b> — SIM / eSIM / data / hotspot / QR code / power outlet<br><br>
+      <b>약국·병원</b> — Do you have anything for ___? / It started yesterday. / I'm allergic to ___.<br><br>
+      <b>투어</b> — Does it include transportation? / Is hotel pickup included? / Do I need to book in advance?<br><br>
+      <b>스몰토크·거절</b> — What do you recommend? / That sounds great. / Thanks, but I'm okay. / <b>Please leave me alone.</b> (집요한 호객·불편한 접근에 쓰는 단호한 표현)
+    </div></details>
+    <details class="acc"><summary>자주 틀리는 영어 발음·연음 팁</summary><div class="bodyx" id="ref-pron"></div></details>
+    <details class="acc"><summary>상황별 생존 문장</summary><div class="bodyx" id="ref-sit"></div></details>
+    <details class="acc"><summary>최소 문법 7가지</summary><div class="bodyx" id="ref-gram"></div></details>
+    <details class="acc"><summary>핵심 동사와 불규칙 과거형</summary><div class="bodyx" id="ref-verb"></div></details>
+    <details class="acc"><summary>이 학습법의 원칙</summary><div class="bodyx">
+      <b>읽기보다 인출.</b> 한국어를 듣고 먼저 말한 뒤 정답을 확인합니다.<br>
+      <b>분산 복습.</b> 일반 문장은 ❌ 1일 · △ 3일 · ⭕ 7일 뒤가 기본입니다. 자동화 이력이 있는 문장은 한 번 막혀도 ❌ 3일 · △ 7일 뒤 다시 확인합니다.<br>
+      <b>하루 1패턴.</b> 핵심 5문장 · 단어 교체 · 미니 대화 하나면 충분합니다.<br>
+      <b>발음보다 명료성.</b> 핵심어를 천천히 분명하게 말하는 편이 낫습니다.<br>
+      <b>피할 것.</b> 문법만 읽기, 하루 20~30문장 암기, 눈으로만 보기, 복습 없이 새 내용만 추가하기.
+    </div></details>
+  </div>
+</section>
+
+<!-- ════════ 표현 ════════ -->
+<section class="screen" id="s-expr">
+  <div class="life-hero">
+    <div class="eyebrow">VERIFIED LIFE ENGLISH</div>
+    <h1 class="h1" style="margin-top:7px">표현</h1>
+    <div class="sub" style="margin-bottom:0">70일 과정과 검증된 생활회화를 한곳에서 찾고, 실제로 쓸 표현만 따로 익힙니다.</div>
+    <div class="life-count" id="life-count"></div>
+    <div class="life-statline"><span>⭐ 내 표현 <b id="life-fav-count">0</b></span><span>자동화 <b id="life-auto-count">0</b></span><span>취약 <b id="life-weak-count">0</b></span></div>
+  </div>
+
+  <div class="life-tools">
+    <input class="life-search" id="life-search" type="search" placeholder="영어·한국어·카테고리 검색" autocomplete="off">
+    <button class="btn" id="life-quiz-btn" style="width:auto;padding:0 15px">생활회화 퀴즈</button>
+  </div>
+  <div class="life-chips" id="life-chips" style="margin-top:10px">
+    <button class="life-chip" data-f="all">전체</button><button class="life-chip on" data-f="extra">생활회화</button><button class="life-chip" data-f="course">70일 과정</button>
+    <button class="life-chip" data-f="fav">⭐ 내 표현</button><button class="life-chip" data-f="g">🟢</button><button class="life-chip" data-f="y">🟡</button><button class="life-chip" data-f="r">🔴</button>
+  </div>
+  <div id="expr-list"></div>
+
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">직역 주의 · 오해하기 쉬운 표현</div></div>
+    <div class="note">글자 그대로 번역하면 뜻을 놓치기 쉬운 표현입니다. 일반 인출 카드와 달리 <b>실제 의미를 구별해서 이해하는 용도</b>로 보세요.</div>
+    <div id="mislead-list" style="margin-top:9px"></div>
+  </div>
+
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">↔ 헷갈리는 짝표현</div></div>
+    <div id="pair-list"></div>
+  </div>
+
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">✏ 정정노트</div></div>
+    <div class="acc" open><div class="bodyx" id="corr-list" style="padding-top:6px"></div></div>
+  </div>
+</section>
+
+<!-- ════════ 진도 ════════ -->
+<section class="screen" id="s-prog">
+  <h1 class="h1">진도</h1>
+  <p class="sub">중요한 건 며칠 했는지가 아니라 몇 문장이 몸에 붙었는지입니다.</p>
+  <div class="stats">
+    <div class="stat"><div class="v" id="p-auto">0</div><div class="l">자동화 문장</div></div>
+    <div class="stat"><div class="v" id="p-weak">0</div><div class="l">취약 문장</div></div>
+    <div class="stat"><div class="v" id="p-streak">0</div><div class="l">연속 학습</div></div>
+  </div>
+  <div class="corebox">
+    <div class="coretop"><span>CORE24 자동화 진행률</span><b id="core24-count">0 / 24</b></div>
+    <div class="corebar" role="progressbar" aria-label="CORE24 자동화 진행률" aria-valuemin="0" aria-valuemax="24" aria-valuenow="0"><i id="core24-bar"></i></div>
+    <div class="desc" id="core24-msg" style="margin-top:8px">생존 12 + 실전 12를 차례로 자동화합니다.</div>
+  </div>
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">Day 01 — 70</div><div class="eyebrow">5일 × 14주</div></div>
+    <div class="grid" id="grid"></div>
+  </div>
+  <div class="sec">
+    <div class="sechead"><div class="eyebrow">이번 주</div></div>
+    <div class="note" id="weekly"></div>
+  </div>
+  <div class="sec">
+    <div class="note">
+      <b>속도를 목표로 연습합니다.</b><br>
+      권장 목표: 1~2주차 7초 → 3~4주차 5초 → 5~6주차 3초 → 7~10주차 3초 유지 + 문맥 반응 → 11~14주차 2~3초 실전 자동화. 실제 판정 기준은 설정의 <b>생각 시간</b>입니다.<br>
+      같은 문장에 서로 다른 날 ⭕가 3회 연속 확인되면 자동화 문장으로 넘어가고, 복습 간격이 30일로 늘어납니다. Day 30은 생존 기본 완성, Day 70은 실전 여행 마스터 구간입니다.
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 설정 ════════ -->
+<section class="screen" id="s-set">
+  <h1 class="h1">설정</h1>
+  <p class="sub">출발 전에 한 번 맞추면 됩니다. 운전 중에는 재생 버튼 외에 아무것도 만지지 마세요.</p>
+  <button class="btn" id="audio-test" style="margin-bottom:10px">🔊 음성 출력 확인</button>
+
+  <div class="setrow"><div><div class="lbl">생각 시간</div><div class="desc">한국어를 듣고 답을 꺼내는 침묵</div></div>
+    <div class="seg sm" id="seg-gap"><button data-v="7">7</button><button data-v="5">5</button><button data-v="3">3</button><button data-v="2">2</button></div></div>
+  <div class="setrow"><div><div class="lbl">영어 속도</div><div class="desc">느릴수록 따라 말하기 쉽습니다</div></div>
+    <div class="seg sm" id="seg-rate"><button data-v="0.75">느림</button><button data-v="0.88">보통</button><button data-v="1">실제</button></div></div>
+  <div class="setrow"><div><div class="lbl">정답 반복</div><div class="desc">영어를 몇 번 들려줄지</div></div>
+    <div class="seg sm" id="seg-rep"><button data-v="1">1회</button><button data-v="2">2회</button><button data-v="3">3회</button></div></div>
+  <div class="setrow"><div><div class="lbl">운전 중 문장 표시</div><div class="desc">끄면 숫자만 크게 보입니다</div></div>
+    <div class="seg sm" id="seg-txt"><button data-v="0">숨김</button><button data-v="1">표시</button></div></div>
+  <div class="setrow"><div><div class="lbl">화면 켜두기</div><div class="desc">재생 중 화면이 꺼지지 않게</div></div>
+    <div class="seg sm" id="seg-wake"><button data-v="0">끔</button><button data-v="1">켬</button></div></div>
+
+  <div class="sec">
+    <div class="eyebrow" style="margin-bottom:9px">운전 중 사용법</div>
+    <div class="note">
+      <b>1.</b> 출발 전 거치대에 폰을 두고 블루투스를 연결합니다.<br>
+      <b>2.</b> 출근길 또는 퇴근길 버튼을 한 번 누릅니다.<br>
+      <b>3.</b> 끝날 때까지 화면을 만지지 않습니다. 지원되는 차량·브라우저에서는 스티어링 휠의 다음/이전 버튼으로 넘길 수 있습니다.<br>
+      <b>4.</b> 교차로·주차·악천후에서는 그냥 흘려보냅니다. 놓친 문장은 다시 나옵니다.<br><br>
+      휴대전화와 브라우저 설정에 따라 화면이 꺼지거나 다른 앱으로 전환하면 음성이 중단될 수 있습니다. <b>화면 켜두기</b>를 켠 채 거치대에 두세요.
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="eyebrow" style="margin-bottom:9px">기록 백업</div>
+    <textarea id="backup" placeholder="내보내기를 누르면 여기에 기록이 나옵니다. 다른 기기에서는 이 내용을 붙여넣고 불러오기를 누르세요."></textarea>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+      <button class="btn" id="exp-btn">내보내기</button>
+      <button class="btn" id="imp-btn">불러오기</button>
+    </div>
+  </div>
+
+  <button class="btn dz" style="margin-top:20px" id="reset-btn">모든 기록 지우기</button>
+</section>
+
+<nav class="nav"><div class="w">
+  <button class="nbtn on" data-s="today">오늘</button>
+  <button class="nbtn" data-s="learn">학습</button>
+  <button class="nbtn" data-s="expr">표현</button>
+  <button class="nbtn" data-s="prog">진도</button>
+  <button class="nbtn" data-s="set">설정</button>
+</div></nav>
+</div>
+
+
+<!-- PREMIUM EXPERIENCE · first-run onboarding -->
+<div class="uxlayer" id="onboard" aria-hidden="true">
+  <div class="uxpanel onboard-panel" role="dialog" aria-modal="true" aria-labelledby="ob-title">
+    <div class="uxbrand"><span class="uxmark"></span><span>COMMUTE ENGLISH</span></div>
+    <div class="obstep on" data-ob="0">
+      <div class="obnum">01</div><h2 id="ob-title">듣고, 먼저 말하세요.</h2>
+      <p>화면보다 귀와 입을 쓰는 여행영어입니다.</p>
+      <div class="obvisual"><span>KR</span><i></i><strong>EN</strong></div>
+    </div>
+    <div class="obstep" data-ob="1">
+      <div class="obnum">02</div><h2>출근길에는 새 문장,<br>퇴근길에는 인출과 복습.</h2>
+      <p>하루 두 번의 짧은 루틴으로 필요한 영어를 자동화합니다.</p>
+      <div class="obdual"><b>AM</b><span></span><b>PM</b></div>
+    </div>
+    <div class="obstep" data-ob="2">
+      <div class="obnum">03</div><h2>운전 중 화면을 보지 마세요.</h2>
+      <p>출발 전에 재생하고, 음성 안내와 차량 버튼으로 학습하세요.</p>
+      <div class="obsafe"><span>VOICE FIRST</span></div>
+    </div>
+    <div class="obdots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+    <button class="btn pri uxcta" id="ob-next">다음</button>
+    <button class="uxskip" id="ob-skip">건너뛰기</button>
+  </div>
+</div>
+
+<!-- PREMIUM EXPERIENCE · milestone -->
+<div class="uxlayer" id="milestone" aria-hidden="true">
+  <div class="uxpanel mile-panel" role="dialog" aria-modal="true" aria-labelledby="mile-title">
+    <div class="mile-ring"><span id="mile-day">30</span><small>DAYS</small></div>
+    <div class="eyebrow" id="mile-kicker">MILESTONE</div>
+    <h2 id="mile-title">SURVIVAL COURSE<br>COMPLETE</h2>
+    <p id="mile-copy">30일 생존 여행영어 구간을 완주했습니다.</p>
+    <div class="mile-stats">
+      <div><b id="mile-core">0 / 24</b><span>CORE24</span></div>
+      <div><b id="mile-auto">0</b><span>자동화</span></div>
+      <div><b id="mile-streak">0</b><span>연속 학습</span></div>
+    </div>
+    <button class="btn pri uxcta" id="mile-close">계속하기</button>
+  </div>
+</div>
+
+<!-- DRIVE -->
+<div id="drive">
+  <div class="dtop"><div class="phase" id="d-phase" aria-live="polite">준비</div><button class="dx" id="d-close">✕</button></div>
+  <div class="drivewarn">운전 중에는 화면을 보거나 조작하지 마세요. 출발 전에 재생하고 음성에만 집중하세요.</div>
+  <div class="pbar" role="progressbar" aria-label="세션 진행률" aria-valuemin="0" aria-valuemax="100"><i id="d-bar"></i></div>
+  <div class="stage">
+    <div class="ring">
+      <svg viewBox="0 0 200 200"><circle class="trk" cx="100" cy="100" r="92"></circle>
+        <circle class="swp" cx="100" cy="100" r="92" id="d-swp" stroke-dasharray="578.05" stroke-dashoffset="578.05"></circle>
+        <g id="d-ticks"></g></svg>
+      <div class="count idle mono" id="d-count">—</div>
+    </div>
+    <div class="prompt" id="d-prompt" aria-live="polite">재생을 누르고 화면을 두세요</div>
+    <div class="answer" id="d-answer" aria-live="polite"></div>
+    <div class="hint" id="d-hint"></div>
+  </div>
+  <div class="dctrl">
+    <button class="cbtn" id="d-back">◀ 이전</button>
+    <button class="cbtn main" id="d-play">시작</button>
+    <button class="cbtn" id="d-next">다음 ▶</button>
+  </div>
+</div>
+
+<!-- REVIEW -->
+<div class="sheet" id="review">
+  <div class="eyebrow">세션 완료</div>
+  <div class="rvh" id="rv-h">오늘 몇 초 만에 나왔나요?</div>
+  <div class="rvs" id="rv-s"></div>
+  <div id="rv-items"></div>
+  <button class="btn pri" id="rv-save" style="margin-top:14px">저장하고 끝내기</button>
+  <button class="btn" id="rv-skip" style="margin-top:8px">평가 없이 완료 처리</button>
+</div>
+
+<!-- TRANSIT QUIZ -->
+<div class="sheet" id="quiz">
+  <div class="dtop"><div class="phase">3초 목표 인출 퀴즈</div><button class="dx" id="q-close">✕</button></div>
+  <div class="qstage">
+    <div class="qtimer mono" id="q-timer">3</div>
+    <div class="qko" id="q-ko"></div>
+    <div class="qen" id="q-en"></div>
+    <div class="qprog" style="margin-top:26px" id="q-prog"></div>
+  </div>
+  <button class="btn pri" id="q-show" style="margin-bottom:9px">정답 보기</button>
+  <div class="qmk" id="q-mk" style="display:none">
+    <button data-m="o">⭕ 바로</button><button data-m="t">△ 느림</button><button data-m="x">❌ 못함</button>
+  </div>
+</div>
+
+<script>
+/* ═══════════ CONTENT ═══════════ */
+const WEEK=[{t:'요청과 주문'},{t:'길 찾기와 교통'},{t:'못 알아들었을 때'},
+            {t:'호텔과 식당'},{t:'문제와 응급'},{t:'통합 역할극'},
+            {t:'공항 실전 심화'},{t:'식당·카페 디테일'},{t:'쇼핑·결제'},{t:'교통·렌터카'},
+            {t:'호텔 실전 심화'},{t:'관광·디지털'},{t:'스몰토크·매너'},{t:'건강·위기·통합'}];
+
+const DAYS=[
+/* W1 */
+{p:"I'd like…",m:"정중하게 원하는 것을 말하기",
+ c:[["커피 한 잔 주세요","I'd like a coffee, please."],["창가 자리로 주세요","I'd like a window seat, please."],
+    ["1인실로 하고 싶어요","I'd like a single room."],["체크인하고 싶어요","I'd like to check in."],
+    ["카드로 결제할게요","I'd like to pay by card."]],
+ s:[["영수증 주세요","I'd like a receipt."],["물 한 잔 주세요","I'd like some water."],
+    ["2인 테이블 주세요","I'd like a table for two."],["체크아웃하고 싶어요","I'd like to check out."],
+    ["자리를 바꾸고 싶어요","I'd like to change my seat."]],
+ d:[["s","What would you like?","무엇을 드릴까요?"],["m","I'd like a coffee, please.","커피 한 잔 주세요."],
+    ["s","Anything else?","더 필요하신 건요?"],["m","That's all, thank you.","이게 전부예요, 감사합니다."]]},
+
+{p:"I need…",m:"필요한 것을 짧게 말하기",
+ c:[["도움이 필요해요","I need help."],["택시가 필요해요","I need a taxi."],["물 좀 주세요","I need some water."],
+    ["휴대폰을 충전해야 해요","I need to charge my phone."],["호텔에 연락해야 해요","I need to contact the hotel."]],
+ s:[["의사가 필요해요","I need a doctor."],["영수증이 필요해요","I need a receipt."],
+    ["기차를 갈아타야 해요","I need to change trains."],["화장실에 가야 해요","I need to use the restroom."],
+    ["여기서 내려야 해요","I need to get off here."]],
+ d:[["s","How can I help you?","어떻게 도와드릴까요?"],["m","I need a taxi.","택시가 필요합니다."],
+    ["s","Where are you going?","어디로 가시나요?"],["m","To the airport, please.","공항으로 부탁합니다."]]},
+
+{p:"Can I get…?",m:"주문하거나 물건을 요청하기",
+ c:[["물 좀 주시겠어요?","Can I get some water?"],["계산서 주세요","Can I get the bill, please?"],
+    ["영수증 주세요","Can I get a receipt?"],["수건 한 장 더 주세요","Can I get another towel?"],
+    ["창가 자리 될까요?","Can I get a window seat?"]],
+ s:[["커피 한 잔 주시겠어요?","Can I get a coffee, please?"],["봉투 하나 주시겠어요?","Can I get a bag?"],
+    ["얼음 좀 주시겠어요?","Can I get some ice?"],["메뉴판 주시겠어요?","Can I get the menu?"],
+    ["포크 하나 더 주세요","Can I get another fork?"]],
+ d:[["m","Can I get the bill, please?","계산서 주세요."],["s","Sure. Cash or card?","네. 현금인가요, 카드인가요?"],
+    ["m","Card, please.","카드로 할게요."]]},
+
+{p:"Could you…?",m:"상대방에게 정중하게 부탁하기",
+ c:[["도와주시겠어요?","Could you help me?"],["천천히 말해 주시겠어요?","Could you speak more slowly?"],
+    ["적어 주시겠어요?","Could you write it down?"],["택시 좀 불러 주시겠어요?","Could you call a taxi?"],
+    ["사진 좀 찍어 주시겠어요?","Could you take a picture for us?"]],
+ s:[["지도에서 보여 주시겠어요?","Could you show me on the map?"],["다시 말해 주시겠어요?","Could you say that again?"],
+    ["짐 좀 맡아 주시겠어요?","Could you store my luggage?"],["잠깐 기다려 주시겠어요?","Could you wait a moment?"],
+    ["번호 다시 말해 주시겠어요?","Could you repeat the number?"]],
+ d:[["m","Could you call a taxi?","택시를 불러 주시겠어요?"],["s","Sure. Where would you like to go?","네. 어디로 가시나요?"],
+    ["m","To the airport, please.","공항으로 부탁합니다."]]},
+
+{p:"Do you have…?",m:"물건이나 서비스가 있는지 묻기",
+ c:[["와이파이 있나요?","Do you have Wi-Fi?"],["더 작은 사이즈 있나요?","Do you have a smaller size?"],
+    ["2인 테이블 있나요?","Do you have a table for two?"],["채식 메뉴 있나요?","Do you have a vegetarian menu?"],
+    ["빈방 있나요?","Do you have a room available?"]],
+ s:[["한국어 메뉴 있나요?","Do you have a Korean menu?"],["더 큰 사이즈 있나요?","Do you have a bigger size?"],
+    ["충전기 있나요?","Do you have a charger?"],["다른 색 있나요?","Do you have another color?"],
+    ["오늘 밤 자리 있나요?","Do you have a table tonight?"]],
+ d:[["m","Do you have a table for two?","두 명 자리 있나요?"],["s","Yes. Right this way.","네. 이쪽으로 오세요."],
+    ["m","Thank you.","감사합니다."]]},
+
+/* W2 */
+{p:"Where is…?",m:"장소의 위치 묻기",
+ c:[["화장실이 어디예요?","Where is the restroom?"],["역이 어디예요?","Where is the station?"],
+    ["12번 게이트가 어디예요?","Where is gate twelve?"],["버스 정류장이 어디예요?","Where is the bus stop?"],
+    ["가장 가까운 약국이 어디예요?","Where is the nearest pharmacy?"]],
+ s:[["출구가 어디예요?","Where is the exit?"],["엘리베이터가 어디예요?","Where is the elevator?"],
+    ["택시 승강장이 어디예요?","Where is the taxi stand?"],["매표소가 어디예요?","Where is the ticket office?"],
+    ["제 자리가 어디예요?","Could you show me where my seat is?"]],
+ d:[["m","Where is the restroom?","화장실이 어디인가요?"],["s","It's next to the elevator.","엘리베이터 옆에 있습니다."],
+    ["m","Sorry? Could you show me?","네? 보여 주시겠어요?"]]},
+
+{p:"How can I get to…?",m:"목적지로 가는 방법 묻기",
+ c:[["공항까지 어떻게 가요?","How can I get to the airport?"],["이 호텔까지 어떻게 가요?","How can I get to this hotel?"],
+    ["시내까지 어떻게 가요?","How can I get to the city centre?"],["구시가지까지 어떻게 가요?","How can I get to the old town?"],
+    ["5번 승강장까지 어떻게 가요?","How can I get to platform five?"]],
+ s:[["역까지 어떻게 가요?","How can I get to the station?"],["박물관까지 어떻게 가요?","How can I get to the museum?"],
+    ["걸어갈 수 있나요?","Can I walk there?"],["택시로 얼마나 걸려요?","How long does it take by taxi?"],
+    ["버스로 갈 수 있나요?","Can I get there by bus?"]],
+ d:[["m","How can I get to the airport?","공항에 어떻게 가나요?"],["s","Take the express train.","급행열차를 타세요."],
+    ["m","Which platform?","몇 번 승강장인가요?"],["s","Platform three.","3번 승강장입니다."]]},
+
+{p:"Does this go to…?",m:"교통편과 포함 사항 확인하기",
+ c:[["이 기차 트빌리시 가나요?","Does this train go to Tbilisi?"],["이 버스 공항 가나요?","Does this bus go to the airport?"],
+    ["이 버스 호텔 근처에 서나요?","Does this bus stop near the hotel?"],["어디서 내려요?","Where do I get off?"],
+    ["몇 정거장이에요?","How many stops is it?"]],
+ s:[["이 표 이 버스에 되나요?","Does this ticket work on this bus?"],["이 카드 여기서 사용할 수 있나요?","Can I use this card here?"],
+    ["다음 역이 어디예요?","What's the next stop?"],["여기서 내리면 되나요?","Do I get off here?"],
+    ["내릴 때 알려 주시겠어요?","Could you tell me when to get off?"]],
+ d:[["m","Does this train go to Tbilisi?","이 기차는 트빌리시에 가나요?"],["s","No. You need the next train.","아니요. 다음 기차를 타야 합니다."],
+    ["m","The next one. Thank you.","다음 거군요. 감사합니다."]]},
+
+{p:"Is this the right…?",m:"내가 제대로 왔는지 확인하기",
+ c:[["이 버스 맞나요?","Is this the right bus?"],["여기 5번 승강장 맞나요?","Is this platform five?"],
+    ["이 자리 비었나요?","Is this seat available?"],["이거 포함된 건가요?","Is this included?"],
+    ["이 길 맞나요?","Is this the way to the station?"]],
+ s:[["이 기차 맞나요?","Is this the right train?"],["이 줄 맞나요?","Is this the right line?"],
+    ["여기가 그 호텔인가요?","Is this the hotel?"],["이게 제 방인가요?","Is this my room?"],
+    ["이 가격 맞나요?","Is this price correct?"]],
+ d:[["m","Is this the right platform for Tbilisi?","트빌리시행 승강장 여기 맞나요?"],["s","Yes, platform six.","네, 6번 승강장입니다."],
+    ["m","Great, thank you.","좋습니다. 감사합니다."]]},
+
+{p:"What time…? / How long…?",m:"출발 시각과 소요 시간 묻기",
+ c:[["몇 시에 출발해요?","What time does it leave?"],["몇 시에 열어요?","What time does it open?"],
+    ["체크아웃 몇 시예요?","What time is check-out?"],["얼마나 걸려요?","How long does it take?"],
+    ["이거 얼마예요?","How much is this?"]],
+ s:[["표가 얼마예요?","How much is the ticket?"],["다 해서 얼마예요?","How much is it in total?"],
+    ["몇 시에 도착해요?","What time does it arrive?"],["다음 건 몇 시예요?","What time is the next one?"],
+    ["지연이 얼마나 되나요?","How long is the delay?"]],
+ d:[["m","What time does it leave?","몇 시에 출발하나요?"],["s","At six fifteen.","6시 15분입니다."],
+    ["m","Sorry, six fifteen or six fifty?","죄송한데 6시 15분인가요, 6시 50분인가요?"]]},
+
+/* W3 */
+{p:"Could you say that again?",m:"다시 말해 달라고 요청하기",
+ c:[["네?","Sorry?"],["다시 말씀해 주시겠어요?","Could you say that again?"],
+    ["천천히 말씀해 주시겠어요?","Could you speak more slowly?"],["적어 주시겠어요?","Could you write it down?"],
+    ["못 알아들었어요","I don't understand."]],
+ s:[["한 번만 더요","One more time, please."],["못 들었어요","I didn't catch that."],
+    ["더 크게 말씀해 주세요","Could you speak up, please?"],["영어를 조금밖에 못해요","I speak only a little English."],
+    ["영어 하시는 분 있나요?","Does anyone here speak English?"]],
+ d:[["s","Your room is on the seventeenth floor.","객실은 17층입니다."],
+    ["m","Could you say that again slowly?","천천히 다시 말씀해 주시겠어요?"],
+    ["s","The seventeenth floor.","17층입니다."]]},
+
+{p:"Do you mean…?",m:"내가 이해한 내용 확인하기",
+ c:[["이거 말씀하시는 거예요?","Do you mean this?"],["15번 게이트 말씀이세요?","Do you mean gate fifteen?"],
+    ["내일 아침 말씀이세요?","Do you mean tomorrow morning?"],["표가 하나 더 필요하다는 뜻인가요?","Do you mean I need another ticket?"],
+    ["취소됐다는 뜻인가요?","Do you mean it is cancelled?"]],
+ s:[["오늘 말씀이세요?","Do you mean today?"],["무료라는 말씀이세요?","Do you mean it's free?"],
+    ["이 줄 말씀이세요?","Do you mean this line?"],["저쪽 말씀이세요?","Do you mean over there?"],
+    ["확인 좀 할게요","Let me make sure."]],
+ d:[["s","You need to change trains at Central.","센트럴에서 환승해야 합니다."],
+    ["m","Do you mean I need another ticket?","표가 하나 더 필요하다는 뜻인가요?"],
+    ["s","No, the same ticket is fine.","아니요, 같은 표로 됩니다."]]},
+
+{p:"Could you show me…?",m:"지도·화면·글자로 보여 달라고 하기",
+ c:[["지도에서 보여 주시겠어요?","Could you show me on the map?"],["어디로 가야 하는지 보여 주세요","Could you show me where to go?"],
+    ["가리켜 주시겠어요?","Could you point to it?"],["여기 입력해 주시겠어요?","Could you type it here?"],
+    ["가격을 보여 주시겠어요?","Could you show me the price?"]],
+ s:[["주소 좀 적어 주세요","Could you write down the address?"],["사진 찍어도 될까요?","Can I take a picture of it?"],
+    ["그려 주시겠어요?","Could you draw it for me?"],["철자가 어떻게 되나요?","How do you spell that?"],
+    ["여기 표시해 주시겠어요?","Could you mark it here?"]],
+ d:[["m","Could you show me on the map?","지도에서 보여 주시겠어요?"],["s","Sure. You are here.","네. 현재 위치는 여기입니다."],
+    ["m","Thank you. And the hotel?","감사합니다. 호텔은요?"]]},
+
+{p:"Could you repeat the number?",m:"숫자·시간·철자 다시 확인하기",
+ c:[["번호를 다시 말씀해 주세요","Could you repeat the number?"],["15인가요, 50인가요?","Is that one-five or five-zero?"],
+    ["철자가 어떻게 되나요?","How do you spell that?"],["시간을 다시 말씀해 주세요","Could you repeat the time?"],
+    ["객실 번호를 적어 주세요","Could you write the room number?"]],
+ s:[["13인가요, 30인가요?","Is that thirteen or thirty?"],["14인가요, 40인가요?","Is that fourteen or forty?"],
+    ["숫자 하나씩 말해 주세요","Could you say the numbers one by one?"],["213호 맞나요?","Room two thirteen, right?"],
+    ["6시 15분 맞나요?","Six fifteen, right?"]],
+ d:[["s","Your gate is fifty.","게이트는 50번입니다."],["m","Is that one-five or five-zero?","15인가요, 50인가요?"],
+    ["s","Five-zero. Fifty.","50입니다."]]},
+
+{p:"Let me check.",m:"잠시 확인하고 대화를 이어가기",
+ c:[["확인해 볼게요","Let me check."],["잠시만 기다려 주세요","Just a moment, please."],
+    ["보여 드릴게요","Let me show you."],["이해한 것 같아요","I think I understand."],
+    ["여기서 기다리면 되는 거죠?","So, I need to wait here, right?"]],
+ s:[["다시 확인할게요","Let me check again."],["제 말이 맞나요?","Am I right?"],
+    ["세 번째 정류장에서 내리면 되죠?","So, I get off at the third stop, right?"],
+    ["여기서 갈아타면 되죠?","So, I change here, right?"],["그러면 내일 오면 되죠?","So, I come back tomorrow, right?"]],
+ d:[["s","Take this bus and get off at the third stop.","이 버스를 타고 세 번째 정류장에서 내리세요."],
+    ["m","So, I get off at the third stop, right?","세 번째 정류장에서 내리면 되죠?"],["s","That's right.","맞습니다."]]},
+
+/* W4 */
+{p:"I have a reservation.",m:"예약과 체크인 처리하기",
+ c:[["예약했어요","I have a reservation."],["이 씨 이름으로 예약했어요","The reservation is under Lee."],
+    ["체크인하고 싶어요","I'd like to check in."],["조식 포함인가요?","Is breakfast included?"],
+    ["체크아웃 몇 시예요?","What time is check-out?"]],
+ s:[["2박이에요","It's for two nights."],["여권 여기 있어요","Here is my passport."],
+    ["짐 좀 맡아 주시겠어요?","Could you store my luggage?"],["일찍 체크인할 수 있을까요?","Could I check in early?"],
+    ["와이파이 비밀번호가 뭐예요?","What's the Wi-Fi password?"]],
+ d:[["m","I have a reservation under Lee.","이 씨 이름으로 예약했습니다."],["s","May I see your passport?","여권을 보여 주시겠어요?"],
+    ["m","Sure. Here you are.","네. 여기 있습니다."]]},
+
+{p:"There is a problem with…",m:"객실이나 서비스 문제 설명하기",
+ c:[["방에 문제가 있어요","There is a problem with my room."],["에어컨이 안 돼요","The air conditioner isn't working."],
+    ["방이 너무 시끄러워요","The room is too noisy."],["뜨거운 물이 안 나와요","There is no hot water."],
+    ["키 카드가 안 돼요","The key card doesn't work."]],
+ s:[["예약에 문제가 있어요","There is a problem with my reservation."],["난방이 안 돼요","The heater isn't working."],
+    ["와이파이가 안 돼요","The Wi-Fi isn't working."],["불이 안 켜져요","The light isn't working."],
+    ["방이 너무 추워요","The room is too cold."]],
+ d:[["m","There is a problem with my room.","객실에 문제가 있습니다."],["s","What seems to be the problem?","무슨 문제인가요?"],
+    ["m","The air conditioner isn't working.","에어컨이 작동하지 않습니다."]]},
+
+{p:"Could I…?",m:"변경·보관·이용을 요청하기",
+ c:[["방을 바꿀 수 있을까요?","Could I change rooms?"],["짐을 맡길 수 있을까요?","Could I leave my luggage here?"],
+    ["늦게 체크아웃할 수 있을까요?","Could I check out later?"],["키 카드 하나 더 주시겠어요?","Could I have another key card?"],
+    ["계산서 주시겠어요?","Could I get the bill, please?"]],
+ s:[["메뉴판 볼 수 있을까요?","Could I see the menu, please?"],["조용한 방으로 될까요?","Could I have a quieter room?"],
+    ["하루 더 묵을 수 있을까요?","Could I stay one more night?"],["여기 앉아도 될까요?","Could I sit here?"],
+    ["따로 계산할 수 있을까요?","Could we pay separately?"]],
+ d:[["m","Could I leave my luggage here?","짐을 여기 맡길 수 있을까요?"],["s","Of course. Until what time?","물론입니다. 몇 시까지요?"],
+    ["m","Until five, please.","5시까지 부탁합니다."]]},
+
+{p:"This isn't…",m:"잘못 나온 것을 짚어 말하기",
+ c:[["제가 주문한 게 아니에요","This isn't what I ordered."],["여기 제 방이 아니에요","This isn't my room."],
+    ["맞는 사이즈가 아니에요","This isn't the right size."],["견과류 알레르기가 있어요","I'm allergic to nuts."],
+    ["계산이 잘못된 것 같아요","I think the bill is wrong."]],
+ s:[["이건 제 가방이 아니에요","This isn't my bag."],["해산물 알레르기가 있어요","I'm allergic to seafood."],
+    ["고기를 안 먹어요","I don't eat meat."],["이거 매운가요?","Is this spicy?"],
+    ["이건 안 시켰어요","I didn't order this."]],
+ d:[["m","This isn't what I ordered.","제가 주문한 것이 아닙니다."],["s","I'm sorry. What did you order?","죄송합니다. 무엇을 주문하셨나요?"],
+    ["m","I ordered the chicken.","치킨을 주문했습니다."]]},
+
+{p:"Is there…?",m:"근처에 무엇이 있는지 묻기",
+ c:[["근처에 화장실 있나요?","Is there a restroom nearby?"],["근처에 약국 있나요?","Is there a pharmacy near here?"],
+    ["엘리베이터 있나요?","Is there an elevator?"],["더 늦은 기차 있나요?","Is there a later train?"],
+    ["더 싼 방 있나요?","Is there a cheaper room?"]],
+ s:[["근처에 은행 있나요?","Is there a bank near here?"],["근처에 편의점 있나요?","Is there a convenience store nearby?"],
+    ["다른 방법이 있나요?","Is there another way?"],["문제가 있나요?","Is there a problem?"],
+    ["더 이른 기차 있나요?","Is there an earlier train?"]],
+ d:[["m","Is there a pharmacy near here?","근처에 약국이 있나요?"],["s","Yes, across the street.","네, 길 건너에 있습니다."],
+    ["m","Could you show me on the map?","지도에서 보여 주시겠어요?"]]},
+
+/* W5 */
+{p:"I lost…",m:"분실 상황을 설명하기",
+ c:[["여권을 잃어버렸어요","I lost my passport."],["지갑을 잃어버렸어요","I lost my wallet."],
+    ["가방을 못 찾겠어요","I can't find my bag."],["기차를 놓쳤어요","I missed my train."],
+    ["열쇠를 방에 두고 나왔어요","I left my key in the room."]],
+ s:[["휴대폰을 잃어버렸어요","I lost my phone."],["표를 잃어버렸어요","I lost my ticket."],
+    ["비행기를 놓쳤어요","I missed my flight."],["길을 잃었어요","I'm lost."],
+    ["버스에 두고 내렸어요","I left it on the bus."]],
+ d:[["m","I lost my bag.","가방을 잃어버렸습니다."],["s","When did you lose it?","언제 잃어버리셨나요?"],
+    ["m","This morning, at the station.","오늘 아침 역에서요."]]},
+
+{p:"I can't…",m:"안 되는 상황을 알리기",
+ c:[["문이 안 열려요","I can't open the door."],["길을 못 찾겠어요","I can't find my way."],
+    ["인터넷 연결이 안 돼요","I can't connect to the internet."],["현금이 없어요","I don't have cash."],
+    ["카드가 안 돼요","My card doesn't work."]],
+ s:[["창문이 안 열려요","I can't open the window."],["못 알아듣겠어요","I don't understand."],
+    ["기다릴 수 없어요","I can't wait."],["여기서 결제가 안 돼요","I can't pay here."],
+    ["가방을 못 찾겠어요","I can't find my bag."]],
+ d:[["m","I can't open the door.","문이 열리지 않습니다."],["s","Let me help you.","도와드리겠습니다."],
+    ["m","Thank you. The key card doesn't work.","감사합니다. 키 카드가 안 됩니다."]]},
+
+{p:"응급 · I need help",m:"위급 상황에서 핵심만 전달하기",
+ c:[["도와주세요","I need help."],["의사가 필요해요","I need a doctor."],
+    ["경찰을 불러 주세요","Please call the police."],["구급차를 불러 주세요","Please call an ambulance."],
+    ["가장 가까운 병원이 어디예요?","Where is the nearest hospital?"]],
+ s:[["배가 아파요","I have a stomachache."],["머리가 아파요","I have a headache."],
+    ["열이 나요","I have a fever."],["다쳤어요","I'm hurt."],
+    ["한국 대사관에 연락해 주세요","Please call the Korean embassy."]],
+ d:[["s","What happened?","무슨 일이신가요?"],["m","I need help. My wallet was stolen.","도와주세요. 지갑을 도난당했습니다."],
+    ["s","Are you hurt?","다치셨나요?"],["m","No, but I need the police.","아니요, 하지만 경찰이 필요합니다."]]},
+
+{p:"항공 · 복구",m:"일정이 틀어졌을 때 처리하기",
+ c:[["비행기가 결항됐어요","My flight was cancelled."],["예약을 변경하고 싶어요","I'd like to change my reservation."],
+    ["다음 비행기가 언제예요?","When is the next flight?"],["제 가방을 찾으셨나요?","Did you find my bag?"],
+    ["여기 제 연락처예요","Here is my phone number."]],
+ s:[["연결편을 놓쳤어요","I missed my connecting flight."],["결항편 환불이 가능한가요?","Can I get a refund for the cancelled flight?"],
+    ["항공사에서 호텔을 제공해 주나요?","Will the airline provide a hotel?"],["언제 알 수 있나요?","When will I know?"],
+    ["이메일로 알려 주시겠어요?","Could you email me?"]],
+ d:[["s","Your flight was cancelled.","항공편이 취소되었습니다."],["m","Sorry? Could you say that again slowly?","네? 천천히 다시 말씀해 주시겠어요?"],
+    ["s","Cancelled. The next one is at eight.","취소되었습니다. 다음 편은 8시입니다."],["m","At eight. Could you write it down?","8시요. 적어 주시겠어요?"]]},
+
+{p:"도난 · 병원",m:"사고 이후를 수습하기",
+ c:[["지갑을 도난당했어요","My wallet was stolen."],["경찰서가 어디예요?","Where is the police station?"],
+    ["신고서를 써야 해요","I need to file a report."],["약국이 어디예요?","Where is the pharmacy?"],
+    ["감사합니다, 큰 도움 됐어요","Thank you, that helps a lot."]],
+ s:[["보험 서류가 필요해요","I need a copy of the report for my insurance."],["진통제가 있나요?","Do you have any painkillers?"],
+    ["의사를 만날 수 있을까요?","Could I see a doctor?"],["카드사에 연락해야 해요","I need to contact my card company."],
+    ["대사관에 연락해야 해요","I need to contact the embassy."]],
+ d:[["m","My wallet was stolen.","지갑을 도난당했습니다."],["s","When did it happen?","언제 일어났나요?"],
+    ["m","About an hour ago, on the bus.","한 시간쯤 전에 버스에서요."],["s","Please fill out this form.","이 양식을 작성해 주세요."]]},
+
+/* W6 */
+{p:"공항 입국",m:"입국 심사에서 짧게 답하기",
+ c:[["관광하러 왔어요","I'm here for sightseeing."],["일주일 있을 거예요","I'm staying for a week."],
+    ["이 호텔에 묵어요","I'm staying at this hotel."],["돌아가는 표 있어요","I have a return ticket."],
+    ["신고할 것 없어요","I have nothing to declare."]],
+ s:[["가족과 함께 왔어요","I'm here with my family."],["처음 왔어요","It's my first time here."],
+    ["10일 있을 거예요","I'm staying for ten days."],["예약 확인서 여기 있어요","Here is my hotel booking."],
+    ["개인 물품이에요","These are personal items."]],
+ d:[["s","What's the purpose of your visit?","방문 목적이 무엇인가요?"],["m","Sightseeing. I'm staying for a week.","관광입니다. 일주일 머뭅니다."],
+    ["s","Where are you staying?","어디에 머무시나요?"],["m","At this hotel. Here is the booking.","이 호텔입니다. 예약 확인서입니다."]]},
+
+{p:"호텔 체크인 통합",m:"체크인 전 과정을 이어서 말하기",
+ c:[["이 씨 이름으로 예약했어요","I have a reservation under Lee."],["2박이에요","It's for two nights."],
+    ["조식 포함인가요?","Is breakfast included?"],["짐 좀 맡아 주시겠어요?","Could you store my luggage?"],
+    ["와이파이 비밀번호가 뭐예요?","What's the Wi-Fi password?"]],
+ s:[["체크아웃 몇 시예요?","What time is check-out?"],["방이 몇 층이에요?","Which floor is my room on?"],
+    ["조용한 방으로 될까요?","Could I have a quieter room?"],["택시 좀 불러 주시겠어요?","Could you call a taxi for me?"],
+    ["근처에 식당 있나요?","Is there a restaurant nearby?"]],
+ d:[["s","Breakfast is from seven to ten on the second floor.","조식은 2층에서 7시부터 10시까지입니다."],
+    ["m","Sorry? Which floor?","네? 몇 층이요?"],["s","Second floor.","2층입니다."],
+    ["m","Second floor, seven to ten. Thank you.","2층, 7시에서 10시. 감사합니다."]]},
+
+{p:"식당 주문 통합",m:"주문부터 계산까지 이어서 말하기",
+ c:[["2명이요","A table for two, please."],["메뉴판 좀 볼 수 있을까요?","Could I see the menu, please?"],
+    ["이걸로 할게요","I'll have this one."],["물 좀 더 주세요","Could I get more water?"],
+    ["계산서 주세요","Could I get the bill, please?"]],
+ s:[["추천해 주시겠어요?","What do you recommend?"],["안 맵게 해 주세요","Not spicy, please."],
+    ["같은 걸로 주세요","I'll have the same, please."],["포장해 주시겠어요?","Could I get this to go?"],
+    ["카드로 계산할게요","I'll pay by card."]],
+ d:[["s","Are you ready to order?","주문하시겠어요?"],["m","Yes. I'll have this one, please.","네. 이걸로 하겠습니다."],
+    ["s","Anything to drink?","음료는요?"],["m","Just water, thank you.","물만 주세요, 감사합니다."]]},
+
+{p:"표 구입 · 길찾기 통합",m:"표를 사고 승강장을 확인하기",
+ c:[["트빌리시행 표 두 장 주세요","Two tickets to Tbilisi, please."],["편도로 주세요","One way, please."],
+    ["왕복으로 주세요","Round trip, please."],["몇 번 승강장이에요?","Which platform is it?"],
+    ["여기서 얼마나 걸려요?","How long does it take from here?"]],
+ s:[["다음 기차가 몇 시예요?","What time is the next train?"],["자리를 고를 수 있나요?","Can I choose a seat?"],
+    ["표가 얼마예요?","How much is the ticket?"],["여기서 갈아타나요?","Do I change here?"],
+    ["이 표는 환불 가능한가요?","Is this ticket refundable?"]],
+ d:[["m","Two tickets to Tbilisi, please.","트빌리시행 두 장 주세요."],["s","Platform seven, leaving at six fifteen.","7번 승강장, 6시 15분 출발입니다."],
+    ["m","Sorry, six fifteen or six fifty?","죄송한데 6시 15분인가요, 50분인가요?"],["s","One five. Fifteen.","15분입니다."]]},
+
+{p:"전체 통합 역할극",m:"6주 문장을 섞어 실전처럼 쓰기",
+ c:[["도와주시겠어요? 길을 잃었어요","Could you help me? I'm lost."],["이 버스 공항 가나요?","Does this bus go to the airport?"],
+    ["천천히 말씀해 주시겠어요?","Could you speak more slowly?"],["적어 주시겠어요?","Could you write it down?"],
+    ["감사합니다, 큰 도움 됐어요","Thank you, that helps a lot."]],
+ s:[["여기 앉아도 될까요?","Could I sit here?"],["얼마나 걸려요?","How long does it take?"],
+    ["어디서 내려요?","Where do I get off?"],["카드로 계산할게요","I'll pay by card."],
+    ["다시 말씀해 주시겠어요?","Could you say that again?"]],
+ d:[["m","Could you help me? I'm lost.","도와주시겠어요? 길을 잃었습니다."],["s","Where do you want to go?","어디로 가시려고요?"],
+    ["m","To this hotel. Could you show me on the map?","이 호텔이요. 지도에서 보여 주시겠어요?"],
+    ["s","Take the number five bus, three stops.","5번 버스를 타고 세 정거장이요."],
+    ["m","So, number five, three stops, right?","5번 버스, 세 정거장 맞죠?"]]}
+,
+/* W7-W14 확장: 공항·식당·쇼핑·교통·호텔·관광·스몰토크·건강 */
+{p:"I'd like to check this bag.",m:"수하물을 맡기고 규정을 확인하기",
+ c:[["이 가방을 부치고 싶어요","I'd like to check this bag."],["이건 기내 수하물로 가져가도 되나요?","Can I take this as a carry-on?"],["이 가방이 너무 무거운가요?","Is this bag overweight?"],["초과 수하물 요금이 얼마예요?","How much is the excess baggage fee?"],["깨지기 쉬운 물건 표시를 해주시겠어요?","Could you mark this as fragile?"]],
+ s:[["가방 두 개를 부칠게요","I'd like to check two bags."],["이 가방 무게가 얼마나 되나요?","How much does this bag weigh?"],["무료 수하물 한도는 얼마예요?","What's the baggage allowance?"],["이걸 기내 수하물로 가져갈 수 있나요?","Can I bring this as cabin baggage?"],["가방을 서울까지 바로 보내나요?","Will my bag go straight through to Seoul?"]],
+ d:[["s","How many bags are you checking?","가방 몇 개를 부치시나요?"],["m","Just one. Is this bag overweight?","하나요. 이 가방이 너무 무거운가요?"],["s","It's two kilos over the limit.","한도보다 2킬로 초과입니다."],["m","How much is the excess baggage fee?","초과 수하물 요금이 얼마예요?"]]},
+
+{p:"Do I need to…?",m:"보안검색에서 무엇을 해야 하는지 확인하기",
+ c:[["신발을 벗어야 하나요?","Do I need to take off my shoes?"],["노트북을 꺼내야 하나요?","Do I need to take out my laptop?"],["제 액체류를 꺼내야 하나요?","Do I need to take out my liquids?"],["이거 가방 안에 둬도 되나요?","Can I leave this in my bag?"],["이 물건은 가지고 들어갈 수 있나요?","Is this allowed through security?"]],
+ s:[["벨트를 빼야 하나요?","Do I need to take off my belt?"],["재킷을 벗어야 하나요?","Do I need to take off my jacket?"],["휴대폰은 어디에 놓으면 되나요?","Where should I put my phone?"],["물을 버려야 하나요?","Do I need to throw this water away?"],["다시 검사를 받아야 하나요?","Do I need to go through security again?"]],
+ d:[["s","Please take out your laptop and liquids.","노트북과 액체류를 꺼내 주세요."],["m","Do I need to take off my shoes?","신발도 벗어야 하나요?"],["s","No, you can leave them on.","아니요, 신고 계셔도 됩니다."],["m","Okay, thank you.","알겠습니다, 감사합니다."]]},
+
+{p:"Has boarding started?",m:"탑승구와 탑승 순서를 확인하기",
+ c:[["탑승 시작했나요?","Has boarding started?"],["123편 줄이 여기 맞나요?","Is this the line for flight 123?"],["탑승구가 바뀌었나요?","Has the gate changed?"],["탑승은 몇 시에 시작해요?","What time does boarding start?"],["지금 몇 그룹 탑승 중인가요?","Which group is boarding now?"]],
+ s:[["탑승 마감은 몇 시예요?","What time does boarding close?"],["여권도 같이 보여드려야 하나요?","Do I need to show my passport too?"],["이 탑승권으로 되나요?","Is this boarding pass okay?"],["제 좌석 열은 어디예요?","Where can I find my row?"],["우선 탑승 대상인가요?","Am I eligible for priority boarding?"]],
+ d:[["m","Has boarding started?","탑승 시작했나요?"],["s","Yes, we're boarding group three now.","네, 지금 3그룹 탑승 중입니다."],["m","I'm group five. Should I wait here?","저는 5그룹인데 여기서 기다리면 되나요?"],["s","Yes, we'll call your group soon.","네, 곧 해당 그룹을 부르겠습니다."]]},
+
+{p:"Could I have…?",m:"기내에서 필요한 것을 정중하게 요청하기",
+ c:[["물 좀 주시겠어요?","Could I have some water, please?"],["담요 하나 주시겠어요?","Could I have a blanket?"],["베개 하나 받을 수 있을까요?","Could I have a pillow?"],["다른 식사 메뉴 있나요?","Could I have a different meal?"],["좌석을 바꿀 수 있을까요?","Could I change seats?"]],
+ s:[["뜨거운 물 좀 주시겠어요?","Could I have some hot water?"],["펜 하나 빌릴 수 있을까요?","Could I borrow a pen?"],["헤드폰 하나 더 받을 수 있나요?","Could I have another pair of headphones?"],["통로 쪽 자리로 바꿀 수 있나요?","Could I move to an aisle seat?"],["제 가방 넣는 것 좀 도와주시겠어요?","Could you help me with my bag?"]],
+ d:[["s","Would you like something to drink?","마실 것 드릴까요?"],["m","Could I have some water, please?","물 좀 주시겠어요?"],["s","Sure. Anything else?","물론이죠. 더 필요한 게 있나요?"],["m","Could I have a blanket too?","담요도 하나 주시겠어요?"]]},
+
+{p:"My bag hasn't arrived.",m:"수하물 지연·파손을 신고하기",
+ c:[["제 가방이 안 나왔어요","My bag hasn't arrived."],["수하물 찾는 곳이 어디예요?","Where is baggage claim?"],["이 비행기 수하물은 몇 번 벨트예요?","Which carousel is for this flight?"],["제 여행가방이 파손됐어요","My suitcase is damaged."],["분실 수하물은 어디에 신고하나요?","Where can I report missing baggage?"]],
+ s:[["가방 하나가 빠졌어요","One of my bags is missing."],["가방이 다른 곳으로 간 것 같아요","I think my bag was sent somewhere else."],["언제 받을 수 있을까요?","When can I expect it?"],["호텔로 보내주실 수 있나요?","Can you deliver it to my hotel?"],["신고 번호를 받을 수 있을까요?","Can I get a reference number?"]],
+ d:[["m","My bag hasn't arrived.","제 가방이 안 나왔어요."],["s","What does your bag look like?","가방이 어떻게 생겼나요?"],["m","It's a large black suitcase.","큰 검은색 여행가방입니다."],["s","Please fill out this form.","이 양식을 작성해 주세요."]]},
+
+{p:"Could I have it without…?",m:"재료·소스·양을 내 취향대로 조정하기",
+ c:[["양파 빼고 해주시겠어요?","Could I have it without onions?"],["소스는 따로 주세요","Could I have the sauce on the side?"],["얼음은 조금만 넣어 주세요","Could I have less ice?"],["덜 맵게 해주실 수 있나요?","Could you make it less spicy?"],["치즈를 빼주세요","No cheese, please."]],
+ s:[["설탕은 빼주세요","No sugar, please."],["우유 대신 두유로 바꿀 수 있나요?","Could I have soy milk instead?"],["드레싱을 따로 주세요","Could I have the dressing on the side?"],["소금은 적게 해주세요","Could you use less salt?"],["샷 하나 추가해 주세요","Could I get an extra shot?"]],
+ d:[["m","Could I have this without onions?","이거 양파 빼고 해주시겠어요?"],["s","Sure. Anything else?","네. 다른 요청 있으세요?"],["m","The sauce on the side, please.","소스는 따로 부탁해요."],["s","No problem.","알겠습니다."]]},
+
+{p:"How is this prepared?",m:"조리 방식과 음식 성분을 확인하기",
+ c:[["이건 어떻게 조리해요?","How is this prepared?"],["이거 튀긴 건가요?","Is this fried?"],["이거 매운가요?","Is this spicy?"],["이 음식에 견과류가 들어가나요?","Does this contain nuts?"],["이거 채식 메뉴인가요?","Is this vegetarian?"]],
+ s:[["유제품이 들어가나요?","Does this contain dairy?"],["해산물이 들어가나요?","Does this contain seafood?"],["생으로 나오는 건가요?","Is this served raw?"],["이건 구운 건가요?","Is this grilled?"],["어떤 게 제일 순한가요?","Which one is the mildest?"]],
+ d:[["m","How is this prepared?","이건 어떻게 조리하나요?"],["s","It's grilled with a spicy sauce.","매운 소스를 발라 구운 음식입니다."],["m","Could you make it less spicy?","덜 맵게 해주실 수 있나요?"],["s","Yes, we can.","네, 가능합니다."]]},
+
+{p:"Is there a wait?",m:"식당 대기·예약 상황을 처리하기",
+ c:[["기다려야 하나요?","Is there a wait?"],["얼마나 기다려야 해요?","How long is the wait?"],["대기 명단에 올려주시겠어요?","Could you put us on the waiting list?"],["2명 자리 예약할 수 있나요?","Can I reserve a table for two?"],["예약 없이 와도 되나요?","Do you take walk-ins?"]],
+ s:[["창가 자리 기다려도 돼요","We can wait for a window table."],["밖에 자리 있나요?","Do you have a table outside?"],["30분 뒤에 다시 와도 되나요?","Can we come back in thirty minutes?"],["예약 시간을 바꿀 수 있을까요?","Could I change the reservation time?"],["예약이 이 씨 이름으로 되어 있어요","The reservation is under Lee."]],
+ d:[["m","Is there a wait for two?","두 명인데 기다려야 하나요?"],["s","About twenty minutes.","약 20분입니다."],["m","Could you put us on the waiting list?","대기 명단에 올려주시겠어요?"],["s","Sure. What's your name?","네. 성함이 어떻게 되세요?"]]},
+
+{p:"We're still waiting for…",m:"주문 누락·지연을 차분하게 해결하기",
+ c:[["아직 음식이 안 나왔어요","We're still waiting for our food."],["이 음료를 아직 못 받았어요","We haven't received this drink yet."],["저희 주문 확인해 주시겠어요?","Could you check our order?"],["이건 저희가 주문한 게 아니에요","We didn't order this."],["음식이 곧 나올까요?","Will our food be ready soon?"]],
+ s:[["한 접시가 빠졌어요","One dish is missing."],["저는 아직 주문한 걸 못 받았어요","I still haven't received my order."],["이거 바꿔주시겠어요?","Could you replace this, please?"],["이 음식이 차가워요","This food is cold."],["주문을 취소할 수 있을까요?","Could I cancel this order?"]],
+ d:[["m","We're still waiting for one dish.","한 접시가 아직 안 나왔어요."],["s","I'm sorry. Which dish is missing?","죄송합니다. 어떤 음식이 안 나왔나요?"],["m","The chicken, please.","치킨이요."],["s","I'll check right away.","바로 확인하겠습니다."]]},
+
+{p:"Can we split the bill?",m:"계산·팁·포장을 자연스럽게 처리하기",
+ c:[["계산을 나눠서 할 수 있나요?","Can we split the bill?"],["각자 계산할 수 있나요?","Can we pay separately?"],["서비스 요금이 포함돼 있나요?","Is service included?"],["카드로 팁을 추가할 수 있나요?","Can I add the tip by card?"],["남은 음식 포장해 주시겠어요?","Could you pack this up for us?"]],
+ s:[["두 카드로 나눠 결제할 수 있나요?","Can we split it between two cards?"],["계산서 다시 볼 수 있을까요?","Could I see the bill again?"],["이 금액이 맞나요?","Is this amount correct?"],["잔돈은 가지세요","Keep the change."],["포장 용기 하나 주시겠어요?","Could I get a takeout container?"]],
+ d:[["m","Can we split the bill?","계산을 나눌 수 있나요?"],["s","Sure. How many ways?","네. 몇 명으로 나눌까요?"],["m","Two ways, please.","두 명으로 나눠 주세요."],["s","No problem.","알겠습니다."]]},
+
+{p:"I'm just looking.",m:"점원의 권유를 부담 없이 응대하기",
+ c:[["그냥 둘러보는 중이에요","I'm just looking, thank you."],["필요하면 말씀드릴게요","I'll let you know if I need help."],["이거 입어봐도 될까요?","Can I try this on?"],["탈의실이 어디예요?","Where is the fitting room?"],["이거 좀 보여주시겠어요?","Could you show me this one?"]],
+ s:[["조금 더 둘러볼게요","I'll look around a little more."],["괜찮아요, 감사합니다","I'm okay, thank you."],["이거 만져봐도 되나요?","Can I touch this?"],["이거 꺼내봐도 될까요?","Could I take a closer look at this?"],["나중에 다시 올게요","I'll come back later."]],
+ d:[["s","Can I help you find anything?","찾으시는 것 도와드릴까요?"],["m","I'm just looking, thank you.","그냥 둘러보는 중이에요, 감사합니다."],["s","Sure. Let me know if you need anything.","네. 필요하시면 말씀하세요."],["m","I will, thanks.","그럴게요, 감사합니다."]]},
+
+{p:"Do you have this in…?",m:"색상·사이즈·재고를 묻기",
+ c:[["이거 다른 사이즈 있나요?","Do you have this in a different size?"],["미디엄 사이즈 있나요?","Do you have this in a medium?"],["이거 검은색 있나요?","Do you have this in black?"],["한 사이즈 작은 게 있나요?","Do you have this one size smaller?"],["재고가 더 있나요?","Do you have any more in stock?"]],
+ s:[["이거 더 큰 사이즈 있나요?","Do you have a larger size?"],["다른 색도 나오나요?","Does this come in another color?"],["이게 가장 큰 사이즈인가요?","Is this the largest size?"],["새 제품 있나요?","Do you have a new one?"],["온라인에는 재고가 있나요?","Is it available online?"]],
+ d:[["m","Do you have this in a medium?","이거 미디엄 사이즈 있나요?"],["s","Let me check in the back.","창고에 확인해 볼게요."],["m","Black, if possible.","가능하면 검은색으로요."],["s","Sure, one moment.","네, 잠시만요."]]},
+
+{p:"Is this on sale?",m:"가격·세금·할인을 확인하기",
+ c:[["이거 할인 중인가요?","Is this on sale?"],["이게 최종 가격인가요?","Is this the final price?"],["세금이 포함돼 있나요?","Is tax included?"],["할인 적용된 가격인가요?","Is the discount already applied?"],["여행자 할인 있나요?","Is there a tourist discount?"]],
+ s:[["두 개 사면 할인되나요?","Is there a discount if I buy two?"],["회원가인가요?","Is this the member price?"],["면세가 가능한가요?","Is tax-free shopping available?"],["더 저렴한 제품 있나요?","Do you have a cheaper option?"],["이 가격표가 맞나요?","Is this price tag correct?"]],
+ d:[["m","Is this on sale?","이거 할인 중인가요?"],["s","Yes, it's twenty percent off.","네, 20퍼센트 할인입니다."],["m","Is tax included?","세금도 포함인가요?"],["s","Yes, that's the final price.","네, 최종 가격입니다."]]},
+
+{p:"I'd like to return this.",m:"교환·환불을 요청하기",
+ c:[["이거 반품하고 싶어요","I'd like to return this."],["이거 교환하고 싶어요","I'd like to exchange this."],["영수증 여기 있어요","I have the receipt."],["다른 사이즈로 교환할 수 있나요?","Can I exchange it for another size?"],["환불받을 수 있나요?","Can I get a refund?"]],
+ s:[["이 제품에 문제가 있어요","There's a problem with this item."],["사용하지 않았어요","I haven't used it."],["어제 샀어요","I bought it yesterday."],["카드로 환불되나요?","Can you refund it to my card?"],["환불에 얼마나 걸려요?","How long will the refund take?"]],
+ d:[["m","I'd like to return this.","이거 반품하고 싶어요."],["s","Do you have the receipt?","영수증 있으신가요?"],["m","Yes, here it is.","네, 여기 있습니다."],["s","Would you like a refund or exchange?","환불과 교환 중 어떤 걸 원하세요?"]]},
+
+{p:"My card was declined.",m:"카드·현금·ATM 문제를 해결하기",
+ c:[["카드가 거절됐어요","My card was declined."],["다시 한 번 해주시겠어요?","Could you try it again?"],["다른 카드로 결제할게요","I'll use a different card."],["근처에 ATM 있나요?","Is there an ATM nearby?"],["추가 수수료가 있나요?","Is there an extra fee?"]],
+ s:[["애플페이 되나요?","Do you accept Apple Pay?"],["카드 최소 결제 금액이 있나요?","Is there a minimum for card payments?"],["ATM이 제 카드를 안 돌려줘요","The ATM kept my card."],["작은 지폐로 바꿔주실 수 있나요?","Could I get smaller bills?"],["두 번 결제된 것 같아요","I think I was charged twice."]],
+ d:[["m","My card was declined. Could you try it again?","카드가 거절됐어요. 다시 해주시겠어요?"],["s","It still isn't going through.","아직 결제가 안 됩니다."],["m","I'll use a different card.","다른 카드로 할게요."],["s","Sure.","네."]]},
+
+{p:"Could you take me to…?",m:"택시·공유차량에서 목적지를 정확히 전달하기",
+ c:[["이 주소로 가주세요","Could you take me to this address?"],["여기서 내려주세요","Could you drop me off here?"],["이 위치가 픽업 장소 맞나요?","Is this the pickup point?"],["2분만 기다려 주시겠어요?","Could you wait two minutes?"],["미터기 켜주시겠어요?","Could you use the meter, please?"]],
+ s:[["반대편에서 내려주세요","Could you drop me off across the street?"],["에어컨 켜주시겠어요?","Could you turn on the air conditioning?"],["여기서 잠깐 세워주세요","Could you stop here for a moment?"],["도착하면 알려주세요","Please let me know when we arrive."],["이 길이 더 빠른가요?","Is this route faster?"]],
+ d:[["s","Where are you headed?","어디로 가시나요?"],["m","Could you take me to this address?","이 주소로 가주시겠어요?"],["s","Sure. It should take about twenty minutes.","네. 약 20분 걸릴 겁니다."],["m","Great, thank you.","좋습니다, 감사합니다."]]},
+
+{p:"Which ticket do I need?",m:"교통권·패스·충전을 처리하기",
+ c:[["어떤 표를 사야 해요?","Which ticket do I need?"],["여기서 표를 살 수 있나요?","Can I buy a ticket here?"],["1일권인가요?","Is this a day pass?"],["환승도 포함되나요?","Does this include transfers?"],["교통카드 충전은 어디서 해요?","Where can I top up my transit card?"]],
+ s:[["3일권 있나요?","Do you have a three-day pass?"],["이 표로 지하철도 탈 수 있나요?","Can I use this ticket on the metro too?"],["카드 잔액이 얼마 남았나요?","How much balance is left on this card?"],["표를 찍고 타야 하나요?","Do I need to validate this ticket?"],["앱으로 표를 살 수 있나요?","Can I buy the ticket in the app?"]],
+ d:[["m","Which ticket do I need for the airport?","공항 가려면 어떤 표를 사야 하나요?"],["s","You'll need a ticket to the airport.","공항행 표가 필요합니다."],["m","Does it include transfers?","환승도 포함되나요?"],["s","Yes, one transfer is included.","네, 환승 한 번이 포함됩니다."]]},
+
+{p:"Where do I change?",m:"환승·지연·막차를 확인하기",
+ c:[["어디서 갈아타요?","Where do I change?"],["환승해야 하나요?","Do I need to change trains?"],["연결편까지 시간이 얼마나 있어요?","How much time do I have for the connection?"],["이 열차가 지연됐나요?","Is this train delayed?"],["막차가 몇 시예요?","What time is the last train?"]],
+ s:[["같은 승강장에서 갈아타나요?","Do I change on the same platform?"],["연결편을 놓치면 어떻게 해요?","What happens if I miss the connection?"],["다음 열차는 언제예요?","When is the next train?"],["얼마나 지연됐나요?","How long is the delay?"],["다른 노선으로 갈 수 있나요?","Is there another route I can take?"]],
+ d:[["m","Where do I change for the airport line?","공항선은 어디서 갈아타나요?"],["s","At Central Station, platform four.","센트럴역 4번 승강장에서요."],["m","How much time do I have?","환승 시간이 얼마나 있나요?"],["s","About ten minutes.","약 10분입니다."]]},
+
+{p:"I'd like to rent a car.",m:"렌터카 인수 조건을 확인하기",
+ c:[["차를 빌리고 싶어요","I'd like to rent a car."],["보험이 포함돼 있나요?","Is insurance included?"],["운전자 한 명 더 추가할 수 있나요?","Can I add another driver?"],["기름을 가득 채워 반납해야 하나요?","Do I need to return it with a full tank?"],["차는 어디서 받나요?","Where do I pick up the car?"]],
+ s:[["자동변속기 차량 있나요?","Do you have an automatic car?"],["내비게이션이 포함돼 있나요?","Is GPS included?"],["보증금이 얼마예요?","How much is the deposit?"],["다른 도시에서 반납할 수 있나요?","Can I return it in another city?"],["기존 흠집을 확인하고 싶어요","I'd like to check the existing damage."]],
+ d:[["m","I'd like to rent a car for three days.","차를 3일 빌리고 싶어요."],["s","Would you like basic or full insurance?","기본 보험과 완전 보험 중 어떤 걸 원하세요?"],["m","Is full insurance included in this price?","이 가격에 완전 보험이 포함돼 있나요?"],["s","No, it's extra.","아니요, 추가 요금입니다."]]},
+
+{p:"How do I pay for parking?",m:"주유·주차·통행료를 해결하기",
+ c:[["주차 요금은 어떻게 내요?","How do I pay for parking?"],["여기 밤새 주차해도 되나요?","Can I park here overnight?"],["이 차는 가솔린(휘발유)인가요, 디젤인가요?","Is this car petrol or diesel?"],["주유기는 어떻게 사용해요?","How do I use this pump?"],["이 도로에 통행료가 있나요?","Is there a toll on this road?"]],
+ s:[["주차권은 어디서 사나요?","Where do I get a parking ticket?"],["주차 시간 연장할 수 있나요?","Can I extend the parking time?"],["가득 채워 주세요","Fill it up, please."],["카드로 주유할 수 있나요?","Can I pay for fuel by card?"],["톨게이트는 카드가 되나요?","Can I pay the toll by card?"]],
+ d:[["m","How do I pay for parking here?","여기 주차비는 어떻게 내나요?"],["s","Use the machine by the entrance.","입구 옆 기계를 사용하세요."],["m","Can I pay by card?","카드로 결제할 수 있나요?"],["s","Yes.","네."]]},
+
+{p:"Could I get extra…?",m:"객실 물품을 추가 요청하기",
+ c:[["수건 더 받을 수 있을까요?","Could I get some extra towels?"],["베개 하나 더 주세요","Could I get an extra pillow?"],["담요 하나 더 받을 수 있나요?","Could I get another blanket?"],["생수 좀 더 주시겠어요?","Could I get some more water?"],["어메니티를 더 받을 수 있나요?","Could I get some more toiletries?"]],
+ s:[["옷걸이 더 받을 수 있나요?","Could I get some more hangers?"],["휴지 좀 더 주세요","Could I get some more toilet paper?"],["슬리퍼 하나 더 주세요","Could I get another pair of slippers?"],["방에 커피를 더 채워주시겠어요?","Could you refill the coffee in the room?"],["아기 침대가 있나요?","Do you have a baby crib?"]],
+ d:[["m","Could I get some extra towels?","수건 더 받을 수 있을까요?"],["s","Of course. How many do you need?","물론입니다. 몇 장 필요하세요?"],["m","Two, please.","두 장 부탁합니다."],["s","We'll send them up shortly.","곧 객실로 보내드리겠습니다."]]},
+
+{p:"How do I use the…?",m:"호텔 시설 사용법을 묻기",
+ c:[["금고는 어떻게 사용해요?","How do I use the safe?"],["에어컨은 어떻게 켜요?","How do I turn on the air conditioner?"],["난방은 어떻게 조절해요?","How do I adjust the heating?"],["세탁실은 어떻게 이용해요?","How do I use the laundry room?"],["와이파이에 어떻게 연결해요?","How do I connect to the Wi-Fi?"]],
+ s:[["TV는 어떻게 켜요?","How do I turn on the TV?"],["커피 머신은 어떻게 사용해요?","How do I use the coffee machine?"],["엘리베이터에 카드키가 필요한가요?","Do I need my key card for the elevator?"],["샤워 온도는 어떻게 조절해요?","How do I adjust the shower temperature?"],["금고 비밀번호를 초기화할 수 있나요?","Can I reset the safe code?"]],
+ d:[["m","How do I use the safe?","금고는 어떻게 사용하나요?"],["s","Enter four digits and press lock.","네 자리 숫자를 입력하고 잠금 버튼을 누르세요."],["m","Could you show me once?","한 번 보여주시겠어요?"],["s","Sure.","물론입니다."]]},
+
+{p:"Can I leave my luggage here?",m:"체크인 전·체크아웃 후 짐 보관하기",
+ c:[["여기 짐을 맡겨도 될까요?","Can I leave my luggage here?"],["체크인 전에 짐 맡길 수 있나요?","Can I leave my bags before check-in?"],["체크아웃 후에도 짐 보관이 되나요?","Can you store my bags after check-out?"],["몇 시까지 찾으러 오면 되나요?","What time do I need to pick them up by?"],["짐 보관은 무료인가요?","Is luggage storage free?"]],
+ s:[["오늘 저녁에 찾으러 올게요","I'll pick them up this evening."],["귀중품도 맡겨도 되나요?","Can I leave valuables here?"],["보관증을 주시나요?","Do I get a claim ticket?"],["짐 보관 장소가 어디예요?","Where is the luggage room?"],["이 가방 하나만 맡길게요","I'll just leave this one bag."]],
+ d:[["m","Can you store my bags after check-out?","체크아웃 후에도 짐 맡길 수 있나요?"],["s","Yes, until midnight.","네, 자정까지 가능합니다."],["m","Great. Is it free?","좋네요. 무료인가요?"],["s","Yes, it is.","네, 무료입니다."]]},
+
+{p:"There's an extra charge…",m:"호텔 청구 오류를 확인하기",
+ c:[["청구서에 추가 금액이 있어요","There's an extra charge on my bill."],["이 비용이 뭔가요?","What is this charge for?"],["이건 사용하지 않았어요","I didn't use this."],["두 번 청구된 것 같아요","I think I was charged twice."],["청구서를 다시 확인해 주시겠어요?","Could you check the bill again?"]],
+ s:[["미니바는 사용하지 않았어요","I didn't use the minibar."],["조식은 포함된 줄 알았어요","I thought breakfast was included."],["보증금은 언제 환불되나요?","When will the deposit be refunded?"],["수정된 영수증을 받을 수 있나요?","Could I get a corrected receipt?"],["관리자와 이야기할 수 있을까요?","Could I speak to a manager?"]],
+ d:[["m","There's an extra charge on my bill.","청구서에 추가 금액이 있어요."],["s","Let me take a look.","확인해 보겠습니다."],["m","I didn't use the minibar.","미니바는 사용하지 않았어요."],["s","You're right. I'll remove the charge.","맞습니다. 해당 금액을 빼드리겠습니다."]]},
+
+{p:"Could you send someone…?",m:"객실 고장·소음 문제를 해결하기",
+ c:[["누군가 와서 확인해 주실 수 있나요?","Could you send someone to check it?"],["에어컨이 아직 안 돼요","The air conditioner still isn't working."],["옆방이 너무 시끄러워요","The room next door is very noisy."],["물이 새는 곳이 있어요","There's a water leak."],["다른 방으로 옮길 수 있을까요?","Could I move to another room?"]],
+ s:[["전등이 깜빡거려요","The light is flickering."],["문 잠금장치가 고장 났어요","The door lock is broken."],["샤워 배수가 안 돼요","The shower isn't draining."],["지금 수리할 수 있나요?","Can someone fix it now?"],["조용한 방으로 옮겨주시겠어요?","Could you move me to a quieter room?"]],
+ d:[["m","Could you send someone to check the air conditioner?","에어컨 좀 확인하러 와주실 수 있나요?"],["s","Of course. We'll send maintenance up.","물론입니다. 수리 직원을 보내겠습니다."],["m","How long will it take?","얼마나 걸릴까요?"],["s","About fifteen minutes.","약 15분입니다."]]},
+
+{p:"Do I need a reservation?",m:"관광지 입장권과 예약을 확인하기",
+ c:[["예약이 필요한가요?","Do I need a reservation?"],["현장에서 표를 살 수 있나요?","Can I buy tickets here?"],["마지막 입장은 몇 시예요?","What time is the last entry?"],["오디오 가이드가 포함돼 있나요?","Is the audio guide included?"],["표 두 장 주세요","Two tickets, please."]],
+ s:[["온라인으로 예약해야 하나요?","Do I need to book online?"],["오늘 표가 남아 있나요?","Are there any tickets left for today?"],["정해진 입장 시간이 있나요?","Is there a timed entry?"],["재입장이 가능한가요?","Can I re-enter with this ticket?"],["학생이나 시니어 할인 있나요?","Is there a student or senior discount?"]],
+ d:[["m","Do I need a reservation?","예약이 필요한가요?"],["s","Not today. You can buy tickets here.","오늘은 아니요. 여기서 표를 살 수 있습니다."],["m","Great. Two tickets, please.","좋습니다. 두 장 주세요."],["s","That'll be twenty euros.","20유로입니다."]]},
+
+{p:"Does the tour include…?",m:"투어·액티비티의 포함 사항을 확인하기",
+ c:[["투어에 교통이 포함되나요?","Does the tour include transportation?"],["점심도 포함되나요?","Does the tour include lunch?"],["투어는 얼마나 걸려요?","How long does the tour take?"],["어디에서 출발해요?","Where does the tour start?"],["몇 시까지 가야 해요?","What time should we be there?"]],
+ s:[["영어 가이드가 있나요?","Is there an English-speaking guide?"],["취소할 수 있나요?","Can I cancel the booking?"],["비가 와도 진행하나요?","Does the tour run if it rains?"],["편한 신발이 필요한가요?","Do I need comfortable shoes?"],["호텔 픽업이 포함되나요?","Is hotel pickup included?"]],
+ d:[["m","Does the tour include transportation?","투어에 교통이 포함되나요?"],["s","Yes, and hotel pickup is included too.","네, 호텔 픽업도 포함됩니다."],["m","What time should we be ready?","몇 시까지 준비하면 되나요?"],["s","By eight thirty.","8시 30분까지요."]]},
+
+{p:"Is it okay to…?",m:"사진·촬영·관람 규칙을 확인하기",
+ c:[["사진 찍어도 되나요?","Is it okay to take pictures?"],["플래시 사용해도 되나요?","Can I use a flash?"],["영상 촬영해도 되나요?","Can I take a video?"],["삼각대 사용해도 되나요?","Can I use a tripod?"],["여기 들어가도 되나요?","Can I enter here?"]],
+ s:[["음식 들고 들어가도 되나요?","Can I bring food inside?"],["가방을 맡겨야 하나요?","Do I need to check my bag?"],["이 작품에 얼마나 가까이 가도 되나요?","How close can I get?"],["여기 앉아도 되나요?","Can I sit here?"],["사진 한 장 찍어주시겠어요?","Could you take a picture of us?"]],
+ d:[["m","Is it okay to take pictures here?","여기 사진 찍어도 되나요?"],["s","Yes, but no flash.","네, 하지만 플래시는 안 됩니다."],["m","Got it. Thank you.","알겠습니다. 감사합니다."],["s","You're welcome.","천만에요."]]},
+
+{p:"I need a SIM card.",m:"SIM·eSIM·데이터를 개통하기",
+ c:[["심카드가 필요해요","I need a SIM card."],["eSIM 있나요?","Do you have an eSIM?"],["데이터가 얼마나 포함돼요?","How much data is included?"],["며칠 동안 사용할 수 있나요?","How long is it valid?"],["제 휴대폰에서 사용할 수 있나요?","Will this work with my phone?"]],
+ s:[["무제한 데이터 요금제 있나요?","Do you have an unlimited data plan?"],["개통 좀 도와주시겠어요?","Could you help me activate it?"],["언락폰에서 사용할 수 있나요?","Will this work with an unlocked phone?"],["핫스팟을 사용할 수 있나요?","Can I use it as a hotspot?"],["충전은 어떻게 하나요?","How do I top it up?"]],
+ d:[["m","I need an eSIM for ten days.","10일 동안 쓸 eSIM이 필요해요."],["s","How much data do you need?","데이터가 얼마나 필요하세요?"],["m","About twenty gigabytes.","약 20기가바이트요."],["s","This plan should work well.","이 요금제가 적당할 겁니다."]]},
+
+{p:"The QR code isn't scanning.",m:"QR·앱·충전 문제를 해결하기",
+ c:[["QR코드가 스캔이 안 돼요","The QR code isn't scanning."],["앱이 열리지 않아요","The app won't open."],["앱에 제 티켓이 안 보여요","My ticket isn't showing in the app."],["인터넷이 안 돼요","I can't get online."],["휴대폰 충전할 곳이 있나요?","Is there somewhere I can charge my phone?"]],
+ s:[["와이파이 비밀번호를 다시 알려주시겠어요?","Could you tell me the Wi-Fi password again?"],["이 링크를 눌러도 안 돼요","This link isn't working for me."],["앱을 꼭 설치해야 하나요?","Do I have to install the app?"],["충전기 좀 빌릴 수 있을까요?","Could I borrow a charger?"],["콘센트가 어디에 있나요?","Where can I find a power outlet?"]],
+ d:[["m","The QR code isn't scanning.","QR코드가 스캔이 안 돼요."],["s","Try opening it in the app.","앱에서 열어보세요."],["m","Do I have to install the app?","앱을 꼭 설치해야 하나요?"],["s","No, I can print a ticket for you.","아니요, 제가 표를 출력해드릴 수 있습니다."]]},
+
+{p:"What do you recommend?",m:"현지인에게 추천을 자연스럽게 받기",
+ c:[["뭘 추천하세요?","What do you recommend?"],["현지인들은 어디에서 먹어요?","Where do locals eat?"],["근처에 좋은 카페 있나요?","Is there a good café nearby?"],["이 근처에서 꼭 볼 만한 게 뭐예요?","What's worth seeing around here?"],["걸어갈 수 있는 거리인가요?","Is it within walking distance?"]],
+ s:[["오늘 저녁에 갈 만한 곳 있나요?","Is there somewhere nice to go tonight?"],["관광객이 너무 많지 않은 곳이 있나요?","Is there somewhere less touristy?"],["이 동네에서 가장 좋아하는 곳이 어디예요?","What's your favorite place around here?"],["근처에 전망 좋은 곳 있나요?","Is there a good viewpoint nearby?"],["이 음식은 어디서 먹는 게 좋아요?","Where's a good place to try this dish?"]],
+ d:[["m","What do you recommend around here?","이 근처에서 뭘 추천하세요?"],["s","There's a great market two blocks away.","두 블록 떨어진 곳에 좋은 시장이 있어요."],["m","Is it within walking distance?","걸어갈 수 있나요?"],["s","Yes, about five minutes.","네, 약 5분입니다."]]},
+
+{p:"Are you from around here?",m:"가벼운 스몰토크를 시작하기",
+ c:[["이 근처에 사세요?","Are you from around here?"],["여기 처음 왔어요","It's my first time here."],["이 도시 정말 좋네요","I really like this city."],["여기 오래 사셨어요?","Have you lived here long?"],["오늘 날씨 좋네요","Nice weather today, isn't it?"]],
+ s:[["여행 중이세요?","Are you traveling too?"],["어디에서 오셨어요?","Where are you from?"],["여기 얼마나 오래 계셨어요?","How long have you been here?"],["이곳 분위기가 정말 좋네요","I love the atmosphere here."],["오늘 많이 붐비네요","It's really busy today."]],
+ d:[["m","Are you from around here?","이 근처에 사세요?"],["s","Yes, I've lived here for ten years.","네, 여기서 10년 살았어요."],["m","It's my first time here.","저는 처음 왔어요."],["s","I hope you enjoy it.","즐거운 시간 보내세요."]]},
+
+{p:"That sounds…",m:"스몰토크를 부담 없이 이어가기",
+ c:[["그거 정말 좋네요","That sounds great."],["재미있겠네요","That sounds fun."],["흥미롭네요","That sounds interesting."],["저도 한번 가보고 싶어요","I'd like to try that too."],["거기 가기 쉬운가요?","Is it easy to get there?"]],
+ s:[["좋은 정보네요","That's good to know."],["그런 생각은 못했네요","I hadn't thought of that."],["여기서 가장 좋아하는 점이 뭐예요?","What do you like most about this place?"],["언제 가는 게 제일 좋아요?","When is the best time to go?"],["추천해주셔서 감사합니다","Thanks for the recommendation."]],
+ d:[["s","You should visit the old market in the morning.","아침에 올드 마켓에 가보세요."],["m","That sounds great. When is the best time to go?","좋네요. 언제 가는 게 제일 좋아요?"],["s","Before ten, when it's quieter.","한적한 10시 이전이 좋아요."],["m","Thanks for the recommendation.","추천해주셔서 감사합니다."]]},
+
+{p:"Thanks, but…",m:"정중하게 거절하고 경계를 세우기",
+ c:[["고맙지만 괜찮아요","Thanks, but I'm okay."],["아니요, 괜찮습니다","No, thank you."],["생각해 볼게요","I'll think about it."],["지금은 필요 없어요","I don't need it right now."],["이제 가봐야 해요","I need to go now."]],
+ s:[["그건 원하지 않아요","I'd rather not."],["혼자 있게 해주세요","Please leave me alone."],["혼자 둘러볼게요","I'd like to look around on my own."],["도와주셔서 감사하지만 괜찮아요","I appreciate the offer, but I'm okay."],["아니요, 정말 괜찮아요","No, I'm fine, thank you."]],
+ d:[["s","Come with me, I can show you another shop.","저와 같이 가시면 다른 가게를 보여드릴게요."],["m","Thanks, but I'm okay.","고맙지만 괜찮아요."],["s","Are you sure?","정말 괜찮으세요?"],["m","Yes, thank you. I need to go now.","네, 감사합니다. 이제 가봐야 해요."]]},
+
+{p:"I really appreciate it.",m:"감사·사과·작별을 자연스럽게 표현하기",
+ c:[["정말 감사해요","I really appreciate it."],["정말 친절하시네요","That's very kind of you."],["제 실수예요","That was my mistake."],["죄송해요, 제가 잘못 알았어요","Sorry, I got that wrong."],["덕분에 즐거웠어요","I had a wonderful time."]],
+ s:[["도와주셔서 정말 감사합니다","Thank you so much for your help."],["제가 잘못 이해했어요","I misunderstood."],["기다리게 해서 죄송해요","Sorry to keep you waiting."],["좋은 하루 보내세요","Have a great day."],["다음에 또 오고 싶어요","I'd love to come back someday."]],
+ d:[["m","Thank you so much for your help.","도와주셔서 정말 감사합니다."],["s","You're very welcome.","천만에요."],["m","I really appreciate it. Have a great day.","정말 감사해요. 좋은 하루 보내세요."],["s","You too!","당신도요!"]]},
+
+{p:"Do you have anything for…?",m:"약국에서 일반 증상을 설명하고 약을 구하기",
+ c:[["두통에 먹을 약 있나요?","Do you have anything for a headache?"],["감기약 있나요?","Do you have anything for a cold?"],["목이 아파요","I have a sore throat."],["이 약은 얼마나 자주 먹어야 하나요?","How often should I take this?"],["이 약 먹으면 제가 졸릴까요?","Will this make me sleepy?"]],
+ s:[["배탈에 먹을 약 있나요?","Do you have anything for an upset stomach?"],["알레르기 약 있나요?","Do you have anything for allergies?"],["처방전이 필요한가요?","Do I need a prescription?"],["식후에 먹어야 하나요?","Should I take this after food?"],["하루에 몇 번 먹나요?","How many times a day should I take this?"]],
+ d:[["m","Do you have anything for a headache?","두통에 먹을 약 있나요?"],["s","How long have you had it?","얼마나 오래 두통이 있었나요?"],["m","Since this morning.","오늘 아침부터요."],["s","This should help. Take one tablet after food.","이 약이 도움이 될 겁니다. 식후 한 알 드세요."]]},
+
+{p:"It started…",m:"병원에서 증상과 시작 시점을 설명하기",
+ c:[["몸이 안 좋아요","I don't feel well."],["배가 아파요","My stomach hurts."],["어제 시작됐어요","It started yesterday."],["어젯밤부터 열이 있어요","I've had a fever since last night."],["이 약에 알레르기가 있어요","I'm allergic to this medicine."]],
+ s:[["숨쉬기가 힘들어요","I'm having trouble breathing."],["어지러워요","I feel dizzy."],["여기가 아파요","It hurts here."],["통증이 점점 심해져요","The pain is getting worse."],["여행자 보험이 있어요","I have travel insurance."]],
+ d:[["s","What seems to be the problem?","어디가 불편하신가요?"],["m","My stomach hurts. It started yesterday.","배가 아파요. 어제 시작됐어요."],["s","Do you have a fever?","열도 있나요?"],["m","No, I don't.","아니요."]]},
+
+{p:"I need to report…",m:"여권·카드 분실 사고를 수습하기",
+ c:[["분실 여권 신고를 해야 해요","I need to report a lost passport."],["카드를 사용 정지해야 해요","I need to block my card."],["한국 대사관이 어디예요?","Where is the Korean embassy?"],["경찰 신고서 사본이 필요해요","I need a copy of the police report."],["다음에 무엇을 해야 하나요?","What should I do next?"]],
+ s:[["휴대폰도 잃어버렸어요","I lost my phone too."],["온라인으로 신고할 수 있나요?","Can I report it online?"],["임시 여권이 필요해요","I need an emergency passport."],["보험사에 제출할 서류가 필요해요","I need documents for my insurance company."],["이 번호로 연락해 주시겠어요?","Could you call this number for me?"]],
+ d:[["m","I need to report a lost passport.","여권 분실 신고를 해야 해요."],["s","When did you last see it?","마지막으로 본 게 언제인가요?"],["m","This morning at the hotel.","오늘 아침 호텔에서요."],["s","We'll help you file a report.","신고서 작성을 도와드리겠습니다."]]},
+
+{p:"What happens if…?",m:"날씨·운영 중단으로 계획이 바뀔 때 대안을 찾기",
+ c:[["비가 오면 어떻게 되나요?","What happens if it rains?"],["오늘 취소됐나요?","Has it been cancelled today?"],["다른 시간으로 바꿀 수 있나요?","Can I change to another time?"],["환불 대상인가요?","Am I eligible for a refund?"],["대신 할 만한 게 있나요?","Is there an alternative?"]],
+ s:[["날씨 때문에 문을 닫았나요?","Is it closed because of the weather?"],["내일 다시 사용할 수 있나요?","Can I use it tomorrow instead?"],["다음 가능한 시간이 언제예요?","What's the next available time?"],["예약을 다른 날로 옮길 수 있나요?","Can I move my booking to another day?"],["오늘 실내에서 할 만한 걸 추천해 주세요","Could you recommend something indoors for today?"]],
+ d:[["m","Has the tour been cancelled today?","오늘 투어가 취소됐나요?"],["s","Yes, because of the weather.","네, 날씨 때문에 취소됐습니다."],["m","Can I change to tomorrow instead?","대신 내일로 바꿀 수 있나요?"],["s","Yes, we have space at ten.","네, 10시에 자리가 있습니다."]]},
+
+{p:"전체 여행 마스터 시뮬레이션",m:"70일 핵심 표현을 섞어 실전처럼 반응하기",
+ c:[["수하물 초과 요금이 얼마예요?","How much is the excess baggage fee?"],["이 주소로 가주시겠어요?","Could you take me to this address?"],["이 음식에 견과류가 들어가나요?","Does this contain nuts?"],["카드가 거절됐어요. 다시 해주시겠어요?","My card was declined. Could you try it again?"],["두통에 먹을 약 있나요?","Do you have anything for a headache?"]],
+ s:[["예약이 필요한가요?","Do I need a reservation?"],["이거 반품하고 싶어요","I'd like to return this."],["eSIM 있나요?","Do you have an eSIM?"],["고맙지만 괜찮아요","Thanks, but I'm okay."],["다음에 무엇을 해야 하나요?","What should I do next?"]],
+ d:[["s","Your bag is over the weight limit.","가방이 수하물 무게 한도를 초과했습니다."],["m","How much is the excess baggage fee?","초과 수하물 요금이 얼마예요?"],
+    ["s","Where are you headed?","어디로 가시나요?"],["m","Could you take me to this address?","이 주소로 가주시겠어요?"],
+    ["s","Do you have any allergies?","알레르기가 있으신가요?"],["m","I'm allergic to nuts.","견과류 알레르기가 있어요."],
+    ["s","Your card didn't go through.","카드 승인이 되지 않았습니다."],["m","Could you try it again?","다시 해주시겠어요?"],
+    ["s","How can I help you?","어떻게 도와드릴까요?"],["m","Do you have anything for a headache?","두통에 먹을 약 있나요?"]]}
+
+];
+const TOTAL_DAYS=DAYS.length;
+
+/* 고정 뱅크 */
+const RESCUE=[["네?","Sorry?"],["다시 말씀해 주시겠어요?","Could you say that again?"],
+ ["천천히 말씀해 주시겠어요?","Could you speak more slowly?"],["적어 주시겠어요?","Could you write it down?"],
+ ["못 알아들었어요","I don't understand."],["이거 말씀이세요?","Do you mean this?"],
+ ["지도에서 보여 주시겠어요?","Could you show me on the map?"]];
+
+const REPLIES=[["Passport, please.","Here you are."],["Cash or card?","Card, please."],
+ ["Anything else?","That's all, thank you."],["For here or to go?","To go, please."],
+ ["How many?","Two, please."],["Where are you going?","To the airport, please."],
+ ["Do you have a reservation?","Yes, under Lee."],["How would you like to pay?","By card, please."],
+ ["Breakfast is from seven to ten.","Could you say that again slowly?"],["Your room is on the third floor.","Sorry? Which floor?"],
+ ["Are you checking any bags?","Just one."],["Window or aisle?","Aisle, please."],
+ ["Do you accept cards?","Yes, we do."],["Would you like a bag?","No, thanks."],
+ ["Would you like a receipt?","Yes, please."],["Do you have any allergies?","I'm allergic to nuts."],
+ ["Do you need insurance?","Is it included?"],["How much data do you need?","About twenty gigabytes."],
+ ["What do you recommend?","Something local, please."],["What brings you here?","I'm here on vacation."]]
+
+const NUMBERS=[["13번 게이트","Gate thirteen."],["50번 게이트","Gate fifty."],["6시 15분","Six fifteen."],
+ ["6시 50분","Six fifty."],["213호","Room two-one-three."],["14요, 아니면 40요?","Is that fourteen or forty?"],
+ ["19요, 아니면 90요?","Is that nineteen or ninety?"],["1,5요? 아니면 5,0요?","One five, or five zero?"],
+ ["20유로","Twenty euros."],["약 15분","About fifteen minutes."],["7번 승강장","Platform seven."],
+ ["512호","Room five-one-two."],["2.5킬로 초과","Two point five kilos over."],["10일 동안","For ten days."],
+ ["20기가바이트","Twenty gigabytes."],["오후 8시 30분","Eight thirty p.m."]]
+
+const CORE24=[["I'd like a coffee, please.","커피 한 잔 주세요"],["I need help.","도와주세요"],
+ ["Do you have Wi-Fi?","와이파이 있나요?"],["Can I get some water?","물 좀 주세요"],
+ ["Could you help me?","도와주시겠어요?"],["Where is the restroom?","화장실이 어디예요?"],
+ ["How can I get to the airport?","공항까지 어떻게 가요?"],["How much is this?","이거 얼마예요?"],
+ ["What time does it leave?","몇 시에 출발해요?"],["Does this train go to Tbilisi?","이 기차 트빌리시 가나요?"],
+ ["Could you speak more slowly?","천천히 말씀해 주세요"],["Could you write it down?","적어 주시겠어요?"],
+ ["Could you say that again?","다시 말씀해 주시겠어요?"],["Where do I get off?","어디서 내려요?"],
+ ["My bag hasn't arrived.","제 가방이 안 나왔어요"],["Can we split the bill?","계산을 나눌 수 있나요?"],
+ ["My card was declined.","카드가 거절됐어요"],["I'd like to return this.","이거 반품하고 싶어요"],
+ ["Could you take me to this address?","이 주소로 가주시겠어요?"],["Do I need a reservation?","예약이 필요한가요?"],
+ ["Do you have an eSIM?","eSIM 있나요?"],["Do you have anything for a headache?","두통에 먹을 약 있나요?"],
+ ["What should I do next?","다음에 무엇을 해야 하나요?"],["Thanks, but I'm okay.","고맙지만 괜찮아요"]]
+
+const VERBS=[['go','went'],['come','came'],['get','got'],['take','took'],['find','found'],['lose','lost'],
+ ['buy','bought'],['pay','paid'],['eat','ate'],['see','saw'],['have','had'],['do','did'],
+ ['leave','left'],['make','made'],['bring','brought'],['send','sent'],['speak','spoke'],['understand','understood'],
+ ['meet','met'],['forget','forgot'],['rent','rented'],['reserve','reserved'],['charge','charged'],['cancel','cancelled']];
+
+const PRON_TIPS=[
+ {t:'th: 혀끝을 살짝 내밀기',d:'think / three는 ㅆ이 아니라 혀끝을 윗니와 아랫니 사이에 살짝 두고 바람을 냅니다.',e:['three','thirty','thank you']},
+ {t:'r / l 구분',d:'right는 혀가 입천장에 닿지 않고, light는 혀끝이 윗잇몸에 닿습니다.',e:['right','light','really']},
+ {t:'f / p 구분',d:'f는 윗니가 아랫입술에 닿습니다. coffee의 f와 passport의 p를 구분해 보세요.',e:['coffee','fifty','passport']},
+ {t:'v / b 구분',d:'v도 윗니와 아랫입술을 사용해 진동을 냅니다. very를 berry처럼 말하지 않게 주의합니다.',e:['very','reservation','available']},
+ {t:'-teen / -ty 숫자',d:'thirteen은 뒤쪽 teen에 힘이 실리고, thirty는 첫 음절 thir에 힘이 실립니다.',e:['thirteen','thirty','fourteen','forty']},
+ {t:'want to → wanna처럼 들릴 수 있음',d:'듣기에서는 want to가 빠르게 이어져 워너에 가깝게 들릴 수 있지만, 말할 때는 want to를 또박또박 말해도 충분합니다.',e:['want to','I want to go']},
+ {t:'going to → gonna처럼 들릴 수 있음',d:'상대가 빠르게 말하면 going to가 거너처럼 들릴 수 있습니다. 직접 말할 때는 going to를 분명하게 말하세요.',e:['going to',"I'm going to leave"]},
+ {t:'could you / would you 연음',d:'could you는 쿠쥬, would you는 우쥬에 가깝게 이어져 들릴 수 있습니다.',e:['Could you help me?','Would you like a bag?']},
+ {t:'did you 연음',d:'did you는 디쥬처럼 들리는 경우가 많습니다. 질문의 핵심어를 놓치지 마세요.',e:['Did you book it?','Did you pay?']},
+ {t:'t + y 연음',d:'get you, meet you처럼 t와 y가 만나면 츄에 가까운 소리가 날 수 있습니다.',e:['Nice to meet you','Can I get you anything?']},
+ {t:'단어 끝 자음은 세게 붙이지 않기',d:'card, help, bag처럼 끝 자음을 한국어 받침 뒤 모음처럼 늘이지 않습니다.',e:['card','help','bag']},
+ {t:'문장 강세: 핵심어만 또렷하게',d:'모든 단어를 똑같이 세게 말하기보다 목적지·시간·숫자·문제 핵심어를 분명하게 말하면 전달력이 좋아집니다.',e:['Gate THIRteen','Room FIVE-one-two','My CARD was declined']}
+];
+
+
+/* ═══════════ VERIFIED LIFE EXPRESSIONS ═══════════ */
+const normExpr=s=>String(s||'').toLowerCase().replace(/[’‘]/g,"'").replace(/[^a-z0-9']+/g,' ').trim().replace(/\s+/g,' ');
+const lifeId=en=>'life:'+normExpr(en).replace(/\s+/g,'-');
+
+const RAW_LIFE_EXPR=[
+ ['Act your age.','나이에 맞게 행동해. / 철 좀 들어.','행동·업무','y','active','상대에 따라 훈계조로 들릴 수 있음'],
+ ['Be my guest.','그러세요. / 마음껏 하세요.','수락·거절','g','active',''],
+ ['Back me up.','내 편 좀 들어줘. / 지원해 줘.','부탁·도움','y','active',''],
+ ['Back it in.','후진해서 넣어. / 후진 주차해.','행동·업무','y','active',''],
+ ['Behave yourself.','얌전히 행동해. / 예의 있게 행동해.','행동·업무','y','active','훈계조로 들릴 수 있음'],
+ ['Better late than never.','늦더라도 안 하는 것보다 낫다.','격려·위로','g','active',''],
+ ['Break it up!','그만 싸워! / 떨어져!','주의·경고','y','active','상황에 따라 강한 명령'],
+ ['Catch up!','따라잡아!','행동·업무','y','active',''],
+ ["Can't argue with that.",'그건 반박하기 어렵네. / 맞는 말이네.','동의·반응','g','active',''],
+ ['Could be.','그럴 수도 있어.','동의·반응','g','active',''],
+ ["Don't miss the boat.",'기회를 놓치지 마.','격려·위로','g','active',''],
+ ['Easy, easy!','살살해! / 진정해!','주의·경고','y','active',''],
+ ['Easy does it.','천천히 해. / 조심조심 해.','격려·위로','g','active',''],
+ ['Either will do.','둘 다 괜찮아.','수락·거절','g','active',''],
+ ['Enough is enough.','이제 충분해. / 이제 그만해.','주의·경고','y','active',''],
+ ['For good?','영원히? / 완전히?','동의·반응','y','active','문맥에 따라 영구적으로라는 뜻'],
+ ['Get it over with.','얼른 끝내 버리자.','행동·업무','y','active',''],
+ ['Hang in there.','조금만 더 버텨. / 힘내.','격려·위로','g','active',''],
+ ['Hold it!','잠깐! / 멈춰!','주의·경고','y','active',''],
+ ["He's a handful.",'다루기 힘든 사람이야. / 손이 많이 가.','상태·감정','y','active',''],
+ ["I'm touched.",'감동받았어요.','상태·감정','g','active',''],
+ ["I'm all set.",'준비됐어요. / 전 괜찮아요.','상태·감정','g','active','문맥에 따라 제안을 정중히 거절하는 뜻도 됨'],
+ ["I'm dead set against it.",'나는 그걸 완강히 반대해.','상태·감정','g','active',''],
+ ["I'm nearsighted.",'나는 근시예요.','건강·몸','g','active',''],
+ ["I'm on duty.",'근무 중이에요.','상태·감정','g','active',''],
+ ["I'm stuffed.",'배불러요.','상태·감정','y','active','비격식'],
+ ['I can tell.','알겠어. / 보면 알 수 있어.','동의·반응','g','active',''],
+ ["I can't thank you enough.",'아무리 감사해도 부족해요.','인사·사교','g','active',''],
+ ['I get a kick out of it.','그게 정말 재미있어요.','상태·감정','y','active','비격식'],
+ ["I didn't mean to.",'일부러 그런 건 아니었어요.','실수·사과','g','active',''],
+ ['I doubt it.','그건 아닐 것 같은데.','동의·반응','g','active',''],
+ ["I've had it.",'이제 못 참겠어. / 진절머리가 나.','상태·감정','y','active','강한 불만'],
+ ['I made it.','해냈어! / 제시간에 도착했어.','성공·실수','g','active','문맥에 따라 뜻이 달라짐'],
+ ['I mean it.','진심이야.','동의·반응','g','active',''],
+ ['I owe you one.','신세졌어. / 다음에 갚을게.','인사·사교','y','active',''],
+ ['I taught myself.','독학했어요.','행동·업무','g','active',''],
+ ["I'll be in touch.",'연락할게.','연락·이동','g','active',''],
+ ["It's muggy.",'후텁지근해요.','상태·감정','g','active',''],
+ ["I've got to get going.",'이제 가봐야겠어요.','연락·이동','g','active',''],
+ ["It's now or never.",'지금 아니면 기회가 없어.','격려·위로','g','active',''],
+ ["It's on the house.",'가게에서 서비스로 드리는 겁니다.','식당·쇼핑','g','active',''],
+ ["It wouldn't hurt to try.",'한번 해봐도 손해는 없어.','격려·위로','g','active',''],
+ ['Keep in touch.','계속 연락하고 지내요.','연락·이동','g','active',''],
+ ['Keep your chin up.','힘내. / 기죽지 마.','격려·위로','g','active',''],
+ ["Look who's here!",'이게 누구야! / 누가 왔나 봐!','인사·사교','y','active',''],
+ ['Lie on your back.','등을 대고 누우세요.','건강·몸','g','active',''],
+ ['Lie on your stomach.','엎드리세요.','건강·몸','g','active',''],
+ ['Make mine well done.','제 것은 웰던으로 해주세요.','식당·쇼핑','g','active',''],
+ ['Many thanks in advance.','미리 감사드립니다.','인사·사교','g','active',''],
+ ['Maybe some other time.','다음 기회에 하죠.','수락·거절','g','active',''],
+ ['Money talks.','돈이 힘을 발휘한다.','동의·반응','y','recognition','속담성 표현'],
+ ['Money is no object.','돈은 문제가 아니야.','식당·쇼핑','g','active',''],
+ ['My dog got loose.','우리 개가 풀려났어요. / 달아났어요.','여행·길','g','active',''],
+ ['Never better.','더할 나위 없이 좋아.','상태·감정','g','active',''],
+ ['Never say die.','절대 포기하지 마.','격려·위로','g','active',''],
+ ['No sweat.','문제없어. / 별거 아니야.','격려·위로','y','active','비격식'],
+ ['Not a chance.','절대 안 돼. / 가능성 없어.','수락·거절','y','active',''],
+ ['Not too good.','별로 좋지 않아.','상태·감정','g','active',''],
+ ["Now you're talking.",'바로 그거지! / 이제야 말이 통하네.','동의·반응','y','active',''],
+ ['Poor thing.','안됐네. / 가엾어라.','격려·위로','g','active',''],
+ ['Same here.','나도 그래.','동의·반응','g','active',''],
+ ['Skip it.','됐어요. / 그냥 넘어가요.','수락·거절','y','active',''],
+ ["Something's fishy.",'뭔가 수상해.','동의·반응','y','active',''],
+ ['Stay cool.','침착해.','격려·위로','y','active',''],
+ ['Stick around.','가지 말고 좀 더 있어.','행동·업무','y','active',''],
+ ['Super!','좋아! / 최고야!','동의·반응','g','active',''],
+ ['Take my word for it.','내 말을 믿어.','부탁·도움','y','active',''],
+ ["Couldn't be better.",'이보다 더 좋을 수 없어. / 최고야.','상태·감정','g','active',''],
+ ['Far from it!','전혀 아니야!','직역주의','y','active','‘아직 멀었다’로 외우지 않기'],
+ ['Give it a rest.','그 얘기 좀 그만해. / 그만 좀 해.','주의·경고','y','active','‘내버려 둬’가 핵심 뜻이 아님'],
+ ['I know what!','아, 좋은 생각이 있어!','직역주의','y','active','아이디어가 떠올랐을 때'],
+ ['I was shortchanged.','거스름돈을 덜 받았어요.','식당·쇼핑','g','active',''],
+ ["I wouldn't say no.",'좋죠. / 마다하지 않겠어요.','직역주의','y','active','제안을 완곡하게 받아들이는 표현'],
+ ['Just about.','거의. / 대략.','직역주의','y','recognition','항상 ‘간신히’라는 뜻은 아님'],
+ ['Lucky you!','좋겠다! / 운 좋네!','동의·반응','g','active',''],
+ ['Make way!','길을 비켜 주세요!','여행·길','y','active','긴급하거나 사람이 지나갈 공간을 만들 때'],
+ ['Do you speak Korean?','한국어 하세요?','부탁·도움','g','active',''],
+ ['That figures.','그럴 줄 알았어. / 역시 그렇군.','직역주의','y','active','예상한 일이 벌어졌을 때'],
+ ['Tell me about it!','그러게 말이야! / 내 말이 그 말이야!','직역주의','y','active','문맥에 따라 문자 그대로 “말해 줘”도 가능'],
+ ["Don't I know it!",'누가 아니래! / 나도 너무 잘 알지.','직역주의','y','active','강한 공감'],
+ ['Fair enough.','그 말도 일리가 있네. / 그 정도면 이해돼.','동의·반응','g','active',''],
+ ['No wonder.','어쩐지.','동의·반응','g','active',''],
+ ['That makes two of us.','나도 마찬가지야.','동의·반응','g','active',''],
+ ['Beats me.','나도 몰라.','모름·이해','y','active','비격식'],
+ ['You can say that again.','정말 그래. / 누가 아니래.','직역주의','y','active','“다시 말해”가 아니라 강한 동의'],
+ ['You bet.','물론이지. / 당연하지.','동의·반응','y','active','비격식'],
+ ['Good for you!','잘됐네! / 잘했어!','동의·반응','g','active','억양에 따라 비꼼 가능'],
+ ["I'm all ears.",'잘 듣고 있어. / 말해 봐.','부탁·도움','g','active',''],
+ ['Count me in.','나도 낄게.','수락·거절','y','active',''],
+ ['Count me out.','나는 빠질게.','수락·거절','y','active',''],
+ ["I'll pass.",'난 사양할게.','수락·거절','g','active',''],
+ ["I'm good, thanks.",'괜찮아요, 됐어요.','직역주의','g','active','제안을 정중히 거절할 때 자주 사용'],
+ ['Let me sleep on it.','하룻밤 생각해 볼게.','수락·거절','g','active',''],
+ ['Can I take a rain check?','이번에는 미루고 다음에 해도 될까요?','수락·거절','g','active',''],
+ ["It's up to you.",'네가 결정해. / 당신에게 달렸어요.','수락·거절','g','active',''],
+ ["It's a deal.",'그렇게 하자. / 약속한 거다.','수락·거절','g','active',''],
+ ['Not my thing.','내 취향은 아니야.','수락·거절','y','active',''],
+ ["I'm beat.",'완전히 지쳤어.','상태·감정','y','active','Beat it!과 혼동 주의'],
+ ["I'm swamped.",'일이 너무 많아. / 정신없이 바빠.','상태·감정','y','active',''],
+ ["I'm broke.",'돈이 없어. / 돈이 궁해.','상태·감정','y','active','비격식'],
+ ["I'm on it.",'지금 바로 할게요. / 처리할게요.','행동·업무','g','active','업무에서 자주 사용'],
+ ['My bad.','내 실수야.','실수·사과','y','active','격식 있는 자리에서는 My mistake.'],
+ ['It slipped my mind.','깜빡했어.','실수·사과','g','active',''],
+ ['I zoned out.','잠깐 멍했어.','상태·감정','y','active',''],
+ ["I'm running late.",'좀 늦을 것 같아요.','연락·이동','g','active',''],
+ ["You've got this.",'넌 할 수 있어.','격려·위로','g','active',''],
+ ["It's not the end of the world.",'세상이 끝난 것도 아니잖아.','격려·위로','g','active','상황에 따라 위로를 가볍게 만든다고 느낄 수 있음'],
+ ['Better luck next time.','다음엔 잘될 거야.','격려·위로','g','active',''],
+ ["Don't sweat it.",'신경 쓰지 마. / 걱정 마.','격려·위로','y','active','비격식'],
+ ['Way to go!','잘했어!','격려·위로','g','active','억양에 따라 비꼼 가능'],
+ ['Take your time.','천천히 하세요. / 서두르지 마세요.','격려·위로','g','active',''],
+ ['For here or to go?','드시고 가세요, 가져가세요?','식당·쇼핑','g','active',''],
+ ['Is this seat taken?','여기 자리 있나요?','여행·길','g','active',''],
+ ['Can I get the check?','계산서 주세요.','식당·쇼핑','g','active','미국식. 영국에서는 bill이 흔함'],
+ ["It's on me.",'내가 낼게. / 내가 쏠게.','식당·쇼핑','g','active','on the house와 구별'],
+ ['Keep the change.','잔돈은 가지세요.','식당·쇼핑','g','active',''],
+ ["I'm just looking.",'그냥 구경하는 거예요.','식당·쇼핑','g','active',''],
+ ["What's the damage?",'얼마 나왔어?','식당·쇼핑','y','active','농담조의 비격식 표현'],
+ ['Heads up!','조심해! / 미리 알려줄게.','주의·경고','y','active','Just a heads-up은 “미리 알려두는데”'],
+ ['Watch your step.','발밑 조심하세요.','주의·경고','g','active',''],
+ ["Don't get me wrong.",'오해하지 마.','주의·경고','g','active',''],
+ ['Speak of the devil.','호랑이도 제 말 하면 온다더니.','동의·반응','y','active','비격식 관용 표현'],
+ ["Let's call it a day.",'오늘은 여기까지 하자.','행동·업무','g','active',''],
+ ['Sounds good.','좋아요. / 괜찮네요.','동의·반응','g','active',''],
+ ['That makes sense.','그 말이 이해돼요. / 일리가 있네요.','동의·반응','g','active',''],
+ ['I see what you mean.','무슨 말인지 알겠어요.','동의·반응','g','active',''],
+ ['You have a point.','일리가 있네요.','동의·반응','g','active',''],
+ ["That's a good point.",'좋은 지적이에요.','동의·반응','g','active',''],
+ ["I couldn't agree more.",'정말 전적으로 동의해요.','동의·반응','g','active',''],
+ ["It's your call.",'네가 결정해.','수락·거절','y','active','비격식'],
+ ['No rush.','급하지 않아요. / 천천히 해요.','격려·위로','g','active',''],
+ ['No worries.','괜찮아요. / 걱정 마세요.','격려·위로','g','active',''],
+ ['No problem.','문제없어요. / 괜찮아요.','격려·위로','g','active',''],
+ ['My pleasure.','별말씀을요. / 제가 더 기쁘죠.','인사·사교','g','active',''],
+ ['Anytime.','언제든지요.','인사·사교','g','active',''],
+ ['You did it!','해냈네!','성공·실수','g','active',''],
+ ['Keep it up!','계속 잘해!','격려·위로','g','active',''],
+ ["Don't give up.",'포기하지 마.','격려·위로','g','active',''],
+ ['Give it a try.','한번 해봐.','격려·위로','g','active',''],
+ ["It's worth a try.",'한번 해볼 만해요.','격려·위로','g','active',''],
+ ['Why not?','좋지! / 왜 안 돼?','수락·거절','g','active','문맥에 따라 질문일 수도 있음'],
+ ["I'm not sure.",'잘 모르겠어요.','모름·이해','g','active',''],
+ ["I'm not sure yet.",'아직 잘 모르겠어요.','모름·이해','g','active',''],
+ ['Let me think.','생각 좀 해볼게요.','모름·이해','g','active',''],
+ ["I'll think about it.",'생각해 볼게요.','수락·거절','g','active',''],
+ ["I'll get back to you.",'확인하고 다시 연락할게요.','연락·이동','g','active',''],
+ ["I'll let you know.",'알려드릴게요.','연락·이동','g','active',''],
+ ["It doesn't matter.",'상관없어요.','수락·거절','g','active',''],
+ ['Never mind.','신경 쓰지 마세요. / 됐어요.','수락·거절','g','active',''],
+ ['Forget it.','됐어. / 신경 쓰지 마.','수락·거절','y','active','억양에 따라 퉁명스럽게 들림'],
+ ["That's okay.",'괜찮아요.','격려·위로','g','active',''],
+ ["That's fine.",'괜찮아요.','격려·위로','g','active',''],
+ ['Are you okay?','괜찮아요?','건강·몸','g','active',''],
+ ["What's wrong?",'무슨 일이에요? / 어디가 안 좋아요?','건강·몸','g','active',''],
+ ["What's going on?",'무슨 일이야?','동의·반응','y','active',''],
+ ['What happened?','무슨 일이 있었어요?','건강·몸','g','active',''],
+ ["Don't worry about it.",'걱정하지 마세요.','격려·위로','g','active',''],
+ ['Take care.','잘 지내요. / 조심히 가요.','인사·사교','g','active',''],
+ ['Have a good one.','좋은 하루 보내세요.','인사·사교','y','active','비격식'],
+ ['See you around.','또 봐요.','인사·사교','y','active',''],
+ ['Long time no see.','오랜만이에요.','인사·사교','g','active',''],
+ ['What have you been up to?','요즘 어떻게 지냈어요?','인사·사교','y','active',''],
+ ["How's it going?",'어떻게 지내요?','인사·사교','y','active',''],
+ ["I'm on my way.",'지금 가는 중이에요.','연락·이동','g','active',''],
+ ["I'm almost there.",'거의 다 왔어요.','연락·이동','g','active',''],
+ ['Here you go.','여기 있습니다.','부탁·도움','g','active',''],
+ ['After you.','먼저 가세요.','여행·길','g','active',''],
+ ['Go ahead.','먼저 하세요. / 말씀하세요.','부탁·도움','g','active',''],
+ ['Excuse me.','실례합니다.','부탁·도움','g','active',''],
+ ['Sorry to bother you.','방해해서 미안합니다만…','부탁·도움','g','active',''],
+ ['What does that mean?','그게 무슨 뜻이에요?','모름·이해','g','active',''],
+ ['How do you say this in English?','이것을 영어로 뭐라고 해요?','모름·이해','g','active',''],
+ ["I don't get it.",'이해가 안 돼요.','모름·이해','y','active','비격식'],
+ ['Got it.','알겠어요.','모름·이해','g','active',''],
+ ["We'll see.",'두고 봐야죠. / 상황을 봅시다.','모름·이해','g','active',''],
+ ['So far, so good.','지금까지는 잘되고 있어요.','동의·반응','g','active',''],
+ ["It's no big deal.",'별일 아니에요. / 별거 아니에요.','격려·위로','g','active',''],
+ ['It happens.','그럴 수도 있죠.','격려·위로','g','active',''],
+ ["That's my fault.",'제 잘못이에요.','실수·사과','g','active',''],
+ ['You never know.','어떻게 될지 모르죠.','모름·이해','g','active',''],
+ ['Fingers crossed.','잘되길 바라자.','격려·위로','y','active','비격식'],
+ ['Wish me luck.','잘되라고 빌어줘.','격려·위로','g','active',''],
+ ['Good luck!','행운을 빌어요!','격려·위로','g','active',''],
+ ['I blacked out.','의식을 잃었어. / 상황에 따라 기억이 끊겼어.','상태·감정','y','recognition','술 문맥에서는 기억이 끊겼다는 뜻도 가능'],
+ ['Beat it!','꺼져!','주의 표현','r','recognition','상당히 무례함'],
+ ["Didn't I make myself clear?",'내가 분명히 말하지 않았어?','주의 표현','r','recognition','강압적으로 들릴 수 있음'],
+ ["Don't mess with me.",'나 건드리지 마.','주의 표현','r','recognition','공격적'],
+ ["Don't push it.",'너무 나가지 마. / 선 넘지 마.','주의 표현','r','recognition','경고 표현'],
+ ["Don't push me.",'날 몰아붙이지 마.','주의 표현','r','recognition','강한 표현'],
+ ["Don't rub it in.",'자꾸 약 올리지 마. / 아픈 데를 계속 건드리지 마.','주의 표현','y','recognition',''],
+ ['Get a life!','참견 그만하고 네 일이나 해.','주의 표현','r','recognition','상대를 깎아내리는 표현'],
+ ['Get off my back!','그만 좀 들볶아!','주의 표현','r','recognition','공격적'],
+ ['Get real!','현실 좀 봐! / 말도 안 돼!','주의 표현','r','recognition','상황에 따라 모욕적으로 들림'],
+ ['Grow up!','철 좀 들어!','주의 표현','r','recognition','상대를 깎아내릴 수 있음'],
+ ['Keep out of my way.','내 앞을 막지 마. / 방해하지 마.','주의 표현','r','recognition',''],
+ ['Keep it to yourself.','남에게 말하지 마. / 혼자 알고 있어.','주의 표현','y','active',''],
+ ['Knock it off!','그만해!','주의 표현','r','recognition','강한 명령'],
+ ['Know your place.','네 분수를 알아.','주의 표현','r','recognition','모욕적일 수 있음'],
+ ['Mind your own business.','네 일이나 신경 써.','주의 표현','r','recognition','공격적'],
+ ['Suit yourself.','네 마음대로 해.','주의 표현','y','active','퉁명스럽게 들릴 수 있음'],
+ ['Take it or leave it.','싫으면 말고. / 받아들이든지 말든지.','주의 표현','r','recognition','강압적으로 들릴 수 있음']
+].map(x=>({id:lifeId(x[0]),en:x[0],ko:x[1],cat:x[2],tone:x[3],use:x[4],warn:x[5]}));
+
+function collectCourseExpr(){
+  const out=[],seen=new Set();
+  const add=(en,ko,ref)=>{const k=normExpr(en);if(!k||seen.has(k))return;seen.add(k);out.push({id:'course:'+ref,en,ko,cat:'70일 과정',tone:'g',use:'active',type:'course',courseRef:ref,warn:''});};
+  DAYS.forEach((d,di)=>{
+    if(/^[A-Za-z'"]/.test(d.p||''))add(d.p,d.m,`DAY ${di+1} 패턴`);
+    d.c.forEach((x,i)=>add(x[1],x[0],`DAY ${di+1} 핵심 ${i+1}`));
+    d.s.forEach((x,i)=>add(x[1],x[0],`DAY ${di+1} 보조 ${i+1}`));
+    d.d.forEach((x,i)=>add(x[1],x[2],`DAY ${di+1} 역할극 ${i+1}`));
+  });
+  CORE24.forEach((x,i)=>add(x[0],x[1],`CORE24 ${i+1}`));
+  RESCUE.forEach((x,i)=>add(x[1],x[0],`RESCUE ${i+1}`));
+  return out;
+}
+const COURSE_EXPR=collectCourseExpr();
+const COURSE_NORM=new Set(COURSE_EXPR.map(x=>normExpr(x.en)));
+const LIFE_EXPR=RAW_LIFE_EXPR.filter(x=>!COURSE_NORM.has(normExpr(x.en))).map(x=>({...x,type:'extra'}));
+const META_BY_NORM=new Map(RAW_LIFE_EXPR.map(x=>[normExpr(x.en),x]));
+const COURSE_WITH_META=COURSE_EXPR.map(x=>{const m=META_BY_NORM.get(normExpr(x.en));return m?{...x,cat:m.cat,tone:m.tone,use:m.use,warn:m.warn}:x;});
+const ALL_EXPR=[...COURSE_WITH_META,...LIFE_EXPR];
+const EXPR_BY_ID=new Map(ALL_EXPR.map(x=>[x.id,x]));
+const LIFE_BY_TEXT=new Map(LIFE_EXPR.map(x=>[normExpr(x.en),x]));
+
+const MISLEADING=[
+ {id:lifeId("I'm good, thanks."),wrong:'나는 좋아요.'},
+ {id:lifeId('Tell me about it!'),wrong:'그것에 대해 말해 줘.'},
+ {id:lifeId('Far from it!'),wrong:'아직 멀었어.'},
+ {id:lifeId('That figures.'),wrong:'바로 그거군.'},
+ {id:lifeId("I wouldn't say no."),wrong:'아니라고 말 못 하겠어.'},
+ {id:lifeId('You can say that again.'),wrong:'다시 말해 줘.'},
+ {id:lifeId("Don't I know it!"),wrong:'내가 그것을 모르겠어?'},
+ {id:lifeId('I know what!'),wrong:'나는 무엇인지 알아.'}
+];
+
+const PAIR_EXPR=[
+ {title:'BEAT',ids:[lifeId('Beat it!'),lifeId("I'm beat.")]},
+ {title:'SWEAT',ids:[lifeId('No sweat.'),lifeId("Don't sweat it.")]},
+ {title:'ON',ids:[lifeId("It's on me."),lifeId("It's on the house.")]},
+ {title:'SAY',ids:[lifeId('You can say that again.'), lifeId('Tell me about it!')]},
+ {title:'OUT',ids:[lifeId('I blacked out.'),lifeId('I zoned out.')]}
+];
+
+const CORRECTIONS=[
+ {wrong:'Luck you!',rightId:lifeId('Lucky you!')},
+ {wrong:'Make a way!',rightId:lifeId('Make way!')},
+ {wrong:'Speaking Korean?',rightId:lifeId('Do you speak Korean?')},
+ {wrong:"I'm short-changed.",rightId:lifeId('I was shortchanged.')},
+ {wrong:"Can't be better than this.",rightId:lifeId("Couldn't be better.")},
+ {wrong:'That figures. = 바로 그거군요',rightId:lifeId('That figures.')},
+ {wrong:'Far from it. = 아직 멀었어요',rightId:lifeId('Far from it!')},
+ {wrong:"I wouldn't say no. = 아니라고 말 못해요",rightId:lifeId("I wouldn't say no.")},
+ {wrong:'Get a life! = 재미있게 살아라',rightId:lifeId('Get a life!')},
+ {wrong:'Give it a rest. = 내버려 둬',rightId:lifeId('Give it a rest.')},
+ {wrong:'Do I know it? (누가 아니래 의미)',rightId:lifeId("Don't I know it!")}
+];
+
+/* ═══════════ STATE ═══════════ */
+const DEF={day:1,progressDay:1,done:{},marks:{},lifeMarks:{},favorites:[],streak:0,last:null,pending:null,
+  set:{gap:5,rate:0.88,rep:2,txt:1,wake:1,len:10}};
+let S=JSON.parse(JSON.stringify(DEF));
+const KEY='cec-v7';
+const LEGACY_KEYS=['cec-v6','cec-v5','cec-v4','cec-v3'];
+const MAX_PENDING_ITEMS=100;
+const RESCUE_WEEKS=new Set([3,6,7,10,12,13,14]);
+const NUMBER_WEEKS=new Set([2,6,7,8,9,10,11,12,14]);
+function cleanText(v,max=300){return String(v??'').replace(/[<>]/g,'').slice(0,max);}
+function esc(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[c]));}
+function pick(v,allowed,fallback){return allowed.includes(Number(v))?Number(v):fallback;}
+function migrateDone(raw){
+  const out={};
+  if(!raw||typeof raw!=='object')return out;
+  Object.entries(raw).forEach(([k,v])=>{
+    if(!v||typeof v!=='object')return;
+    // 새 구조: day 번호를 key로 사용
+    if(/^\d{1,2}$/.test(k)){
+      const d=Math.min(TOTAL_DAYS,Math.max(1,Number(k)));
+      out[d]={am:v.am||null,pm:v.pm||null};return;
+    }
+    // 구 구조: 날짜별 {am:day, pm:day}
+    if(/^\d{4}-\d{2}-\d{2}$/.test(k)){
+      ['am','pm'].forEach(kind=>{const d=Number(v[kind]);if(d>=1&&d<=TOTAL_DAYS){
+        out[d]=out[d]||{am:null,pm:null};out[d][kind]=k;}});
+    }
+  });
+  return out;
+}
+function normalizeState(v){
+  if(!v||typeof v!=='object')throw new Error('invalid state');
+  const day=Math.min(TOTAL_DAYS,Math.max(1,Number(v.day)||1));
+  const done=migrateDone(v.done);
+  // 구버전의 day는 '현재 화면 Day'로도 쓰였으므로 완료 기록을 함께 보고 실제 도달 진도를 복원한다.
+  // 한 세션이라도 완료된 Day는 최소 그 Day까지는 접근 가능했던 기록이고, AM+PM 완료 시 다음 Day까지 열린 것으로 본다.
+  let inferred=Math.min(TOTAL_DAYS,Math.max(1,Number(v.progressDay)||day));
+  Object.entries(done).forEach(([k,r])=>{const d=Number(k);if(r&&(r.am||r.pm))inferred=Math.max(inferred,d);if(r&&r.am&&r.pm&&d<TOTAL_DAYS)inferred=Math.max(inferred,d+1);});
+  const progressDay=Math.min(TOTAL_DAYS,inferred);
+  const marks={};
+  if(v.marks&&typeof v.marks==='object')Object.entries(v.marks).forEach(([id,m])=>{
+    if(!m||typeof m!=='object')return;
+    const cleanId=cleanText(id,80),oldEn=cleanText(m.en);
+    // 콘텐츠 교정으로 같은 위치 ID(d60c1 등)의 영어 문장이 바뀐 경우,
+    // 과거 자동화 기록이 새 문장에 잘못 이월되지 않도록 해당 마킹만 폐기한다.
+    const cm=/^d(\d{1,2})c(\d+)$/.exec(cleanId);
+    if(cm&&oldEn){const cd=Number(cm[1]),ci=Number(cm[2]),currentEn=DAYS[cd-1]?.c?.[ci]?.[1];if(currentEn&&currentEn!==oldEn)return;}
+    marks[cleanId]={...m,ko:cleanText(m.ko),en:oldEn,
+      lv:['o','t','x'].includes(m.lv)?m.lv:null,auto:!!m.auto,ok:Math.max(0,Number(m.ok)||0),miss:Math.max(0,Number(m.miss)||0),
+      dueKey:/^\d{4}-\d{2}-\d{2}$/.test(m.dueKey||'')?m.dueKey:'',dueAt:Math.max(0,Number(m.dueAt)||0),at:Math.max(0,Number(m.at)||0)};
+  });
+  const vs=v.set&&typeof v.set==='object'?v.set:{};
+  const set={
+    len:pick(vs.len,[5,10,15],DEF.set.len),gap:pick(vs.gap,[2,3,5,7],DEF.set.gap),
+    rate:pick(vs.rate,[0.75,0.88,1],DEF.set.rate),rep:pick(vs.rep,[1,2,3],DEF.set.rep),
+    txt:pick(vs.txt,[0,1],DEF.set.txt),wake:pick(vs.wake,[0,1],DEF.set.wake)
+  };
+  const pending=(v.pending&&typeof v.pending==='object'&&Array.isArray(v.pending.items))?{kind:['am','pm','weak'].includes(v.pending.kind)?v.pending.kind:'am',day:Math.min(TOTAL_DAYS,Math.max(1,Number(v.pending.day)||day)),items:v.pending.items.slice(0,MAX_PENDING_ITEMS).map(x=>({id:cleanText(x?.id,80),ko:cleanText(x?.ko),en:cleanText(x?.en),lv:['o','t','x'].includes(x?.lv)?x.lv:null})).filter(x=>x.id&&x.en)}:null;
+  const lifeMarks={};if(v.lifeMarks&&typeof v.lifeMarks==='object')Object.entries(v.lifeMarks).forEach(([id,m])=>{if(m&&typeof m==='object')lifeMarks[cleanText(id,100)]={...m,lv:['o','t','x'].includes(m.lv)?m.lv:null,auto:!!m.auto,ok:Math.max(0,Number(m.ok)||0),miss:Math.max(0,Number(m.miss)||0),at:Math.max(0,Number(m.at)||0)}});
+  const favorites=Array.isArray(v.favorites)?[...new Set(v.favorites.map(x=>cleanText(x,100)).filter(Boolean))].slice(0,500):[];
+  return {...JSON.parse(JSON.stringify(DEF)),...v,day,progressDay,done,marks,lifeMarks,favorites,set,pending};
+}
+async function load(){try{let raw=localStorage.getItem(KEY);
+    if(!raw){for(const k of LEGACY_KEYS){raw=localStorage.getItem(k);if(raw)break;}}
+    if(raw){S=normalizeState(JSON.parse(raw));localStorage.setItem(KEY,JSON.stringify(S));}}
+  catch(e){S=JSON.parse(JSON.stringify(DEF));}}
+async function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}
+  catch(e){console.warn('학습 기록을 저장하지 못했습니다.',e);}}
+function localDateKey(date=new Date()){
+  const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,'0'),d=String(date.getDate()).padStart(2,'0');
+  return `${y}-${m}-${d}`;
+}
+const tKey=()=>localDateKey();
+function yesterdayKey(){const d=new Date();d.setDate(d.getDate()-1);return localDateKey(d);}
+const dd=n=>DAYS[(n-1)%DAYS.length];
+const wk=n=>Math.floor((n-1)/5)+1;
+const sid=(d,i)=>`d${d}c${i}`;
+let hideKo=false;
+let dlgTok=0;
+
+/* ═══════════ PREMIUM EXPERIENCE ═══════════ */
+const UX_ONBOARD_KEY='cec-v63-onboard';
+const UX_MILESTONE_PREFIX='cec-v63-milestone-';
+function haptic(pattern=10){try{if('vibrate' in navigator)navigator.vibrate(pattern);}catch(e){}}
+function isFreshStart(){return S.progressDay===1&&Object.keys(S.done||{}).length===0;}
+function openOnboarding(){
+  if(localStorage.getItem(UX_ONBOARD_KEY)||!isFreshStart())return;
+  const el=document.getElementById('onboard');el.classList.add('on');el.setAttribute('aria-hidden','false');
+  let step=0;
+  const paint=()=>{document.querySelectorAll('.obstep').forEach((x,i)=>x.classList.toggle('on',i===step));document.querySelectorAll('.obdots i').forEach((x,i)=>x.classList.toggle('on',i===step));document.getElementById('ob-next').textContent=step===2?'70일 여행 시작하기':'다음';};
+  const close=()=>{localStorage.setItem(UX_ONBOARD_KEY,'1');el.classList.remove('on');el.setAttribute('aria-hidden','true');haptic(10);};
+  document.getElementById('ob-next').onclick=()=>{if(step<2){step++;haptic(6);paint();}else close();};
+  document.getElementById('ob-skip').onclick=close;paint();
+}
+function core24AutoCount(){
+  const autoEnglish=new Set(Object.entries(S.marks||{}).filter(([id,m])=>isCoreId(id)&&m&&m.auto).map(([,m])=>m.en));
+  return CORE24.filter(([en])=>autoEnglish.has(en)).length;
+}
+function maybeMilestone(day){
+  if(day!==30&&day!==70)return;
+  const rec=S.done[day];if(!rec?.am||!rec?.pm)return;
+  const key=UX_MILESTONE_PREFIX+day;if(localStorage.getItem(key))return;
+  localStorage.setItem(key,'1');
+  const el=document.getElementById('milestone');
+  document.getElementById('mile-day').textContent=String(day);
+  document.getElementById('mile-kicker').textContent=day===30?'SURVIVAL MILESTONE':'FINAL MILESTONE';
+  document.getElementById('mile-title').innerHTML=day===30?'SURVIVAL COURSE<br>COMPLETE':'TRAVEL ENGLISH<br>MASTERED';
+  document.getElementById('mile-copy').textContent=day===30?'30일 생존 여행영어 구간을 완주했습니다. 이제 실전 확장 구간으로 이어집니다.':'70일 여행영어 코스를 완주했습니다. 지금까지 익힌 표현을 실제 여행에서 꺼내 쓸 차례입니다.';
+  document.getElementById('mile-core').textContent=`${core24AutoCount()} / ${CORE24.length}`;
+  document.getElementById('mile-auto').textContent=String(Object.entries(S.marks||{}).filter(([id,m])=>isCoreId(id)&&m&&m.auto).length);
+  document.getElementById('mile-streak').textContent=String(S.streak);
+  el.classList.add('on');el.setAttribute('aria-hidden','false');haptic([20,45,20]);
+}
+document.getElementById('mile-close').onclick=()=>{const el=document.getElementById('milestone');el.classList.remove('on');el.setAttribute('aria-hidden','true');haptic(10);};
+function journeyHTML(current,amSet,pmSet){
+  return WEEK.map((week,wi)=>{
+    const start=wi*5+1,end=Math.min(start+4,TOTAL_DAYS);let full=0;
+    const nodes=[];
+    for(let day=start;day<=end;day++){
+      const am=amSet.has(day),pm=pmSet.has(day),done=am&&pm;if(done)full++;
+      nodes.push(`<div class="wj-node ${done?'done':''} ${day===current?'now':''}"><div class="wj-dot">${String(day).padStart(2,'0')}</div><div class="wj-bars"><i class="${am?'am':''}"></i><i class="${pm?'pm':''}"></i></div></div>`);
+    }
+    return `<div class="weekjourney ${current>=start&&current<=end?'current':''}"><div class="wj-head"><div class="wj-title"><b>WEEK ${wi+1}</b><span>${week.t}</span></div><div class="wj-score">${full} / ${end-start+1}</div></div><div class="wj-track">${nodes.join('')}</div></div>`;
+  }).join('');
+}
+
+/* ═══════════ SPEECH ═══════════ */
+let koV=null,enV=null;
+function pv(){const v=speechSynthesis.getVoices()||[];
+  koV=v.find(x=>/^ko/i.test(x.lang))||null;
+  enV=v.find(x=>/^en[-_]US/i.test(x.lang)&&/natural|enhanced|premium/i.test(x.name))
+    ||v.find(x=>/^en[-_]US/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null;}
+if('speechSynthesis'in window){pv();speechSynthesis.onvoiceschanged=pv;}
+function safeSpeechCancel(){try{if('speechSynthesis'in window)speechSynthesis.cancel();}catch(e){}}
+function speak(t,lang,rate){return new Promise(res=>{
+  if(!('speechSynthesis'in window)||!t){setTimeout(res,350);return;}
+  try{speechSynthesis.resume();const u=new SpeechSynthesisUtterance(t);
+    u.lang=lang==='ko'?'ko-KR':'en-US';const v=lang==='ko'?koV:enV;if(v)u.voice=v;
+    u.rate=rate;u.volume=1;u.pitch=1;let f=false,timer=null;
+    const fin=()=>{if(!f){f=true;if(timer)clearTimeout(timer);res();}};
+    u.onend=fin;u.onerror=fin;
+    const perChar=lang==='ko'?180:150;
+    timer=setTimeout(()=>{safeSpeechCancel();fin();},Math.min(15000,Math.max(4500,t.length*perChar+2200)));
+    speechSynthesis.speak(u);}catch(e){setTimeout(res,350);}});}
+
+/* silent loop → enables Media Session + helps keep audio session alive */
+let silentEl=null;
+function silentURL(){
+  const sr=8000,sec=2,n=sr*sec,buf=new ArrayBuffer(44+n*2),v=new DataView(buf);
+  const W=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+  W(0,'RIFF');v.setUint32(4,36+n*2,true);W(8,'WAVEfmt ');v.setUint32(16,16,true);
+  v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,sr,true);
+  v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);
+  W(36,'data');v.setUint32(40,n*2,true);
+  return URL.createObjectURL(new Blob([buf],{type:'audio/wav'}));
+}
+function initSilent(){if(silentEl)return;silentEl=new Audio(silentURL());silentEl.loop=true;silentEl.volume=0.001;}
+document.addEventListener('pointerdown',function prepareSpeech(){
+  try{speechSynthesis.resume();pv();}catch(e){}
+},{once:true});
+function setMedia(title,artist){
+  if(!('mediaSession'in navigator))return;
+  try{navigator.mediaSession.metadata=new MediaMetadata({title,artist,album:'출퇴근 여행영어 코치'});
+    navigator.mediaSession.setActionHandler('play',()=>{if(!D.play)togglePlay();});
+    navigator.mediaSession.setActionHandler('pause',()=>{if(D.play)togglePlay();});
+    navigator.mediaSession.setActionHandler('nexttrack',()=>jump(1));
+    navigator.mediaSession.setActionHandler('previoustrack',()=>jump(-1));
+  }catch(e){}
+}
+
+/* ═══════════ QUEUE BUILDER ═══════════ */
+const PLAN={
+ 5:{rev:1,core:3,rounds:1,swap:0,talk:0,rescue:0,weak:0,rep:3,fix:2,num:0},
+ 10:{rev:2,core:5,rounds:1,swap:3,talk:1,rescue:1,weak:1,rep:5,fix:3,num:2},
+ 15:{rev:3,core:5,rounds:2,swap:5,talk:1,rescue:1,weak:3,rep:6,fix:4,num:3}
+};
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+function addDaysKey(baseKey,days){const d=new Date(baseKey+'T12:00:00');d.setDate(d.getDate()+days);return localDateKey(d);}
+function isCoreId(id){return /^d\d{1,2}c\d+$/.test(id);}
+function coreDay(id){const m=/^d(\d{1,2})c\d+$/.exec(id);return m?Number(m[1]):null;}
+function due(n,{coreOnly=true,maxDay=TOTAL_DAYS}={}){const today=tKey(),o=[];
+  Object.entries(S.marks).forEach(([id,m])=>{
+    if(coreOnly&&!isCoreId(id))return;
+    const srcDay=coreDay(id);if(srcDay&&srcDay>maxDay)return;
+    let dueKey=m.dueKey||'';
+    if(!dueKey&&Number(m.dueAt)>0)dueKey=localDateKey(new Date(Number(m.dueAt)));
+    if(!dueKey||dueKey>today)return;
+    o.push({id,ko:m.ko,en:m.en,miss:m.miss||0,seen:m.at||0});});
+  o.sort((a,b)=>(b.miss-a.miss)||(a.seen-b.seen));return o.slice(0,n);}
+function guide(q,ph,ko){q.push({t:'say',ph,ko,en:''});}
+
+function qMorning(day){
+  const P=PLAN[S.set.len],d=dd(day),q=[];
+  q.push({t:'say',ph:'출근길',ko:`데이 ${day}. 오늘은 ${d.m} 연습입니다.`,en:d.p});
+  if(day>1){
+    const revN=day<=5?Math.min(2,P.rev):P.rev;
+    if(revN){guide(q,'어제 회상','먼저 어제 배운 문장을 짧게 떠올립니다.');
+      dd(day-1).c.slice(0,revN).forEach(x=>q.push({t:'q',ph:'어제 회상',ko:x[0],en:x[1]}));}
+  }
+  guide(q,'오늘 핵심','이제 오늘의 핵심 문장을 연습합니다.');
+  d.c.slice(0,P.core).forEach((x,i)=>q.push({t:'q',ph:'오늘 핵심',ko:x[0],en:x[1],id:sid(day,i)}));
+  if(P.swap){guide(q,'같은 패턴 확장','이제 같은 문장 틀에서 단어만 바꿔 말합니다.');
+    d.s.slice(0,P.swap).forEach(x=>q.push({t:'q',ph:'같은 패턴 확장',ko:x[0],en:x[1]}));}
+  if(P.talk){guide(q,'미니 역할극','이제 실제 대화 속에서 오늘 표현을 사용합니다.');
+    d.d.forEach(x=>{if(x[0]==='s')q.push({t:'q',ph:'미니 역할극',ko:x[1],kl:'en',en:'',listen:true});
+      else q.push({t:'q',ph:'미니 역할극',ko:x[2],en:x[1]});});}
+  if(P.rounds>1){guide(q,'핵심 재인출','마지막으로 오늘 핵심 문장을 한 번 더 꺼냅니다.');
+    d.c.slice(0,P.core).forEach((x,i)=>q.push({t:'q',ph:'핵심 재인출',ko:x[0],en:x[1],id:sid(day,i)}));}
+  const weakN=day<=2?0:day<=5?Math.min(1,P.weak):P.weak;
+  const w=due(weakN,{coreOnly:true,maxDay:Math.max(1,day-1)});
+  if(w.length){guide(q,'맞춤 복습','끝으로 복습 날짜가 된 어려운 문장을 다시 꺼냅니다.');
+    w.forEach(x=>q.push({t:'q',ph:'맞춤 복습',ko:x.ko,en:x.en,id:x.id}));}
+  q.push({t:'end'});return capSession(q,day,'am');
+}
+function qEvening(day){
+  const P=PLAN[S.set.len],d=dd(day),q=[];
+  q.push({t:'say',ph:'퇴근길',ko:`데이 ${day}. 출근길에서 배운 표현을 실제 대화에 바로 반응하는 연습입니다.`,en:''});
+  guide(q,'아침 회상','먼저 오늘 핵심 문장을 짧게 다시 꺼냅니다.');
+  const recallN=S.set.len===5?3:5;
+  d.c.slice(0,recallN).forEach((x,i)=>q.push({t:'q',ph:'아침 회상',ko:x[0],en:x[1],id:sid(day,i)}));
+  guide(q,'오늘 대화','이제 오늘 표현이 들어간 짧은 대화를 듣고 답합니다.');
+  d.d.forEach(x=>{if(x[0]==='s')q.push({t:'q',ph:'오늘 대화',ko:x[1],kl:'en',en:'',listen:true});
+    else q.push({t:'q',ph:'오늘 대화',ko:x[2],en:x[1]});});
+  if(P.swap){guide(q,'패턴 즉답','같은 패턴의 문장을 듣고 바로 말합니다.');
+    d.s.slice(0,S.set.len===5?2:S.set.len===10?3:5).forEach(x=>q.push({t:'q',ph:'패턴 즉답',ko:x[0],en:x[1]}));}
+  const week=wk(day);
+  if(RESCUE_WEEKS.has(week)&&P.fix){guide(q,'되묻기','이번 주 주제와 연결해, 못 알아들었을 때 되묻는 표현을 복습합니다.');
+    shuffle(RESCUE.slice()).slice(0,S.set.len===5?1:Math.min(2,P.fix)).forEach(x=>q.push({t:'q',ph:'되묻기',ko:x[0],en:x[1]}));}
+  if(NUMBER_WEEKS.has(week)&&P.num){guide(q,'숫자와 시간','이번 주 교통·통합 주제와 연결해 숫자와 시간을 확인합니다.');
+    shuffle(NUMBERS.slice()).slice(0,P.num).forEach(x=>q.push({t:'q',ph:'숫자와 시간',ko:x[0],en:x[1]}));}
+  q.push({t:'end'});return capSession(q,day,'pm');
+}
+function capSession(q,day,kind){
+  const d=dd(day);
+  const end=q[q.length-1]?.t==='end'?q.pop():{t:'end'};
+  // 선택한 분량에 맞춰 보강 라운드를 정확히 한 번만 추가한다.
+  // 실제 재생 시간을 억지로 채우지 않아 동일 문장의 과도한 반복을 막는다.
+  if(kind==='am'){
+    guide(q,'짧은 재도전','오늘 핵심 문장을 순서를 바꿔 한 번만 더 말합니다.');
+    const take=S.set.len===5?2:S.set.len===10?3:5;
+    shuffle(d.c.map((x,i)=>({x,i}))).slice(0,take)
+      .forEach(({x,i})=>q.push({t:'q',ph:'짧은 재도전',ko:x[0],en:x[1],id:sid(day,i)}));
+  }else{
+    guide(q,'마무리 재도전','마지막으로 오늘 핵심 문장을 한 번만 더 빠르게 말합니다.');
+    const take=S.set.len===5?2:3;
+    shuffle(d.c.map((x,i)=>({x,i}))).slice(0,take)
+      .forEach(({x,i})=>q.push({t:'q',ph:'마무리 재도전',ko:x[0],en:x[1],id:sid(day,i)}));
+  }
+  if(day<=5){const tip=PRON_TIPS[day-1];q.push({t:'say',ph:'오늘의 발음 팁',ko:`오늘의 발음 팁. ${tip.t}. 예문을 들어보세요.`,en:tip.e[0]});}
+  q.push(end);return q;
+}
+
+function allWeak(n=20){return Object.entries(S.marks)
+  .filter(([id,m])=>isCoreId(id)&&!m.auto&&m.lv&&m.lv!=='o')
+  .sort((a,b)=>(b[1].miss||0)-(a[1].miss||0))
+  .slice(0,n).map(([id,m])=>({id,ko:m.ko,en:m.en}));}
+
+function qWeak(){
+  const w=allWeak(20),q=[{t:'say',ph:'취약 문장',ko:'막혔던 문장만 다시 돌립니다.',en:''}];
+  if(!w.length)q.push({t:'say',ph:'취약 문장',ko:'다시 볼 문장이 아직 없습니다.',en:''});
+  w.forEach(x=>q.push({t:'q',ph:'취약 문장',ko:x.ko,en:x.en,rep:2,id:x.id}));
+  q.push({t:'end'});return q;
+}
+function speechSec(text,lang='ko',rate=1){
+  const chars=String(text||'').length;
+  // 실제 모바일 TTS는 글자 발화 외에도 시작/종료 지연이 있어 약간 보수적으로 계산한다.
+  const base=lang==='en'?0.11:0.12;
+  return Math.max(1.2,chars*base/Math.max(.65,rate)+.25);
+}
+function itemSec(x){
+  if(x.t==='say')return speechSec(x.ko,'ko',1)+speechSec(x.en,'en',S.set.rate)+.25;
+  if(x.t==='q'){
+    if(x.listen)return speechSec(x.ko,'en',S.set.rate)+.3;
+    const prompt=speechSec(x.ko,x.kl==='en'?'en':'ko',x.kl==='en'?S.set.rate:1);
+    const answer=speechSec(x.en,'en',S.set.rate)*Math.max(1,Math.min(3,S.set.rep));
+    return prompt+S.set.gap+answer+.6;
+  }
+  return 0;
+}
+function estMin(q){return q.reduce((a,x)=>a+itemSec(x),0)/60;}
+
+/* ═══════════ DRIVE ENGINE ═══════════ */
+const D={q:[],i:0,play:false,tok:0,kind:'am',el:{}};
+['phase','bar','count','prompt','answer','hint','swp','ticks','play'].forEach(k=>D.el[k]=document.getElementById('d-'+k));
+const RC=2*Math.PI*92;
+(function(){let h='';for(let i=0;i<40;i++){const a=(i/40)*Math.PI*2,r1=78,r2=i%5===0?68:73;
+ h+=`<line class="tick" x1="${(100+Math.cos(a)*r1).toFixed(1)}" y1="${(100+Math.sin(a)*r1).toFixed(1)}" x2="${(100+Math.cos(a)*r2).toFixed(1)}" y2="${(100+Math.sin(a)*r2).toFixed(1)}"/>`;}
+ D.el.ticks.innerHTML=h;})();
+const TK=[...D.el.ticks.querySelectorAll('.tick')];
+const lit=(f,c)=>{const n=Math.round(f*40);TK.forEach((t,i)=>t.setAttribute('class','tick'+(i<n?' '+c:'')));};
+const sw=f=>D.el.swp.setAttribute('stroke-dashoffset',String(RC*(1-f)));
+
+let raf=null,rres=null;
+function sleep(ms,cb){return new Promise(res=>{rres=res;const t0=Date.now();
+  const st=()=>{const e=Date.now()-t0;if(cb)cb(Math.min(e/ms,1));
+    if(e>=ms){raf=null;res();}else raf=requestAnimationFrame(st);};raf=requestAnimationFrame(st);});}
+function cancelSleep(){if(raf){cancelAnimationFrame(raf);raf=null;}if(rres){rres();rres=null;}}
+const delay=ms=>new Promise(res=>setTimeout(res,ms));
+function speakNow(text,lang='en',rate=S.set.rate){safeSpeechCancel();return speak(text,lang,rate);}
+
+let wl=null;
+async function reqWake(){
+  if(!S.set.wake||!('wakeLock' in navigator))return;
+  try{
+    if(wl&&!wl.released)return;
+    const sentinel=await navigator.wakeLock.request('screen');
+    wl=sentinel;
+    sentinel.addEventListener('release',()=>{if(wl===sentinel)wl=null;},{once:true});
+  }catch(e){wl=null;}
+}
+function relWake(){try{wl&&!wl.released&&wl.release();}catch(e){}wl=null;}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&D.play){if(!wl||wl.released)reqWake();try{speechSynthesis.resume();}catch(e){}}});
+
+const showTxt=()=>S.set.txt===1;
+
+async function run(from){
+  const tok=++D.tok;D.i=from;
+  while(D.i<D.q.length){
+    if(tok!==D.tok)return;
+    const s=D.q[D.i];
+    D.el.phase.textContent=s.ph||'';
+    const pct=((D.i/Math.max(D.q.length-1,1))*100).toFixed(1);D.el.bar.style.width=pct+'%';D.el.bar.parentElement?.setAttribute('aria-valuenow',pct);
+    if(s.t==='mk'){D.i++;continue;}
+
+    if(s.t==='say'){
+      D.el.prompt.className='prompt';D.el.prompt.textContent=s.ko;
+      D.el.answer.textContent=s.en;D.el.answer.className='answer show';
+      D.el.hint.textContent='';D.el.count.textContent='—';D.el.count.className='count idle mono';
+      sw(0);lit(0,'cool');setMedia(s.ph||'세션',s.en||'출퇴근 여행영어 코치');
+      await speak(s.ko,'ko',1);if(tok!==D.tok)return;
+      if(s.en){await speak(s.en,'en',S.set.rate);if(tok!==D.tok)return;}
+      D.i++;continue;
+    }
+    if(s.t==='end'){
+      D.el.phase.textContent='완료';D.el.prompt.className='prompt';D.el.prompt.textContent='끝났습니다';
+      D.el.answer.textContent='Well done.';D.el.answer.className='answer show';
+      D.el.hint.textContent='잠시 후 자가 평가로 넘어갑니다';
+      D.el.count.textContent='✓';D.el.count.className='count mono';sw(1);lit(1,'cool');
+      await speak('오늘 훈련이 끝났습니다. 안전 운전하세요.','ko',1);
+      if(tok!==D.tok)return;finish();return;
+    }
+
+    /* listen-only line (staff dialogue) */
+    if(s.listen){
+      D.el.prompt.className='prompt en';
+      D.el.prompt.textContent=showTxt()?s.ko:'상대방';
+      D.el.answer.textContent='';D.el.answer.className='answer';
+      D.el.hint.textContent='듣기만 하세요';
+      D.el.count.textContent='♪';D.el.count.className='count idle mono';sw(0);lit(0,'cool');
+      setMedia(s.ph,'상대방');
+      await speak(s.ko,'en',S.set.rate);if(tok!==D.tok)return;
+      await sleep(1000);if(tok!==D.tok)return;D.i++;continue;
+    }
+
+    /* question */
+    D.el.prompt.className='prompt'+(s.kl==='en'?' en':'');
+    D.el.prompt.textContent=showTxt()?s.ko:(s.kl==='en'?'상대방 질문':'생각하세요');
+    D.el.answer.textContent=showTxt()?s.en:'';D.el.answer.className='answer';
+    D.el.hint.textContent='';
+    D.el.count.className='count idle mono';D.el.count.textContent='—';sw(0);lit(0,'cool');
+    setMedia(s.ph,showTxt()?s.ko:'생각하세요');
+
+    await speak(s.ko,s.kl==='en'?'en':'ko',s.kl==='en'?S.set.rate:1);
+    if(tok!==D.tok)return;
+
+    D.el.count.className='count mono';D.el.hint.textContent='지금 소리 내어 말하세요';
+    await sleep(S.set.gap*1000,f=>{D.el.count.textContent=String(Math.max(Math.ceil(S.set.gap*(1-f)),0));
+      sw(f);lit(f,'hot');});
+    if(tok!==D.tok)return;
+
+    D.el.answer.textContent=s.en;D.el.answer.className='answer show';
+    D.el.hint.textContent='따라 말하세요';D.el.count.textContent='✓';D.el.count.className='count idle mono';lit(1,'cool');
+    const reps=Math.max(1,Math.min(3,s.rep??S.set.rep));
+    for(let r=0;r<reps;r++){await speak(s.en,'en',r===0?Math.max(.68,S.set.rate-.12):S.set.rate);
+      if(tok!==D.tok)return;if(r<reps-1){await sleep(260);if(tok!==D.tok)return;}}
+    await sleep(340);if(tok!==D.tok)return;D.i++;
+  }
+}
+
+function openDrive(kind){
+  // 학습 탭의 대화 듣기가 재생 중이면 즉시 무효화하고 음성을 정리한다.
+  dlgTok++;safeSpeechCancel();
+  initSilent();
+  D.kind=kind;
+  D.q = kind==='am'?qMorning(S.day):kind==='pm'?qEvening(S.day):qWeak();
+  D.i=0;D.play=false;
+  document.getElementById('drive').classList.add('on');
+  D.el.play.textContent='시작';D.el.play.classList.remove('ps');
+  D.el.prompt.className='prompt';D.el.prompt.textContent='재생을 누르고 화면을 두세요';
+  D.el.answer.textContent='';D.el.answer.className='answer';
+  D.el.hint.textContent=`약 ${Math.max(1,Math.round(estMin(D.q)))}분 · 문장 ${D.q.filter(x=>x.t==='q').length}개`;
+  D.el.count.textContent='—';D.el.count.className='count idle mono';
+  D.el.bar.style.width='0%';D.el.bar.parentElement?.setAttribute('aria-valuenow','0');sw(0);lit(0,'cool');
+}
+function togglePlay(){
+  if(D.play){D.tok++;safeSpeechCancel();cancelSleep();D.play=false;relWake();
+    try{silentEl&&silentEl.pause();}catch(e){}
+    D.el.play.textContent='이어서';D.el.play.classList.add('ps');D.el.hint.textContent='일시정지';
+  }else{D.play=true;reqWake();
+    try{initSilent();silentEl.currentTime=0;silentEl.play().catch(()=>{});}catch(e){}
+    try{safeSpeechCancel();speechSynthesis.resume();}catch(e){}
+    D.el.play.textContent='일시정지';D.el.play.classList.remove('ps');run(D.i);}
+}
+function jump(dir){D.tok++;safeSpeechCancel();cancelSleep();
+  let i=D.i+dir;while(i>0&&i<D.q.length&&D.q[i].t==='mk')i+=dir;
+  D.i=Math.max(0,Math.min(i,D.q.length-1));
+  const cur=D.q[D.i];
+  if(cur){setMedia(cur.ph||'출퇴근 코치',cur.en||cur.ko||'');
+    D.el.phase.textContent=cur.ph||'';
+    if(!D.play){D.el.prompt.className='prompt'+(cur.kl==='en'?' en':'');
+      D.el.prompt.textContent=showTxt()?(cur.ko||''):(cur.kl==='en'?'상대방 질문':'생각하세요');
+      D.el.answer.textContent='';D.el.answer.className='answer';
+      D.el.hint.textContent='이어서 재생을 누르세요';}}
+  if(D.play)run(D.i);}
+function exitDrive(){D.tok++;safeSpeechCancel();cancelSleep();D.play=false;relWake();
+  try{silentEl&&silentEl.pause();}catch(e){}
+  document.getElementById('drive').classList.remove('on');}
+
+/* ═══════════ REVIEW ═══════════ */
+let pend=[];
+function finish(){
+  D.play=false;relWake();try{silentEl&&silentEl.pause();}catch(e){}
+  document.getElementById('drive').classList.remove('on');
+  const trained=D.q.filter(x=>x.t==='q'&&x.en&&!x.listen&&x.id);
+  pend=[...new Map(trained.map(x=>[x.id,{id:x.id,ko:x.ko,en:x.en,lv:null}])).values()];
+  if(D.kind==='weak'){
+    if(!pend.length){save();render();return;}
+    S.pending={kind:'weak',day:S.day,items:pend};save();openReview();return;
+  }
+  if(!pend.length){
+    const d=dd(S.day),count=PLAN[S.set.len].core;
+    pend=d.c.slice(0,count).map((x,i)=>({id:sid(S.day,i),ko:x[0],en:x[1],lv:null}));
+  }
+  S.pending={kind:D.kind,day:S.day,items:pend};save();
+  openReview();
+}
+function openReview(recovered=false){
+  document.getElementById('rv-h').textContent=recovered?'지난 세션의 평가가 남아 있습니다':
+    (D.kind==='weak'?'다시 꺼낸 문장을 평가해 주세요':D.kind==='pm'?'상대 말에 바로 답했나요?':'오늘 몇 초 만에 나왔나요?');
+  const goal=`${S.set.gap}초`;
+  document.getElementById('rv-s').textContent=
+    `${goal} 안에 나온 문장만 ⭕입니다. 일반 문장은 △ 3일 · ❌ 1일 뒤, 자동화 이력이 있는 문장은 △ 7일 · ❌ 3일 뒤 다시 나옵니다.`;
+  document.getElementById('rv-items').innerHTML=pend.map((p,i)=>`
+   <div class="rvi"><div class="ko">${esc(p.ko)}</div><div class="en">${esc(p.en)}</div>
+   ${S.marks[p.id]?.auto?'<span class="badge auto">자동화 이력</span>':''}
+   <div class="marks" data-i="${i}"><button class="mk" data-m="o">⭕ 바로</button>
+   <button class="mk" data-m="t">△ 느림</button><button class="mk" data-m="x">❌ 못함</button></div></div>`).join('');
+  document.querySelectorAll('#rv-items .marks').forEach(g=>g.addEventListener('click',e=>{
+    const b=e.target.closest('.mk');if(!b)return;
+    g.querySelectorAll('.mk').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+    g.closest('.rvi')?.classList.remove('unmarked');
+    pend[+g.dataset.i].lv=b.dataset.m;haptic(b.dataset.m==='o'?10:7);}));
+  document.getElementById('review').classList.add('on');
+}
+function applyMark(id,ko,en,lv){
+  const m=S.marks[id]||{ko,en,ok:0,miss:0};
+  const wasAuto=!!m.auto;
+  m.ko=ko;m.en=en;m.at=Date.now();m.lv=lv;
+  if(lv==='o'){
+    const today=tKey();
+    if(m.lastOkDate!==today){m.ok=(m.ok||0)+1;m.lastOkDate=today;}
+  }else{
+    // 이미 자동화된 문장은 한 번의 실수로 0부터 다시 시작하지 않는다.
+    // △는 다음 ⭕ 1회, ❌는 다음 ⭕ 2회가 필요하도록 완충한다.
+    m.ok=wasAuto?(lv==='t'?2:1):0;
+    m.lastOkDate=null;m.miss=(m.miss||0)+1;
+  }
+  m.auto=m.ok>=3;
+  // 자동화 이력이 있는 문장은 한 번의 실수를 더 긴 간격으로 재확인한다.
+  const days=lv==='x'?(wasAuto?3:1):lv==='t'?(wasAuto?7:3):(m.auto?30:7);
+  m.dueKey=addDaysKey(tKey(),days);m.dueAt=Date.now()+days*86400000;
+  S.marks[id]=m;
+}
+function markDone(dayOverride=S.day){
+  const completedDay=dayOverride,k=tKey();
+  if(D.kind==='am'||D.kind==='pm'){
+    S.done[completedDay]=S.done[completedDay]||{am:null,pm:null};
+    S.done[completedDay][D.kind]=k;
+    if(S.last!==k){const y=yesterdayKey();S.streak=(S.last===y)?S.streak+1:1;S.last=k;}
+    const rec=S.done[completedDay];
+    if(rec.am&&rec.pm&&completedDay===S.progressDay&&completedDay<TOTAL_DAYS){S.progressDay++;if(S.day===completedDay)S.day=S.progressDay;}
+  }
+}
+async function saveReview(skip){
+  const completedDay=(S.pending&&S.pending.day)||S.day;
+  if(!skip&&pend.some(p=>!p.lv)){
+    document.querySelectorAll('#rv-items .rvi').forEach((el,i)=>el.classList.toggle('unmarked',!pend[i]?.lv));
+    document.querySelector('#rv-items .rvi.unmarked')?.scrollIntoView({block:'center',behavior:'smooth'});
+    alert('평가하지 않은 문장이 있습니다. 표시된 문장을 평가해 주세요.');return;
+  }
+  if(!skip)pend.forEach(p=>applyMark(p.id,p.ko,p.en,p.lv));
+  S.pending=null;markDone(completedDay);await save();
+  document.getElementById('review').classList.remove('on');render();
+  const rec=S.done[completedDay];if(rec?.am&&rec?.pm)haptic(20);maybeMilestone(completedDay);
+}
+
+
+/* ═══════════ LIFE EXPRESSIONS ENGINE ═══════════ */
+let lifeFilter='extra',lifeQuery='';
+function lifeToneLabel(t){return t==='g'?'🟢 무난':t==='y'?'🟡 주의':'🔴 알아듣기';}
+function isFav(id){return (S.favorites||[]).includes(id);}
+async function toggleFav(id){S.favorites=S.favorites||[];S.favorites=isFav(id)?S.favorites.filter(x=>x!==id):[...S.favorites,id];await save();renderLife();renderTodayLife();}
+function applyLifeMark(item,lv){
+  const m=S.lifeMarks[item.id]||{ok:0,miss:0};const wasAuto=!!m.auto;m.lv=lv;m.at=Date.now();m.en=item.en;m.ko=item.ko;
+  if(lv==='o')m.ok=(m.ok||0)+1;else{m.ok=wasAuto?(lv==='t'?2:1):0;m.miss=(m.miss||0)+1;}m.auto=m.ok>=3;S.lifeMarks[item.id]=m;
+}
+function lifeCardHTML(x,compact=false){
+  const m=S.lifeMarks[x.id]||{},src=x.type==='course'?(x.courseRef||'70일 과정'):(x.use==='recognition'?'알아듣기 우선':'생활회화');
+  return `<div class="expr-card" data-id="${esc(x.id)}"><div class="expr-top"><div class="expr-copy"><div class="expr-en">${esc(x.en)}</div><div class="expr-ko">${esc(x.ko)}</div><div class="expr-meta"><span class="tag ${x.tone}">${lifeToneLabel(x.tone)}</span><span class="tag">${esc(x.cat)}</span><span class="tag">${esc(src)}</span>${m.auto?'<span class="tag g">자동화</span>':m.lv&&m.lv!=='o'?'<span class="tag y">복습 필요</span>':''}</div>${x.warn&&!compact?`<div class="expr-warn">${esc(x.warn)}</div>`:''}</div><div class="expr-actions"><button class="iconbtn fav ${isFav(x.id)?'on':''}" data-act="fav" aria-label="즐겨찾기">★</button><button class="iconbtn" data-act="speak" aria-label="듣기">▶</button></div></div></div>`;
+}
+function todayLife(){
+  if(!LIFE_EXPR.length)return[];const key=Number(tKey().replaceAll('-',''))+S.day*17;const base=((key%LIFE_EXPR.length)+LIFE_EXPR.length)%LIFE_EXPR.length;const safe=LIFE_EXPR.filter(x=>x.tone!=='r'&&x.use!=='recognition');const a=safe.length?safe:LIFE_EXPR;return [0,1,2].map(i=>a[(base+i*11)%a.length]);
+}
+function renderTodayLife(){const el=document.getElementById('today-life');if(!el)return;el.innerHTML=todayLife().map(x=>lifeCardHTML(x,true)).join('');bindExprActions(el);}
+function bindExprActions(root=document){
+  root.querySelectorAll('[data-act="speak"]').forEach(b=>b.onclick=()=>{const card=b.closest('.expr-card'),x=EXPR_BY_ID.get(card?.dataset.id)||LIFE_EXPR.find(v=>v.id===card?.dataset.id);if(x)speakNow(x.en,'en',S.set.rate)});
+  root.querySelectorAll('[data-act="fav"]').forEach(b=>b.onclick=()=>toggleFav(b.closest('.expr-card')?.dataset.id));
+}
+function filteredExpressions(){
+  let arr=ALL_EXPR;const q=lifeQuery.trim().toLowerCase();if(lifeFilter==='extra')arr=arr.filter(x=>x.type==='extra');else if(lifeFilter==='course')arr=arr.filter(x=>x.type==='course');else if(lifeFilter==='fav')arr=arr.filter(x=>isFav(x.id));else if(['g','y','r'].includes(lifeFilter))arr=arr.filter(x=>x.tone===lifeFilter);
+  if(q)arr=arr.filter(x=>`${x.en} ${x.ko} ${x.cat} ${x.courseRef||''}`.toLowerCase().includes(q));return arr;
+}
+function renderLife(){
+  const host=document.getElementById('expr-list');if(!host)return;const arr=filteredExpressions();
+  document.getElementById('life-count').textContent=`70일 과정 ${COURSE_EXPR.length} · 신규 생활회화 ${LIFE_EXPR.length} · 통합 ${ALL_EXPR.length}`;
+  const vals=Object.values(S.lifeMarks||{});document.getElementById('life-fav-count').textContent=(S.favorites||[]).length;document.getElementById('life-auto-count').textContent=vals.filter(x=>x.auto).length;document.getElementById('life-weak-count').textContent=vals.filter(x=>x.lv&&x.lv!=='o'&&!x.auto).length;
+  if(!arr.length){host.innerHTML='<div class="life-empty">조건에 맞는 표현이 없습니다.</div>';return;}
+  const groups=new Map();arr.forEach(x=>{const k=x.cat||'기타';if(!groups.has(k))groups.set(k,[]);groups.get(k).push(x)});
+  host.innerHTML=[...groups].map(([cat,items])=>`<div class="expr-group"><div class="expr-head"><b>${esc(cat)}</b><span>${items.length} PHRASES</span></div>${items.map(x=>lifeCardHTML(x)).join('')}</div>`).join('');bindExprActions(host);
+  const mis=document.getElementById('mislead-list');mis.innerHTML=MISLEADING.map(o=>{const x=EXPR_BY_ID.get(o.id)||RAW_LIFE_EXPR.find(v=>v.id===o.id);return x?`<div class="expr-card"><div class="expr-en">${esc(x.en)}</div><div class="expr-ko">❌ ${esc(o.wrong)}<br><b style="color:var(--signal)">⭕ ${esc(x.ko)}</b></div></div>`:''}).join('');
+  const pairs=document.getElementById('pair-list');pairs.innerHTML=PAIR_EXPR.map(p=>{const xs=p.ids.map(id=>EXPR_BY_ID.get(id)||RAW_LIFE_EXPR.find(v=>v.id===id)).filter(Boolean);return `<div class="acc" open><summary>${esc(p.title)}</summary><div class="bodyx"><div class="compare-grid">${xs.map(x=>`<div class="compare-card"><div class="en">${esc(x.en)}</div><div class="ko">${esc(x.ko)}</div><div class="expr-meta"><span class="tag ${x.tone}">${lifeToneLabel(x.tone)}</span></div></div>`).join('')}</div></div></div>`}).join('');
+  const corr=document.getElementById('corr-list');corr.innerHTML=CORRECTIONS.map(c=>{const x=EXPR_BY_ID.get(c.rightId)||RAW_LIFE_EXPR.find(v=>v.id===c.rightId);return x?`<div class="corr-row"><div class="corr-wrong">${esc(c.wrong)}</div><div class="corr-arrow">→</div><div><div class="corr-right">${esc(x.en)}</div><div class="ko" style="margin-top:3px">${esc(x.ko)}</div></div></div>`:''}).join('');
+}
+function openLifeQuiz(){
+  let pool=LIFE_EXPR.filter(x=>x.tone!=='r'&&x.use!=='recognition');const weak=pool.filter(x=>S.lifeMarks[x.id]?.lv&&S.lifeMarks[x.id].lv!=='o');const fav=pool.filter(x=>isFav(x.id));const mixed=[...weak,...fav,...shuffle(pool)];Q.pool=[...new Map(mixed.map(x=>[x.id,{...x,track:true}])).values()].slice(0,12);Q.mode='life';Q.i=0;document.getElementById('quiz').classList.add('on');nextQ();
+}
+
+/* ═══════════ TRANSIT QUIZ ═══════════ */
+const Q={pool:[],i:0,cur:null,timer:null,mode:'course'};
+function openQuiz(){
+  Q.mode='course';
+  const d=dd(S.day),week=wk(S.day);
+  const base=d.c.map((x,i)=>({id:sid(S.day,i),ko:x[0],en:x[1],track:true}));
+  const rev=due(S.day<=2?0:4,{coreOnly:true,maxDay:Math.max(1,S.day-1)}).map(x=>({id:x.id,ko:x.ko,en:x.en,track:true}));
+  const rescue=(RESCUE_WEEKS.has(week)?RESCUE.slice(0,3):[]).map((x,i)=>({id:'rescue:'+i,ko:x[0],en:x[1],track:false}));
+  const unique=[...new Map([...base,...rev,...rescue].map(x=>[x.id,x])).values()];
+  Q.pool=shuffle(unique).slice(0,12);
+  Q.i=0;document.getElementById('quiz').classList.add('on');nextQ();
+}
+function nextQ(){
+  clearInterval(Q.timer);
+  if(Q.i>=Q.pool.length){
+    document.getElementById('q-ko').textContent='끝났습니다';
+    document.getElementById('q-en').textContent='';document.getElementById('q-en').className='qen';
+    document.getElementById('q-timer').textContent='✓';
+    document.getElementById('q-show').style.display='none';
+    document.getElementById('q-mk').style.display='none';
+    document.getElementById('q-prog').textContent=`${Q.pool.length}문장 완료`;
+    save();render();return;}
+  Q.cur=Q.pool[Q.i];
+  document.getElementById('q-ko').textContent=Q.cur.ko;
+  document.getElementById('q-en').textContent=Q.cur.en;
+  document.getElementById('q-en').className='qen';
+  document.getElementById('q-show').style.display='';document.getElementById('q-mk').style.display='none';
+  document.getElementById('q-prog').textContent=`${Q.i+1} / ${Q.pool.length}`;
+  let n=3;document.getElementById('q-timer').textContent=n;
+  Q.timer=setInterval(()=>{n--;document.getElementById('q-timer').textContent=n>0?n:'말하세요';
+    if(n<=0)clearInterval(Q.timer);},1000);
+}
+
+/* ═══════════ RENDER ═══════════ */
+function render(){
+  const n=S.day,d=dd(n),w=wk(n);
+  document.getElementById('t-day').textContent=`DAY ${String(n).padStart(2,'0')} / ${TOTAL_DAYS}`;
+  document.getElementById('t-week').textContent=`WEEK ${w} · ${WEEK[w-1].t}`;
+  document.getElementById('t-pat').textContent=d.p;
+  document.getElementById('t-mean').textContent=d.m;
+  document.getElementById('m-streak').innerHTML=`<b>${S.streak}</b>일 연속`;
+  const amMin=Math.max(1,Math.round(estMin(qMorning(n)))),pmMin=Math.max(1,Math.round(estMin(qEvening(n))));
+  document.getElementById('t-est').textContent=`예상 출근 ${amMin}분 · 퇴근 ${pmMin}분`;
+  document.querySelector('#btn-am .s').innerHTML=`한국어 → 영어로<br>먼저 꺼내기 · 약 ${amMin}분`;
+  document.querySelector('#btn-pm .s').innerHTML=`오늘 표현으로<br>바로 대응하기 · 약 ${pmMin}분`;
+
+  // daybar
+  const rec=S.done[n]||{am:null,pm:null};
+  const amS=new Set(),pmS=new Set();
+  Object.entries(S.done).forEach(([day,v])=>{if(v&&v.am)amS.add(Number(day));if(v&&v.pm)pmS.add(Number(day));});
+  const bar=document.getElementById('daybar');
+  bar.innerHTML=Array.from({length:TOTAL_DAYS},(_,i)=>{const x=i+1;
+    return `<button class="dchip ${x===n?'on':''} ${amS.has(x)&&pmS.has(x)?'done':''}" data-d="${x}">
+      <b>${String(x).padStart(2,'0')}</b><i>W${wk(x)}</i></button>`;}).join('');
+  bar.querySelectorAll('.dchip').forEach(b=>b.onclick=async()=>{const target=+b.dataset.d;
+    const unlocked=target<=S.progressDay||((S.done[target]||{}).am||(S.done[target]||{}).pm);
+    if(!unlocked){alert('현재 Day를 완료한 뒤 다음 Day로 이동할 수 있습니다.');return;}
+    S.day=target;await save();render();});
+  setTimeout(()=>bar.children[n-1]?.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'}),40);
+
+  // suggest am/pm by hour
+  const h=new Date().getHours();
+  const amDone=!!rec.am,pmDone=!!rec.pm;
+  document.getElementById('btn-am').classList.toggle('sug',h<12&&!amDone);
+  document.getElementById('btn-pm').classList.toggle('sug',h>=12&&!pmDone);
+  document.getElementById('btn-am').classList.toggle('done',amDone);
+  document.getElementById('btn-pm').classList.toggle('done',pmDone);
+
+  // survival
+  const sv=RESCUE[(n-1)%RESCUE.length];
+  document.getElementById('surv').innerHTML=
+    `<div><div class="en">${sv[1]}</div><div class="ko">${sv[0]}</div></div>
+     <button class="spk" data-en="${sv[1]}">🔊</button>`;
+  document.querySelector('#surv .spk').onclick=e=>speakNow(e.target.dataset.en,'en',S.set.rate);
+
+  // today list
+  document.getElementById('t-list').innerHTML=d.c.map((x,i)=>{
+    const m=S.marks[sid(n,i)];
+    const bg=m?(m.auto?'<span class="badge auto">자동화</span>':
+      (m.lv==='x'?'<span class="badge x">❌</span>':m.lv==='t'?'<span class="badge t">△</span>':'')):'';
+    return `<div class="item"><div class="idx">${i+1}</div><div class="bd">
+      <div class="ko ${hideKo?'hide':''}">${x[0]}</div><div class="en">${x[1]}</div></div>
+      ${bg}<button class="spk" data-en="${x[1]}">🔊</button></div>`;}).join('');
+  document.querySelectorAll('#t-list .spk').forEach(b=>b.onclick=()=>speakNow(b.dataset.en,'en',S.set.rate));
+
+  // Day 1~5 온보딩: 참고서를 열지 않아도 발음·연음 팁을 하루 1개 자동 노출한다.
+  const phSec=document.getElementById('pron-hook-sec'),ph=document.getElementById('pron-hook');
+  if(n<=5){const tip=PRON_TIPS[n-1];phSec.style.display='block';
+    ph.innerHTML=`<div class="pt">${esc(tip.t)}</div><div class="pd">${esc(tip.d)}</div>
+      <div class="pex">${tip.e.slice(0,2).map(e=>`<button class="spk mini" data-en="${esc(e)}">🔊 ${esc(e)}</button>`).join('')}</div>`;
+    ph.querySelectorAll('.spk').forEach(b=>b.onclick=()=>speakNow(b.dataset.en,'en',S.set.rate));
+  }else{phSec.style.display='none';ph.innerHTML='';}
+
+  // weak
+  const weak=Object.entries(S.marks).filter(([id,m])=>isCoreId(id)&&!m.auto&&m.lv&&m.lv!=='o')
+    .sort((a,b)=>(b[1].miss||0)-(a[1].miss||0)).slice(0,5);
+  document.getElementById('weak-n').textContent=weak.length?weak.length+'개':'';
+  document.getElementById('weak-list').innerHTML=weak.length?weak.map(([id,m])=>
+    `<div class="item"><div class="bd"><div class="en">${esc(m.en)}</div><div class="ko">${esc(m.ko)}</div></div>
+     <span class="badge ${m.lv}">${m.lv==='x'?'못함':'느림'}</span>
+     <button class="spk" data-en="${esc(m.en)}">🔊</button></div>`).join('')
+    :`<div class="empty">아직 없습니다.<br>세션을 끝내고 자가 평가를 하면<br>막힌 문장이 여기 모여 다시 나옵니다.</div>`;
+  document.querySelectorAll('#weak-list .spk').forEach(b=>b.onclick=()=>speakNow(b.dataset.en,'en',S.set.rate));
+
+  // dialogue
+  document.getElementById('dlg-list').innerHTML=d.d.map(x=>
+    `<div class="item"><div class="idx">${x[0]==='s'?'상대':'나'}</div><div class="bd">
+      <div class="en" style="${x[0]==='m'?'color:var(--signal)':''}">${x[1]}</div>
+      <div class="ko ${hideKo?'hide':''}">${x[2]}</div></div>
+      <button class="spk" data-en="${x[1]}">🔊</button></div>`).join('');
+  document.querySelectorAll('#dlg-list .spk').forEach(b=>b.onclick=()=>speakNow(b.dataset.en,'en',S.set.rate));
+
+  // progress
+  const coreMarks=Object.entries(S.marks).filter(([id])=>isCoreId(id));
+  const auto=coreMarks.filter(([,m])=>m.auto).length;
+  const wkc=coreMarks.filter(([,m])=>!m.auto&&m.lv&&m.lv!=='o').length;
+  const autoEnglish=new Set(coreMarks.filter(([,m])=>m.auto).map(([,m])=>m.en));
+  const core24Auto=CORE24.filter(([en])=>autoEnglish.has(en)).length;
+  const core24Pct=Math.round(core24Auto/CORE24.length*100);
+  document.getElementById('p-auto').textContent=auto;
+  document.getElementById('p-weak').textContent=wkc;
+  document.getElementById('p-streak').textContent=S.streak;
+  document.getElementById('core24-count').textContent=`${core24Auto} / ${CORE24.length}`;
+  const coreBar=document.getElementById('core24-bar'),coreBarWrap=coreBar.parentElement;coreBar.style.width=core24Pct+'%';coreBarWrap.setAttribute('aria-valuenow',String(core24Auto));
+  document.getElementById('core24-msg').textContent=core24Auto===CORE24.length?'CORE24 완성. 여행 필수 문장이 모두 자동화되었습니다.':core24Auto<12?`먼저 생존 CORE 12를 채워보세요. 현재 ${core24Pct}%입니다.`:`생존 CORE를 넘어 실전 CORE를 자동화 중입니다. 현재 ${core24Pct}%입니다.`;
+  document.getElementById('grid').innerHTML=journeyHTML(n,amS,pmS);
+
+  // weekly
+  const wStart=new Date();wStart.setHours(0,0,0,0);wStart.setDate(wStart.getDate()-6);
+  const wStartKey=localDateKey(wStart);
+  let am=0,pm=0;Object.values(S.done).forEach(v=>{
+    // YYYY-MM-DD는 사전식 비교와 날짜 순서가 같아 타임존 파싱 없이 안전하게 비교할 수 있다.
+    if(v&&v.am&&v.am>=wStartKey)am++;
+    if(v&&v.pm&&v.pm>=wStartKey)pm++;});
+  document.getElementById('weekly').innerHTML=
+    `최근 7일 &nbsp; 출근 <b>${am}회</b> · 퇴근 <b>${pm}회</b><br>
+     자동화 문장 <b>${auto}개</b> · CORE24 <b>${core24Auto}/${CORE24.length}</b> · 다시 볼 문장 <b>${wkc}개</b><br>
+     ${wkc===0&&auto>0?'취약 문장이 비었습니다. 다음 Day로 넘어가세요.':'취약 문장이 줄어드는 게 진짜 진도입니다.'}`;
+
+  // reference
+  document.getElementById('ref-core').innerHTML=CORE24.map((x,i)=>
+    `<div class="rrow"><div class="idx mono" style="color:var(--dim2);font-size:11px">${i+1}</div>
+     <div style="flex:1"><div class="en">${x[0]}</div><div class="ko">${x[1]}</div></div>
+     ${autoEnglish.has(x[0])?'<span class="badge auto">자동화</span>':''}<button class="spk" data-en="${x[0]}">🔊</button></div>`).join('');
+  document.getElementById('ref-rescue').innerHTML=RESCUE.map(x=>
+    `<div class="rrow"><div style="flex:1"><div class="en">${x[1]}</div><div class="ko">${x[0]}</div></div>
+     <button class="spk" data-en="${x[1]}">🔊</button></div>`).join('');
+  document.getElementById('ref-num').innerHTML=NUMBERS.map(x=>
+    `<div class="rrow"><div style="flex:1"><div class="en">${x[1]}</div><div class="ko">${x[0]}</div></div>
+     <button class="spk" data-en="${x[1]}">🔊</button></div>`).join('')+
+    `<div style="margin-top:11px">여행에서 문제가 생기는 건 문법이 아니라 <b>숫자</b>입니다. 13/30, 14/40, 15/50처럼 비슷하게 들리는 숫자는 게이트·시간·가격을 바꿀 수 있으니 반드시 되묻기로 확인하세요.</div>`;
+  document.getElementById('ref-pron').innerHTML=PRON_TIPS.map((x,i)=>
+    `<div class="rrow" style="align-items:flex-start"><div class="idx mono" style="color:var(--dim2);font-size:11px">${i+1}</div>
+     <div style="flex:1"><div class="en" style="font-weight:700">${x.t}</div><div class="ko" style="margin-top:4px">${x.d}</div>
+     <div style="margin-top:7px;display:flex;flex-wrap:wrap;gap:5px">${x.e.map(e=>`<button class="spk mini" data-en="${e}">🔊 ${e}</button>`).join('')}</div></div></div>`).join('')+
+    `<div style="margin-top:12px"><b>원칙:</b> 원어민처럼 흉내 내는 것보다 <b>숫자·목적지·시간·문제 핵심어를 분명하게</b> 말하는 것이 먼저입니다. 연음은 주로 <b>듣기에서 알아채기</b> 위한 팁으로 사용하세요.</div>`;
+  document.getElementById('ref-sit').innerHTML=
+    `<b>공항</b> — Is this bag overweight? / Has boarding started? / My bag hasn't arrived.<br><br>
+     <b>호텔</b> — I have a reservation. / There's an extra charge on my bill. / Could I move to another room?<br><br>
+     <b>교통</b> — Which ticket do I need? / Where do I change? / Could you take me to this address?<br><br>
+     <b>식당</b> — Does this contain nuts? / We're still waiting for our food. / Can we split the bill?<br><br>
+     <b>쇼핑·결제</b> — Can I try this on? / I'd like to return this. / My card was declined.<br><br>
+     <b>렌터카</b> — Is insurance included? / Is this car petrol or diesel? / Where do I return the car?<br><br>
+     <b>관광·투어</b> — Do I need to book in advance? / Does it include transportation? / What time is the last entry?<br><br>
+     <b>디지털</b> — I need an eSIM. / My ticket isn't showing in the app. / I can't get online. / Could I borrow a charger?<br><br>
+     <b>스몰토크·경계</b> — What do you recommend? / That sounds great. / Thanks, but I'm okay. / Please leave me alone.<br><br>
+     <b>응급</b> — I lost my passport. / Do you have anything for a headache? / Please call the police.`;
+  document.getElementById('ref-gram').innerHTML=
+    `<b>1. 일반동사</b> — I need help. / I have a reservation.<br>
+     <b>2. be동사</b> — I am tired. / The station is nearby. (I am go ❌)<br>
+     <b>3. can + 동사원형</b> — Can you help me? (Can you helps ❌)<br>
+     <b>4. 과거형</b> — I booked a room. / I lost my passport. 자주 쓰는 동사는 대부분 불규칙<br>
+     <b>5. 진행형</b> — be + -ing. I am waiting. (I waiting ❌)<br>
+     <b>6. 미래</b> — I'll come back. (즉석 결정) / I'm going to leave. (이미 세운 계획)<br>
+     <b>7. 관사</b> — a taxi / a ticket / the airport / the restroom. 통째로 외우기`;
+  document.getElementById('ref-verb').innerHTML=
+    `want · need · have · get · go · come · take · find · lose · pay · book · change · wait · help · leave · arrive
+     <div class="vtab" style="margin-top:12px">${VERBS.map(v=>`<div><i>${v[0]}</i> → <b>${v[1]}</b></div>`).join('')}</div>`;
+  document.querySelectorAll('.acc .spk').forEach(b=>b.onclick=()=>speakNow(b.dataset.en,'en',S.set.rate));
+  renderTodayLife();renderLife();
+
+  ['len','gap','rate','rep','txt','wake'].forEach(k=>{
+    const id={len:'seg-len',gap:'seg-gap',rate:'seg-rate',rep:'seg-rep',txt:'seg-txt',wake:'seg-wake'}[k];
+    document.querySelectorAll('#'+id+' button').forEach(b=>
+      b.classList.toggle('on',parseFloat(b.dataset.v)===parseFloat(S.set[k])));});
+}
+
+/* ═══════════ EVENTS ═══════════ */
+document.querySelectorAll('.nbtn').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.nbtn').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.getElementById('s-'+b.dataset.s).classList.add('on');if(b.dataset.s==='expr')renderLife();window.scrollTo(0,0);});
+function openExprScreen(){const b=document.querySelector('.nbtn[data-s="expr"]');if(b)b.click();}
+document.getElementById('today-life-more').onclick=openExprScreen;
+document.getElementById('life-quiz-btn').onclick=openLifeQuiz;
+document.getElementById('life-search').addEventListener('input',e=>{lifeQuery=e.target.value;renderLife();});
+document.getElementById('life-chips').addEventListener('click',e=>{const b=e.target.closest('.life-chip');if(!b)return;lifeFilter=b.dataset.f;document.querySelectorAll('#life-chips .life-chip').forEach(x=>x.classList.toggle('on',x===b));renderLife();});
+
+document.getElementById('audio-test').onclick=async e=>{const b=e.currentTarget,oldText=b.textContent;b.textContent='🔊 재생 중…';b.disabled=true;
+  initSilent();try{await silentEl.play();}catch(err){}try{pv();safeSpeechCancel();speechSynthesis.resume();}catch(err){}
+  await delay(120);await speak('음성 출력이 정상입니다.','ko',1);await delay(120);await speak('Audio is working.','en',S.set.rate);
+  b.textContent=oldText;b.disabled=false;};
+document.getElementById('btn-am').onclick=()=>openDrive('am');
+document.getElementById('btn-pm').onclick=()=>openDrive('pm');
+document.getElementById('weak-run').onclick=()=>openDrive('weak');
+document.getElementById('d-play').onclick=togglePlay;
+document.getElementById('d-next').onclick=()=>jump(1);
+document.getElementById('d-back').onclick=()=>jump(-1);
+document.getElementById('d-close').onclick=exitDrive;
+document.getElementById('rv-save').onclick=()=>saveReview(false);
+document.getElementById('rv-skip').onclick=()=>saveReview(true);
+document.getElementById('hide-btn').onclick=e=>{hideKo=!hideKo;e.target.textContent=hideKo?'뜻 보이기':'뜻 가리기';render();};
+
+document.getElementById('quiz-btn').onclick=openQuiz;
+document.getElementById('q-close').onclick=()=>{clearInterval(Q.timer);safeSpeechCancel();document.getElementById('quiz').classList.remove('on');};
+document.getElementById('q-show').onclick=()=>{clearInterval(Q.timer);
+  document.getElementById('q-en').classList.add('show');speakNow(Q.cur.en,'en',S.set.rate);
+  document.getElementById('q-show').style.display='none';document.getElementById('q-mk').style.display='';};
+document.getElementById('q-mk').onclick=async e=>{const b=e.target.closest('button');if(!b)return;
+  haptic(b.dataset.m==='o'?10:7);if(Q.cur.track!==false){if(Q.mode==='life')applyLifeMark(Q.cur,b.dataset.m);else applyMark(Q.cur.id,Q.cur.ko,Q.cur.en,b.dataset.m);}await save();Q.i++;nextQ();};
+
+document.getElementById('dlg-play').onclick=async()=>{const tok=++dlgTok;safeSpeechCancel();
+  for(const x of dd(S.day).d){if(tok!==dlgTok)return;await speak(x[1],'en',S.set.rate);if(tok!==dlgTok)return;await delay(400);}};
+
+[['seg-len','len'],['seg-gap','gap'],['seg-rate','rate'],['seg-rep','rep'],['seg-txt','txt'],['seg-wake','wake']]
+ .forEach(([id,k])=>document.getElementById(id).addEventListener('click',async e=>{
+   const b=e.target.closest('button');if(!b)return;S.set[k]=parseFloat(b.dataset.v);await save();render();}));
+
+document.getElementById('exp-btn').onclick=()=>{document.getElementById('backup').value=JSON.stringify(S);};
+document.getElementById('imp-btn').onclick=async()=>{
+  try{const v=JSON.parse(document.getElementById('backup').value);
+    if(!v||typeof v!=='object')throw 0;
+    S=normalizeState(v);await save();render();
+    alert('불러왔습니다.');}catch(e){alert('형식이 맞지 않습니다. 내보낸 내용을 그대로 붙여넣으세요.');}};
+document.getElementById('reset-btn').onclick=async()=>{
+  if(!confirm('진도와 평가 기록을 모두 지웁니다. 계속할까요?'))return;
+  S=JSON.parse(JSON.stringify(DEF));await save();render();};
+
+/* boot — 미평가 세션 자동 회수 */
+(async()=>{await load();render();
+  if(S.pending&&S.pending.items&&S.pending.items.length){
+    pend=S.pending.items;D.kind=S.pending.kind;
+    setTimeout(()=>openReview(true),500);
+  }else setTimeout(openOnboarding,260);
+})();
+</script>
+</body>
+</html>
