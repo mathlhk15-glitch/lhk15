@@ -6,7 +6,7 @@ const SECTIONS = {
   "admission-essay":       { label: "✍️ 논술전형 자료", desc: "논술·약술형 전형 정리 자료" },
   "department-explore":    { label: "🔬 학과 탐색 도구", desc: "학과별 탐구 주제 및 학과 사례 비교 콘솔" },
   "curriculum":            { label: "📘 교육과정·학습자료", desc: "교육과정 편제, 과목 선택, 교과 학습맵 등 자료" },
-  "ai-learning":           { label: "🤖 AI 활용·프롬프트 학습", desc: "AI 스킬과 Gemini 프롬프트를 학습하고 실무에 활용하기 위한 자료" },
+  "ai-learning":           { label: "🤖 AI 활용·프롬프트 학습", desc: "AI 스킬, Claude Code, ChatGPT·Gemini 프롬프트를 학습하고 실무에 활용하기 위한 자료" },
   "seteuk-writing":        { label: "✏️ 세특 작성 AI 도구", desc: "세특 작성·수정·검수, 생기부 정성평가 상담 AI 도구" },
   "interview-prep":        { label: "🎤 면접 준비 도구", desc: "생기부 기반 예상질문, 말하기 연습·AI 분석 면접 준비 도구" },
   "inquiry-ai":            { label: "💡 탐구·질문 AI 도구", desc: "질문·탐구 주제 발굴 및 AI 토론 지원 도구" },
@@ -492,6 +492,30 @@ const resources = [
     isNew: true,
     updatedAt: "2026-09",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gemini-prompts/", platform: "html" }]
+  },
+  {
+    id: "claude-code-lab",
+    icon: "🧪",
+    title: "Claude Code 따라하기 실습 노트",
+    section: "ai-learning",
+    description: "작은 웹도구 하나로 CLAUDE.md·Plan Mode·테스트·Rewind·Git·Skill·Subagent·GitHub Pages 배포까지 7차시로 따라 하는 실습서",
+    tags: ["Claude Code", "AI 에이전트", "Skill", "Subagent", "CLAUDE.md", "GitHub Pages", "실습"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "claude-code-lab.html", platform: "html" }]
+  },
+  {
+    id: "prompt-tag-lab",
+    icon: "🏷️",
+    title: "프롬프트 태그와 교차검수 실습 노트",
+    section: "ai-learning",
+    description: "ChatGPT·Gemini·Claude에 쓰는 핵심 태그 12개, 다중 AI 교차검수 흐름, 프롬프트 조립기·태그 사전·/clean·세특 바이트 계산기 포함",
+    tags: ["프롬프트", "ChatGPT", "Gemini", "Claude", "교차검수", "태그", "세특", "실습"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "prompt-tag-lab.html", platform: "html" }]
   },
 
   // ── ✏️ 세특 작성 AI 도구 ────────────────────────────────────
