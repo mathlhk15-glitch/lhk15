@@ -45,6 +45,18 @@ const resources = [
     updatedAt: "2026-09",
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/fire/", platform: "html" }]
   },
+  {
+    id: "pc-shortcut",
+    icon: "⌨️",
+    title: "업무용 PC 단축키 검색 가이드",
+    section: "staff-training",
+    description: "Windows·브라우저·파일·Excel·한글(HWP) 단축키 119개를 기능·키로 검색. HWP Ctrl+Y 등 프로그램별 차이와 주의 단축키 안내",
+    tags: ["단축키", "컴퓨터", "업무효율", "Windows", "Excel", "한글", "HWP", "캡처", "클립보드"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/shortcut/", platform: "html" }]
+  },
 
   // ── 🎓 수시 전형 가이드·설명자료 ─────────────────────────────────
   {
