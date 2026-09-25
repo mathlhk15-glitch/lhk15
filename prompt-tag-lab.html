@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>프롬프트 태그와 교차검수 실습 노트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F6FA; --surface:#FFFFFF; --ink:#14213D; --muted:#56627A;
+  --line:#D5DDE9; --blue:#1F5FA8; --blue-soft:#DDE9F6; --blue-ink:#123F75;
+  --amber:#9A6B00; --amber-soft:#FFF3D1; --green:#1F7A4A; --green-soft:#DDF2E6;
+  --term:#16223B; --term-ink:#E3EAF7; --term-dim:#8FA2C4;
+  --sans:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1524; --surface:#16203A; --ink:#E6ECF6; --muted:#9BA9C3;
+    --line:#2A3858; --blue:#7FA6F0; --blue-soft:#1E2F55; --blue-ink:#B9CDF6;
+    --amber:#F0C35A; --amber-soft:#3A2F12; --green:#6FD3A0; --green-soft:#153828;
+    --term:#0A101D; --term-ink:#E3EAF7; --term-dim:#7F92B5;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1524; --surface:#16203A; --ink:#E6ECF6; --muted:#9BA9C3;
+  --line:#2A3858; --blue:#7FA6F0; --blue-soft:#1E2F55; --blue-ink:#B9CDF6;
+  --amber:#F0C35A; --amber-soft:#3A2F12; --green:#6FD3A0; --green-soft:#153828;
+  --term:#0A101D; --term-ink:#E3EAF7; --term-dim:#7F92B5;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.75;-webkit-text-size-adjust:100%}
+button{font-family:inherit;font-size:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
+
+/* layout */
+.app{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
+.rail{position:sticky;top:0;height:100vh;overflow-y:auto;border-right:1px solid var(--line);background:var(--surface);padding:24px 20px 40px}
+.main{min-width:0;padding:32px clamp(18px,5vw,64px) 80px}
+.page{max-width:720px}
+
+/* rail */
+.brand{font-weight:700;font-size:18px;line-height:1.35;margin:0 0 4px}
+.brand-sub{color:var(--muted);font-size:13px;margin:0 0 18px}
+.meter{height:6px;background:var(--blue-soft);border-radius:3px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--blue);width:0;transition:width .4s}
+.meter-label{font-size:13px;color:var(--muted);margin:6px 0 22px}
+.route{list-style:none;margin:0;padding:0}
+.session{margin:0 0 18px}
+.session-name{font-size:13px;font-weight:700;color:var(--blue-ink);margin:0 0 6px;padding-left:2px}
+.stops{list-style:none;margin:0;padding:0;position:relative}
+.stops::before{content:"";position:absolute;left:9px;top:10px;bottom:10px;width:2px;background:var(--line)}
+.stop button{display:flex;align-items:flex-start;gap:10px;width:100%;text-align:left;background:none;border:0;padding:5px 6px 5px 0;cursor:pointer;border-radius:6px;font-size:14.5px;line-height:1.45;color:var(--ink)}
+.stop button:hover{background:var(--blue-soft)}
+.dot{flex:none;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);background:var(--surface);position:relative;z-index:1;margin-top:1px;display:grid;place-items:center;font-size:11px;color:#fff}
+.stop.done .dot{background:var(--blue);border-color:var(--blue)}
+.stop.done .dot::after{content:"✓";font-weight:700}
+.stop.current button{font-weight:700}
+.stop.current .dot{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+.rail-tools{display:flex;gap:8px;margin-top:22px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer}
+.chip:hover{border-color:var(--blue)}
+
+/* mobile top */
+.topbar{display:none}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .rail{position:fixed;inset:0 auto 0 0;width:min(86vw,340px);height:100%;z-index:30;transform:translateX(-105%);transition:transform .25s;padding-top:calc(24px + env(safe-area-inset-top,0px));box-shadow:0 0 40px rgba(0,0,0,.25)}
+  .rail.open{transform:none}
+  .scrim{position:fixed;inset:0;background:rgba(10,16,30,.45);z-index:20;display:none}
+  .scrim.show{display:block}
+  .topbar{display:flex;align-items:center;gap:10px;position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 16px}
+  .topbar .t{flex:1;min-width:0;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .topbar .meter{width:64px}
+  .main{padding:22px 18px 80px}
+  body{font-size:16.5px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* lesson */
+.crumb{font-size:14px;color:var(--blue-ink);font-weight:500;margin:0 0 6px}
+h1{font-size:clamp(26px,5.2vw,36px);line-height:1.3;margin:0 0 14px;letter-spacing:-.01em}
+h2{font-size:20px;line-height:1.4;margin:36px 0 10px}
+h3{font-size:17px;margin:24px 0 6px}
+p{margin:0 0 14px}
+.goal{border-left:4px solid var(--blue);padding:4px 0 4px 16px;margin:0 0 26px;color:var(--ink)}
+.goal b{display:block;font-size:13px;color:var(--blue-ink)}
+ul.plain{margin:0 0 16px;padding-left:1.2em}
+ul.plain li{margin:2px 0}
+
+/* prompt block */
+.prompt{background:var(--blue-soft);border-radius:14px 14px 14px 4px;padding:14px 16px 12px;margin:0 0 18px;position:relative}
+.prompt .who{font-size:12.5px;font-weight:700;color:var(--blue-ink);margin-bottom:4px}
+.prompt .txt{white-space:pre-wrap;margin:0}
+
+/* terminal/code */
+.code{background:var(--term);color:var(--term-ink);border-radius:10px;margin:0 0 18px;overflow:hidden}
+.code-head{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.08);font-family:var(--mono);font-size:12.5px;color:var(--term-dim)}
+.code pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.6;white-space:pre}
+.copy{background:none;border:1px solid rgba(255,255,255,.18);color:var(--term-ink);border-radius:6px;padding:2px 10px;font-size:12px;cursor:pointer}
+.prompt .copy{position:absolute;top:10px;right:10px;border-color:var(--line);color:var(--blue-ink);background:var(--surface)}
+.copy.ok{border-color:var(--green);color:var(--green)}
+
+/* flow */
+.flow{list-style:none;margin:0 0 20px;padding:0;counter-reset:f}
+.flow li{position:relative;padding:4px 0 4px 34px}
+.flow li::before{counter-increment:f;content:counter(f);position:absolute;left:0;top:6px;width:22px;height:22px;border-radius:50%;background:var(--surface);border:2px solid var(--blue);color:var(--blue-ink);font-size:11.5px;font-weight:700;display:grid;place-items:center}
+.flow li:not(:last-child)::after{content:"";position:absolute;left:10px;top:30px;bottom:-6px;width:2px;background:var(--blue-soft)}
+
+/* callouts */
+.call{border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:15.5px}
+.call b.h{display:block;margin-bottom:2px}
+.call.warn{background:var(--amber-soft);color:var(--ink)}
+.call.warn b.h{color:var(--amber)}
+.call.tip{background:var(--green-soft)}
+.call.tip b.h{color:var(--green)}
+.call.me{background:var(--surface);border:1px dashed var(--blue)}
+.call.me b.h{color:var(--blue-ink)}
+
+/* table */
+.tbl{overflow-x:auto;margin:0 0 18px}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:460px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;color:var(--muted);font-weight:700}
+td:first-child{font-weight:700;white-space:nowrap}
+
+/* checks */
+.checks{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:34px 0 20px}
+.checks h2{margin:0 0 8px;font-size:17px}
+.checks label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer}
+.checks input{width:20px;height:20px;margin-top:4px;accent-color:var(--blue);flex:none}
+.done-btn{margin-top:10px;width:100%;border:0;border-radius:10px;padding:12px;font-weight:700;background:var(--blue);color:#fff;cursor:pointer}
+.done-btn[disabled]{background:var(--line);color:var(--muted);cursor:not-allowed}
+.done-btn.is-done{background:var(--green-soft);color:var(--green)}
+
+.pager{display:flex;gap:10px;margin-top:10px}
+.pager button{flex:1;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:12px;cursor:pointer;text-align:left;font-size:14px;line-height:1.4}
+.pager button:hover{border-color:var(--blue)}
+.pager button[disabled]{visibility:hidden}
+.pager small{display:block;color:var(--muted);font-size:12px}
+.pager .nx{text-align:right}
+
+/* home */
+.hero-title{font-size:clamp(30px,6.4vw,46px);line-height:1.2;margin:4px 0 16px;letter-spacing:-.02em}
+.hero-lead{font-size:18px;color:var(--muted);margin:0 0 26px;max-width:36em}
+.sessions{display:grid;gap:12px;margin:10px 0 26px}
+.sess-row{display:flex;gap:14px;align-items:center;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;cursor:pointer;text-align:left;width:100%}
+.sess-row:hover{border-color:var(--blue)}
+.sess-no{flex:none;width:44px;height:44px;border-radius:10px;background:var(--blue-soft);color:var(--blue-ink);font-weight:700;display:grid;place-items:center;font-size:15px}
+.sess-row .nm{font-weight:700;display:block}
+.sess-row .ds{color:var(--muted);font-size:14px;display:block}
+.sess-row .pc{margin-left:auto;font-size:13px;color:var(--muted);white-space:nowrap}
+.start{border:0;background:var(--blue);color:#fff;font-weight:700;border-radius:10px;padding:13px 20px;cursor:pointer}
+
+/* quiz */
+.q{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 12px}
+.q p{margin:0 0 10px;font-weight:500}
+.q .ox{display:flex;gap:8px}
+.q .ox button{flex:1;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:8px;cursor:pointer;font-weight:700}
+.q .ans{display:none;margin-top:10px;font-size:15px}
+.q.answered .ans{display:block}
+.q .right{color:var(--green)} .q .wrong{color:var(--amber)}
+</style>
+<style>
+/* 도구 */
+.tool{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 20px}
+.tool h3{margin:0 0 4px;font-size:16px}
+.tool .hint{font-size:14px;color:var(--muted);margin:0 0 12px}
+.field{margin:0 0 12px}
+.field label{display:block;font-size:14px;font-weight:700;margin-bottom:4px}
+.field input,.field textarea,.out{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:15px;line-height:1.6;background:var(--paper);color:var(--ink)}
+.field textarea{min-height:70px;resize:vertical}
+.out{min-height:180px;font-family:var(--mono);font-size:13.5px;white-space:pre-wrap}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.tags label{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:14px;cursor:pointer;background:var(--paper)}
+.tags input{accent-color:var(--blue)}
+.tags label:has(input:checked){border-color:var(--blue);background:var(--blue-soft);color:var(--blue-ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.btn{border:0;border-radius:8px;padding:9px 16px;font-weight:700;background:var(--blue);color:#fff;cursor:pointer}
+.btn.sub{background:var(--blue-soft);color:var(--blue-ink)}
+.bytes{font-size:28px;font-weight:700;margin:6px 0 2px}
+.bytes.ok{color:var(--green)} .bytes.low,.bytes.high{color:var(--amber)}
+.tagdef{border-top:1px solid var(--line);padding:14px 0}
+.tagdef:first-of-type{border-top:0;padding-top:4px}
+.tagname{font-family:var(--mono);font-weight:500;font-size:17px;color:var(--blue-ink)}
+.tagdef pre{margin:6px 0 0;white-space:pre-wrap;font-family:inherit;font-size:15px;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <button class="chip" id="menuBtn" aria-label="목차 열기">목차</button>
+  <span class="t" id="topTitle">프롬프트 태그 실습 노트</span>
+  <div class="meter"><i id="meterTop"></i></div>
+</div>
+<div class="scrim" id="scrim"></div>
+<div class="app">
+  <nav class="rail" id="rail" aria-label="실습 목차">
+    <p class="brand">프롬프트 태그와<br>교차검수 실습 노트</p>
+    <p class="brand-sub">ChatGPT·Gemini·Claude 함께 쓰기 · 2026.9 기준</p>
+    <div class="meter"><i id="meterSide"></i></div>
+    <p class="meter-label" id="meterLabel">0 / 0 완료</p>
+    <div id="route"></div>
+    <div class="rail-tools">
+      <button class="chip" id="homeBtn">처음 화면</button>
+      <button class="chip" id="toolsBtn">도구 모음</button>
+      <button class="chip" id="themeBtn">화면 밝기</button>
+      <button class="chip" id="resetBtn">진도 초기화</button>
+    </div>
+  </nav>
+  <main class="main"><div class="page" id="page"></div></main>
+</div>
+
+<script>
+/* ================= 태그 사전 ================= */
+const CORE = [
+ ["/easy","초등학생도 이해하게","초등학생도 이해할 수 있도록 설명한다.\n어려운 용어는 처음 나올 때 쉬운 말로 풀어준다.\n가능하면 일상 또는 학교생활 예시를 하나 넣는다."],
+ ["/step","단계별로","처음 하는 사람도 따라 할 수 있도록 1단계, 2단계, 3단계 순서로 설명한다.\n한 단계에는 한 가지 행동만 넣는다."],
+ ["/table","표로 정리","비교하거나 정리하기 좋은 내용은 표로 보여준다.\n열 제목은 짧고 분명하게 작성한다."],
+ ["/fact","사실·출처·최신 여부 확인","확인 가능한 사실을 우선한다.\n최신 정보가 중요하면 기준 날짜를 밝히고, 검색·공식 자료 확인이 가능하면 확인하며, 불가능하면 '최신 확인 필요'라고 밝힌다.\n필요하면 확인된 사실 / 자료에 근거한 해석 / 불확실한 내용 / 추가 확인 필요로 구분한다.\n수치는 기준 연도·대상·단위·출처를 함께 확인한다."],
+ ["/noinvent","자료에 없는 내용 만들지 않기","자료에 없는 사람·날짜·숫자·학생 활동·성과·감정·인용문·기능을 새로 만들지 않는다.\n정보가 부족하면 억지로 채우지 말고 무엇이 부족한지 표시한다."],
+ ["/keepall","원자료 누락 금지","원자료의 내용을 임의로 줄이거나 빠뜨리지 않는다.\n제목·본문·표·주의사항·세부 항목·순서를 유지한다.\n읽을 수 없는 부분은 추측하지 않고 [확인 필요] 또는 [판독 불가]로 표시한다."],
+ ["/plan","만들지 말고 계획만","아직 결과물을 만들거나 수정하지 않는다.\n먼저 목표, 현재 문제, 가능한 방법, 추천 구조, 작업 순서, 예상 위험, 테스트 방법을 제안한다.\n사용자가 제작을 요청한 뒤 실제 작업에 들어간다."],
+ ["/review","문제점 중심 검수","잘된 부분은 길게 설명하지 않는다.\n오류·누락·중복·잘못된 표현·삭제할 부분·추가할 부분·실제 사용 문제를 찾는다.\nA. 반드시 수정 / B. 수정 권장 / C. 선택 개선으로 분류하고, 각 항목은 문제 / 이유 / 수정 방법으로 쓴다.\n보지 못한 파일이나 실행하지 못한 기능은 '확인하지 못함'으로 표시한다."],
+ ["/cross","여러 의견 교차검증","여러 AI나 자료의 의견을 단순히 합치지 않는다.\n원자료·공식 자료와 맞는지, 현재 목적에 필요한지, 실행 가능한지, 부작용과 기존 기능 훼손이 없는지 판단한다.\nA. 그대로 채택 / B. 수정 후 채택 / C. 보류 / D. 제외로 분류한다.\n여러 AI가 같은 말을 해도 원자료보다 우선하지 않는다."],
+ ["/preserve","기존 정상 내용 유지","기존에 정상인 내용·기능·디자인은 유지하고 필요한 부분만 최소 범위로 수정한다.\n수정 후 무엇이, 왜 바뀌었고 기존 기능에 영향이 있는지 알려준다."],
+ ["/webcheck","웹도구 종합 검수","기능(로드·버튼·입력·저장·검색·삭제·초기화·새로고침), 예외(빈 입력·긴 입력·잘못된 값), 화면(PC·휴대폰·버튼 크기·가로 스크롤·겹침), 출력(인쇄·PDF), 기술(Console 오류·404·상대경로·GitHub Pages), 보안(학생 개인정보·API Key·Password·Token·localStorage 민감정보·공개 JS 인증정보), 접근성(키보드 조작·의미가 분명한 버튼)을 검수한다.\nA. 즉시 수정 / B. 수정 권장 / C. 선택 개선으로 나눈다.\n실제 브라우저 테스트와 코드상 예상 점검을 구분해 보고한다."],
+ ["/clean","AI 작업 흔적 제거","다른 AI 답변의 작업 흔적을 제거한다.\n삭제: '○s 동안 처리함', '좋습니다', '아래처럼 정리했습니다', 작업 과정 설명, 불필요한 총평, 자동으로 붙은 Q1~Q3, 원문과 관계없는 머리말·맺음말.\n실제 본문 내용은 유지한다."]
+];
+const EXTRA = [
+ ["/seteuk","세특 초안","교사가 최종 확인·수정할 세특 초안을 작성한다.\n교사 관찰자 관점, 제공된 실제 활동 근거 중심, 자료에 없는 활동·성장·태도 생성 금지.\n'학생은 ~함' 표현을 피하고, 질문 → 교과 개념 → 자료 분석 → 인지 변화 → 실천 흐름을 우선 검토한다.\n목표 분량 1300~1500바이트, 생활기록부 서술형 종결."],
+ ["/version","수정 이력 보여주기","수정할 때 기존 문제, 수정 이유, 새 수정안, 달라진 점, 예상 영향을 보여준다."],
+ ["/ask-first","부족하면 먼저 질문","결과에 꼭 필요한 정보가 부족하면 임의로 가정하지 말고 중요한 질문을 먼저 한다."],
+ ["/ready","바로 복사할 완성본","설명과 최종 사용본을 구분한다. 필요한 설명은 짧게 하고, 마지막에 바로 복사해 쓸 완성본만 따로 제시한다."],
+ ["/example","예시 포함","실제로 따라 할 수 있는 예시를 포함한다."],
+ ["/faq","질문·답변 형식","자주 묻는 질문과 답변 형식으로 정리한다."],
+ ["/checklist","체크리스트","확인 항목을 체크리스트로 정리한다."]
+];
+const ALLTAGS = CORE.concat(EXTRA);
+
+function dictText(tags, long){
+  const lines = ["앞으로 이 대화에서는 다음 태그를 아래 정의대로 이해하고 적용해줘.",""];
+  tags.forEach(t => { if (long) { lines.push(t[0] + " : " + t[1]); t[2].split("\n").forEach(s => lines.push("  - " + s)); lines.push(""); } else lines.push(t[0] + " = " + t[1]); });
+  return lines.join("\n").trim();
+}
+
+/* ================= 세션·실습 ================= */
+const SESSIONS = [
+ {no:"시작", name:"이 노트 사용법", desc:"태그의 정체와 5가지 원칙"},
+ {no:"1차", name:"프롬프트 기초", desc:"3칸 → 8칸 → 우선순위와 예시"},
+ {no:"2차", name:"핵심 태그 12개", desc:"정의 익히기와 사전 등록"},
+ {no:"3차", name:"일상 업무 4단계", desc:"안내문, 이미지 문서화, 개인정보"},
+ {no:"4차", name:"다중 AI 교차검수", desc:"질문 → /clean → /cross → 재검수"},
+ {no:"5차", name:"웹도구 작업", desc:"기획 → /webcheck → 배포 → 허브"},
+ {no:"6차", name:"전문 업무와 한계", desc:"세특, 대입 자료, 태그의 한계"},
+ {no:"부록", name:"도구와 정리", desc:"조립기, 사전, 바이트 계산, 퀴즈"}
+];
+
+const L = [
+/* 시작 */
+{s:0,id:"intro",no:"안내",title:"태그는 마법 주문이 아닙니다",
+ goal:"/easy, /review 같은 태그가 무엇인지 정확히 이해하고 시작합니다.",
+ blocks:[
+  {t:"p",h:"인터넷에 도는 /ELI5, /expert, /persona:teacher 같은 표현은 대부분 ChatGPT의 공식 명령어가 아닙니다. 내가 자주 쓰는 긴 지시를 짧게 줄여 둔 <b>개인용 단축어</b>입니다."},
+  {t:"p",h:"그래서 뜻을 미리 정해 두지 않으면 AI마다, 대화마다 다르게 해석합니다. 이 노트는 태그 12개의 뜻을 정확히 정하고, 여러 AI에 같은 기준으로 쓰는 법을 연습합니다."},
+  {t:"call",h:"꼭 기억할 5문장",b:"① 태그는 공식 명령어가 아니라 개인용 단축어다. ② 자연어 지시가 태그보다 중요하다. ③ AI 여러 개가 같은 말을 해도 원자료보다 우선하지 않는다. ④ 검수 의견도 다시 검수한다. ⑤ AI가 여러 명이어도 최종 결정자는 사람이다."},
+  {t:"tip",h:"이 노트 사용법",b:"각 실습의 ‘AI에게 입력’ 상자는 복사 버튼으로 그대로 붙여넣습니다. 확인 항목을 모두 체크하면 완료 버튼이 켜지고, 진도는 이 브라우저에 저장됩니다. 부록에는 프롬프트 조립기, 태그 사전 만들기, /clean 도구, 세특 바이트 계산기가 있습니다."}
+ ],
+ checks:["태그가 공식 명령어가 아니라는 점을 이해했다","5문장 중 ③ ‘다수결 금지’를 내 말로 설명할 수 있다"]},
+
+/* 1차 */
+{s:1,id:"b1",no:"실습 1",title:"3칸 프롬프트: 할 일 · 상황 · 결과",
+ goal:"한 줄 질문과 3칸 질문의 결과 차이를 직접 비교합니다.",
+ blocks:[
+  {t:"p",h:"먼저 한 줄로 물어봅니다."},
+  {t:"prompt",c:"진로 활동지 만들어줘."},
+  {t:"p",h:"새 대화에서 3칸으로 다시 물어봅니다."},
+  {t:"prompt",c:"[할 일]\n고1 진로 활동지를 만들어줘.\n\n[상황]\n40분 수업이고, 학생들은 아직 희망 진로가 명확하지 않아.\n\n[결과]\n활동 목표 → 활동 3개 → 성찰 질문 3개 순서로 작성해줘."},
+  {t:"p",h:"두 결과를 나란히 놓고 ‘바로 수업에 쓸 수 있는가’로 비교합니다."}
+ ],
+ checks:["두 방식으로 모두 물어봤다","3칸 결과가 수업에 더 가깝다는 차이를 확인했다"]},
+
+{s:1,id:"b2",no:"실습 2",title:"8칸 만능 프롬프트",
+ goal:"중요한 업무에 쓰는 8칸 틀을 직접 채워 봅니다.",
+ blocks:[
+  {t:"list",items:["① 목표","② 대상","③ 자료·상황","④ 우선순위","⑤ 결과 형식","⑥ 금지 사항","⑦ 사실 확인","⑧ 최종 검수"]},
+  {t:"code",f:"복사해서 채우는 틀",c:"[목표]\n이번 작업의 목적은 다음과 같다.\n→\n\n[대상]\n결과물을 사용할 사람은 다음과 같다.\n→\n\n[자료·상황]\n반드시 참고해야 할 자료와 현재 상황은 다음과 같다.\n→\n\n[우선순위]\n1.\n2.\n3.\n\n[결과 형식]\n다음 구조로 작성해줘.\n→\n\n[금지 사항]\n- 자료에 없는 사실 추가 금지\n- 근거 없는 추측 금지\n- 기존 정상 내용 불필요한 삭제 금지\n\n[사실 확인]\n확인된 사실과 해석을 구분해줘.\n확인되지 않는 내용은 그렇게 표시해줘.\n\n[최종 검수]\n답하기 전에 사실 오류, 누락, 모순, 중복, 실제 사용 가능성을 다시 확인해줘."},
+  {t:"tool",name:"builder"},
+  {t:"tip",h:"실습 과제",b:"다음 주에 실제로 보낼 학부모 안내 하나를 골라 위 조립기로 프롬프트를 만들고, AI에 넣어 결과를 받아 봅니다."}
+ ],
+ checks:["조립기로 실제 업무 프롬프트를 하나 만들었다","결과를 받아 8칸 중 어느 칸이 효과가 컸는지 확인했다"]},
+
+{s:1,id:"b3",no:"실습 3",title:"우선순위·예시·정확한 재요청",
+ goal:"결과를 좋게 만드는 세 가지 습관을 연습합니다.",
+ blocks:[
+  {t:"h",h:"① 우선순위 알려주기"},
+  {t:"p",h:"‘화려하게’와 ‘단순하게’처럼 조건이 충돌하면 AI는 무엇이 먼저인지 모릅니다. ‘세계 최고의 전문가’ 같은 장식보다 우선순위 한 줄이 훨씬 효과적입니다."},
+  {t:"prompt",c:"우선순위:\n1. 사용하기 쉬움\n2. 모바일\n3. 정확성\n4. 디자인\n\n확실하지 않은 내용은 추측하지 말 것."},
+  {t:"h",h:"② 예시 하나 주기"},
+  {t:"prompt",c:"버튼 이름은 이런 스타일로 써줘.\n\n좋음: 저장하기 / 결과 보기 / 처음부터 다시\n피함: Execute / Reset / Process Data"},
+  {t:"h",h:"③ ‘다시 해줘’ 대신 정확히"},
+  {t:"prompt",c:"전체 구조는 유지해줘.\n\n다음 세 가지만 수정해줘.\n1. 설명이 어렵다 → 초등학생도 이해하도록\n2. 예시가 부족하다 → 학교 예시 2개 추가\n3. 결론이 너무 길다 → 절반으로 줄이기"}
+ ],
+ checks:["우선순위를 넣어 한 번 요청해 봤다","‘다시 해줘’ 대신 수정할 점 3가지를 지정해 봤다"]},
+
+/* 2차 */
+{s:2,id:"t1",no:"실습 4",title:"핵심 태그 12개 익히기",
+ goal:"12개 태그의 정확한 정의를 읽고, 하나씩 직접 써 봅니다.",
+ blocks:[
+  {t:"tool",name:"tagref"},
+  {t:"prompt",c:"MCP가 무엇인지 설명해줘.\n/easy"},
+  {t:"prompt",c:"MCP와 Skill 차이를 설명해줘.\n\n/easy\n/step\n/table"},
+  {t:"warn",h:"주의",b:"이 대화에 사전을 등록하기 전에는 AI가 /noinvent, /cross 같은 태그 뜻을 모릅니다. 다음 실습에서 사전을 등록합니다."}
+ ],
+ checks:["12개 정의를 한 번씩 읽었다","/easy, /step, /table을 조합해 실제로 써 봤다"]},
+
+{s:2,id:"t2",no:"실습 5",title:"태그 사전 등록하기",
+ goal:"태그가 매번 같은 뜻으로 작동하도록 AI에 사전을 넣습니다.",
+ blocks:[
+  {t:"h",h:"방법 1. 지금 대화에 등록"},
+  {t:"p",h:"대화 첫 메시지로 사전을 붙여넣습니다. 그 대화 안에서만 유효합니다."},
+  {t:"h",h:"방법 2. 계속 쓰는 AI에 미리 등록"},
+  {t:"p",h:"ChatGPT 맞춤 지침이나 프로젝트, Gemini Gem 지침, Claude 프로젝트 지침에 같은 사전을 넣습니다. 맞춤 지침은 글자 수 제한이 있으니 ‘짧은 정의’로 넣습니다."},
+  {t:"h",h:"방법 3. 교차검수할 때는 프롬프트 위에 함께 붙이기"},
+  {t:"p",h:"세 AI에 완전히 같은 기준을 적용하는 가장 확실한 방법입니다. 서비스마다 기억 범위가 달라서, 새 대화나 다른 AI에 정의가 이어진다고 가정하지 않습니다."},
+  {t:"tool",name:"dict"},
+  {t:"me",h:"실습 과제",b:"ChatGPT, Gemini, Claude 중 가장 자주 쓰는 한 곳에 짧은 정의 사전을 등록하고, 새 대화에서 ‘/review가 뭐야?’라고 물어 정의대로 답하는지 확인합니다."}
+ ],
+ checks:["사전을 만들어 복사했다","한 곳 이상에 등록했다","새 대화에서 태그 뜻을 정의대로 답하는지 확인했다"]},
+
+{s:2,id:"t3",no:"실습 6",title:"보조 태그와 Skill 승격 기준",
+ goal:"필요할 때만 꺼내 쓰는 보조 태그와, 태그를 Skill로 바꿀 시점을 정합니다.",
+ blocks:[
+  {t:"table",head:["태그","의미"],rows:[["/seteuk","세특 초안 (6차에서 실습)"],["/version","수정 이력 보여주기"],["/ask-first","정보가 부족하면 먼저 질문"],["/ready","바로 복사할 완성본 분리"],["/example","예시 포함"],["/faq","질문·답변"],["/checklist","체크리스트"]]},
+  {t:"p",h:"학생·학부모·밴드 같은 대상은 태그보다 ‘학부모용으로’, ‘네이버 밴드에 올릴’처럼 자연어로 쓰는 편이 정확합니다."},
+  {t:"flow",items:["처음: 자연어 프롬프트","반복: 태그","아주 자주 반복: Claude Skill로 승격"]},
+  {t:"call",h:"승격 기준",b:"같은 작업을 자주 하고, 매번 긴 규칙을 반복 입력하고, 순서가 정해져 있고, 검사 항목이 많다면 Skill이 낫습니다. /review, /webcheck, /seteuk, data.js 등록, GAS+Sheets 검수가 대표 후보입니다."}
+ ],
+ checks:["내가 주 3회 이상 쓰는 태그를 하나 골랐다"]},
+
+/* 3차 */
+{s:3,id:"d1",no:"실습 7",title:"4단계 기본 흐름: 학생 안내문",
+ goal:"일상 업무는 초안 → /review → 사람 확인이면 충분합니다.",
+ blocks:[
+  {t:"flow",items:["목표와 자료 정리","AI에게 초안 요청","/review로 검수","사람이 최종 확인"]},
+  {t:"prompt",c:"첨부 내용을 학생들에게 안내할 문장으로 바꿔줘.\n\n/easy\n/noinvent\n\n대상: 고등학생\n\n조건:\n- 한 번 읽고 이해할 수 있게\n- 중요한 날짜·준비물은 눈에 띄게\n- 너무 길지 않게\n- 공문처럼 딱딱하지 않게\n- 첨부 자료에 없는 내용은 추가하지 않기"},
+  {t:"prompt",c:"방금 안내문을 검수해줘.\n/review\n첨부 원문과 날짜·장소·준비물이 일치하는지 특히 확인해줘."}
+ ],
+ checks:["실제 공문 하나로 학생 안내문을 만들었다","/review로 원문과 날짜가 일치하는지 확인했다"]},
+
+{s:3,id:"d2",no:"실습 8",title:"학부모 안내문",
+ goal:"같은 자료를 대상만 바꿔 다시 써 보며 대상의 힘을 확인합니다.",
+ blocks:[
+  {t:"prompt",c:"아래 자료와 함께 학부모에게 보낼 안내문을 작성해줘.\n\n/easy\n/noinvent\n\n조건:\n- 정중하고 신뢰감 있게\n- 어려운 교육 용어는 풀어서\n- 중요한 일정 빠뜨리지 않기\n- 지나치게 긴 공문체 피하기"},
+  {t:"tip",h:"비교해 보기",b:"실습 7의 학생 안내문과 나란히 두고 말투·길이·강조점이 어떻게 달라졌는지 봅니다."}
+ ],
+ checks:["학생용과 학부모용의 차이를 비교했다"]},
+
+{s:3,id:"d3",no:"실습 9",title:"이미지 자료를 문서로 옮기기",
+ goal:"캡처 이미지를 빠짐없이, 추측 없이 문서로 재구성합니다.",
+ blocks:[
+  {t:"prompt",c:"첨부 이미지 내용을 문서로 재구성해줘.\n\n/keepall\n/noinvent\n\n규칙:\n- 원문 내용을 빠뜨리지 않는다.\n- 임의로 요약하지 않는다.\n- 표는 표로 재구성한다.\n- 제목, 본문, 주의사항의 구조를 유지한다.\n- 화면 캡처의 메뉴, 브라우저 UI 등 본문과 무관한 것은 제외한다.\n- 읽기 어려운 부분은 추측하지 않고 [확인 필요]로 표시한다.\n- 개인정보가 보이면 [개인정보 확인 필요]라고 표시한다."},
+  {t:"p",h:"결과를 원본 이미지와 한 줄씩 대조해 빠진 항목이 없는지 확인합니다."}
+ ],
+ checks:["이미지 한 장을 문서로 옮겼다","원본과 대조해 누락이 없는지 확인했다"]},
+
+{s:3,id:"d4",no:"실습 10",title:"첫 결과는 초안, 개인정보는 먼저",
+ goal:"AI에 넣기 전 개인정보를 줄이고, 첫 결과를 최종본으로 쓰지 않는 습관을 만듭니다.",
+ blocks:[
+  {t:"table",head:["원래","바꿔서"],rows:[["김○○ 교사","교사A"],["홍○○ 학생","학생A"],["2학년 3반 12번","고2 학생"],["전화번호·주소","삭제"],["상담내용","꼭 필요한 부분만"]]},
+  {t:"flow",items:["AI 초안","사실 확인","검수","교사 판단","수정","최종본"]},
+  {t:"warn",h:"반드시 다시 확인할 분야",b:"대입, 학생부, 학교 규정, 법규, 통계, 건강, 금융, 공문, 개인정보, 웹 보안."}
+ ],
+ checks:["최근 AI에 넣은 자료에서 개인정보를 가명화해 봤다"]},
+
+/* 4차 */
+{s:4,id:"x1",no:"실습 11",title:"STEP 1~2: 계획을 여러 AI에 같은 질문으로",
+ goal:"같은 프롬프트로 세 AI의 계획을 받아 비교할 준비를 합니다.",
+ blocks:[
+  {t:"p",h:"세 AI에 <b>완전히 같은</b> 프롬프트를 넣어야 비교가 됩니다. 맨 위에 태그 사전(부록)을 함께 붙이세요."},
+  {t:"prompt",c:"고등학교 교사용 교육 웹도구를 만들려고 한다.\n\n아직 파일은 만들지 마.\n/plan\n\n다음을 먼저 검토해줘.\n- 핵심 기능\n- 사용자\n- 화면 구조\n- 데이터 저장\n- 개인정보\n- 모바일\n- 인쇄\n- 테스트\n- GitHub Pages 배포"},
+  {t:"flow",items:["ChatGPT에 입력","Gemini에 입력","Claude에 입력","세 답변을 메모장에 모으기"]}
+ ],
+ checks:["세 AI에 같은 프롬프트를 넣었다","세 답변을 한곳에 모았다"]},
+
+{s:4,id:"x2",no:"실습 12",title:"STEP 3: /clean으로 흔적 지우기",
+ goal:"붙여넣은 답변에서 ‘○s 동안 처리함’, 머리말, Q1~Q3를 걷어냅니다.",
+ blocks:[
+  {t:"p",h:"다른 AI 답변을 복사하면 처리 시간 표시, ‘좋습니다, 정리했습니다’ 같은 머리말, 작업 설명 맺음말, 자동 질문이 함께 따라옵니다. 그대로 두면 다음 AI가 본문으로 착각합니다."},
+  {t:"tool",name:"clean"},
+  {t:"p",h:"도구로 1차 정리한 뒤, 애매한 부분은 AI에게 맡깁니다."},
+  {t:"prompt",c:"아래는 여러 AI의 답변이다.\n\n/clean\n\n처리 시간 표시, 작업 머리말, 불필요한 총평과 질문은 제거하고 실제 제안 내용만 남겨줘."}
+ ],
+ checks:["도구로 처리 흔적을 지웠다","남은 본문이 원래 내용과 같은지 확인했다"]},
+
+{s:4,id:"x3",no:"실습 13",title:"STEP 4~5: /cross로 검증하고 새 설계안",
+ goal:"합치지 말고 걸러서, 통과한 것만으로 새 설계안을 만듭니다.",
+ blocks:[
+  {t:"prompt",c:"아래 여러 AI의 의견을 비교해줘.\n\n/cross\n/fact\n/noinvent\n\n다음을 기준으로 판단해줘.\n1. 사실에 맞는가?\n2. 현재 목적에 필요한가?\n3. 불필요하게 복잡하지 않은가?\n4. 기존 기능에 문제를 만들지 않는가?\n5. 보안·개인정보 위험이 없는가?\n\n결과를 A. 채택 / B. 수정 후 채택 / C. 보류 / D. 제외로 분류해줘."},
+  {t:"prompt",c:"A와 B 의견만 사용해서 최종 구현 계획을 새로 작성해줘.\n중복은 제거하고 우선순위를 정해줘."},
+  {t:"call",h:"판단 우선순위",b:"1. 공식 원자료 → 2. 실제 파일·데이터 → 3. 실제 실행 결과 → 4. 여러 AI 의견. 세 AI가 모두 ‘맞다’고 해도 공식 규정이 ‘틀리다’면 규정이 기준입니다."}
+ ],
+ checks:["A~D 분류표를 받았다","D로 분류된 의견 하나의 이유를 확인했다","새 설계안을 받았다"]},
+
+{s:4,id:"x4",no:"실습 14",title:"STEP 6~7: 제작하고 다른 AI로 검수",
+ goal:"만든 AI와 검수하는 AI를 분리합니다.",
+ blocks:[
+  {t:"prompt",c:"최종 설계안을 기준으로 제작해줘.\n\n/preserve\n/noinvent\n\n우선순위:\n1. 정확성\n2. 기존 기능 유지\n3. 사용성\n4. 모바일\n5. 디자인"},
+  {t:"p",h:"결과물을 <b>다른 AI</b>에 넣어 검수합니다."},
+  {t:"prompt",c:"현재 완성본을 검수해줘.\n\n/review\n/fact\n/noinvent\n\n잘된 점은 길게 설명하지 말고 오류·누락·위험·수정사항만 알려줘."}
+ ],
+ checks:["제작 AI와 다른 AI로 검수했다"]},
+
+{s:4,id:"x5",no:"실습 15",title:"STEP 8~10: 검수 의견을 다시 검수",
+ goal:"검수 AI도 틀린다는 전제로 한 번 더 거릅니다.",
+ blocks:[
+  {t:"prompt",c:"다음은 다른 AI들의 검수 의견이다.\n\n/cross\n/fact\n\n각 지적이 실제로 타당한지 다시 검증해줘.\n\n결과:\nA. 반드시 반영\nB. 반영 권장\nC. 반영하지 않음\nD. 추가 확인 필요"},
+  {t:"prompt",c:"A와 B 중 현재 목적에 필요한 내용만 반영해줘.\n\n/preserve\n\n정상인 기능은 건드리지 말고 변경 범위를 최소화해줘."},
+  {t:"prompt",c:"수정본을 다시 검수해줘.\n/review\n수정 과정에서 새로 생긴 문제가 없는지 특히 확인해줘."},
+  {t:"flow",items:["목표 설정","/plan","여러 AI에 같은 질문","/clean","/cross","최종 설계안","제작","다른 AI 검수","검수 의견 재검증","타당한 것만 수정","재검수","사람 최종 승인"]}
+ ],
+ checks:["‘반영하지 않음’으로 분류된 검수 의견이 있었다","전체 12단계를 한 바퀴 돌았다"]},
+
+/* 5차 */
+{s:5,id:"w1",no:"실습 16",title:"HTML 기획 프롬프트",
+ goal:"만들기 전에 구조와 위험을 먼저 받습니다.",
+ blocks:[
+  {t:"prompt",c:"교육용 HTML 웹도구를 만들려고 한다.\n\n/plan\n개발자와 디자이너 관점에서 검토해줘.\n아직 파일은 만들지 마.\n\n다음을 먼저 제안해줘.\n1. 도구의 핵심 목적\n2. 주요 사용자\n3. 반드시 필요한 기능\n4. 있으면 좋은 기능\n5. 화면 구성\n6. 파일 구조\n7. 데이터 저장 방식\n8. 개인정보 위험\n9. 모바일 대응\n10. 인쇄/PDF\n11. 테스트 항목\n12. GitHub Pages 배포 가능성\n13. 더 단순한 대안이 있다면 제시"}
+ ],
+ checks:["다음에 만들 도구로 기획 프롬프트를 돌려 봤다"]},
+
+{s:5,id:"w2",no:"실습 17",title:"/webcheck로 완성본 검수",
+ goal:"코드 검토와 실제 실행 결과를 구분해서 받습니다.",
+ blocks:[
+  {t:"prompt",c:"현재 웹도구를 전체적으로 검수해줘.\n\n/webcheck\n/review\n\n다음도 반드시 확인해줘.\n- 처음 보는 교사도 사용할 수 있는가?\n- 학생이 잘못 입력했을 때 이해할 수 있는 안내가 나오는가?\n- 휴대전화에서 버튼이 너무 작지 않은가?\n- 저장되는 데이터가 어디에 남는지 알 수 있는가?\n- 공개 GitHub 코드에 비밀번호나 Secret이 없는가?\n- 기존 정상 기능이 없어지지 않았는가?\n\n아직 수정하지 마.\n문제를 A. 반드시 수정 / B. 수정 권장 / C. 선택 개선으로 나눠줘."},
+  {t:"warn",h:"한계",b:"대화형 AI는 대부분 브라우저를 실제로 열어 보지 못합니다. ‘실제 테스트’와 ‘코드상 예상 점검’을 구분해 달라고 하고, 버튼·모바일은 내가 직접 눌러 확인합니다."}
+ ],
+ checks:["/webcheck 결과를 받았다","A 항목을 내가 직접 브라우저에서 확인했다"]},
+
+{s:5,id:"w3",no:"실습 18",title:"배포와 허브 data.js 등록",
+ goal:"수정에서 끝내지 않고 공개 주소와 허브까지 확인합니다.",
+ blocks:[
+  {t:"flow",items:["HTML 완성","/webcheck","수정 후 재검수","git diff 확인","GitHub Push","공개 URL을 PC·휴대폰에서 테스트","허브 data.js 등록","허브 링크 최종 테스트"]},
+  {t:"prompt",c:"새 사이트를 기존 포털 data.js에 등록해줘.\n\n조건:\n- 기존 배열 구조 유지\n- 기존 카드 삭제 금지\n- 기존 정렬 규칙 유지\n- URL 오타 검사\n- 제목·설명 형식 기존 항목과 통일\n\n/preserve\n/review"},
+  {t:"tip",h:"다음 단계",b:"이 등록 작업을 자주 한다면 Claude Code 실습 노트의 Skill 만들기로 portal-register Skill을 만드세요."}
+ ],
+ checks:["공개 URL을 휴대폰에서 열어 봤다","data.js 등록 후 허브에서 링크가 열렸다"]},
+
+/* 6차 */
+{s:6,id:"e1",no:"실습 19",title:"/seteuk 세특 초안과 바이트 확인",
+ goal:"자료 근거 중심 초안을 받고, 바이트는 계산기로 확인합니다.",
+ blocks:[
+  {t:"prompt",c:"아래 활동 기록을 바탕으로 세특 초안을 작성해줘.\n\n/seteuk\n/noinvent\n\n[활동 기록]\n(가명 처리한 실제 활동 자료를 붙여넣기)\n\n자료에 없는 활동·성장·태도는 만들지 말고, 부족한 정보는 목록으로 따로 알려줘."},
+  {t:"warn",h:"바이트 주의",b:"AI에게 ‘정확히 1450바이트’라고 해도 정확하지 않습니다. 대략 맞춰 받은 뒤 아래 계산기로 확인하고 축약·확장합니다."},
+  {t:"tool",name:"bytes"}
+ ],
+ checks:["가명 자료로 세특 초안을 받았다","계산기로 1300~1500바이트 범위를 확인했다","‘부족한 정보’ 목록을 받았다"]},
+
+{s:6,id:"e2",no:"실습 20",title:"대입 자료는 /fact 필수",
+ goal:"사실·공식자료·해석·추가 확인을 나눠 받습니다.",
+ blocks:[
+  {t:"prompt",c:"다음 학생의 대입 상담 자료를 검토해줘.\n\n/fact\n/noinvent\n\n반드시 구분해줘.\n1. 학생 자료에서 확인되는 사실\n2. 대학 공식자료에서 확인되는 사실\n3. 전략적 해석\n4. 추가 확인 필요\n\n합격을 단정하지 말고 학생이 다음에 해야 할 행동을 제안해줘."}
+ ],
+ checks:["결과가 4가지로 구분되어 나왔다","‘추가 확인 필요’ 항목을 대학 모집요강에서 직접 확인했다"]},
+
+{s:6,id:"e3",no:"실습 21",title:"태그의 한계 알아두기",
+ goal:"태그를 썼다고 AI 능력이 생기는 것은 아님을 확인합니다.",
+ blocks:[
+  {t:"h",h:"/fact를 써도 검색하지 않을 수 있다"},
+  {t:"p",h:"웹 검색, 첨부 파일 읽기, 최신 자료 접근은 AI와 설정에 따라 다릅니다."},
+  {t:"prompt",c:"최신 확인이 가능한 환경이면 확인해줘.\n확인할 수 없다면 최신 여부를 추측하지 말고 “최신 확인 필요”라고 표시해줘."},
+  {t:"h",h:"/review를 써도 안 본 걸 봤다고 할 수 있다"},
+  {t:"prompt",c:"검수에 필요한 파일이나 내용이 실제로 제공되어 있는지 먼저 확인해줘.\n보지 못한 파일이나 실행하지 못한 기능은 검수 완료라고 하지 말고 “확인하지 못함”이라고 표시해줘."}
+ ],
+ checks:["두 보완 문장을 내 사전 또는 프롬프트에 추가했다"]},
+
+{s:6,id:"e4",no:"실습 22",title:"프롬프트도 버전 관리",
+ goal:"좋은 프롬프트를 v1 → v2 → v3로 키우고 보관합니다.",
+ blocks:[
+  {t:"code",f:"기록 예",c:"세특 프롬프트\nv1 문제: 너무 칭찬 중심\nv2 수정: 관찰 근거 우선\nv3 수정: 질문→개념→분석→변화 흐름 추가"},
+  {t:"prompt",c:"이 프롬프트를 개선해줘.\n/version\n/ready"},
+  {t:"code",f:"보관 폴더 예",c:"AI-Prompts/\n├─ 01_학생안내\n├─ 02_학부모안내\n├─ 03_세특\n├─ 04_진로상담\n├─ 05_대입분석\n├─ 06_교사연수\n├─ 07_HTML기획\n├─ 08_HTML검수\n├─ 09_문서검수\n├─ 10_이미지문서화\n├─ 11_다중AI교차검수\n└─ 12_GitHub배포"},
+  {t:"p",h:"각 폴더에는 원본 프롬프트, 좋았던 결과, 문제점, 수정한 프롬프트, 최종 버전을 함께 둡니다."}
+ ],
+ checks:["자주 쓰는 프롬프트 하나를 /version으로 개선했다","보관 폴더를 만들었다"]},
+
+/* 부록 */
+{s:7,id:"tools",no:"부록 A",title:"도구 모음",
+ goal:"실습 중 만든 도구를 한곳에서 바로 씁니다.",
+ blocks:[{t:"tool",name:"builder"},{t:"tool",name:"dict"},{t:"tool",name:"clean"},{t:"tool",name:"bytes"}],
+ checks:["네 도구를 모두 한 번씩 써 봤다"]},
+
+{s:7,id:"quiz",no:"부록 B",title:"OX 퀴즈",
+ goal:"헷갈리기 쉬운 8가지를 점검합니다.",
+ quiz:[
+  ["/ELI5는 ChatGPT의 공식 내장 명령어다.",false,"공식 명령이 아니라 널리 쓰이는 표현일 뿐입니다."],
+  ["태그 사전을 한 AI에 등록하면 다른 AI도 같은 뜻으로 이해한다.",false,"서비스마다 따로 등록하거나, 교차검수 프롬프트 위에 사전을 함께 붙여야 합니다."],
+  ["세 AI가 모두 같은 답을 하면 그대로 채택해도 된다.",false,"다수결을 하지 않습니다. 공식 원자료가 기준입니다."],
+  ["검수 AI의 지적도 다시 검증해야 한다.",true,"검수 AI도 틀립니다. /cross로 한 번 더 거릅니다."],
+  ["/fact를 붙이면 AI가 반드시 인터넷을 검색한다.",false,"검색 기능이 있는 환경에서만 가능합니다."],
+  ["AI에게 1450바이트로 쓰라고 하면 정확히 맞춘다.",false,"대략 맞출 뿐입니다. 계산기로 확인합니다."],
+  ["‘세계 최고의 전문가’보다 우선순위 한 줄이 더 효과적이다.",true,"충돌하는 조건에서 무엇이 먼저인지 알려주는 것이 핵심입니다."],
+  ["자주 반복하는 긴 규칙은 Skill로 승격하는 것이 좋다.",true,"매번 사전을 붙이지 않아도 같은 기준으로 작동합니다."]
+ ],
+ blocks:[],checks:["8문제를 모두 풀었다"]},
+
+{s:7,id:"end",no:"마무리",title:"최종 공식",
+ goal:"프롬프트를 잘 쓴다는 것은 태그를 외우는 것이 아니라, 목표·자료·대상·우선순위·금지·검수를 분명히 하고 사람이 최종 결정하는 것입니다.",
+ blocks:[
+  {t:"code",f:"매일 쓰는 공식",c:"[목표]\n무엇을 해줘.\n\n[자료]\n이 자료를 기준으로 해줘.\n\n[대상]\n누가 사용할 거야.\n\n[우선순위]\n1.\n2.\n3.\n\n[형식]\n어떤 결과로 보여줄지.\n\n[금지]\n자료에 없는 내용 만들지 말기.\n기존 정상 내용 함부로 삭제하지 말기.\n\n[검수]\n사실·누락·오류·실제 사용 가능성을 다시 확인해줘."},
+  {t:"flow",items:["/plan","여러 AI","/clean","/cross","최종 설계","제작","/review","검수 의견 재검증","/preserve로 수정","재검수","사람 최종 승인"]}
+ ],
+ checks:["1차~6차 실습을 모두 마쳤다"]}
+];
+
+/* ================= 상태 ================= */
+const KEY="prompt-lab-v1";
+let state={done:{},checks:{},quiz:{},cur:null,tool:{}};
+try{const s=localStorage.getItem(KEY);if(s)state=Object.assign(state,JSON.parse(s));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+const $=s=>document.querySelector(s);
+const el=(t,c,h)=>{const n=document.createElement(t);if(c)n.className=c;if(h!=null)n.innerHTML=h;return n;};
+
+async function copyText(text,b){
+  let ok=false;
+  try{await navigator.clipboard.writeText(text);ok=true;}catch(e){
+    const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();
+    try{ok=document.execCommand("copy");}catch(_){}ta.remove();}
+  const o=b.textContent;b.textContent=ok?"복사됨":"직접 선택하세요";b.classList.toggle("ok",ok);
+  setTimeout(()=>{b.textContent=o;b.classList.remove("ok");},1600);
+}
+function copyBtn(text,cls){const b=el("button","copy"+(cls?" "+cls:""),"복사");b.addEventListener("click",()=>copyText(typeof text==="function"?text():text,b));return b;}
+
+/* ================= 도구 ================= */
+function toolBuilder(){
+  const d=el("div","tool");
+  d.appendChild(el("h3","","프롬프트 조립기 (8칸)"));
+  d.appendChild(el("p","hint","칸을 채우고 태그를 고르면 바로 붙여넣을 프롬프트가 만들어집니다. 빈 칸은 빠집니다."));
+  const F=[["goal","목표","예: 2학기 진로 설명회 안내문 작성"],["who","대상","예: 고1 학부모"],["ctx","자료·상황","예: 첨부 공문 기준, 네이버 밴드에 올림"],["pri","우선순위","예: 1. 정확성 2. 쉬운 설명 3. 간결함"],["fmt","결과 형식","예: 제목 1개 + 안내 7줄 + FAQ 3개"],["no","금지 사항","예: 공문에 없는 내용 추가 금지"],["fact","사실 확인","예: 날짜·장소를 원문과 대조"],["chk","최종 검수","예: 누락·모순·중복 다시 확인"]];
+  const v=state.tool.b||{};
+  F.forEach(([k,lab,ph])=>{const f=el("div","field");f.appendChild(el("label","",lab));const ta=el("textarea");ta.placeholder=ph;ta.value=v[k]||"";ta.dataset.k=k;ta.rows=2;f.appendChild(ta);d.appendChild(f);});
+  d.appendChild(el("label","","태그 선택")).style.cssText="display:block;font-size:14px;font-weight:700;margin-bottom:4px";
+  const tg=el("div","tags");
+  ALLTAGS.forEach(t=>{const l=el("label");const c=el("input");c.type="checkbox";c.value=t[0];c.checked=(v.tags||[]).includes(t[0]);l.appendChild(c);l.appendChild(document.createTextNode(t[0]));tg.appendChild(l);});
+  d.appendChild(tg);
+  const out=el("textarea","out");out.readOnly=true;
+  const build=()=>{
+    const o={};d.querySelectorAll("textarea[data-k]").forEach(t=>o[t.dataset.k]=t.value.trim());
+    o.tags=[...tg.querySelectorAll("input:checked")].map(c=>c.value);
+    state.tool.b=o;save();
+    const parts=[];F.forEach(([k,lab])=>{if(o[k])parts.push("["+lab+"]\n"+o[k]);});
+    if(o.tags.length)parts.push(o.tags.join("\n"));
+    out.value=parts.join("\n\n")||"칸을 채우면 여기에 프롬프트가 만들어집니다.";
+  };
+  d.addEventListener("input",build);build();
+  d.appendChild(out);
+  const r=el("div","row");const cb=el("button","btn","프롬프트 복사");cb.addEventListener("click",()=>copyText(out.value,cb));
+  const clr=el("button","btn sub","모두 지우기");clr.addEventListener("click",()=>{d.querySelectorAll("textarea[data-k]").forEach(t=>t.value="");tg.querySelectorAll("input").forEach(c=>c.checked=false);build();});
+  r.appendChild(cb);r.appendChild(clr);d.appendChild(r);
+  d.appendChild(el("p","hint","태그 뜻을 AI가 모르면 효과가 없습니다. 사전을 먼저 등록하거나 ‘태그 사전 만들기’ 결과를 맨 위에 함께 붙이세요."));
+  return d;
+}
+function toolDict(){
+  const d=el("div","tool");
+  d.appendChild(el("h3","","태그 사전 만들기"));
+  d.appendChild(el("p","hint","넣을 태그를 고르고 길이를 정하면, ChatGPT·Gemini·Claude에 붙여넣을 사전이 만들어집니다."));
+  const tg=el("div","tags");const sel=state.tool.d||CORE.map(t=>t[0]);
+  ALLTAGS.forEach(t=>{const l=el("label");const c=el("input");c.type="checkbox";c.value=t[0];c.checked=sel.includes(t[0]);l.appendChild(c);l.appendChild(document.createTextNode(t[0]));tg.appendChild(l);});
+  d.appendChild(tg);
+  const r0=el("div","row");const sh=el("button","btn sub","짧은 정의 (맞춤 지침용)");const lg=el("button","btn sub","자세한 정의 (교차검수용)");r0.appendChild(sh);r0.appendChild(lg);d.appendChild(r0);
+  const out=el("textarea","out");out.readOnly=true;let long=!!state.tool.dl;
+  const build=()=>{const s=[...tg.querySelectorAll("input:checked")].map(c=>c.value);state.tool.d=s;state.tool.dl=long;save();
+    sh.className="btn"+(long?" sub":"");lg.className="btn"+(long?"":" sub");
+    out.value=dictText(ALLTAGS.filter(t=>s.includes(t[0])),long);};
+  tg.addEventListener("change",build);sh.addEventListener("click",()=>{long=false;build();});lg.addEventListener("click",()=>{long=true;build();});build();
+  d.appendChild(out);
+  const r=el("div","row");const cb=el("button","btn","사전 복사");cb.addEventListener("click",()=>copyText(out.value,cb));r.appendChild(cb);d.appendChild(r);
+  return d;
+}
+function toolClean(){
+  const d=el("div","tool");
+  d.appendChild(el("h3","","/clean 도구"));
+  d.appendChild(el("p","hint","다른 AI 답변을 붙여넣고 지울 항목을 고릅니다. 문단은 빈 줄로 구분합니다. 결과는 꼭 눈으로 확인하세요."));
+  const inF=el("div","field");inF.appendChild(el("label","","붙여넣을 답변"));const inp=el("textarea");inp.rows=6;inp.placeholder="예: 29s 동안 처리함\n\n좋습니다. 아래처럼 정리했습니다.\n\n(본문)\n\nQ1. …";inF.appendChild(inp);d.appendChild(inF);
+  const opts=[["time","처리 시간 표시 줄",true],["q","Q1~Q3 질문 줄",true],["first","첫 문단 (머리말)",false],["last","마지막 문단 (맺음말)",false]];
+  const tg=el("div","tags");opts.forEach(([k,lab,on])=>{const l=el("label");const c=el("input");c.type="checkbox";c.dataset.k=k;c.checked=on;l.appendChild(c);l.appendChild(document.createTextNode(lab));tg.appendChild(l);});d.appendChild(tg);
+  const out=el("textarea","out");out.readOnly=true;const info=el("p","hint","");
+  const run=()=>{
+    const o={};tg.querySelectorAll("input").forEach(c=>o[c.dataset.k]=c.checked);
+    let lines=inp.value.replace(/\r/g,"").split("\n");let rm=0;
+    if(o.time)lines=lines.filter(x=>{const hit=/^\s*\d+(\.\d+)?\s*(s|초|분)\s*동안\s*(처리|생각)/.test(x);if(hit)rm++;return !hit;});
+    if(o.q)lines=lines.filter(x=>{const hit=/^\s*[*#\s]*Q\s?[1-3]\s*[.:)]/i.test(x);if(hit)rm++;return !hit;});
+    let paras=lines.join("\n").split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean);
+    if(o.first&&paras.length>1){paras.shift();rm++;}
+    if(o.last&&paras.length>1){paras.pop();rm++;}
+    out.value=paras.join("\n\n");
+    info.textContent=inp.value.trim()?("정리한 항목 "+rm+"개. 본문이 잘리지 않았는지 확인하세요."):"";
+  };
+  d.addEventListener("input",run);d.addEventListener("change",run);
+  d.appendChild(out);d.appendChild(info);
+  const r=el("div","row");const cb=el("button","btn","정리본 복사");cb.addEventListener("click",()=>copyText(out.value,cb));r.appendChild(cb);d.appendChild(r);
+  return d;
+}
+function toolBytes(){
+  const d=el("div","tool");
+  d.appendChild(el("h3","","세특 바이트 계산기"));
+  d.appendChild(el("p","hint","한글 3바이트, 영문·숫자·공백·기호 1바이트, 줄바꿈 2바이트로 계산합니다(나이스 방식 기준). 최종 분량은 나이스 입력 화면에서 한 번 더 확인하세요."));
+  const f=el("div","field");const ta=el("textarea");ta.rows=7;ta.placeholder="세특 초안을 붙여넣으세요";ta.value=state.tool.t||"";f.appendChild(ta);d.appendChild(f);
+  const big=el("p","bytes","0바이트");const sub=el("p","hint","");
+  const calc=()=>{let b=0,ch=0;for(const c of ta.value.replace(/\r/g,"")){ch++;if(c==="\n")b+=2;else if(c.charCodeAt(0)>127)b+=3;else b+=1;}
+    state.tool.t=ta.value;save();
+    big.textContent=b.toLocaleString()+"바이트";
+    big.className="bytes"+(b===0?"":b<1300?" low":b>1500?" high":" ok");
+    sub.textContent=b===0?"목표 1300~1500바이트":b<1300?("목표까지 "+(1300-b)+"바이트 부족 · "+ch+"자"):b>1500?("목표보다 "+(b-1500)+"바이트 초과 · "+ch+"자"):("목표 범위 안 · "+ch+"자");};
+  ta.addEventListener("input",calc);calc();
+  d.appendChild(big);d.appendChild(sub);
+  return d;
+}
+function toolTagRef(){
+  const d=el("div","tool");d.appendChild(el("h3","","핵심 태그 12개 정의"));
+  d.appendChild(el("p","hint","각 정의는 복사해서 사전에 그대로 쓸 수 있습니다."));
+  CORE.forEach(t=>{const w=el("div","tagdef");const top=el("div","row");top.style.cssText="justify-content:space-between;align-items:center;margin:0";
+    top.appendChild(el("span","tagname",t[0]+" <span style='font-family:var(--sans);font-size:14px;color:var(--muted)'>"+t[1]+"</span>"));
+    const b=copyBtn(t[0]+" : "+t[2]);b.style.cssText="border-color:var(--line);color:var(--blue-ink);background:var(--paper)";top.appendChild(b);
+    w.appendChild(top);const pre=el("pre");pre.textContent=t[2];w.appendChild(pre);d.appendChild(w);});
+  return d;
+}
+const TOOLS={builder:toolBuilder,dict:toolDict,clean:toolClean,bytes:toolBytes,tagref:toolTagRef};
+
+/* ================= 렌더 ================= */
+function renderRoute(){
+  const r=$("#route");r.innerHTML="";
+  SESSIONS.forEach((s,si)=>{const box=el("div","session");box.appendChild(el("p","session-name",s.no+" · "+s.name));
+    const ul=el("ul","stops");
+    L.filter(l=>l.s===si).forEach(l=>{const li=el("li","stop"+(state.done[l.id]?" done":"")+(state.cur===l.id?" current":""));
+      const b=el("button");b.appendChild(el("span","dot"));b.appendChild(el("span","",l.no+" "+l.title));
+      b.addEventListener("click",()=>{go(l.id);closeRail();});li.appendChild(b);ul.appendChild(li);});
+    box.appendChild(ul);r.appendChild(box);});
+  const n=L.filter(l=>state.done[l.id]).length,p=Math.round(n/L.length*100);
+  $("#meterSide").style.width=p+"%";$("#meterTop").style.width=p+"%";
+  $("#meterLabel").textContent=n+" / "+L.length+" 완료 ("+p+"%)";
+}
+function renderHome(){
+  state.cur=null;save();renderRoute();$("#topTitle").textContent="프롬프트 태그 실습 노트";
+  const p=$("#page");p.innerHTML="";
+  p.appendChild(el("h1","hero-title","태그 12개와 교차검수로<br>AI 일을 반복 가능하게"));
+  p.appendChild(el("p","hero-lead","프롬프트 기초부터 태그 사전 등록, 여러 AI 교차검수, 웹도구 배포, 세특까지. 실제 업무 자료로 따라 하는 22개 실습과 바로 쓰는 도구 4가지가 들어 있습니다."));
+  const next=L.find(l=>!state.done[l.id])||L[0];
+  const st=el("button","start",L.some(l=>state.done[l.id])?"이어서 하기: "+next.no+" "+next.title:"첫 실습 시작하기");
+  st.addEventListener("click",()=>go(next.id));p.appendChild(st);
+  p.appendChild(el("h2","","차시별로 보기"));
+  const box=el("div","sessions");
+  SESSIONS.forEach((s,si)=>{const ls=L.filter(l=>l.s===si),dn=ls.filter(l=>state.done[l.id]).length;
+    const b=el("button","sess-row");
+    b.innerHTML='<span class="sess-no">'+s.no+'</span><span><span class="nm">'+s.name+'</span><span class="ds">'+s.desc+'</span></span><span class="pc">'+dn+"/"+ls.length+"</span>";
+    b.addEventListener("click",()=>go(ls[0].id));box.appendChild(b);});
+  p.appendChild(box);window.scrollTo(0,0);
+}
+function renderBlock(b){
+  switch(b.t){
+    case "p":return el("p","",b.h);
+    case "h":return el("h2","",b.h);
+    case "prompt":{const d=el("div","prompt");d.appendChild(el("div","who","AI에게 입력"));const t=el("p","txt");t.textContent=b.c;d.appendChild(t);d.appendChild(copyBtn(b.c));return d;}
+    case "code":{const d=el("div","code");const h=el("div","code-head");h.appendChild(el("span","",b.f));h.appendChild(copyBtn(b.c));d.appendChild(h);const pre=el("pre");pre.textContent=b.c;d.appendChild(pre);return d;}
+    case "flow":{const o=el("ol","flow");b.items.forEach(i=>o.appendChild(el("li","",i)));return o;}
+    case "list":{const u=el("ul","plain");b.items.forEach(i=>u.appendChild(el("li","",i)));return u;}
+    case "warn":case "tip":case "call":case "me":{const d=el("div",b.t==="call"?"call":"call "+b.t);d.appendChild(el("b","h",b.h));d.appendChild(el("span","",b.b));return d;}
+    case "table":{const w=el("div","tbl"),t=el("table"),th=el("tr");b.head.forEach(h=>th.appendChild(el("th","",h)));const hd=el("thead");hd.appendChild(th);t.appendChild(hd);
+      const tb=el("tbody");b.rows.forEach(r=>{const tr=el("tr");r.forEach(c=>tr.appendChild(el("td","",c)));tb.appendChild(tr);});t.appendChild(tb);w.appendChild(t);return w;}
+    case "tool":return TOOLS[b.name]();
+  }
+  return el("div");
+}
+function renderQuiz(l,p){
+  l.quiz.forEach((q,i)=>{const key=l.id+i,d=el("div","q");d.appendChild(el("p","",(i+1)+". "+q[0]));
+    const ox=el("div","ox"),ans=el("div","ans");
+    const show=pick=>{const right=pick===q[1];ans.innerHTML='<b class="'+(right?"right":"wrong")+'">'+(right?"정답":"다시 보기")+"</b> · 답은 "+(q[1]?"O":"X")+". "+q[2];d.classList.add("answered");};
+    ["O","X"].forEach(v=>{const bt=el("button","",v);bt.addEventListener("click",()=>{state.quiz[key]=v==="O";save();show(v==="O");});ox.appendChild(bt);});
+    d.appendChild(ox);d.appendChild(ans);if(key in state.quiz)show(state.quiz[key]);p.appendChild(d);});
+}
+function go(id){
+  const idx=L.findIndex(l=>l.id===id);if(idx<0)return renderHome();
+  const l=L[idx];state.cur=id;save();renderRoute();$("#topTitle").textContent=l.no+" "+l.title;
+  const p=$("#page");p.innerHTML="";
+  p.appendChild(el("p","crumb",SESSIONS[l.s].no+" "+SESSIONS[l.s].name+" / "+l.no));
+  p.appendChild(el("h1","",l.title));
+  const g=el("div","goal");g.appendChild(el("b","","이번 목표"));g.appendChild(el("span","",l.goal));p.appendChild(g);
+  l.blocks.forEach(b=>p.appendChild(renderBlock(b)));
+  if(l.quiz)renderQuiz(l,p);
+  const ck=el("section","checks");ck.appendChild(el("h2","","성공 확인"));
+  const saved=state.checks[id]||[];const btn=el("button","done-btn");
+  const refresh=()=>{const all=(state.checks[id]||[]).filter(Boolean).length===l.checks.length;
+    if(state.done[id]){btn.textContent="완료함 · 다시 풀려면 누르기";btn.className="done-btn is-done";btn.disabled=false;}
+    else{btn.textContent=all?"이 실습 완료":"확인 항목을 모두 체크하세요";btn.className="done-btn";btn.disabled=!all;}};
+  l.checks.forEach((c,i)=>{const lab=el("label"),cb=el("input");cb.type="checkbox";cb.checked=!!saved[i];
+    cb.addEventListener("change",()=>{const a=state.checks[id]||[];a[i]=cb.checked;state.checks[id]=a;if(!cb.checked)delete state.done[id];save();refresh();renderRoute();});
+    lab.appendChild(cb);lab.appendChild(el("span","",c));ck.appendChild(lab);});
+  btn.addEventListener("click",()=>{if(state.done[id])delete state.done[id];else state.done[id]=true;save();refresh();renderRoute();
+    if(state.done[id]&&L[idx+1])setTimeout(()=>go(L[idx+1].id),350);});
+  refresh();ck.appendChild(btn);p.appendChild(ck);
+  const pg=el("div","pager"),prev=L[idx-1],next=L[idx+1];
+  const pb=el("button","",prev?"<small>이전</small>"+prev.no+" "+prev.title:"");pb.disabled=!prev;if(prev)pb.addEventListener("click",()=>go(prev.id));
+  const nb=el("button","nx",next?"<small>다음</small>"+next.no+" "+next.title:"");nb.disabled=!next;if(next)nb.addEventListener("click",()=>go(next.id));
+  pg.appendChild(pb);pg.appendChild(nb);p.appendChild(pg);window.scrollTo(0,0);
+}
+
+const rail=$("#rail"),scrim=$("#scrim");
+function closeRail(){rail.classList.remove("open");scrim.classList.remove("show");}
+$("#menuBtn").addEventListener("click",()=>{rail.classList.add("open");scrim.classList.add("show");});
+scrim.addEventListener("click",closeRail);
+$("#homeBtn").addEventListener("click",()=>{renderHome();closeRail();});
+$("#toolsBtn").addEventListener("click",()=>{go("tools");closeRail();});
+$("#resetBtn").addEventListener("click",()=>{if(confirm("체크한 진도, 퀴즈, 도구 입력 내용을 모두 지울까요?")){state={done:{},checks:{},quiz:{},cur:null,tool:{}};save();renderHome();closeRail();}});
+$("#themeBtn").addEventListener("click",()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark";try{localStorage.setItem(KEY+"-theme",r.dataset.theme);}catch(e){}});
+try{const t=localStorage.getItem(KEY+"-theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}
+state.cur?go(state.cur):renderHome();
+</script>
+</body>
+</html>
