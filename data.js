@@ -1083,6 +1083,19 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/neck-stretch/", platform: "html" }]
   },
 
+  {
+    id: "autumn-flowers",
+    icon: "🌸",
+    title: "9월 말 경남 가을꽃 명소 10곳",
+    section: "personal",
+    description: "창원 용지아이파크 출발 기준 소요시간과 함께 보는 코스모스·메밀꽃·핑크뮬리·아스타국화 명소 10곳 안내 (주차·운영정보·FAQ·하루 코스)",
+    tags: ["가을꽃", "코스모스", "메밀꽃", "핑크뮬리", "아스타국화", "경남여행", "나들이"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/autumn-flowers/", platform: "html" }]
+  },
+
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
   //   id: "고유-아이디",          ← 영문+하이픈, 다른 항목과 겹치지 않게
