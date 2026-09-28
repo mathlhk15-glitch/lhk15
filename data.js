@@ -208,6 +208,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/grade5-calc/", platform: "html" }]
   },
   {
+    id: "grade5-compass",
+    icon: "🧭",
+    title: "경일 내신·학과 진학 나침반 2028",
+    section: "admission-cutline",
+    description: "5등급 내신 평균 하나로 내 위치 확인 → 학과군별 탐색 대학(대학어디가 2025·2026 입결) + 경일 선배 지원 사례까지 (1·2학년 학생·학부모용)",
+    tags: ["5등급", "내신", "2028", "학과검색", "대학탐색", "입결", "경일사례"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/grade5-compass/", platform: "html" }]
+  },
+  {
     id: "modu-baechipyo-2027",
     icon: "🧮",
     title: "박상근 선생님의 모두의 2027 대입 배치표",
