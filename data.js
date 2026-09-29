@@ -108,6 +108,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/admission-guide-2028", platform: "html" }]
   },
   {
+    id: "2028-daeip-teacher-guide",
+    icon: "📘",
+    title: "2028 대입, 교사가 먼저 읽는 해설집",
+    section: "admission-guide",
+    description: "고교학점제·내신 5등급제·통합형 수능과 2028학년도 대입 시행계획을 교사 상담 관점에서 쉽게 풀어 정리한 배포용 해설집",
+    tags: ["2028", "대입", "교사용", "시행계획", "고교학점제", "내신 5등급제", "통합형 수능", "진학상담"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2028-daeip-teacher-guide/", platform: "html" }]
+  },
+  {
     id: "contract-major-guide-2027",
     icon: "🤝",
     title: "계약학과·첨단학과, 제대로 알고 준비하기",
