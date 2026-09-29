@@ -1132,6 +1132,19 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/autumn-flowers/", platform: "html" }]
   },
 
+  {
+    id: "drama-movie-quotes",
+    icon: "🎬",
+    title: "드라마·영화 명대사 모음",
+    section: "personal",
+    description: "드라마·영화·애니메이션의 마음에 남는 명대사를 검색하고 랜덤으로 감상하며 프레젠테이션으로도 볼 수 있는 명대사 모음",
+    tags: ["명대사", "드라마", "영화", "애니메이션", "위로", "동기부여", "프레젠테이션"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/drama-movie-quotes/", platform: "html" }]
+  },
+
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
   //   id: "고유-아이디",          ← 영문+하이픈, 다른 항목과 겹치지 않게
