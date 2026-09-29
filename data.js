@@ -890,6 +890,18 @@ const resources = [
     links: [{ label: "바로가기", url: "commute-english.html", platform: "html" }]
   },
   {
+    id: "commute-chinese",
+    icon: "🀄",
+    title: "출퇴근 실전중국어 코치",
+    section: "personal",
+    description: "운전 중 듣고 먼저 말하는 방식으로 익히는 70일 중국 본토 실전 중국어 (병음·성조·숫자 훈련 포함)",
+    tags: ["중국어", "여행중국어", "듣기말하기"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/commute-chinese/", platform: "html" }]
+  },
+  {
     id: "breakfast-soup",
     icon: "🍲",
     title: "한 달 아침국 30가지",
