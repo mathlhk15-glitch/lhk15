@@ -1157,6 +1157,19 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/drama-movie-quotes/", platform: "html" }]
   },
 
+  {
+    id: "recipes",
+    icon: "🍲",
+    title: "우리집 레시피 앨범",
+    section: "personal",
+    description: "제육볶음·김치찌개·된장찌개와 대표 찌개 TOP 10까지 13가지 레시피를 사진으로 보고 요리 이름·재료로 검색",
+    tags: ["레시피", "요리", "찌개", "제육볶음", "김치찌개", "된장찌개", "집밥"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/recipes/", platform: "html" }]
+  },
+
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
   //   id: "고유-아이디",          ← 영문+하이픈, 다른 항목과 겹치지 않게
