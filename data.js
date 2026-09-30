@@ -553,6 +553,18 @@ const resources = [
     updatedAt: "2026-09",
     links: [{ label: "바로가기", url: "prompt-tag-lab.html", platform: "html" }]
   },
+  {
+    id: "ai-agent-study",
+    icon: "🧑‍💼",
+    title: "AI 대화형 vs 에이전트형 쉽게 이해하기",
+    section: "ai-learning",
+    description: "ChatGPT Chat·Work, Claude·Cowork, Perplexity Search·Computer의 차이를 도식·비교표·타임라인·O/X 퀴즈·업무 지시서 조립기로 정리한 공부 노트 (2026년 9월 말 기준)",
+    tags: ["AI 에이전트", "ChatGPT", "Work", "Claude", "Cowork", "Perplexity", "Computer", "MCP", "업무 위임"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-09",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ai-agent-study/", platform: "html" }]
+  },
 
   // ── ✏️ 세특 작성 AI 도구 ────────────────────────────────────
   {
