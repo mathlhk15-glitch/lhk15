@@ -480,6 +480,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2026-1-hakup-design", platform: "html" }]
   },
   {
+    id: "study-record-guide",
+    icon: "📘",
+    title: "고등학생 공부법 × 생기부 실천 가이드",
+    section: "curriculum",
+    description: "세종우리누리 선배 멘토의 과목별 공부법 17편과 학교생활기록부 가이드 9편을 학생용 핵심 요약·오늘의 실천·원문·기록 도구와 함께 활용하는 1·2학년용 가이드",
+    tags: ["공부법", "생기부", "학생부", "세특", "탐구", "학습전략", "1학년", "2학년", "학교생활"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-10",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/study-record-guide/", platform: "html" }]
+  },
+  {
     id: "suwan-korean-2027",
     icon: "🌱",
     title: "2027 수능완성 문학·독서 학습맵",
