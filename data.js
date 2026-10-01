@@ -208,6 +208,18 @@ const resources = [
 
   // ── 📐 배치표·등급환산 ───────────────────────────────────────
   {
+    id: "jeongsi-2027-09",
+    icon: "🎯",
+    title: "2027학년도 9월 모평 대학·학과 탐색기",
+    section: "admission-cutline",
+    description: "9월 모평 성적(표준점수·백분위)을 넣으면 179개 대학 4,133개 모집단위의 지원참고점수와 내 비교점수 차이를 계산. 대학·학과·지역별 검색, 정렬, 관심목록·가나다군 조합, 인쇄·CSV 저장 (이투스 실채점 지원참고표 기준)",
+    tags: ["정시", "배치표", "9월모평", "2027", "지원참고표", "대학검색", "학과검색", "가나다군"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-10",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/jeongsi-2027-09/", platform: "html" }]
+  },
+  {
     id: "grade5-calc",
     icon: "🦉",
     title: "5등급제 내신, 실제 위치는 어디쯤일까합",
