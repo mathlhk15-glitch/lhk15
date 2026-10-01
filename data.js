@@ -530,6 +530,18 @@ const resources = [
 
   // ── 🤖 AI 활용·프롬프트 학습 ────────────────────────────────
   {
+    id: "teacher-ai-workshop",
+    icon: "👨‍🏫",
+    title: "경남전자고 교원 생성형 AI 1시간 실습연수",
+    section: "ai-learning",
+    description: "경남전자고 선생님 대상 60분 실습형 연수 복습자료. 무료 Gemini로 Gem 1회 체험, 나만의 웹페이지 제작, index.html 만들기, GitHub Pages 공개까지 연수 내용을 단계별로 다시 따라할 수 있는 가이드",
+    tags: ["경남전자고", "교원연수", "1시간연수", "60분", "생성형AI", "Gemini", "Gem", "웹페이지", "HTML", "GitHub Pages", "실습"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-10",
+    links: [{ label: "연수 복습가이드", url: "https://mathlhk15-glitch.github.io/teacher-ai-workshop/", platform: "html" }]
+  },
+  {
     id: "skill-study",
     icon: "🧠",
     title: "AI 스킬 교과서",
