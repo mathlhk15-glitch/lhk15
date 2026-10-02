@@ -1218,6 +1218,19 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/recipes/", platform: "html" }]
   },
 
+  {
+    id: "trips",
+    icon: "🧭",
+    title: "여행 당일 실행 체크리스트 (유동 일정)",
+    section: "personal",
+    description: "여행 당일 폰으로 보며 따라가는 일정표. 일정마다 체크하고, 지연·순서 변경·건너뛰기를 하면 이후 시각과 귀가 열차까지 자동으로 다시 계산되며, 다음 장소는 네이버 길찾기로 바로 연결 (첫 일정: 2026.10.3 대구 간송미술관·근대골목)",
+    tags: ["여행", "일정표", "체크리스트", "유동일정", "네이버길찾기", "대구", "간송미술관", "근대골목", "KTX", "SRT"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-10",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/trips/", platform: "html" }]
+  },
+
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
   //   id: "고유-아이디",          ← 영문+하이픈, 다른 항목과 겹치지 않게
