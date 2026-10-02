@@ -46,6 +46,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/fire/", platform: "html" }]
   },
   {
+    id: "dorm-outing",
+    icon: "🏠",
+    title: "기숙사 외출·외박 신청",
+    section: "staff-training",
+    description: "기숙사생은 호실·이름·비밀번호로 외출·외박을 신청하고, 사감 선생님은 날짜별 외출·외박자의 호실·이름·사유를 휴대폰으로 확인",
+    tags: ["기숙사", "외출", "외박", "사감", "생활지도", "모바일", "신청"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-10",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/dorm/", platform: "html" }]
+  },
+  {
     id: "pc-shortcut",
     icon: "⌨️",
     title: "업무용 PC 단축키 검색 가이드",
