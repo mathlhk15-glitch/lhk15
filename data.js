@@ -442,6 +442,18 @@ const resources = [
 
   // ── 🔬 학과 탐색 도구 ───────────────────────────────────────
   {
+    id: "major-meme",
+    icon: "🎴",
+    title: "대학 전공별 현실 밈 백과사전",
+    section: "department-explore",
+    description: "172개 학과를 한 줄 현실 밈 카드로 만나고, 카드 뽑기·관심 학과 담기·최대 4개 비교 후 커리어넷·대학어디가 공식 정보로 이어서 확인",
+    tags: ["학과탐색", "전공", "밈", "학과카드", "랜덤", "관심학과", "비교", "커리어넷", "대학어디가"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-10",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/major-meme/", platform: "html" }]
+  },
+  {
     id: "modu-dept-map",
     icon: "🗺️",
     title: "박상근 선생님의 모두의 학과별 탐구 지도",
