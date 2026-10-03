@@ -1243,6 +1243,19 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/trips/", platform: "html" }]
   },
 
+  {
+    id: "gyeomjae",
+    icon: "🔍",
+    title: "겸재를 가까이 보다 — 겸재 정선 디테일 아카이브",
+    section: "personal",
+    description: "대구간송미술관 특별전 《겸재 정선 - 조선의 눈으로 조선을 그리다》에서 찍은 디테일 사진 25장을 사람·배·동물·곤충·나무와 집·붓·전체 7개 장으로 정리. 확대경, 확신도(확인·유력·미확인) 표시, 숨은 디테일 찾기 퀴즈, 장면별 메모 기능",
+    tags: ["겸재", "정선", "간송미술관", "대구간송미술관", "금강내산", "진경산수", "미술관", "관람기록", "디테일", "아카이브"],
+    featured: false,
+    isNew: true,
+    updatedAt: "2026-10",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeomjae/", platform: "html" }]
+  },
+
   // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
   // {
   //   id: "고유-아이디",          ← 영문+하이픈, 다른 항목과 겹치지 않게
