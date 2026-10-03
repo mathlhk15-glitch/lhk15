@@ -797,13 +797,15 @@ body{font-family:'Pretendard Variable','Pretendard','Noto Sans KR',-apple-system
     <div class="seg sm" id="seg-lifeRide"><button data-v="0">끔</button><button data-v="1">켬</button></div></div>
   <div class="setrow"><div><div class="lbl">세션 종료 방식</div><div class="desc">운전 중에는 자동 완료를 권장합니다. 자동 완료는 개별 문장 평가를 바꾸지 않고 출근·퇴근 완료만 저장합니다.</div></div>
     <div class="seg sm" id="seg-endMode"><button data-v="0">자동 완료</button><button data-v="1">끝나고 평가</button><button data-v="2">시작할 때 묻기</button></div></div>
+  <div class="setrow"><div><div class="lbl">연속 주행</div><div class="desc">켜면 출근길 → 퇴근길 → 다음 날 출근길 → … 순서로 ✕를 누를 때까지 자동으로 이어집니다. 버튼을 누르는 즉시 재생되고, 각 세션은 평가 없이 자동 완료로 저장됩니다.</div></div>
+    <div class="seg sm" id="seg-chain"><button data-v="0">끔</button><button data-v="1">켬</button></div></div>
 
   <div class="sec">
     <div class="eyebrow" style="margin-bottom:9px">운전 중 사용법</div>
     <div class="note">
       <b>1.</b> 출발 전 거치대에 폰을 두고 블루투스를 연결합니다.<br>
       <b>2.</b> 출근길 또는 퇴근길 버튼을 한 번 누릅니다.<br>
-      <b>3.</b> <b>자동 완료</b>로 시작하면 끝날 때까지 화면을 만지지 않아도 자동 저장됩니다. 지원되는 차량·브라우저에서는 스티어링 휠의 다음/이전 버튼으로 넘길 수 있습니다.<br>
+      <b>3.</b> <b>연속 주행</b>을 켜 두면 버튼을 누르는 순간 재생이 시작되고, 출근길 → 퇴근길 → 다음 날 출근길… 순서로 ✕(그만하기)를 누를 때까지 손대지 않아도 계속 이어집니다. 각 세션은 자동 저장됩니다. 지원되는 차량·브라우저에서는 스티어링 휠의 다음/이전 버튼으로 넘길 수 있습니다.<br>
       <b>4.</b> 교차로·주차·악천후에서는 그냥 흘려보냅니다. 놓친 문장은 다시 나옵니다.<br><br>
       휴대전화와 브라우저 설정에 따라 화면이 꺼지거나 다른 앱으로 전환하면 음성이 중단될 수 있습니다. <b>화면 켜두기</b>를 켠 채 거치대에 두세요.
     </div>
@@ -1812,7 +1814,7 @@ const NATURAL_NOTES=[
 
 /* ═══════════ STATE ═══════════ */
 const DEF={appVer:'8.5',log:[],partial:null,day:1,progressDay:1,done:{},marks:{},lifeMarks:{},hearMarks:{},favorites:[],todayPick:null,streak:0,last:null,pending:null,
-  lastBackup:'',set:{gap:5,rate:0.88,rep:2,txt:1,wake:1,lifeRide:1,len:10,endMode:2}};
+  lastBackup:'',set:{gap:5,rate:0.88,rep:2,txt:1,wake:1,lifeRide:1,len:10,endMode:2,chain:1}};
 let S=JSON.parse(JSON.stringify(DEF));
 const KEY='cec-v7';
 const SAFETY_KEY='cec-safety-backup';
@@ -1868,7 +1870,8 @@ function normalizeState(v){
     len:pick(vs.len,[5,10,15],DEF.set.len),gap:pick(vs.gap,[2,3,5,7],DEF.set.gap),
     rate:pick(vs.rate,[0.75,0.88,1],DEF.set.rate),rep:pick(vs.rep,[1,2,3],DEF.set.rep),
     txt:pick(vs.txt,[0,1],DEF.set.txt),wake:pick(vs.wake,[0,1],DEF.set.wake),lifeRide:(!v.appVer||String(v.appVer)<'8.3')?1:pick(vs.lifeRide,[0,1],DEF.set.lifeRide),
-    endMode:pick(vs.endMode,[0,1,2],DEF.set.endMode)
+    endMode:pick(vs.endMode,[0,1,2],DEF.set.endMode),
+    chain:pick(vs.chain,[0,1],DEF.set.chain)
   };
   const pending=(v.pending&&typeof v.pending==='object'&&Array.isArray(v.pending.items))?{kind:['am','pm','weak'].includes(v.pending.kind)?v.pending.kind:'am',day:Math.min(TOTAL_DAYS,Math.max(1,Number(v.pending.day)||day)),items:v.pending.items.slice(0,MAX_PENDING_ITEMS).map(x=>({id:cleanText(x?.id,140),ko:cleanText(x?.ko),en:cleanText(x?.en),life:!!x?.life,hear:!!x?.hear,lv:['o','t','x'].includes(x?.lv)?x.lv:null})).filter(x=>x.id&&x.en)}:null;
   // v8.0: 생활회화 기록 정규화. 복습 날짜가 없는 구버전(v7.0) 기록은 ⭕가 아니면 오늘, ⭕면 7일(자동화 30일) 뒤로 채워 복습 대기열에 다시 들어오게 한다.
@@ -1887,7 +1890,7 @@ function normalizeState(v){
   if(pq&&typeof pq==='object'&&['am','pm','weak'].includes(pq.kind)&&Array.isArray(pq.q)&&pq.q.length&&pq.q.length<=300){
     const q=pq.q.filter(x=>x&&typeof x==='object'&&typeof x.t==='string').map(x=>({t:cleanText(x.t,10),ph:cleanText(x.ph),ko:cleanText(x.ko),en:cleanText(x.en),...(x.id?{id:cleanText(x.id,140)}:{}),...(x.life?{life:true}:{}),...(x.listen?{listen:true}:{}),...(x.hear?{hear:true}:{}),...(x.al?{al:cleanText(x.al,4)}:{}),...(x.kl?{kl:cleanText(x.kl,4)}:{}),...(x.rep?{rep:Number(x.rep)||1}:{})}));
     const i=Math.min(q.length-1,Math.max(0,Number(pq.i)||0));
-    if(q.length)partial={kind:pq.kind,evaluate:typeof pq.evaluate==='boolean'?pq.evaluate:true,day:Math.min(TOTAL_DAYS,Math.max(1,Number(pq.day)||day)),i,total:q.length,date:/^\d{4}-\d{2}-\d{2}$/.test(pq.date||'')?pq.date:'',at:Math.max(0,Number(pq.at)||0),q};
+    if(q.length)partial={kind:pq.kind,evaluate:typeof pq.evaluate==='boolean'?pq.evaluate:true,chain:!!pq.chain,day:Math.min(TOTAL_DAYS,Math.max(1,Number(pq.day)||day)),i,total:q.length,date:/^\d{4}-\d{2}-\d{2}$/.test(pq.date||'')?pq.date:'',at:Math.max(0,Number(pq.at)||0),q};
   }
   return {...JSON.parse(JSON.stringify(DEF)),...v,log,partial,appVer:APP_VER,day,progressDay,done,marks,lifeMarks,hearMarks,todayPick,favorites,lastBackup:/^\d{4}-\d{2}-\d{2}$/.test(v.lastBackup||'')?v.lastBackup:'',set,pending};
 }
@@ -2183,7 +2186,7 @@ async function run(from){
   while(D.i<D.q.length){
     if(tok!==D.tok)return;
     const s=D.q[D.i];
-    D.el.phase.textContent=s.ph||'';
+    D.el.phase.textContent=(D.chain?`🔁${D.chainN} · `:'')+(s.ph||'');
     const pct=((D.i/Math.max(D.q.length-1,1))*100).toFixed(1);D.el.bar.style.width=pct+'%';D.el.bar.parentElement?.setAttribute('aria-valuenow',pct);
     if(s.t==='mk'){D.i++;continue;}
     if(s.t==='q')savePartial();
@@ -2200,7 +2203,11 @@ async function run(from){
     if(s.t==='end'){
       D.el.phase.textContent='완료';D.el.prompt.className='prompt';D.el.prompt.textContent='끝났습니다';
       D.el.answer.textContent='Well done.';D.el.answer.className='answer show';
-      D.el.hint.textContent='잠시 후 자가 평가로 넘어갑니다';
+      if(D.chain&&D.kind!=='weak'){const nx=chainNext(D.kind,D.day||S.day);
+        D.el.hint.textContent=`이어서 DAY ${nx.day} ${KLAB[nx.kind]} 자동 시작`;
+        D.el.count.textContent='✓';D.el.count.className='count mono';sw(1);lit(1,'cool');
+        finish();return;}
+      D.el.hint.textContent=D.evaluate===false?'자동 저장합니다':'잠시 후 자가 평가로 넘어갑니다';
       D.el.count.textContent='✓';D.el.count.className='count mono';sw(1);lit(1,'cool');
       await speak('오늘 훈련이 끝났습니다. 안전 운전하세요.','ko',1);
       if(tok!==D.tok)return;finish();return;
@@ -2251,7 +2258,7 @@ async function run(from){
   }
 }
 
-function openDrive(kind,resume=null,evaluate=null){
+function openDrive(kind,resume=null,evaluate=null,chain=false){
   // 학습 탭의 대화 듣기가 재생 중이면 즉시 무효화하고 음성을 정리한다.
   dlgTok++;safeSpeechCancel();
   initSilent();
@@ -2260,6 +2267,8 @@ function openDrive(kind,resume=null,evaluate=null){
   // v8.2: 중단된 세션은 저장된 문장 순서 그대로 이어서 재생한다.
   if(resume){D.q=resume.q;D.i=resume.i;D.day=resume.day;}
   else{D.day=S.day;D.q = kind==='am'?qMorning(S.day):kind==='pm'?qEvening(S.day):qWeak();D.i=0;}
+  D.chain=kind!=='weak'&&(resume?!!resume.chain:!!chain);if(D.chain)D.evaluate=false;
+  D.chainN=1;D.mile=[];
   D.play=false;D.resume=null;D.stage=null;
   document.getElementById('drive').classList.add('on');
   D.el.play.textContent='시작';D.el.play.classList.remove('ps');
@@ -2268,6 +2277,34 @@ function openDrive(kind,resume=null,evaluate=null){
   D.el.hint.textContent=resume?`이어서 · ${D.i+1} / ${D.q.length} 지점부터`:`약 ${Math.max(1,Math.round(estMin(D.q)))}분 · 문장 ${D.q.filter(x=>x.t==='q').length}개`;
   D.el.count.textContent='—';D.el.count.className='count idle mono';
   D.el.bar.style.width='0%';D.el.bar.parentElement?.setAttribute('aria-valuenow','0');sw(0);lit(0,'cool');
+  if(D.chain){D.el.phase.textContent=`🔁 연속 주행 · DAY ${D.day} ${KLAB[kind]}`;
+    D.el.hint.textContent='출근길 → 퇴근길 → 다음 날 출근길… ✕를 누를 때까지 계속됩니다';
+    togglePlay();} // 버튼 탭(사용자 제스처) 안에서 바로 재생 시작 → 시작 버튼을 다시 누를 필요 없음
+}
+const KLAB={am:'출근길',pm:'퇴근길'};
+function chainNext(kind,day){return kind==='am'?{kind:'pm',day}:{kind:'am',day:day>=TOTAL_DAYS?1:day+1};}
+/* 연속 주행: 세션 완료 저장 → 다음 세션 큐로 교체 → 안내 음성 → 자동 재생 */
+async function chainAdvance(){
+  const dDay=D.day||S.day,kind=D.kind;
+  const n=new Set(D.q.filter(x=>x.t==='q'&&x.en&&!x.listen&&x.id).map(x=>(x.hear?'h:':'')+x.id)).size;
+  S.partial=null;S.pending=null;markDone(dDay);logSession(kind,dDay,n);
+  const rec=S.done[dDay];if(rec?.am&&rec?.pm){haptic(20);D.mile.push(dDay);}
+  const nx=chainNext(kind,dDay),wrap=kind==='pm'&&dDay>=TOTAL_DAYS;
+  // 퇴근길부터 시작해도 진도가 멈추지 않게: 실제로 넘어간 DAY까지 진도를 따라 올린다.
+  if(!wrap&&nx.day>S.progressDay)S.progressDay=Math.min(TOTAL_DAYS,nx.day);
+  // 중복 저장 방지: 안내 음성 전에 큐를 먼저 다음 세션으로 바꾼다(안내 중 일시정지→재생해도 다음 세션부터 시작).
+  D.kind=nx.kind;D.day=nx.day;S.day=nx.day;D.q=nx.kind==='am'?qMorning(nx.day):qEvening(nx.day);
+  D.i=0;D.resume=null;D.stage=null;D.chainN++;
+  save();try{render();}catch(e){}
+  const tok=++D.tok;
+  D.el.phase.textContent=`🔁${D.chainN} · 다음 세션`;D.el.prompt.className='prompt';
+  D.el.prompt.textContent=`다음: DAY ${nx.day} ${KLAB[nx.kind]}`;D.el.answer.textContent='';D.el.answer.className='answer';
+  D.el.hint.textContent=`DAY ${dDay} ${KLAB[kind]} 자동 저장 완료`;D.el.bar.style.width='0%';sw(0);lit(0,'cool');
+  setMedia('연속 주행',`다음: DAY ${nx.day} ${KLAB[nx.kind]}`);
+  const msg=`데이 ${dDay} ${KLAB[kind]} 완료, 자동 저장했습니다. `+(wrap?'전체 과정을 마쳤습니다. 데이 1부터 복습 회차로 이어갑니다. ':'')+`이어서 데이 ${nx.day} ${KLAB[nx.kind]}을 시작합니다.`;
+  await speak(msg,'ko',1);if(tok!==D.tok)return;
+  await sleep(1200);if(tok!==D.tok)return;
+  run(0);
 }
 function togglePlay(){
   if(D.play){
@@ -2299,11 +2336,13 @@ function jump(dir){D.tok++;safeSpeechCancel();cancelSleep();D.resume=null;D.stag
   if(D.play)run(D.i);}
 function exitDrive(){D.tok++;safeSpeechCancel();cancelSleep();D.play=false;relWake();D.resume=null;D.stage=null;savePartial();setTimeout(render,0);
   try{silentEl&&silentEl.pause();}catch(e){}
-  document.getElementById('drive').classList.remove('on');}
+  document.getElementById('drive').classList.remove('on');
+  const ms=D.mile||[];D.mile=[];D.chain=false;ms.forEach(d=>{try{maybeMilestone(d);}catch(e){}});}
 
 /* ═══════════ REVIEW ═══════════ */
 let pend=[];
 function finish(){
+  if(D.chain&&D.kind!=='weak'&&D.play){chainAdvance();return;}
   D.play=false;relWake();try{silentEl&&silentEl.pause();}catch(e){}
   document.getElementById('drive').classList.remove('on');
   S.partial=null;const dDay=D.day||S.day;
@@ -2418,7 +2457,7 @@ function renderLog(){
 }
 function nowHM(){const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
 function logSession(k,day,n){S.log=Array.isArray(S.log)?S.log:[];S.log.push({date:tKey(),t:nowHM(),day:day||0,k,n:n||0});if(S.log.length>400)S.log=S.log.slice(-400);}
-function savePartial(){if(!D.q.length||D.i<=0||D.i>=D.q.length-1)return;S.partial={kind:D.kind,day:D.day||S.day,i:D.i,total:D.q.length,date:tKey(),at:Date.now(),evaluate:!!D.evaluate,q:D.q};save();}
+function savePartial(){if(!D.q.length||D.i<=0||D.i>=D.q.length-1)return;S.partial={kind:D.kind,day:D.day||S.day,i:D.i,total:D.q.length,date:tKey(),at:Date.now(),evaluate:!!D.evaluate,chain:!!D.chain,q:D.q};save();}
 async function saveReview(skip){
   const completedDay=(S.pending&&S.pending.day)||S.day;
   if(!skip&&pend.some(p=>!p.lv)){
@@ -2699,14 +2738,15 @@ function render(){
   document.querySelectorAll('.acc .spk').forEach(b=>b.onclick=()=>speakNow(b.dataset.en,'en',S.set.rate));
   renderTodayLife();renderLife();try{renderSafetyInfo();}catch(e){}
 
-  ['len','gap','rate','rep','txt','wake','lifeRide','endMode'].forEach(k=>{
-    const id={len:'seg-len',gap:'seg-gap',rate:'seg-rate',rep:'seg-rep',txt:'seg-txt',wake:'seg-wake',lifeRide:'seg-lifeRide',endMode:'seg-endMode'}[k];
+  ['len','gap','rate','rep','txt','wake','lifeRide','endMode','chain'].forEach(k=>{
+    const id={len:'seg-len',gap:'seg-gap',rate:'seg-rate',rep:'seg-rep',txt:'seg-txt',wake:'seg-wake',lifeRide:'seg-lifeRide',endMode:'seg-endMode',chain:'seg-chain'}[k];
     document.querySelectorAll('#'+id+' button').forEach(b=>
       b.classList.toggle('on',parseFloat(b.dataset.v)===parseFloat(S.set[k])));});
 }
 
 
 function startDrive(kind){
+  if(S.set.chain===1){openDrive(kind,null,false,true);return;}
   let evaluate;
   if(S.set.endMode===0)evaluate=false;
   else if(S.set.endMode===1)evaluate=true;
@@ -2755,7 +2795,7 @@ document.getElementById('q-mk').onclick=async e=>{const b=e.target.closest('butt
 document.getElementById('dlg-play').onclick=async()=>{const tok=++dlgTok;safeSpeechCancel();
   for(const x of dd(S.day).d){if(tok!==dlgTok)return;await speak(x[1],'en',S.set.rate);if(tok!==dlgTok)return;await delay(400);}};
 
-[['seg-len','len'],['seg-gap','gap'],['seg-rate','rate'],['seg-rep','rep'],['seg-txt','txt'],['seg-wake','wake'],['seg-lifeRide','lifeRide'],['seg-endMode','endMode']]
+[['seg-len','len'],['seg-gap','gap'],['seg-rate','rate'],['seg-rep','rep'],['seg-txt','txt'],['seg-wake','wake'],['seg-lifeRide','lifeRide'],['seg-endMode','endMode'],['seg-chain','chain']]
  .forEach(([id,k])=>document.getElementById(id).addEventListener('click',async e=>{
    const b=e.target.closest('button');if(!b)return;S.set[k]=parseFloat(b.dataset.v);await save();render();}));
 
