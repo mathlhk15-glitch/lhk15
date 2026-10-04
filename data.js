@@ -814,6 +814,18 @@ const resources = [
 
   // ── 📊 진로 데이터·탐색 도구 ───────────────────────────────────
   {
+    id: "career-exploration-tool",
+    icon: "🧭",
+    title: "진로 탐구 길잡이",
+    section: "career-data",
+    description: "학년과 희망 진로를 고르면 우리 학교 교육과정과 연결된 탐구 주제·탐구 질문·활동 방법·보고서 작성까지 4단계로 안내하는 고등학생용 진로 탐구 도우미 (입력 내용은 기기 브라우저에만 저장)",
+    tags: ["진로탐구", "탐구주제", "탐구질문", "교육과정", "보고서", "세특", "진로탐색"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-10",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/career-exploration-tool/", platform: "html" }]
+  },
+  {
     id: "personality-self-understanding",
     icon: "🧠",
     title: "성격유형 자기이해 프로그램",
