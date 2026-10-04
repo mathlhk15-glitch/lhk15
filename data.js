@@ -599,7 +599,7 @@ const resources = [
     featured: false,
     isNew: true,
     updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "claude-code-lab.html", platform: "html" }]
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/claude-code-lab/", platform: "html" }]
   },
   {
     id: "prompt-tag-lab",
