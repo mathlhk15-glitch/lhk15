@@ -516,6 +516,18 @@ const resources = [
     links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/study-record-guide/", platform: "html" }]
   },
   {
+    id: "2027-csat-final-guide",
+    icon: "🎯",
+    title: "2027 수능 마무리 수험전략 가이드",
+    section: "curriculum",
+    description: "수능 D-Day에 맞춰 오늘의 학습 포커스, 성적대별·영역별 마무리 전략, 생활·컨디션 관리, 전날·당일 체크리스트와 주요 일정을 한눈에 확인하는 수험생 실전 가이드",
+    tags: ["2027", "수능", "마무리전략", "수험전략", "D-Day", "학습전략", "컨디션", "체크리스트"],
+    featured: true,
+    isNew: true,
+    updatedAt: "2026-10",
+    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2027-csat-final-guide/", platform: "html" }]
+  },
+  {
     id: "suwan-korean-2027",
     icon: "🌱",
     title: "2027 수능완성 문학·독서 학습맵",
