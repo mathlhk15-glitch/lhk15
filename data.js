@@ -1,1297 +1,2437 @@
 const SECTIONS = {
-  "admission-guide":       { label: "🎓 수시 전형 가이드·설명자료", desc: "종합 전형 안내, 대학별·계열별 가이드, 입학처 설명회 정리 자료" },
-  "admission-live":        { label: "📈 경쟁률·수능최저 실시간", desc: "수시 경쟁률 추이 및 수능최저학력기준 자가진단 도구" },
-  "admission-cutline":     { label: "📐 배치표·등급환산", desc: "정시/수시 배치표 및 내신·모의고사 등급 환산 도구" },
-  "admission-by-field":    { label: "🧭 계열별 입시가이드", desc: "의약학·간호·체육·교대사범·이공계 등 계열별 전형 자료" },
-  "admission-essay":       { label: "✍️ 논술전형 자료", desc: "논술·약술형 전형 정리 자료" },
-  "department-explore":    { label: "🔬 학과 탐색 도구", desc: "학과별 탐구 주제 및 학과 사례 비교 콘솔" },
-  "curriculum":            { label: "📘 교육과정·학습자료", desc: "교육과정 편제, 과목 선택, 교과 학습맵 등 자료" },
-  "ai-learning":           { label: "🤖 AI 활용·프롬프트 학습", desc: "AI 스킬, Claude Code, ChatGPT·Gemini 프롬프트를 학습하고 실무에 활용하기 위한 자료" },
-  "seteuk-writing":        { label: "✏️ 세특 작성 AI 도구", desc: "세특 작성·수정·검수, 생기부 정성평가 상담 AI 도구" },
-  "interview-prep":        { label: "🎤 면접 준비 도구", desc: "생기부 기반 예상질문, 말하기 연습·AI 분석 면접 준비 도구" },
-  "inquiry-ai":            { label: "💡 탐구·질문 AI 도구", desc: "질문·탐구 주제 발굴 및 AI 토론 지원 도구" },
-  "career-data":           { label: "📊 진로 데이터·탐색 도구", desc: "진로 탐색 및 학과 선택을 위한 통계·상담·테스트 자료" },
-  "external-links":        { label: "🔗 외부 유용 자료", desc: "타 기관·타 교사가 제공하는 참고용 외부 링크 (직접 관리하지 않음)" },
-  "staff-training":        { label: "🏫 교직원 연수·학교업무", desc: "교직원 대상 연수자료와 학교 업무에 필요한 실무 안내 자료" },
-  "personal":              { label: "🧺 생활·개인 자료", desc: "입시 업무와는 별개로 만들어둔 생활 정보 모음" }
+  "admission-core": {
+    "label": "🎓 대입 종합·전형 가이드",
+    "desc": "대입 전형의 큰 틀, 주요 대학 시행계획, 상담·전략 자료"
+  },
+  "admission-support": {
+    "label": "📊 지원전략·배치표·등급환산",
+    "desc": "경쟁률·수능최저·배치표·내신 및 모의고사 환산 등 실제 지원 판단 도구"
+  },
+  "admission-field": {
+    "label": "🧭 계열별·논술 입시자료",
+    "desc": "의약학·간호·체육·교대사범·이공계 등 계열별 전형과 논술 자료"
+  },
+  "career-explore": {
+    "label": "🔬 진로·학과·탐구",
+    "desc": "진로검사, 학과 탐색, 전공 비교, 탐구 주제 설계와 상담 자료"
+  },
+  "student-growth": {
+    "label": "✏️ 학생부·세특·면접",
+    "desc": "학생부 정성평가, 세특 작성·검수, 면접 질문과 말하기 연습 도구"
+  },
+  "curriculum": {
+    "label": "📘 교육과정·학습자료",
+    "desc": "교육과정 편제, 과목 선택, 공부법, 수능 학습전략 등 학생 학습 자료"
+  },
+  "ai-learning": {
+    "label": "🤖 AI 활용·프롬프트",
+    "desc": "ChatGPT·Gemini·Claude·Claude Code 등 생성형 AI 학습·실습 자료"
+  },
+  "staff-training": {
+    "label": "🏫 교직원 연수·학교업무",
+    "desc": "교직원 연수, 기숙사·안전·업무 효율 등 학교 실무 자료"
+  },
+  "external-links": {
+    "label": "🔗 외부 유용 자료",
+    "desc": "타 기관·타 교사가 제공하는 참고용 외부 링크"
+  },
+  "personal": {
+    "label": "🧺 생활·개인 자료",
+    "desc": "입시·학교 업무와 별개로 만든 생활·취미·개인 정보 자료"
+  }
 };
 
 // ★ 카드 추가/수정은 이 배열만 편집하세요
 //    icon 은 이모지 하나, 없으면 "📄" 로 표시됩니다
+//    정렬 기준: 분야별 묶음 → 추천(featured) 우선 → 최근 업데이트 순
+//    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
-
-  // ── 🏫 교직원 연수·학교업무 ─────────────────────────────────
-  {
-    id: "staff-training",
-    icon: "🏫",
-    title: "창원경일고등학교 교직원 연수 포털",
-    section: "staff-training",
-    description: "복무·공문서·청렴·학교회계·교육활동 보호 등 교직원 연수자료를 한곳에서 검색·열람·인쇄",
-    tags: ["교직원", "연수", "복무", "공문서", "청렴", "학교회계", "교육활동보호"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/staff-training/index.html", platform: "html" }]
-  },
-  {
-    id: "fire-safety-training",
-    icon: "🔥",
-    title: "2026 기숙사 화재대피훈련 통합 안전 가이드",
-    section: "staff-training",
-    description: "창원경일고등학교 기숙사 야간 화재대피훈련을 위한 학생 안전교육·훈련 시나리오·역할 분담·운영 기록·사후 점검 가이드",
-    tags: ["화재", "기숙사", "대피훈련", "안전교육", "소방", "재난안전", "학생안전", "훈련시나리오"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/fire/", platform: "html" }]
-  },
-  {
-    id: "dorm-outing",
-    icon: "🏠",
-    title: "기숙사 외출·외박 신청",
-    section: "staff-training",
-    description: "기숙사생은 호실·이름·비밀번호로 외출·외박을 신청하고, 사감 선생님은 날짜별 외출·외박자의 호실·이름·사유를 휴대폰으로 확인",
-    tags: ["기숙사", "외출", "외박", "사감", "생활지도", "모바일", "신청"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-10",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/dorm/", platform: "html" }]
-  },
-  {
-    id: "pc-shortcut",
-    icon: "⌨️",
-    title: "업무용 PC 단축키 검색 가이드",
-    section: "staff-training",
-    description: "Windows·브라우저·파일·Excel·한글(HWP) 단축키 119개를 기능·키로 검색. HWP Ctrl+Y 등 프로그램별 차이와 주의 단축키 안내",
-    tags: ["단축키", "컴퓨터", "업무효율", "Windows", "Excel", "한글", "HWP", "캡처", "클립보드"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/shortcut/", platform: "html" }]
-  },
-
-  // ── 🎓 수시 전형 가이드·설명자료 ─────────────────────────────────
-  {
-    id: "ipsi-3rd",
-    icon: "🐼",
-    title: "경일 진학상담 Navigator — 성적입력·입결탐색 통합",
-    section: "admission-guide",
-    description: "성적 입력 → 입결 비교·학과 비교·상담 리포트 통합 처리 (학교 내부 상담용)",
-    tags: ["수시", "정시", "입결", "배치표", "성적입력", "통합"],
-    featured: true,
-    isNew: false,
-    updatedAt: "2026-04",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi/", platform: "html" }]
-  },
-  {
-    id: "college-admissions-2027-2028",
-    icon: "🌳",
-    title: "이동균선생님의 2027,8 주요대학, 메디컬계열 대입전형 정리",
-    section: "admission-guide",
-    description: "2027,2028 주요대학 전형 정리",
-    tags: ["2027", "2028", "대입", "전형정리"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/college-admissions-2027-2028/", platform: "html" }]
-  },
-  {
-    id: "2028ipsi",
-    icon: "🎯",
-    title: "2027,2028 15개 대학 대입전형 한눈에 보기, 비교 정리",
-    section: "admission-guide",
-    description: "2027,20288 15개 대학 대입전형 정리",
-    tags: ["2027,8", "15개 대학", "전형 정리"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2028ipsi/", platform: "html" }]
-  },
-  {
-    id: "admission-briefing-2028",
-    icon: "🌰",
-    title: "2027·2028 대입, 대학은 무엇을 보고 학생은 무엇을 준비해야 할까?",
-    section: "admission-guide",
-    description: "2027,20288 주요대학 입학 관계자 간담회 내용 정리",
-    tags: ["2027,8", "14개 대학", "간담회"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/admission-guide-2028", platform: "html" }]
-  },
-  {
-    id: "2028-daeip-teacher-guide",
-    icon: "📘",
-    title: "2028 대입, 교사가 먼저 읽는 해설집",
-    section: "admission-guide",
-    description: "고교학점제·내신 5등급제·통합형 수능과 2028학년도 대입 시행계획을 교사 상담 관점에서 쉽게 풀어 정리한 배포용 해설집",
-    tags: ["2028", "대입", "교사용", "시행계획", "고교학점제", "내신 5등급제", "통합형 수능", "진학상담"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2028-daeip-teacher-guide/", platform: "html" }]
-  },
-  {
-    id: "contract-major-guide-2027",
-    icon: "🤝",
-    title: "계약학과·첨단학과, 제대로 알고 준비하기",
-    section: "admission-guide",
-    description: "계약학과 3유형과 첨단학과의 차이, 대학별 운영 현황 정리",
-    tags: ["계약학과", "첨단학과", "조기취업형", "학부모"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "2027-contract-major-guide.html", platform: "html" }]
-  },
-  {
-    id: "2027-susi-counsel-hub",
-    icon: "📚",
-    title: "2027 수시 전형 검색·비교 허브 (308개 전형)",
-    section: "admission-guide",
-    description: "조건별 검색으로 전형 최대 4개 비교·인쇄 (성적 입력 없음)",
-    tags: ["2027", "수시", "전형검색", "비교"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-06",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/2027-susi-counsel-hub.html", platform: "html" }]
-  },
-  {
-    id: "ipsi-2027",
-    icon: "🏥",
-    title: "[저장소 랜딩페이지] 2027 대입 대학별 핵심 가이드",
-    section: "admission-guide",
-    description: "전형 검색 허브·전략가이드 뷰어를 담은 저장소 첫 화면",
-    tags: ["2027", "핵심 가이드", "랜딩페이지"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/", platform: "html" }]
-  },
-  {
-    id: "admission2027",
-    icon: "🏥",
-    title: "2027 대입 전략 가이드 216쪽 뷰어",
-    section: "admission-guide",
-    description: "216쪽 입시 자료 검색·확대 뷰어, 용어사전·체크리스트 포함",
-    tags: ["2027", "입시 안내", "216쪽", "뷰어"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/admission2027/", platform: "html" }]
-  },
-
-  // ── 📈 경쟁률·수능최저 실시간 ───────────────────────────────────
-  {
-    id: "susi-competition-rate-tracker-2026",
-    icon: "📈",
-    title: "2026학년도 시간대별·대학별 수시 경쟁률 정리",
-    section: "admission-live",
-    description: "2026 수시 원서접수 기간 중 시간대별·대학별 경쟁률 변화",
-    tags: ["2026 수시", "경쟁률"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/2026-susi-competition-rate-tracker.html", platform: "html" }]
-  },
-  {
-    id: "2027-susi-rate",
-    icon: "📊",
-    title: "2027 수시 경쟁률 분석·지원전략 도우미",
-    section: "admission-live",
-    description: "2024~2026 경쟁률 흐름과 2027 실시간 경쟁률 비교 도구",
-    tags: ["2027 수시", "경쟁률", "실시간 경쟁률", "지원전략"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2027-susi-rate/", platform: "html" }]
-  },
-  {
-    id: "susi-mincheck-2027",
-    icon: "🍋",
-    title: "2027학년도 수시모집 수능최저학력기준 자가진단",
-    section: "admission-live",
-    description: "모의평가 성적을 입력해 수능최저 충족 여부 확인",
-    tags: ["2027 수시", "최저 충족 여부 확인"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/susi-mincheck-2027/", platform: "html" }]
-  },
-
-  // ── 📐 배치표·등급환산 ───────────────────────────────────────
-  {
-    id: "jeongsi-2027-09",
-    icon: "🎯",
-    title: "2027학년도 9월 모평 대학·학과 탐색기",
-    section: "admission-cutline",
-    description: "9월 모평 성적(표준점수·백분위)을 넣으면 179개 대학 4,133개 모집단위의 지원참고점수와 내 비교점수 차이를 계산. 대학·학과·지역별 검색, 정렬, 관심목록·가나다군 조합, 인쇄·CSV 저장 (이투스 실채점 지원참고표 기준)",
-    tags: ["정시", "배치표", "9월모평", "2027", "지원참고표", "대학검색", "학과검색", "가나다군"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-10",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/jeongsi-2027-09/", platform: "html" }]
-  },
-  {
-    id: "grade5-calc",
-    icon: "🦉",
-    title: "5등급제 내신, 실제 위치는 어디쯤일까합",
-    section: "admission-cutline",
-    description: "부산 15,978명 누적 성적 분포로 내 등급평균 위치 확인",
-    tags: ["5등급", "내신", "변환"],
-    featured: true,
-    isNew: false,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/grade5-calc/", platform: "html" }]
-  },
-  {
-    id: "grade5-compass",
-    icon: "🧭",
-    title: "경일 내신·학과 진학 나침반 2028",
-    section: "admission-cutline",
-    description: "5등급 내신 평균 하나로 내 위치 확인 → 학과군별 탐색 대학(대학어디가 2025·2026 입결) + 경일 선배 지원 사례까지 (1·2학년 학생·학부모용)",
-    tags: ["5등급", "내신", "2028", "학과검색", "대학탐색", "입결", "경일사례"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/grade5-compass/", platform: "html" }]
-  },
-  {
-    id: "modu-baechipyo-2027",
-    icon: "🧮",
-    title: "박상근 선생님의 모두의 2027 대입 배치표",
-    section: "admission-cutline",
-    description: "박상근 선생님의 모두의 2027 대입 배치표",
-    tags: ["2027", "박상근", "배치표"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://park-sanggeun-all.github.io/modu-baechipyo-2027/", platform: "html" }]
-  },
-  {
-    id: "gyeongil-admissions-compass",
-    icon: "🍧",
-    title: "경일고,경일여고 수시 3개년 입시 결과 배치표",
-    section: "admission-cutline",
-    description: "경일고,경일여고 수시 3개년 입시 결과 배치표",
-    tags: ["수시", "배치표"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeongil-admissions-compass/", platform: "html" }]
-  },
-  {
-    id: "bachi-2026-03",
-    icon: "👥",
-    title: "2026 모의고사 배치표",
-    section: "admission-cutline",
-    description: "2026년 모의고사 정시 배치표",
-    tags: ["배치표", "정시"],
-    featured: true,
-    isNew: false,
-    updatedAt: "2026-03",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2026-bachi/", platform: "html" }]
-  },
-  {
-    id: "ipsi-9grade-calc",
-    icon: "🏃🏼‍♀️‍➡️",
-    title: "중간고사 성적으로 9등급 환산",
-    section: "admission-cutline",
-    description: "중간고사 성적을 기준으로 9등급을 예상 환산해보는 도구",
-    tags: ["수시", "내신", "등급환산", "중간고사"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "중간고사 성적으로 9등급 환산.html", platform: "html" }]
-  },
-  {
-    id: "kangseok-grade-converter",
-    icon: "🎯",
-    title: "김강석 선생님의 5등급→9등급 환산·수시 지원대학 찾기",
-    section: "admission-cutline",
-    description: "현재 성적으로 지원 가능 대학 찾고, 목표 대학까지 필요한 성적 역산",
-    tags: ["5등급", "9등급", "등급환산", "수시", "지원가능대학", "목표등급", "입결"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://kangseok-hub.github.io/converter/", platform: "html" }]
-  },
-  {
-    id: "jinhak-system",
-    icon: "✒️",
-    title: "학생부 성적 OCR·가중평균 분석기 (개별 학생용)",
-    section: "admission-cutline",
-    description: "성적표 사진으로 가중평균 자동 계산, 목표등급 역산, 상담 Excel 생성",
-    tags: ["OCR", "성적 분석", "가중평균", "상담카드"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/jinhak-system/", platform: "html" }]
-  },
-  {
-    id: "mock-percentile",
-    icon: "🦌",
-    title: "백분위 속에 숨어 있던 다음 목표를 찾아드려요",
-    section: "admission-cutline",
-    description: "백분위 4개 입력으로 현재 위치·다음 등급까지 거리 확인",
-    tags: ["백분위", "위치", "수능때의 등급 예상"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/mock-percentile/", platform: "html" }]
-  },
-
-  // ── 🧭 계열별 입시가이드 ──────────────────────────────────────
-  {
-    id: "med-admission-2026",
-    icon: "🌰",
-    title: "의·치·한·약·수 수시입결 상담도구(2023–2026 입시결과 · 2026/2027 수능최저 참고)",
-    section: "admission-by-field",
-    description: "2023~2026 입시결과 기반 의·치·한·약·수 수시입결 상담도구",
-    tags: ["의치한약수"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/med-admission-2026", platform: "html" }]
-  },
-  {
-    id: "science-univ-2027",
-    icon: "📚",
-    title: "2027 이공계 특성화대 6개교 입시 안내 ",
-    section: "admission-by-field",
-    description: "2027 이공계 특성화대 6개교 입시 안내",
-    tags: ["2027", "이공계", "특셩화대"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-06",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/science-univ-2027.html", platform: "html" }]
-  },
-  {
-    id: "2028nurse",
-    icon: "🏥",
-    title: "2028 간호학과 전형 검색",
-    section: "admission-by-field",
-    description: "2028 간호학과 전형 검색",
-    tags: ["2028", "간호학과"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2028nurse/", platform: "html" }]
-  },
-  {
-    id: "localdoctor",
-    icon: "🦉",
-    title: "지역의사제",
-    section: "admission-by-field",
-    description: "지역의사제",
-    tags: ["지역", "의사"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/localdoctor", platform: "html" }]
-  },
-  {
-    id: "2027-medical-eligibility-checker",
-    icon: "🎯",
-    title: "2027학년도 의대 지원자격 검색기-부산교육청",
-    section: "admission-by-field",
-    description: "2027학년도 의대 지원자격 검색기-부산교육청",
-    tags: ["2027", "의대", "지원자격"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/2027-medical-eligibility-checker", platform: "html" }]
-  },
-  {
-    id: "gyeongil-sports-guide",
-    icon: "🍇",
-    title: "체육계열 수시지원 가이드",
-    section: "admission-by-field",
-    description: "체육계열 수시지원 가이드",
-    tags: ["체육", "수시"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeongil-sports-guide/", platform: "html" }]
-  },
-  {
-    id: "teacher-edu-guide",
-    icon: "🍧",
-    title: "교대·사범대·교원양성기관 통합 정리",
-    section: "admission-by-field",
-    description: "교대·사범대·교원양성기관 통합 정리",
-    tags: ["교대", "사범대"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/teacher-edu-guide.html", platform: "html" }]
-  },
-
-  // ── ✍️ 논술전형 자료 ────────────────────────────────────────
-  {
-    id: "2027_essay",
-    icon: "🐓",
-    title: "김강석선생님의 2027 논술전형 정리",
-    section: "admission-essay",
-    description: "2027 논술전형",
-    tags: ["2027", "논술"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://kangseok15.github.io/2027_essay/", platform: "html" }]
-  },
-  {
-    id: "2027-yaksul-nonsul",
-    icon: "🧹",
-    title: "2027 약술형 논술 정리(최승후 선생님)",
-    section: "admission-essay",
-    description: "2027 약술형 논술 정리",
-    tags: ["2027", "약술형 논술"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/lhk15/2027-yaksul-nonsul", platform: "html" }]
-  },
-
-  // ── 🔬 학과 탐색 도구 ───────────────────────────────────────
-  {
-    id: "major-meme",
-    icon: "🎴",
-    title: "대학 전공별 현실 밈 백과사전",
-    section: "department-explore",
-    description: "172개 학과를 한 줄 현실 밈 카드로 만나고, 카드 뽑기·관심 학과 담기·최대 4개 비교 후 커리어넷·대학어디가 공식 정보로 이어서 확인",
-    tags: ["학과탐색", "전공", "밈", "학과카드", "랜덤", "관심학과", "비교", "커리어넷", "대학어디가"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-10",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/major-meme/", platform: "html" }]
-  },
-  {
-    id: "modu-dept-map",
-    icon: "🗺️",
-    title: "박상근 선생님의 모두의 학과별 탐구 지도",
-    section: "department-explore",
-    description: "학과별 탐구 주제와 방향을 탐색할 수 있는 콘솔",
-    tags: ["박상근", "학과탐구", "탐구주제"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://park-sanggeun-all.github.io/teacher-console-map/", platform: "html" }]
-  },
-  {
-    id: "modu-dept-cases",
-    icon: "🧩",
-    title: "박상근 선생님의 모두의 학과사례 비교 콘솔",
-    section: "department-explore",
-    description: "학과별 합격·활동 사례를 비교해볼 수 있는 콘솔",
-    tags: ["박상근", "학과사례", "비교"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://park-sanggeun-all.github.io/teacher-console-cases/", platform: "html" }]
-  },
-
-  // ── 📘 교육과정·학습자료 ──────────────────────────────────────
-  {
-    id: "curriculum-2026",
-    icon: "🧩",
-    title: "2026 교육과정 편제표 및 1학년 선택과목 도우미",
-    section: "curriculum",
-    description: "2026학년도 교육과정 편제 및 1학년 과목 선택 안내 자료",
-    tags: ["교육과정", "과목선택", "편제표"],
-    featured: true,
-    isNew: false,
-    updatedAt: "2026-03",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2026-1-hakup-design", platform: "html" }]
-  },
-  {
-    id: "study-record-guide",
-    icon: "📘",
-    title: "고등학생 공부법 × 생기부 실천 가이드",
-    section: "curriculum",
-    description: "세종우리누리 선배 멘토의 과목별 공부법 17편과 학교생활기록부 가이드 9편을 학생용 핵심 요약·오늘의 실천·원문·기록 도구와 함께 활용하는 1·2학년용 가이드",
-    tags: ["공부법", "생기부", "학생부", "세특", "탐구", "학습전략", "1학년", "2학년", "학교생활"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-10",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/study-record-guide/", platform: "html" }]
-  },
-  {
-    id: "2027-csat-final-guide",
-    icon: "🎯",
-    title: "2027 수능 마무리 수험전략 가이드",
-    section: "curriculum",
-    description: "수능 D-Day에 맞춰 오늘의 학습 포커스, 성적대별·영역별 마무리 전략, 생활·컨디션 관리, 전날·당일 체크리스트와 주요 일정을 한눈에 확인하는 수험생 실전 가이드",
-    tags: ["2027", "수능", "마무리전략", "수험전략", "D-Day", "학습전략", "컨디션", "체크리스트"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-10",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2027-csat-final-guide/", platform: "html" }]
-  },
-  {
-    id: "suwan-korean-2027",
-    icon: "🌱",
-    title: "2027 수능완성 문학·독서 학습맵",
-    section: "curriculum",
-    description: "수능완성 문학·독서 63개 작품 인터랙티브 학습맵",
-    tags: ["수능완성", "국어", "문학", "독서", "2027"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-06",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ipsi-2027/suwan-korean-2027.html", platform: "html" }]
-  },
-  {
-    id: "korea-independence-movement",
-    icon: "🇰🇷",
-    title: "한국의 광복은 왜 독립운동의 결과라고 배우는가",
-    section: "curriculum",
-    description: "광복이 독립운동의 결과라고 배우는 이유를 정리한 자료",
-    tags: ["광복", "독립운동", "역사"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "korea-independence-movement.html", platform: "html" }]
-  },
-  {
-    id: "free-learning-economy-hub",
-    icon: "📚",
-    title: "무료 학습·경제 허브",
-    section: "curriculum",
-    description: "무료 학습 자료와 경제 관련 콘텐츠를 한곳에서 활용하는 허브",
-    tags: ["무료학습", "경제", "학습자료"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/free_learning_economy_hub/", platform: "html" }]
-  },
-
-  // ── 🤖 AI 활용·프롬프트 학습 ────────────────────────────────
-  {
-    id: "teacher-ai-workshop",
-    icon: "👨‍🏫",
-    title: "경남전자고 교원 생성형 AI 1시간 실습연수",
-    section: "ai-learning",
-    description: "경남전자고 선생님 대상 60분 실습형 연수 복습자료. 무료 Gemini로 Gem 1회 체험, 나만의 웹페이지 제작, index.html 만들기, GitHub Pages 공개까지 연수 내용을 단계별로 다시 따라할 수 있는 가이드",
-    tags: ["경남전자고", "교원연수", "1시간연수", "60분", "생성형AI", "Gemini", "Gem", "웹페이지", "HTML", "GitHub Pages", "실습"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-10",
-    links: [{ label: "연수 복습가이드", url: "https://mathlhk15-glitch.github.io/teacher-ai-workshop/", platform: "html" }]
-  },
-  {
-    id: "skill-study",
-    icon: "🧠",
-    title: "AI 스킬 교과서",
-    section: "ai-learning",
-    description: "AI 스킬을 검색하고 학습하며 즐겨찾기·메모·학습 기록으로 정리하는 학습 사이트",
-    tags: ["AI", "스킬", "학습", "교과서", "프롬프트"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/skill-study/", platform: "html" }]
-  },
-  {
-    id: "gemini-prompts",
-    icon: "💎",
-    title: "Gemini 프롬프트 모음",
-    section: "ai-learning",
-    description: "Gemini 활용에 필요한 프롬프트를 찾아보고 업무·수업에 적용할 수 있도록 정리한 자료",
-    tags: ["Gemini", "프롬프트", "AI", "활용", "업무"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gemini-prompts/", platform: "html" }]
-  },
-  {
-    id: "claude-code-lab",
-    icon: "🧪",
-    title: "Claude Code 따라하기 실습 노트",
-    section: "ai-learning",
-    description: "작은 웹도구 하나로 CLAUDE.md·Plan Mode·테스트·Rewind·Git·Skill·Subagent·GitHub Pages 배포까지 7차시로 따라 하는 실습서",
-    tags: ["Claude Code", "AI 에이전트", "Skill", "Subagent", "CLAUDE.md", "GitHub Pages", "실습"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/claude-code-lab/", platform: "html" }]
-  },
-  {
-    id: "prompt-tag-lab",
-    icon: "🏷️",
-    title: "프롬프트 태그와 교차검수 실습 노트",
-    section: "ai-learning",
-    description: "ChatGPT·Gemini·Claude에 쓰는 핵심 태그 12개, 다중 AI 교차검수 흐름, 프롬프트 조립기·태그 사전·/clean·세특 바이트 계산기 포함",
-    tags: ["프롬프트", "ChatGPT", "Gemini", "Claude", "교차검수", "태그", "세특", "실습"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "prompt-tag-lab.html", platform: "html" }]
-  },
-  {
-    id: "ai-agent-study",
-    icon: "🧑‍💼",
-    title: "AI 대화형 vs 에이전트형 쉽게 이해하기",
-    section: "ai-learning",
-    description: "ChatGPT Chat·Work, Claude·Cowork, Perplexity Search·Computer의 차이를 도식·비교표·타임라인·O/X 퀴즈·업무 지시서 조립기로 정리한 공부 노트 (2026년 9월 말 기준)",
-    tags: ["AI 에이전트", "ChatGPT", "Work", "Claude", "Cowork", "Perplexity", "Computer", "MCP", "업무 위임"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/ai-agent-study/", platform: "html" }]
-  },
-
-  // ── ✏️ 세특 작성 AI 도구 ────────────────────────────────────
-  {
-    id: "seteuk-edit",
-    icon: "✏️",
-    title: "세특 내용 수정·보완",
-    section: "seteuk-writing",
-    description: "작성된 세특 초안의 표현과 내용을 평가 기준에 맞게 개선하는 AI 도구",
-    tags: ["세특", "수정", "AI도구"],
-    featured: false,
-    isNew: false,
-    updatedAt: "2026-04",
-    links: [{ label: "GPTs로 열기", url: "https://chatgpt.com/g/g-69829666a7d48191986da33a1e64b293-seteug-naeyong-sujeong-bowan", platform: "gpt" }]
-  },
-  {
-    id: "seteuk-gen",
-    icon: "⚡",
-    title: "탐구활동지로 세특 생성",
-    section: "seteuk-writing",
-    description: "학생의 탐구 결과물을 입력하면 세특 초안을 자동 작성해 주는 AI 도구",
-    tags: ["세특", "생성", "탐구", "AI도구"],
-    featured: false,
-    isNew: false,
-    updatedAt: "2026-04",
-    links: [{ label: "GPTs로 열기", url: "https://chatgpt.com/g/g-6982925ee34881919b46f80dedfc8b02-seteug-saengseong", platform: "gpt" }]
-  },
-  {
-    id: "saetuk-prompt",
-    icon: "🪄",
-    title: "탐구활동지로 세특 프롬프트 생성기",
-    section: "seteuk-writing",
-    description: "탐구활동 후 탐구활동지를 바탕으로 세특 프롬프트 생성",
-    tags: ["탐구활동", "세특", "프롬프트 생성"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/saetuk-prompt", platform: "html" }]
-  },
-  {
-    id: "saeteuk-seosul",
-    icon: "🗺️",
-    title: "박정민 선생님의 세특 작성 사용 서술형 문장 모음",
-    section: "seteuk-writing",
-    description: "세특 작성 도와주는 서술형 문장 모음",
-    tags: ["세특", "문장"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-06",
-    links: [{ label: "바로가기", url: "https://fastidious-brigadeiros-07cdae.netlify.app/", platform: "html" }]
-  },
-  {
-    id: "action242",
-    icon: "🧩",
-    title: "학생 실제수행기반 행동서술 242선 — 검색·문장화 도구",
-    section: "seteuk-writing",
-    description: "행동서술 242개 검색·조립해 세특 초안 작성, NEIS 바이트 계산기 포함",
-    tags: ["세특", "행동서술", "문장조립", "AI교차검증"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/neis-action242/", platform: "html" }]
-  },
-  {
-    id: "teacher-growth-studio",
-    icon: "✨",
-    title: "교사 수업·평가·기록 설계실",
-    section: "seteuk-writing",
-    description: "수행평가 설계·성장 근거 점검·안전한 AI 프롬프트 제작",
-    tags: ["수행평가 설계", "세특 점검, 검수"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/teacher-growth-studio/", platform: "html" }]
-  },
-  {
-    id: "modu-saengibu-console",
-    icon: "🧾",
-    title: "박상근 선생님의 모두의 생기부 정성평가 상담 콘솔",
-    section: "seteuk-writing",
-    description: "생기부 정성평가 관점에서 상담을 지원하는 콘솔",
-    tags: ["박상근", "생기부", "정성평가", "상담"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://park-sanggeun-all.github.io/teacher-console/", platform: "html" }]
-  },
-  {
-    id: "seteuk-guide",
-    icon: "🎒",
-    title: "질문이 배움이 되는 순간 — 학생용 수업·탐구·세특 종합 안내서",
-    section: "seteuk-writing",
-    description: "궁금증을 탐구로 잇는 4단계 방법과 교과별 예시 61가지 안내서",
-    tags: ["세특", "탐구활동", "학생용", "예시61가지"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/seteuk-guide/", platform: "html" }]
-  },
-
-  // ── 🎤 면접 준비 도구 ───────────────────────────────────────
-  {
-    id: "interview-helper",
-    icon: "🎤",
-    title: "생기부 기반 면접 자료 생성",
-    section: "interview-prep",
-    description: "학생부 내용을 바탕으로 예상 질문과 답변 방향을 정리하는 AI 도구",
-    tags: ["면접", "생기부", "AI도구"],
-    featured: false,
-    isNew: false,
-    updatedAt: "2026-04",
-    links: [{ label: "GPTs로 열기", url: "https://chatgpt.com/g/g-69dc98128764819197bf1ddbc92b4e47-saenggibu-giban-myeonjeob-jaryo-saengseong", platform: "gpt" }, { label: "Gemini로 열기", url: "https://gemini.google.com/gem/1GMiZ4pV5Rbmoc2s3puoYkJiI_OT53bRh?usp=sharing", platform: "gemini" }]
-  },
-  {
-    id: "interview-hub",
-    icon: "🎙️",
-    title: "2027 대입 면접 준비 허브",
-    section: "interview-prep",
-    description: "생기부로 예상질문 정리, 말하기 연습·AI 분석까지 지원하는 면접 준비 도구",
-    tags: ["면접", "생활기록부", "예상질문", "말하기연습", "2027"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/interview-hub/", platform: "html" }]
-  },
-  {
-    id: "modu-interview-coach",
-    icon: "🗣️",
-    title: "박상근 선생님의 모두의 학생·학부모를 위한 자기주도 면접 연습기",
-    section: "interview-prep",
-    description: "음성 질문에 답하면 표정·자세를 분석해 점수·피드백을 주는 면접 연습기 (노트북+Chrome 권장)",
-    tags: ["박상근", "면접", "자기주도", "음성질문", "답변텍스트변환", "표정분석", "자세분석", "면접리포트"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://park-sanggeun-all.github.io/interview-coach/", platform: "html" }]
-  },
-
-  // ── 💡 탐구·질문 AI 도구 ────────────────────────────────────
-  {
-    id: "question-helper",
-    icon: "💡",
-    title: "수업 후 질문·탐구 주제 도우미",
-    section: "inquiry-ai",
-    description: "수업 후 질문 확장·탐구 주제 발굴을 돕는 AI 도구",
-    tags: ["탐구", "질문", "AI도구"],
-    featured: false,
-    isNew: false,
-    updatedAt: "2026-04",
-    links: [{ label: "GPTs로 열기", url: "https://chatgpt.com/g/g-69d4bd3bbe808191924ff384d664273b-cangweongyeongilgo-jilmun-tamgu-juje-doumi", platform: "gpt" }, { label: "Gemini로 열기", url: "https://gemini.google.com/gem/1QPoxJSX7herq_XQoZ_1pIdmo7ZuPkq5j?usp=sharing", platform: "gemini" }]
-  },
-  {
-    id: "arts-inquiry-guide",
-    icon: "🎨",
-    title: "예체능 탐구 가이드",
-    section: "inquiry-ai",
-    description: "예체능 활동에서 질문 만들고 교과 개념과 연결하는 탐구법 안내",
-    tags: ["예체능", "탐구", "미술", "음악", "체육"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/arts-inquiry-guide/", platform: "html" }]
-  },
-  {
-    id: "news-inquiry",
-    icon: "📰",
-    title: "오늘의 뉴스로 탐구활동 만들기",
-    section: "inquiry-ai",
-    description: "시사 뉴스를 기반으로 수업 연계 탐구활동지를 자동 생성하는 AI 도구",
-    tags: ["탐구", "뉴스", "활동지", "AI도구"],
-    featured: false,
-    isNew: false,
-    updatedAt: "2026-04",
-    links: [{ label: "GPTs로 열기", url: "https://chatgpt.com/g/g-6982a6ea81fc8191b3e8975858800ba6-sinmungisaro-tamguhwaldong-saengseong", platform: "gpt" }]
-  },
-  {
-    id: "AI_Council_Room",
-    icon: "✨",
-    title: "AI 회의실",
-    section: "inquiry-ai",
-    description: "하나의 주제로 4개의 AI가 의견을 주고 받는 곳",
-    tags: ["AI", "회의", "토론"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/AI_Council_Room", platform: "html" }]
-  },
-
-  // ── 📊 진로 데이터·탐색 도구 ───────────────────────────────────
-  {
-    id: "career-exploration-tool",
-    icon: "🧭",
-    title: "진로 탐구 길잡이",
-    section: "career-data",
-    description: "학년과 희망 진로를 고르면 우리 학교 교육과정과 연결된 탐구 주제·탐구 질문·활동 방법·보고서 작성까지 4단계로 안내하는 고등학생용 진로 탐구 도우미 (입력 내용은 기기 브라우저에만 저장)",
-    tags: ["진로탐구", "탐구주제", "탐구질문", "교육과정", "보고서", "세특", "진로탐색"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-10",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/career-exploration-tool/", platform: "html" }]
-  },
-  {
-    id: "personality-self-understanding",
-    icon: "🧠",
-    title: "성격유형 자기이해 프로그램",
-    section: "career-data",
-    description: "93문항 성격유형 검사와 선호지표·학습 특성·강점·성찰 내용을 함께 확인하는 자기이해 도구",
-    tags: ["성격유형", "자기이해", "진로탐색", "학습특성", "테스트"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/mbti/", platform: "html" }]
-  },
-  {
-    id: "career-lab",
-    icon: "🏫",
-    title: "내 경헙에서 시작하는 진로 실험실",
-    section: "career-data",
-    description: "진로 가설 → 질문 → 탐구 설계 → 성장 로드맵",
-    tags: ["질문", "텀구 설계", "성장로드맵"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/career-lab/", platform: "html" }]
-  },
-  {
-    id: "admission-roadmap",
-    icon: "🐶",
-    title: "계열별 대입 로드맵",
-    section: "career-data",
-    description: "계열별 대입 로드맵",
-    tags: ["계열", "대입", "로드맵"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-06",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/2026-1-choice/admission-roadmap.html", platform: "html" }]
-  },
-  {
-    id: "career-counsel",
-    icon: "🍉",
-    title: "우리학교 진로상담 시스템",
-    section: "career-data",
-    description: "창원경일고 데이터 기반 진학현황·학과탐색 통합 진로상담 시스템",
-    tags: ["진로상담", "고등학교", "진학현황", "AI도구"],
-    featured: true,
-    isNew: true,
-    updatedAt: "2026-04",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/jinlosangdam/", platform: "html" }]
-  },
-  {
-    id: "job-rate",
-    icon: "📊",
-    title: "취업 유지취업률 현황",
-    section: "career-data",
-    description: "2020~2024 대학교 졸업생 취업 및 유지취업률 통계 검색 자료",
-    tags: ["취업률", "진로탐색", "데이터", "학과선택"],
-    featured: false,
-    isNew: false,
-    updatedAt: "2026-04",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/job/", platform: "html" }]
-  },
-  {
-    id: "job-video-2026",
-    icon: "🎬",
-    title: "2026 직업 동영상 모음",
-    section: "career-data",
-    description: "다양한 직업에 대한 안내 및 동영상 자료 모음",
-    tags: ["직업", "동영상", "진로탐색"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "2026 직업 동영상 모음.html", platform: "html" }]
-  },
-  {
-    id: "career-worldcup",
-    icon: "🏆",
-    title: "진로 월드컵",
-    section: "career-data",
-    description: "흥미를 기반으로 한 이상형 월드컵 방식의 진로 탐색 도구",
-    tags: ["진로탐색", "월드컵", "직업", "테스트"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/worldcup", platform: "html" }]
-  },
-  {
-    id: "teacher-cert-finder",
-    icon: "🧑‍🎓",
-    title: "교직이수과정기관 검색",
-    section: "career-data",
-    description: "교직이수과정기관 검색",
-    tags: ["교직이수", "사범대", "교사자격"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/teacher-cert-finder", platform: "html" }]
-  },
-  {
-    id: "gyeongil-parent-test",
-    icon: "🐦‍⬛",
-    title: "학부모 교육성향 테스트",
-    section: "career-data",
-    description: "학부모님 대상 간단하게 교육성향 테스트",
-    tags: ["학부모", "교육성향", "테스트"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeongil-parent-test", platform: "html" }]
-  },
-  {
-    id: "2026-career-compass",
-    icon: "🕊️",
-    title: "2026 지역산업 진로진학나침반",
-    section: "career-data",
-    description: "2026 지역산업 진로진학나침반",
-    tags: ["지역산업", "지역인재육성법"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "2026-career-compass.html", platform: "html" }]
-  },
-
-  // ── 🔗 외부 유용 자료 ───────────────────────────────────────
-  {
-    id: "gyeonggi-ipsi",
-    icon: "🧭",
-    title: "경기진협 자료",
-    section: "external-links",
-    description: "경기진협에서 제공하는 대입정보 모음",
-    tags: ["경기", "대입정보", "나침반", "입시"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://specialzoker.github.io/", platform: "html" }]
-  },
-  {
-    id: "esteacher",
-    icon: "🐜",
-    title: "대입정보를 정리한 진학정보실",
-    section: "external-links",
-    description: "진학정보실",
-    tags: ["진학", "정보실"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://jinhak.esteacher.kr/", platform: "html" }]
-  },
-
-  // ── 🔒 개인·생활 자료 ───────────────────────────────────────
-  {
-    id: "commute-english",
-    icon: "🗣️",
-    title: "출퇴근 여행영어 코치",
-    section: "personal",
-    description: "운전 중 듣고 먼저 말하는 방식으로 익히는 70일 여행 생존 영어",
-    tags: ["여행영어", "영어", "듣기말하기"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "commute-english.html", platform: "html" }]
-  },
-  {
-    id: "commute-chinese",
-    icon: "🀄",
-    title: "출퇴근 실전중국어 코치",
-    section: "personal",
-    description: "운전 중 듣고 먼저 말하는 방식으로 익히는 70일 중국 본토 실전 중국어 (병음·성조·숫자 훈련 포함)",
-    tags: ["중국어", "여행중국어", "듣기말하기"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/commute-chinese/", platform: "html" }]
-  },
-  {
-    id: "breakfast-soup",
-    icon: "🍲",
-    title: "한 달 아침국 30가지",
-    section: "personal",
-    description: "가족 식단을 위한 한 달치 아침국 추천 및 계획 도구",
-    tags: ["아침국", "식단", "가족"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "breakfast_soup.html", platform: "html" }]
-  },
-  {
-    id: "sauce-recipes",
-    icon: "🧂",
-    title: "소스·양념 레시피 34종",
-    section: "personal",
-    description: "간장·고추장·마요·파스타 소스 등 34종의 재료·조리법과 알레르기·안전 안내, 선택 인쇄·조리 타이머를 갖춘 레시피 모음",
-    tags: ["소스", "양념", "레시피", "요리"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/sauce-recipes/", platform: "html" }]
-  },
-  {
-    id: "elderly-appetite-guide",
-    icon: "🍵",
-    title: "식욕·소화불량·우울감 개선 가이드",
-    section: "personal",
-    description: "온음료+고단백 식사로 노인 식욕부진·소화불량 개선법",
-    tags: ["건강", "노인식단", "식욕부진"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "elderly-appetite-guide.png", platform: "image" }]
-  },
-  {
-    id: "jaunggo-guide",
-    icon: "🌿",
-    title: "자운고 만들기",
-    section: "personal",
-    description: "자근·당귀·진피·감초로 만드는 전통 한방 연고, 효능·준비물·제조법 정리",
-    tags: ["한방", "자운고", "천연연고"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "jaunggo-guide.png", platform: "image" }]
-  },
-  {
-    id: "saengmaeksan-guide",
-    icon: "🍹",
-    title: "생맥산 만들기",
-    section: "personal",
-    description: "맥문동·오미자 등으로 만드는 여름 갈증해소 한방음료 레시피",
-    tags: ["한방", "생맥산", "여름음료"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "saengmaeksan-guide.png", platform: "image" }]
-  },
-  {
-    id: "seoul-apartment-search",
-    icon: "🏠",
-    title: "딸의 서울 첫 주택 마련 가족 실행안",
-    section: "personal",
-    description: "딸의 서울 첫 주택 마련을 위한 가족 최종 실행안",
-    tags: ["주택", "서울", "가족"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "seoul-apartment-search.html", platform: "html" }]
-  },
-  {
-    id: "laundry_pocket_guide",
-    icon: "🧺",
-    title: "속옷은 한 번, 브라는 2~3번…옷은 언제 빨아야 할까?",
-    section: "personal",
-    description: "속옷·브라 등 의류별 세탁 주기 가이드",
-    tags: ["세탁", "생활정보"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "laundry_pocket_guide.html", platform: "html" }]
-  },
-  {
-    id: "radio-shortcut",
-    icon: "📻",
-    title: "라디오 바로가기",
-    section: "personal",
-    description: "즐겨듣는 라디오 사이트 바로가기 모음",
-    tags: ["라디오", "음악"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "BSOD 라디오", url: "https://radio.bsod.kr/", platform: "html" }, { label: "수학쌤 라디오", url: "https://mathlhk15-glitch.github.io/radio/", platform: "html" }]
-  },
-  {
-    id: "family-cash-gift-tax-guide-2026",
-    icon: "💰",
-    title: "가족 현금증여·홈택스 신고 실행 가이드 (2026)",
-    section: "personal",
-    description: "현금 증여 계약서 작성부터 홈택스 신고까지 따라하는 가이드",
-    tags: ["증여세", "홈택스", "가족", "세금"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "family-cash-gift-tax-guide-2026.html", platform: "html" }]
-  },
-  {
-    id: "44law",
-    icon: "☘️",
-    title: "재미난 44가지 법칙",
-    section: "personal",
-    description: "재미난 44가지 법칙",
-    tags: ["재미", "머피의 법칙", "44가지"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/44law", platform: "html" }]
-  },
-  {
-    id: "good-writingt",
-    icon: "⚔️",
-    title: "좋은 글 모음",
-    section: "personal",
-    description: "좋은 글 모음",
-    tags: ["좋은 글"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-05",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/good-writing", platform: "html" }]
-  },
-  {
-    id: "trip-planner",
-    icon: "🧳",
-    title: "여행 플래너",
-    section: "personal",
-    description: "여행지와 일정을 정리하고 여행 계획을 세우는 도구",
-    tags: ["여행", "여행계획", "일정"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/trip-planner/", platform: "html" }]
-  },
-  {
-    id: "highway-rest-area-food",
-    icon: "🍽️",
-    title: "고속도로 휴게소 맛집",
-    section: "personal",
-    description: "전국 고속도로 휴게소별 추천 음식과 대표 메뉴를 찾아보는 맛집 가이드",
-    tags: ["고속도로", "휴게소", "맛집", "여행"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-08",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/highway-rest-area-food/", platform: "html" }]
-  },
-  {
-    id: "family-death-inheritance-guide-2026",
-    icon: "🕊️",
-    title: "가족 사망·상속 절차 가이드 (2026)",
-    section: "personal",
-    description: "가족 사망 시 필요한 상속 절차와 준비사항을 정리한 가이드",
-    tags: ["상속", "사망신고", "가족", "절차"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/family_death_inheritance_guide_2026/", platform: "html" }]
-  },
-  {
-    id: "playhanja",
-    icon: "🈶",
-    title: "한자야 놀자! — 초등 애니메이션 한자 학습",
-    section: "personal",
-    description: "부수 애니메이션으로 배우는 초등 한자 학습 사이트",
-    tags: ["한자", "초등", "애니메이션", "쓰기연습"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://playhanja.vercel.app/", platform: "html" }]
-  },
-  {
-    id: "orchid-guide",
-    icon: "🪴",
-    title: "난 키우는 법",
-    section: "personal",
-    description: "난 키우는 법",
-    tags: ["동양란", "서양란"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/orchid-guide/", platform: "html" }]
-  },
-
-  {
-    id: "neck-stretch",
-    icon: "🧘",
-    title: "목·어깨 자세 리셋 스트레칭",
-    section: "personal",
-    description: "아침 5분·퇴근 후 8분, 목과 어깨가 뻐근할 때 따라 하는 자세 리셋 스트레칭 영상",
-    tags: ["스트레칭", "목", "어깨", "자세교정", "건강"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/neck-stretch/", platform: "html" }]
-  },
-
-  {
-    id: "autumn-flowers",
-    icon: "🌸",
-    title: "9월 말 경남 가을꽃 명소 10곳",
-    section: "personal",
-    description: "창원 용지아이파크 출발 기준 소요시간과 함께 보는 코스모스·메밀꽃·핑크뮬리·아스타국화 명소 10곳 안내 (주차·운영정보·FAQ·하루 코스)",
-    tags: ["가을꽃", "코스모스", "메밀꽃", "핑크뮬리", "아스타국화", "경남여행", "나들이"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/autumn-flowers/", platform: "html" }]
-  },
-
-  {
-    id: "drama-movie-quotes",
-    icon: "🎬",
-    title: "드라마·영화 명대사 모음",
-    section: "personal",
-    description: "드라마·영화·애니메이션의 마음에 남는 명대사를 검색하고 랜덤으로 감상하며 프레젠테이션으로도 볼 수 있는 명대사 모음",
-    tags: ["명대사", "드라마", "영화", "애니메이션", "위로", "동기부여", "프레젠테이션"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/drama-movie-quotes/", platform: "html" }]
-  },
-
-  {
-    id: "recipes",
-    icon: "🍲",
-    title: "우리집 레시피 앨범",
-    section: "personal",
-    description: "제육볶음·김치찌개·된장찌개와 대표 찌개 TOP 10까지 13가지 레시피를 사진으로 보고 요리 이름·재료로 검색",
-    tags: ["레시피", "요리", "찌개", "제육볶음", "김치찌개", "된장찌개", "집밥"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-09",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/recipes/", platform: "html" }]
-  },
-
-  {
-    id: "trips",
-    icon: "🧭",
-    title: "여행 당일 실행 체크리스트 (유동 일정)",
-    section: "personal",
-    description: "여행 당일 폰으로 보며 따라가는 일정표. 일정마다 체크하고, 지연·순서 변경·건너뛰기를 하면 이후 시각과 귀가 열차까지 자동으로 다시 계산되며, 다음 장소는 네이버 길찾기로 바로 연결 (첫 일정: 2026.10.3 대구 간송미술관·근대골목)",
-    tags: ["여행", "일정표", "체크리스트", "유동일정", "네이버길찾기", "대구", "간송미술관", "근대골목", "KTX", "SRT"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-10",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/trips/", platform: "html" }]
-  },
-
-  {
-    id: "gyeomjae",
-    icon: "🔍",
-    title: "겸재를 가까이 보다 — 겸재 정선 디테일 아카이브",
-    section: "personal",
-    description: "대구간송미술관 특별전 《겸재 정선 - 조선의 눈으로 조선을 그리다》에서 찍은 디테일 사진 25장을 사람·배·동물·곤충·나무와 집·붓·전체 7개 장으로 정리. 확대경, 확신도(확인·유력·미확인) 표시, 숨은 디테일 찾기 퀴즈, 장면별 메모 기능",
-    tags: ["겸재", "정선", "간송미술관", "대구간송미술관", "금강내산", "진경산수", "미술관", "관람기록", "디테일", "아카이브"],
-    featured: false,
-    isNew: true,
-    updatedAt: "2026-10",
-    links: [{ label: "바로가기", url: "https://mathlhk15-glitch.github.io/gyeomjae/", platform: "html" }]
-  },
-
-  // ★ 새 자료 추가는 아래 템플릿을 복사해서 붙여넣으세요 ★
-  // {
-  //   id: "고유-아이디",          ← 영문+하이픈, 다른 항목과 겹치지 않게
-  //   icon: "📄",                 ← 원하는 이모지 하나 (없으면 📄 로 표시)
-  //   title: "자료 제목",
-  //   section: "admission-guide", ← 위 SECTIONS 객체의 키 중 하나
-  //   description: "자료 설명",
-  //   tags: ["태그1", "태그2"],
-  //   featured: false,            ← true 면 상단 퀵 액세스에도 표시
-  //   isNew: true,                ← NEW 뱃지 표시 여부
-  //   updatedAt: "2026-05",       ← YYYY-MM 형식
-  //   links: [{ label: "바로가기", url: "https://...", platform: "html" }]
-  // },
-
+  {
+    "id": "2028-daeip-teacher-guide",
+    "icon": "📘",
+    "title": "2028 대입, 교사가 먼저 읽는 해설집",
+    "section": "admission-core",
+    "description": "고교학점제·내신 5등급제·통합형 수능과 2028학년도 대입 시행계획을 교사 상담 관점에서 쉽게 풀어 정리한 배포용 해설집",
+    "tags": [
+      "2028",
+      "대입",
+      "교사용",
+      "시행계획",
+      "고교학점제",
+      "내신 5등급제",
+      "통합형 수능",
+      "진학상담"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/2028-daeip-teacher-guide/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "ipsi-3rd",
+    "icon": "🐼",
+    "title": "경일 진학상담 Navigator — 성적입력·입결탐색 통합",
+    "section": "admission-core",
+    "description": "성적 입력 → 입결 비교·학과 비교·상담 리포트 통합 처리 (학교 내부 상담용)",
+    "tags": [
+      "수시",
+      "정시",
+      "입결",
+      "배치표",
+      "성적입력",
+      "통합"
+    ],
+    "featured": true,
+    "isNew": false,
+    "updatedAt": "2026-04",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/ipsi/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "contract-major-guide-2027",
+    "icon": "🤝",
+    "title": "계약학과·첨단학과, 제대로 알고 준비하기",
+    "section": "admission-core",
+    "description": "계약학과 3유형과 첨단학과의 차이, 대학별 운영 현황 정리",
+    "tags": [
+      "계약학과",
+      "첨단학과",
+      "조기취업형",
+      "학부모"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "2027-contract-major-guide.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "admission2027",
+    "icon": "🏥",
+    "title": "2027 대입 전략 가이드 216쪽 뷰어",
+    "section": "admission-core",
+    "description": "216쪽 입시 자료 검색·확대 뷰어, 용어사전·체크리스트 포함",
+    "tags": [
+      "2027",
+      "입시 안내",
+      "216쪽",
+      "뷰어"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/ipsi-2027/admission2027/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "2027-susi-counsel-hub",
+    "icon": "📚",
+    "title": "2027 수시 전형 검색·비교 허브 (308개 전형)",
+    "section": "admission-core",
+    "description": "조건별 검색으로 전형 최대 4개 비교·인쇄 (성적 입력 없음)",
+    "tags": [
+      "2027",
+      "수시",
+      "전형검색",
+      "비교"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-06",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/ipsi-2027/2027-susi-counsel-hub.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "ipsi-2027",
+    "icon": "🏥",
+    "title": "[저장소 랜딩페이지] 2027 대입 대학별 핵심 가이드",
+    "section": "admission-core",
+    "description": "전형 검색 허브·전략가이드 뷰어를 담은 저장소 첫 화면",
+    "tags": [
+      "2027",
+      "핵심 가이드",
+      "랜딩페이지"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/ipsi-2027/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "2028ipsi",
+    "icon": "🎯",
+    "title": "2027,2028 15개 대학 대입전형 한눈에 보기, 비교 정리",
+    "section": "admission-core",
+    "description": "2027,20288 15개 대학 대입전형 정리",
+    "tags": [
+      "2027,8",
+      "15개 대학",
+      "전형 정리"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/2028ipsi/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "admission-briefing-2028",
+    "icon": "🌰",
+    "title": "2027·2028 대입, 대학은 무엇을 보고 학생은 무엇을 준비해야 할까?",
+    "section": "admission-core",
+    "description": "2027,20288 주요대학 입학 관계자 간담회 내용 정리",
+    "tags": [
+      "2027,8",
+      "14개 대학",
+      "간담회"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/lhk15/admission-guide-2028",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "college-admissions-2027-2028",
+    "icon": "🌳",
+    "title": "이동균선생님의 2027,8 주요대학, 메디컬계열 대입전형 정리",
+    "section": "admission-core",
+    "description": "2027,2028 주요대학 전형 정리",
+    "tags": [
+      "2027",
+      "2028",
+      "대입",
+      "전형정리"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/college-admissions-2027-2028/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "jeongsi-2027-09",
+    "icon": "🎯",
+    "title": "2027학년도 9월 모평 대학·학과 탐색기",
+    "section": "admission-support",
+    "description": "9월 모평 성적(표준점수·백분위)을 넣으면 179개 대학 4,133개 모집단위의 지원참고점수와 내 비교점수 차이를 계산. 대학·학과·지역별 검색, 정렬, 관심목록·가나다군 조합, 인쇄·CSV 저장 (이투스 실채점 지원참고표 기준)",
+    "tags": [
+      "정시",
+      "배치표",
+      "9월모평",
+      "2027",
+      "지원참고표",
+      "대학검색",
+      "학과검색",
+      "가나다군"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/jeongsi-2027-09/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "2027-susi-rate",
+    "icon": "📊",
+    "title": "2027 수시 경쟁률 분석·지원전략 도우미",
+    "section": "admission-support",
+    "description": "2024~2026 경쟁률 흐름과 2027 실시간 경쟁률 비교 도구",
+    "tags": [
+      "2027 수시",
+      "경쟁률",
+      "실시간 경쟁률",
+      "지원전략"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/2027-susi-rate/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "grade5-calc",
+    "icon": "🦉",
+    "title": "5등급제 내신, 실제 위치는 어디쯤일까합",
+    "section": "admission-support",
+    "description": "부산 15,978명 누적 성적 분포로 내 등급평균 위치 확인",
+    "tags": [
+      "5등급",
+      "내신",
+      "변환"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/grade5-calc/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "grade5-compass",
+    "icon": "🧭",
+    "title": "경일 내신·학과 진학 나침반 2028",
+    "section": "admission-support",
+    "description": "5등급 내신 평균 하나로 내 위치 확인 → 학과군별 탐색 대학(대학어디가 2025·2026 입결) + 경일 선배 지원 사례까지 (1·2학년 학생·학부모용)",
+    "tags": [
+      "5등급",
+      "내신",
+      "2028",
+      "학과검색",
+      "대학탐색",
+      "입결",
+      "경일사례"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/grade5-compass/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "kangseok-grade-converter",
+    "icon": "🎯",
+    "title": "김강석 선생님의 5등급→9등급 환산·수시 지원대학 찾기",
+    "section": "admission-support",
+    "description": "현재 성적으로 지원 가능 대학 찾고, 목표 대학까지 필요한 성적 역산",
+    "tags": [
+      "5등급",
+      "9등급",
+      "등급환산",
+      "수시",
+      "지원가능대학",
+      "목표등급",
+      "입결"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://kangseok-hub.github.io/converter/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "bachi-2026-03",
+    "icon": "👥",
+    "title": "2026 모의고사 배치표",
+    "section": "admission-support",
+    "description": "2026년 모의고사 정시 배치표",
+    "tags": [
+      "배치표",
+      "정시"
+    ],
+    "featured": true,
+    "isNew": false,
+    "updatedAt": "2026-03",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/2026-bachi/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "susi-competition-rate-tracker-2026",
+    "icon": "📈",
+    "title": "2026학년도 시간대별·대학별 수시 경쟁률 정리",
+    "section": "admission-support",
+    "description": "2026 수시 원서접수 기간 중 시간대별·대학별 경쟁률 변화",
+    "tags": [
+      "2026 수시",
+      "경쟁률"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/lhk15/2026-susi-competition-rate-tracker.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "susi-mincheck-2027",
+    "icon": "🍋",
+    "title": "2027학년도 수시모집 수능최저학력기준 자가진단",
+    "section": "admission-support",
+    "description": "모의평가 성적을 입력해 수능최저 충족 여부 확인",
+    "tags": [
+      "2027 수시",
+      "최저 충족 여부 확인"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/susi-mincheck-2027/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "modu-baechipyo-2027",
+    "icon": "🧮",
+    "title": "박상근 선생님의 모두의 2027 대입 배치표",
+    "section": "admission-support",
+    "description": "박상근 선생님의 모두의 2027 대입 배치표",
+    "tags": [
+      "2027",
+      "박상근",
+      "배치표"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://park-sanggeun-all.github.io/modu-baechipyo-2027/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "mock-percentile",
+    "icon": "🦌",
+    "title": "백분위 속에 숨어 있던 다음 목표를 찾아드려요",
+    "section": "admission-support",
+    "description": "백분위 4개 입력으로 현재 위치·다음 등급까지 거리 확인",
+    "tags": [
+      "백분위",
+      "위치",
+      "수능때의 등급 예상"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/mock-percentile/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "jinhak-system",
+    "icon": "✒️",
+    "title": "학생부 성적 OCR·가중평균 분석기 (개별 학생용)",
+    "section": "admission-support",
+    "description": "성적표 사진으로 가중평균 자동 계산, 목표등급 역산, 상담 Excel 생성",
+    "tags": [
+      "OCR",
+      "성적 분석",
+      "가중평균",
+      "상담카드"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/jinhak-system/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "gyeongil-admissions-compass",
+    "icon": "🍧",
+    "title": "경일고,경일여고 수시 3개년 입시 결과 배치표",
+    "section": "admission-support",
+    "description": "경일고,경일여고 수시 3개년 입시 결과 배치표",
+    "tags": [
+      "수시",
+      "배치표"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/gyeongil-admissions-compass/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "ipsi-9grade-calc",
+    "icon": "🏃🏼‍♀️‍➡️",
+    "title": "중간고사 성적으로 9등급 환산",
+    "section": "admission-support",
+    "description": "중간고사 성적을 기준으로 9등급을 예상 환산해보는 도구",
+    "tags": [
+      "수시",
+      "내신",
+      "등급환산",
+      "중간고사"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "중간고사 성적으로 9등급 환산.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "teacher-edu-guide",
+    "icon": "🍧",
+    "title": "교대·사범대·교원양성기관 통합 정리",
+    "section": "admission-field",
+    "description": "교대·사범대·교원양성기관 통합 정리",
+    "tags": [
+      "교대",
+      "사범대"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/lhk15/teacher-edu-guide.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "med-admission-2026",
+    "icon": "🌰",
+    "title": "의·치·한·약·수 수시입결 상담도구(2023–2026 입시결과 · 2026/2027 수능최저 참고)",
+    "section": "admission-field",
+    "description": "2023~2026 입시결과 기반 의·치·한·약·수 수시입결 상담도구",
+    "tags": [
+      "의치한약수"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/lhk15/med-admission-2026",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "science-univ-2027",
+    "icon": "📚",
+    "title": "2027 이공계 특성화대 6개교 입시 안내 ",
+    "section": "admission-field",
+    "description": "2027 이공계 특성화대 6개교 입시 안내",
+    "tags": [
+      "2027",
+      "이공계",
+      "특셩화대"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-06",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/ipsi-2027/science-univ-2027.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "2027-yaksul-nonsul",
+    "icon": "🧹",
+    "title": "2027 약술형 논술 정리(최승후 선생님)",
+    "section": "admission-field",
+    "description": "2027 약술형 논술 정리",
+    "tags": [
+      "2027",
+      "약술형 논술"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/lhk15/2027-yaksul-nonsul",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "2027-medical-eligibility-checker",
+    "icon": "🎯",
+    "title": "2027학년도 의대 지원자격 검색기-부산교육청",
+    "section": "admission-field",
+    "description": "2027학년도 의대 지원자격 검색기-부산교육청",
+    "tags": [
+      "2027",
+      "의대",
+      "지원자격"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/lhk15/2027-medical-eligibility-checker",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "2028nurse",
+    "icon": "🏥",
+    "title": "2028 간호학과 전형 검색",
+    "section": "admission-field",
+    "description": "2028 간호학과 전형 검색",
+    "tags": [
+      "2028",
+      "간호학과"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/2028nurse/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "2027_essay",
+    "icon": "🐓",
+    "title": "김강석선생님의 2027 논술전형 정리",
+    "section": "admission-field",
+    "description": "2027 논술전형",
+    "tags": [
+      "2027",
+      "논술"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://kangseok15.github.io/2027_essay/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "localdoctor",
+    "icon": "🦉",
+    "title": "지역의사제",
+    "section": "admission-field",
+    "description": "지역의사제",
+    "tags": [
+      "지역",
+      "의사"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/localdoctor",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "gyeongil-sports-guide",
+    "icon": "🍇",
+    "title": "체육계열 수시지원 가이드",
+    "section": "admission-field",
+    "description": "체육계열 수시지원 가이드",
+    "tags": [
+      "체육",
+      "수시"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/gyeongil-sports-guide/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "major-meme",
+    "icon": "🎴",
+    "title": "대학 전공별 현실 밈 백과사전",
+    "section": "career-explore",
+    "description": "172개 학과를 한 줄 현실 밈 카드로 만나고, 카드 뽑기·관심 학과 담기·최대 4개 비교 후 커리어넷·대학어디가 공식 정보로 이어서 확인",
+    "tags": [
+      "학과탐색",
+      "전공",
+      "밈",
+      "학과카드",
+      "랜덤",
+      "관심학과",
+      "비교",
+      "커리어넷",
+      "대학어디가"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/major-meme/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "career-exploration-tool",
+    "icon": "🧭",
+    "title": "진로 탐구 길잡이",
+    "section": "career-explore",
+    "description": "학년과 희망 진로를 고르면 우리 학교 교육과정과 연결된 탐구 주제·탐구 질문·활동 방법·보고서 작성까지 4단계로 안내하는 고등학생용 진로 탐구 도우미 (입력 내용은 기기 브라우저에만 저장)",
+    "tags": [
+      "진로탐구",
+      "탐구주제",
+      "탐구질문",
+      "교육과정",
+      "보고서",
+      "세특",
+      "진로탐색"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/career-exploration-tool/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "personality-self-understanding",
+    "icon": "🧠",
+    "title": "성격유형 자기이해 프로그램",
+    "section": "career-explore",
+    "description": "93문항 성격유형 검사와 선호지표·학습 특성·강점·성찰 내용을 함께 확인하는 자기이해 도구",
+    "tags": [
+      "성격유형",
+      "자기이해",
+      "진로탐색",
+      "학습특성",
+      "테스트"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/mbti/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "arts-inquiry-guide",
+    "icon": "🎨",
+    "title": "예체능 탐구 가이드",
+    "section": "career-explore",
+    "description": "예체능 활동에서 질문 만들고 교과 개념과 연결하는 탐구법 안내",
+    "tags": [
+      "예체능",
+      "탐구",
+      "미술",
+      "음악",
+      "체육"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/arts-inquiry-guide/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "career-lab",
+    "icon": "🏫",
+    "title": "내 경헙에서 시작하는 진로 실험실",
+    "section": "career-explore",
+    "description": "진로 가설 → 질문 → 탐구 설계 → 성장 로드맵",
+    "tags": [
+      "질문",
+      "텀구 설계",
+      "성장로드맵"
+    ],
+    "featured": true,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/career-lab/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "admission-roadmap",
+    "icon": "🐶",
+    "title": "계열별 대입 로드맵",
+    "section": "career-explore",
+    "description": "계열별 대입 로드맵",
+    "tags": [
+      "계열",
+      "대입",
+      "로드맵"
+    ],
+    "featured": true,
+    "isNew": false,
+    "updatedAt": "2026-06",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/2026-1-choice/admission-roadmap.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "career-counsel",
+    "icon": "🍉",
+    "title": "우리학교 진로상담 시스템",
+    "section": "career-explore",
+    "description": "창원경일고 데이터 기반 진학현황·학과탐색 통합 진로상담 시스템",
+    "tags": [
+      "진로상담",
+      "고등학교",
+      "진학현황",
+      "AI도구"
+    ],
+    "featured": true,
+    "isNew": false,
+    "updatedAt": "2026-04",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/jinlosangdam/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "2026-career-compass",
+    "icon": "🕊️",
+    "title": "2026 지역산업 진로진학나침반",
+    "section": "career-explore",
+    "description": "2026 지역산업 진로진학나침반",
+    "tags": [
+      "지역산업",
+      "지역인재육성법"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "2026-career-compass.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "modu-dept-map",
+    "icon": "🗺️",
+    "title": "박상근 선생님의 모두의 학과별 탐구 지도",
+    "section": "career-explore",
+    "description": "학과별 탐구 주제와 방향을 탐색할 수 있는 콘솔",
+    "tags": [
+      "박상근",
+      "학과탐구",
+      "탐구주제"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://park-sanggeun-all.github.io/teacher-console-map/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "modu-dept-cases",
+    "icon": "🧩",
+    "title": "박상근 선생님의 모두의 학과사례 비교 콘솔",
+    "section": "career-explore",
+    "description": "학과별 합격·활동 사례를 비교해볼 수 있는 콘솔",
+    "tags": [
+      "박상근",
+      "학과사례",
+      "비교"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://park-sanggeun-all.github.io/teacher-console-cases/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "job-video-2026",
+    "icon": "🎬",
+    "title": "2026 직업 동영상 모음",
+    "section": "career-explore",
+    "description": "다양한 직업에 대한 안내 및 동영상 자료 모음",
+    "tags": [
+      "직업",
+      "동영상",
+      "진로탐색"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "2026 직업 동영상 모음.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "teacher-cert-finder",
+    "icon": "🧑‍🎓",
+    "title": "교직이수과정기관 검색",
+    "section": "career-explore",
+    "description": "교직이수과정기관 검색",
+    "tags": [
+      "교직이수",
+      "사범대",
+      "교사자격"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/teacher-cert-finder",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "career-worldcup",
+    "icon": "🏆",
+    "title": "진로 월드컵",
+    "section": "career-explore",
+    "description": "흥미를 기반으로 한 이상형 월드컵 방식의 진로 탐색 도구",
+    "tags": [
+      "진로탐색",
+      "월드컵",
+      "직업",
+      "테스트"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/worldcup",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "gyeongil-parent-test",
+    "icon": "🐦‍⬛",
+    "title": "학부모 교육성향 테스트",
+    "section": "career-explore",
+    "description": "학부모님 대상 간단하게 교육성향 테스트",
+    "tags": [
+      "학부모",
+      "교육성향",
+      "테스트"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/gyeongil-parent-test",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "AI_Council_Room",
+    "icon": "✨",
+    "title": "AI 회의실",
+    "section": "career-explore",
+    "description": "하나의 주제로 4개의 AI가 의견을 주고 받는 곳",
+    "tags": [
+      "AI",
+      "회의",
+      "토론"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/AI_Council_Room",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "question-helper",
+    "icon": "💡",
+    "title": "수업 후 질문·탐구 주제 도우미",
+    "section": "career-explore",
+    "description": "수업 후 질문 확장·탐구 주제 발굴을 돕는 AI 도구",
+    "tags": [
+      "탐구",
+      "질문",
+      "AI도구"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-04",
+    "links": [
+      {
+        "label": "GPTs로 열기",
+        "url": "https://chatgpt.com/g/g-69d4bd3bbe808191924ff384d664273b-cangweongyeongilgo-jilmun-tamgu-juje-doumi",
+        "platform": "gpt"
+      },
+      {
+        "label": "Gemini로 열기",
+        "url": "https://gemini.google.com/gem/1QPoxJSX7herq_XQoZ_1pIdmo7ZuPkq5j?usp=sharing",
+        "platform": "gemini"
+      }
+    ]
+  },
+  {
+    "id": "news-inquiry",
+    "icon": "📰",
+    "title": "오늘의 뉴스로 탐구활동 만들기",
+    "section": "career-explore",
+    "description": "시사 뉴스를 기반으로 수업 연계 탐구활동지를 자동 생성하는 AI 도구",
+    "tags": [
+      "탐구",
+      "뉴스",
+      "활동지",
+      "AI도구"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-04",
+    "links": [
+      {
+        "label": "GPTs로 열기",
+        "url": "https://chatgpt.com/g/g-6982a6ea81fc8191b3e8975858800ba6-sinmungisaro-tamguhwaldong-saengseong",
+        "platform": "gpt"
+      }
+    ]
+  },
+  {
+    "id": "job-rate",
+    "icon": "📊",
+    "title": "취업 유지취업률 현황",
+    "section": "career-explore",
+    "description": "2020~2024 대학교 졸업생 취업 및 유지취업률 통계 검색 자료",
+    "tags": [
+      "취업률",
+      "진로탐색",
+      "데이터",
+      "학과선택"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-04",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/job/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "modu-interview-coach",
+    "icon": "🗣️",
+    "title": "박상근 선생님의 모두의 학생·학부모를 위한 자기주도 면접 연습기",
+    "section": "student-growth",
+    "description": "음성 질문에 답하면 표정·자세를 분석해 점수·피드백을 주는 면접 연습기 (노트북+Chrome 권장)",
+    "tags": [
+      "박상근",
+      "면접",
+      "자기주도",
+      "음성질문",
+      "답변텍스트변환",
+      "표정분석",
+      "자세분석",
+      "면접리포트"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://park-sanggeun-all.github.io/interview-coach/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "seteuk-guide",
+    "icon": "🎒",
+    "title": "질문이 배움이 되는 순간 — 학생용 수업·탐구·세특 종합 안내서",
+    "section": "student-growth",
+    "description": "궁금증을 탐구로 잇는 4단계 방법과 교과별 예시 61가지 안내서",
+    "tags": [
+      "세특",
+      "탐구활동",
+      "학생용",
+      "예시61가지"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/seteuk-guide/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "interview-hub",
+    "icon": "🎙️",
+    "title": "2027 대입 면접 준비 허브",
+    "section": "student-growth",
+    "description": "생기부로 예상질문 정리, 말하기 연습·AI 분석까지 지원하는 면접 준비 도구",
+    "tags": [
+      "면접",
+      "생활기록부",
+      "예상질문",
+      "말하기연습",
+      "2027"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/interview-hub/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "teacher-growth-studio",
+    "icon": "✨",
+    "title": "교사 수업·평가·기록 설계실",
+    "section": "student-growth",
+    "description": "수행평가 설계·성장 근거 점검·안전한 AI 프롬프트 제작",
+    "tags": [
+      "수행평가 설계",
+      "세특 점검, 검수"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/teacher-growth-studio/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "modu-saengibu-console",
+    "icon": "🧾",
+    "title": "박상근 선생님의 모두의 생기부 정성평가 상담 콘솔",
+    "section": "student-growth",
+    "description": "생기부 정성평가 관점에서 상담을 지원하는 콘솔",
+    "tags": [
+      "박상근",
+      "생기부",
+      "정성평가",
+      "상담"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://park-sanggeun-all.github.io/teacher-console/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "action242",
+    "icon": "🧩",
+    "title": "학생 실제수행기반 행동서술 242선 — 검색·문장화 도구",
+    "section": "student-growth",
+    "description": "행동서술 242개 검색·조립해 세특 초안 작성, NEIS 바이트 계산기 포함",
+    "tags": [
+      "세특",
+      "행동서술",
+      "문장조립",
+      "AI교차검증"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/neis-action242/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "saeteuk-seosul",
+    "icon": "🗺️",
+    "title": "박정민 선생님의 세특 작성 사용 서술형 문장 모음",
+    "section": "student-growth",
+    "description": "세특 작성 도와주는 서술형 문장 모음",
+    "tags": [
+      "세특",
+      "문장"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-06",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://fastidious-brigadeiros-07cdae.netlify.app/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "saetuk-prompt",
+    "icon": "🪄",
+    "title": "탐구활동지로 세특 프롬프트 생성기",
+    "section": "student-growth",
+    "description": "탐구활동 후 탐구활동지를 바탕으로 세특 프롬프트 생성",
+    "tags": [
+      "탐구활동",
+      "세특",
+      "프롬프트 생성"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/saetuk-prompt",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "interview-helper",
+    "icon": "🎤",
+    "title": "생기부 기반 면접 자료 생성",
+    "section": "student-growth",
+    "description": "학생부 내용을 바탕으로 예상 질문과 답변 방향을 정리하는 AI 도구",
+    "tags": [
+      "면접",
+      "생기부",
+      "AI도구"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-04",
+    "links": [
+      {
+        "label": "GPTs로 열기",
+        "url": "https://chatgpt.com/g/g-69dc98128764819197bf1ddbc92b4e47-saenggibu-giban-myeonjeob-jaryo-saengseong",
+        "platform": "gpt"
+      },
+      {
+        "label": "Gemini로 열기",
+        "url": "https://gemini.google.com/gem/1GMiZ4pV5Rbmoc2s3puoYkJiI_OT53bRh?usp=sharing",
+        "platform": "gemini"
+      }
+    ]
+  },
+  {
+    "id": "seteuk-edit",
+    "icon": "✏️",
+    "title": "세특 내용 수정·보완",
+    "section": "student-growth",
+    "description": "작성된 세특 초안의 표현과 내용을 평가 기준에 맞게 개선하는 AI 도구",
+    "tags": [
+      "세특",
+      "수정",
+      "AI도구"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-04",
+    "links": [
+      {
+        "label": "GPTs로 열기",
+        "url": "https://chatgpt.com/g/g-69829666a7d48191986da33a1e64b293-seteug-naeyong-sujeong-bowan",
+        "platform": "gpt"
+      }
+    ]
+  },
+  {
+    "id": "seteuk-gen",
+    "icon": "⚡",
+    "title": "탐구활동지로 세특 생성",
+    "section": "student-growth",
+    "description": "학생의 탐구 결과물을 입력하면 세특 초안을 자동 작성해 주는 AI 도구",
+    "tags": [
+      "세특",
+      "생성",
+      "탐구",
+      "AI도구"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-04",
+    "links": [
+      {
+        "label": "GPTs로 열기",
+        "url": "https://chatgpt.com/g/g-6982925ee34881919b46f80dedfc8b02-seteug-saengseong",
+        "platform": "gpt"
+      }
+    ]
+  },
+  {
+    "id": "2027-csat-final-guide",
+    "icon": "🎯",
+    "title": "2027 수능 마무리 수험전략 가이드",
+    "section": "curriculum",
+    "description": "수능 D-Day에 맞춰 오늘의 학습 포커스, 성적대별·영역별 마무리 전략, 생활·컨디션 관리, 전날·당일 체크리스트와 주요 일정을 한눈에 확인하는 수험생 실전 가이드",
+    "tags": [
+      "2027",
+      "수능",
+      "마무리전략",
+      "수험전략",
+      "D-Day",
+      "학습전략",
+      "컨디션",
+      "체크리스트"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/2027-csat-final-guide/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "study-record-guide",
+    "icon": "📘",
+    "title": "고등학생 공부법 × 생기부 실천 가이드",
+    "section": "curriculum",
+    "description": "세종우리누리 선배 멘토의 과목별 공부법 17편과 학교생활기록부 가이드 9편을 학생용 핵심 요약·오늘의 실천·원문·기록 도구와 함께 활용하는 1·2학년용 가이드",
+    "tags": [
+      "공부법",
+      "생기부",
+      "학생부",
+      "세특",
+      "탐구",
+      "학습전략",
+      "1학년",
+      "2학년",
+      "학교생활"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/study-record-guide/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "curriculum-2026",
+    "icon": "🧩",
+    "title": "2026 교육과정 편제표 및 1학년 선택과목 도우미",
+    "section": "curriculum",
+    "description": "2026학년도 교육과정 편제 및 1학년 과목 선택 안내 자료",
+    "tags": [
+      "교육과정",
+      "과목선택",
+      "편제표"
+    ],
+    "featured": true,
+    "isNew": false,
+    "updatedAt": "2026-03",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/2026-1-hakup-design",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "free-learning-economy-hub",
+    "icon": "📚",
+    "title": "무료 학습·경제 허브",
+    "section": "curriculum",
+    "description": "무료 학습 자료와 경제 관련 콘텐츠를 한곳에서 활용하는 허브",
+    "tags": [
+      "무료학습",
+      "경제",
+      "학습자료"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/free_learning_economy_hub/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "korea-independence-movement",
+    "icon": "🇰🇷",
+    "title": "한국의 광복은 왜 독립운동의 결과라고 배우는가",
+    "section": "curriculum",
+    "description": "광복이 독립운동의 결과라고 배우는 이유를 정리한 자료",
+    "tags": [
+      "광복",
+      "독립운동",
+      "역사"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "korea-independence-movement.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "suwan-korean-2027",
+    "icon": "🌱",
+    "title": "2027 수능완성 문학·독서 학습맵",
+    "section": "curriculum",
+    "description": "수능완성 문학·독서 63개 작품 인터랙티브 학습맵",
+    "tags": [
+      "수능완성",
+      "국어",
+      "문학",
+      "독서",
+      "2027"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-06",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/ipsi-2027/suwan-korean-2027.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "teacher-ai-workshop",
+    "icon": "👨‍🏫",
+    "title": "경남전자고 교원 생성형 AI 1시간 실습연수",
+    "section": "ai-learning",
+    "description": "경남전자고 선생님 대상 60분 실습형 연수 복습자료. 무료 Gemini로 Gem 1회 체험, 나만의 웹페이지 제작, index.html 만들기, GitHub Pages 공개까지 연수 내용을 단계별로 다시 따라할 수 있는 가이드",
+    "tags": [
+      "경남전자고",
+      "교원연수",
+      "1시간연수",
+      "60분",
+      "생성형AI",
+      "Gemini",
+      "Gem",
+      "웹페이지",
+      "HTML",
+      "GitHub Pages",
+      "실습"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "연수 복습가이드",
+        "url": "https://mathlhk15-glitch.github.io/teacher-ai-workshop/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "prompt-tag-lab",
+    "icon": "🏷️",
+    "title": "프롬프트 태그와 교차검수 실습 노트",
+    "section": "ai-learning",
+    "description": "ChatGPT·Gemini·Claude에 쓰는 핵심 태그 12개, 다중 AI 교차검수 흐름, 프롬프트 조립기·태그 사전·/clean·세특 바이트 계산기 포함",
+    "tags": [
+      "프롬프트",
+      "ChatGPT",
+      "Gemini",
+      "Claude",
+      "교차검수",
+      "태그",
+      "세특",
+      "실습"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "prompt-tag-lab.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "ai-agent-study",
+    "icon": "🧑‍💼",
+    "title": "AI 대화형 vs 에이전트형 쉽게 이해하기",
+    "section": "ai-learning",
+    "description": "ChatGPT Chat·Work, Claude·Cowork, Perplexity Search·Computer의 차이를 도식·비교표·타임라인·O/X 퀴즈·업무 지시서 조립기로 정리한 공부 노트 (2026년 9월 말 기준)",
+    "tags": [
+      "AI 에이전트",
+      "ChatGPT",
+      "Work",
+      "Claude",
+      "Cowork",
+      "Perplexity",
+      "Computer",
+      "MCP",
+      "업무 위임"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/ai-agent-study/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "skill-study",
+    "icon": "🧠",
+    "title": "AI 스킬 교과서",
+    "section": "ai-learning",
+    "description": "AI 스킬을 검색하고 학습하며 즐겨찾기·메모·학습 기록으로 정리하는 학습 사이트",
+    "tags": [
+      "AI",
+      "스킬",
+      "학습",
+      "교과서",
+      "프롬프트"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/skill-study/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "claude-code-lab",
+    "icon": "🧪",
+    "title": "Claude Code 따라하기 실습 노트",
+    "section": "ai-learning",
+    "description": "작은 웹도구 하나로 CLAUDE.md·Plan Mode·테스트·Rewind·Git·Skill·Subagent·GitHub Pages 배포까지 7차시로 따라 하는 실습서",
+    "tags": [
+      "Claude Code",
+      "AI 에이전트",
+      "Skill",
+      "Subagent",
+      "CLAUDE.md",
+      "GitHub Pages",
+      "실습"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/claude-code-lab/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "gemini-prompts",
+    "icon": "💎",
+    "title": "Gemini 프롬프트 모음",
+    "section": "ai-learning",
+    "description": "Gemini 활용에 필요한 프롬프트를 찾아보고 업무·수업에 적용할 수 있도록 정리한 자료",
+    "tags": [
+      "Gemini",
+      "프롬프트",
+      "AI",
+      "활용",
+      "업무"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/gemini-prompts/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "dorm-outing",
+    "icon": "🏠",
+    "title": "기숙사 외출·외박 신청",
+    "section": "staff-training",
+    "description": "기숙사생은 호실·이름·비밀번호로 외출·외박을 신청하고, 사감 선생님은 날짜별 외출·외박자의 호실·이름·사유를 휴대폰으로 확인",
+    "tags": [
+      "기숙사",
+      "외출",
+      "외박",
+      "사감",
+      "생활지도",
+      "모바일",
+      "신청"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/dorm/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "fire-safety-training",
+    "icon": "🔥",
+    "title": "2026 기숙사 화재대피훈련 통합 안전 가이드",
+    "section": "staff-training",
+    "description": "창원경일고등학교 기숙사 야간 화재대피훈련을 위한 학생 안전교육·훈련 시나리오·역할 분담·운영 기록·사후 점검 가이드",
+    "tags": [
+      "화재",
+      "기숙사",
+      "대피훈련",
+      "안전교육",
+      "소방",
+      "재난안전",
+      "학생안전",
+      "훈련시나리오"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/fire/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "pc-shortcut",
+    "icon": "⌨️",
+    "title": "업무용 PC 단축키 검색 가이드",
+    "section": "staff-training",
+    "description": "Windows·브라우저·파일·Excel·한글(HWP) 단축키 119개를 기능·키로 검색. HWP Ctrl+Y 등 프로그램별 차이와 주의 단축키 안내",
+    "tags": [
+      "단축키",
+      "컴퓨터",
+      "업무효율",
+      "Windows",
+      "Excel",
+      "한글",
+      "HWP",
+      "캡처",
+      "클립보드"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/shortcut/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "staff-training",
+    "icon": "🏫",
+    "title": "창원경일고등학교 교직원 연수 포털",
+    "section": "staff-training",
+    "description": "복무·공문서·청렴·학교회계·교육활동 보호 등 교직원 연수자료를 한곳에서 검색·열람·인쇄",
+    "tags": [
+      "교직원",
+      "연수",
+      "복무",
+      "공문서",
+      "청렴",
+      "학교회계",
+      "교육활동보호"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/staff-training/index.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "gyeonggi-ipsi",
+    "icon": "🧭",
+    "title": "경기진협 자료",
+    "section": "external-links",
+    "description": "경기진협에서 제공하는 대입정보 모음",
+    "tags": [
+      "경기",
+      "대입정보",
+      "나침반",
+      "입시"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://specialzoker.github.io/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "esteacher",
+    "icon": "🐜",
+    "title": "대입정보를 정리한 진학정보실",
+    "section": "external-links",
+    "description": "진학정보실",
+    "tags": [
+      "진학",
+      "정보실"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://jinhak.esteacher.kr/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "gyeomjae",
+    "icon": "🔍",
+    "title": "겸재를 가까이 보다 — 겸재 정선 디테일 아카이브",
+    "section": "personal",
+    "description": "대구간송미술관 특별전 《겸재 정선 - 조선의 눈으로 조선을 그리다》에서 찍은 디테일 사진 25장을 사람·배·동물·곤충·나무와 집·붓·전체 7개 장으로 정리. 확대경, 확신도(확인·유력·미확인) 표시, 숨은 디테일 찾기 퀴즈, 장면별 메모 기능",
+    "tags": [
+      "겸재",
+      "정선",
+      "간송미술관",
+      "대구간송미술관",
+      "금강내산",
+      "진경산수",
+      "미술관",
+      "관람기록",
+      "디테일",
+      "아카이브"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/gyeomjae/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "trips",
+    "icon": "🧭",
+    "title": "여행 당일 실행 체크리스트 (유동 일정)",
+    "section": "personal",
+    "description": "여행 당일 폰으로 보며 따라가는 일정표. 일정마다 체크하고, 지연·순서 변경·건너뛰기를 하면 이후 시각과 귀가 열차까지 자동으로 다시 계산되며, 다음 장소는 네이버 길찾기로 바로 연결 (첫 일정: 2026.10.3 대구 간송미술관·근대골목)",
+    "tags": [
+      "여행",
+      "일정표",
+      "체크리스트",
+      "유동일정",
+      "네이버길찾기",
+      "대구",
+      "간송미술관",
+      "근대골목",
+      "KTX",
+      "SRT"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/trips/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "autumn-flowers",
+    "icon": "🌸",
+    "title": "9월 말 경남 가을꽃 명소 10곳",
+    "section": "personal",
+    "description": "창원 용지아이파크 출발 기준 소요시간과 함께 보는 코스모스·메밀꽃·핑크뮬리·아스타국화 명소 10곳 안내 (주차·운영정보·FAQ·하루 코스)",
+    "tags": [
+      "가을꽃",
+      "코스모스",
+      "메밀꽃",
+      "핑크뮬리",
+      "아스타국화",
+      "경남여행",
+      "나들이"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/autumn-flowers/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "family-death-inheritance-guide-2026",
+    "icon": "🕊️",
+    "title": "가족 사망·상속 절차 가이드 (2026)",
+    "section": "personal",
+    "description": "가족 사망 시 필요한 상속 절차와 준비사항을 정리한 가이드",
+    "tags": [
+      "상속",
+      "사망신고",
+      "가족",
+      "절차"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/family_death_inheritance_guide_2026/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "orchid-guide",
+    "icon": "🪴",
+    "title": "난 키우는 법",
+    "section": "personal",
+    "description": "난 키우는 법",
+    "tags": [
+      "동양란",
+      "서양란"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/orchid-guide/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "drama-movie-quotes",
+    "icon": "🎬",
+    "title": "드라마·영화 명대사 모음",
+    "section": "personal",
+    "description": "드라마·영화·애니메이션의 마음에 남는 명대사를 검색하고 랜덤으로 감상하며 프레젠테이션으로도 볼 수 있는 명대사 모음",
+    "tags": [
+      "명대사",
+      "드라마",
+      "영화",
+      "애니메이션",
+      "위로",
+      "동기부여",
+      "프레젠테이션"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/drama-movie-quotes/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "neck-stretch",
+    "icon": "🧘",
+    "title": "목·어깨 자세 리셋 스트레칭",
+    "section": "personal",
+    "description": "아침 5분·퇴근 후 8분, 목과 어깨가 뻐근할 때 따라 하는 자세 리셋 스트레칭 영상",
+    "tags": [
+      "스트레칭",
+      "목",
+      "어깨",
+      "자세교정",
+      "건강"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/neck-stretch/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "sauce-recipes",
+    "icon": "🧂",
+    "title": "소스·양념 레시피 34종",
+    "section": "personal",
+    "description": "간장·고추장·마요·파스타 소스 등 34종의 재료·조리법과 알레르기·안전 안내, 선택 인쇄·조리 타이머를 갖춘 레시피 모음",
+    "tags": [
+      "소스",
+      "양념",
+      "레시피",
+      "요리"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/sauce-recipes/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "recipes",
+    "icon": "🍲",
+    "title": "우리집 레시피 앨범",
+    "section": "personal",
+    "description": "제육볶음·김치찌개·된장찌개와 대표 찌개 TOP 10까지 13가지 레시피를 사진으로 보고 요리 이름·재료로 검색",
+    "tags": [
+      "레시피",
+      "요리",
+      "찌개",
+      "제육볶음",
+      "김치찌개",
+      "된장찌개",
+      "집밥"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/recipes/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "commute-chinese",
+    "icon": "🀄",
+    "title": "출퇴근 실전중국어 코치",
+    "section": "personal",
+    "description": "운전 중 듣고 먼저 말하는 방식으로 익히는 70일 중국 본토 실전 중국어 (병음·성조·숫자 훈련 포함)",
+    "tags": [
+      "중국어",
+      "여행중국어",
+      "듣기말하기"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/commute-chinese/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "playhanja",
+    "icon": "🈶",
+    "title": "한자야 놀자! — 초등 애니메이션 한자 학습",
+    "section": "personal",
+    "description": "부수 애니메이션으로 배우는 초등 한자 학습 사이트",
+    "tags": [
+      "한자",
+      "초등",
+      "애니메이션",
+      "쓰기연습"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-09",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://playhanja.vercel.app/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "family-cash-gift-tax-guide-2026",
+    "icon": "💰",
+    "title": "가족 현금증여·홈택스 신고 실행 가이드 (2026)",
+    "section": "personal",
+    "description": "현금 증여 계약서 작성부터 홈택스 신고까지 따라하는 가이드",
+    "tags": [
+      "증여세",
+      "홈택스",
+      "가족",
+      "세금"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "family-cash-gift-tax-guide-2026.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "highway-rest-area-food",
+    "icon": "🍽️",
+    "title": "고속도로 휴게소 맛집",
+    "section": "personal",
+    "description": "전국 고속도로 휴게소별 추천 음식과 대표 메뉴를 찾아보는 맛집 가이드",
+    "tags": [
+      "고속도로",
+      "휴게소",
+      "맛집",
+      "여행"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/highway-rest-area-food/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "seoul-apartment-search",
+    "icon": "🏠",
+    "title": "딸의 서울 첫 주택 마련 가족 실행안",
+    "section": "personal",
+    "description": "딸의 서울 첫 주택 마련을 위한 가족 최종 실행안",
+    "tags": [
+      "주택",
+      "서울",
+      "가족"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "seoul-apartment-search.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "radio-shortcut",
+    "icon": "📻",
+    "title": "라디오 바로가기",
+    "section": "personal",
+    "description": "즐겨듣는 라디오 사이트 바로가기 모음",
+    "tags": [
+      "라디오",
+      "음악"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "BSOD 라디오",
+        "url": "https://radio.bsod.kr/",
+        "platform": "html"
+      },
+      {
+        "label": "수학쌤 라디오",
+        "url": "https://mathlhk15-glitch.github.io/radio/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "saengmaeksan-guide",
+    "icon": "🍹",
+    "title": "생맥산 만들기",
+    "section": "personal",
+    "description": "맥문동·오미자 등으로 만드는 여름 갈증해소 한방음료 레시피",
+    "tags": [
+      "한방",
+      "생맥산",
+      "여름음료"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "saengmaeksan-guide.png",
+        "platform": "image"
+      }
+    ]
+  },
+  {
+    "id": "laundry_pocket_guide",
+    "icon": "🧺",
+    "title": "속옷은 한 번, 브라는 2~3번…옷은 언제 빨아야 할까?",
+    "section": "personal",
+    "description": "속옷·브라 등 의류별 세탁 주기 가이드",
+    "tags": [
+      "세탁",
+      "생활정보"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "laundry_pocket_guide.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "elderly-appetite-guide",
+    "icon": "🍵",
+    "title": "식욕·소화불량·우울감 개선 가이드",
+    "section": "personal",
+    "description": "온음료+고단백 식사로 노인 식욕부진·소화불량 개선법",
+    "tags": [
+      "건강",
+      "노인식단",
+      "식욕부진"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "elderly-appetite-guide.png",
+        "platform": "image"
+      }
+    ]
+  },
+  {
+    "id": "trip-planner",
+    "icon": "🧳",
+    "title": "여행 플래너",
+    "section": "personal",
+    "description": "여행지와 일정을 정리하고 여행 계획을 세우는 도구",
+    "tags": [
+      "여행",
+      "여행계획",
+      "일정"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/trip-planner/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "jaunggo-guide",
+    "icon": "🌿",
+    "title": "자운고 만들기",
+    "section": "personal",
+    "description": "자근·당귀·진피·감초로 만드는 전통 한방 연고, 효능·준비물·제조법 정리",
+    "tags": [
+      "한방",
+      "자운고",
+      "천연연고"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "jaunggo-guide.png",
+        "platform": "image"
+      }
+    ]
+  },
+  {
+    "id": "commute-english",
+    "icon": "🗣️",
+    "title": "출퇴근 여행영어 코치",
+    "section": "personal",
+    "description": "운전 중 듣고 먼저 말하는 방식으로 익히는 70일 여행 생존 영어",
+    "tags": [
+      "여행영어",
+      "영어",
+      "듣기말하기"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "commute-english.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "breakfast-soup",
+    "icon": "🍲",
+    "title": "한 달 아침국 30가지",
+    "section": "personal",
+    "description": "가족 식단을 위한 한 달치 아침국 추천 및 계획 도구",
+    "tags": [
+      "아침국",
+      "식단",
+      "가족"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-08",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "breakfast_soup.html",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "44law",
+    "icon": "☘️",
+    "title": "재미난 44가지 법칙",
+    "section": "personal",
+    "description": "재미난 44가지 법칙",
+    "tags": [
+      "재미",
+      "머피의 법칙",
+      "44가지"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/44law",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "good-writingt",
+    "icon": "⚔️",
+    "title": "좋은 글 모음",
+    "section": "personal",
+    "description": "좋은 글 모음",
+    "tags": [
+      "좋은 글"
+    ],
+    "featured": false,
+    "isNew": false,
+    "updatedAt": "2026-05",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/good-writing",
+        "platform": "html"
+      }
+    ]
+  }
 ];
