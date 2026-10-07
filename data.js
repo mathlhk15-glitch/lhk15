@@ -12,8 +12,12 @@ const SECTIONS = {
     "desc": "의약학·간호·체육·교대사범·이공계 등 계열별 전형과 논술 자료"
   },
   "career-explore": {
-    "label": "🔬 진로·학과·탐구",
-    "desc": "진로검사, 학과 탐색, 전공 비교, 탐구 주제 설계와 상담 자료"
+    "label": "🧭 진로·학과 탐색",
+    "desc": "진로검사, 학과 탐색, 전공 비교, 직업·진로 상담 자료"
+  },
+  "inquiry-research": {
+    "label": "🔬 탐구·연구 활동",
+    "desc": "질문 만들기부터 탐구 설계·수행·점검·성장 기록까지 이어지는 학생 탐구 도구"
   },
   "student-growth": {
     "label": "✏️ 학생부·세특·면접",
@@ -773,10 +777,34 @@ const resources = [
     ]
   },
   {
+    "id": "gyeongil-growth-hub",
+    "icon": "🌱",
+    "title": "경일 진로·탐구 성장 허브",
+    "section": "inquiry-research",
+    "description": "진로·탐구 사이트를 한곳에서 연결한 공식 시작점. 관심 발견 → 주제·탐구 → 도움 → 성장 → 내 탐구노트 흐름으로 안내",
+    "tags": [
+      "통합허브",
+      "진로탐구",
+      "탐구설계",
+      "탐구노트",
+      "학생용"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/gyeongil-growth-hub/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
     "id": "career-exploration-tool",
     "icon": "🧭",
     "title": "진로 탐구 길잡이",
-    "section": "career-explore",
+    "section": "inquiry-research",
     "description": "학년과 희망 진로를 고르면 우리 학교 교육과정과 연결된 탐구 주제·탐구 질문·활동 방법·보고서 작성까지 4단계로 안내하는 고등학생용 진로 탐구 도우미 (입력 내용은 기기 브라우저에만 저장)",
     "tags": [
       "진로탐구",
@@ -826,7 +854,7 @@ const resources = [
     "id": "arts-inquiry-guide",
     "icon": "🎨",
     "title": "예체능 탐구 가이드",
-    "section": "career-explore",
+    "section": "inquiry-research",
     "description": "예체능 활동에서 질문 만들고 교과 개념과 연결하는 탐구법 안내",
     "tags": [
       "예체능",
@@ -849,12 +877,12 @@ const resources = [
   {
     "id": "career-lab",
     "icon": "🏫",
-    "title": "내 경헙에서 시작하는 진로 실험실",
-    "section": "career-explore",
+    "title": "내 경험에서 시작하는 진로 실험실",
+    "section": "inquiry-research",
     "description": "진로 가설 → 질문 → 탐구 설계 → 성장 로드맵",
     "tags": [
       "질문",
-      "텀구 설계",
+      "탐구 설계",
       "성장로드맵"
     ],
     "featured": true,
@@ -938,7 +966,7 @@ const resources = [
     "id": "modu-dept-map",
     "icon": "🗺️",
     "title": "박상근 선생님의 모두의 학과별 탐구 지도",
-    "section": "career-explore",
+    "section": "inquiry-research",
     "description": "학과별 탐구 주제와 방향을 탐색할 수 있는 콘솔",
     "tags": [
       "박상근",
@@ -1093,7 +1121,7 @@ const resources = [
     "id": "question-helper",
     "icon": "💡",
     "title": "수업 후 질문·탐구 주제 도우미",
-    "section": "career-explore",
+    "section": "inquiry-research",
     "description": "수업 후 질문 확장·탐구 주제 발굴을 돕는 AI 도구",
     "tags": [
       "탐구",
@@ -1120,7 +1148,7 @@ const resources = [
     "id": "news-inquiry",
     "icon": "📰",
     "title": "오늘의 뉴스로 탐구활동 만들기",
-    "section": "career-explore",
+    "section": "inquiry-research",
     "description": "시사 뉴스를 기반으로 수업 연계 탐구활동지를 자동 생성하는 AI 도구",
     "tags": [
       "탐구",
@@ -1193,7 +1221,7 @@ const resources = [
     "id": "seteuk-guide",
     "icon": "🎒",
     "title": "질문이 배움이 되는 순간 — 학생용 수업·탐구·세특 종합 안내서",
-    "section": "student-growth",
+    "section": "inquiry-research",
     "description": "궁금증을 탐구로 잇는 4단계 방법과 교과별 예시 61가지 안내서",
     "tags": [
       "세특",
