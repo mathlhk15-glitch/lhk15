@@ -1723,6 +1723,34 @@ const resources = [
     ]
   },
   {
+    "id": "2028-check",
+    "icon": "✅",
+    "title": "2028 대입 대응 부서별 점검 현황판",
+    "section": "staff-training",
+    "description": "2028 대입 변화(성취도·과목 선택·세특)에 맞춰 교육과정–수업–평가–학생부–진학 14개 항목을 업무분장 기준 6개 부서가 나눠 점검하고, 입력 즉시 현황판에 실시간 반영",
+    "tags": [
+      "2028",
+      "대입",
+      "점검표",
+      "업무분장",
+      "부서별",
+      "교육과정",
+      "성취평가",
+      "학생부",
+      "협의회"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/2028-check/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
     "id": "dorm-outing",
     "icon": "🏠",
     "title": "기숙사 외출·외박 신청",
