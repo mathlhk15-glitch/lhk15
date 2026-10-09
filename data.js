@@ -51,6 +51,20 @@ const SECTIONS = {
 //    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
   {
+    "id": "checkup-guide-2026",
+    "icon": "🩺",
+    "title": "똑똑한 건강검진 2026 — 맞춤형 검진·준비 가이드",
+    "section": "personal",
+    "description": "국가암검진 대상 간이 확인, 검사 26종 검색, 검진 일정·체크리스트·재검 기록 관리, 쉬운 설명과 인포그래픽 6장",
+    "tags": ["건강검진", "국가암검진", "6대 암검진", "검진 대상", "검사 선택", "인포그래픽", "검진 준비", "검진 일정", "체크리스트", "건강관리"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {"label": "바로가기", "url": "https://mathlhk15-glitch.github.io/checkup-guide-2026/", "platform": "html"}
+    ]
+  },
+  {
     "id": "2028-daeip-teacher-guide",
     "icon": "📘",
     "title": "2028 대입, 교사가 먼저 읽는 해설집",
