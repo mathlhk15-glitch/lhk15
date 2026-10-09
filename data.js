@@ -51,6 +51,20 @@ const SECTIONS = {
 //    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
   {
+    "id": "daily-health-guid",
+    "icon": "💪",
+    "title": "피부·건강 가이드 — 매일 실천 루틴",
+    "section": "personal",
+    "description": "피부 보습·자외선 관리, 학교 일과 맞춤 운동, 식사 원칙, 체중·허리둘레·골격근량·체지방 기록을 한곳에서 관리하는 모바일 건강 가이드",
+    "tags": ["건강관리", "피부", "건성", "보습", "운동", "식단", "체중관리", "인바디", "기록", "모바일"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {"label": "바로가기", "url": "https://mathlhk15-glitch.github.io/daily-health-guid/", "platform": "html"}
+    ]
+  },
+  {
     "id": "checkup-guide-2026",
     "icon": "🩺",
     "title": "똑똑한 건강검진 2026 — 맞춤형 검진·준비 가이드",
