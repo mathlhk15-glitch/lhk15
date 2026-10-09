@@ -35,6 +35,10 @@ const SECTIONS = {
     "label": "🏫 교직원 연수·학교업무",
     "desc": "교직원 연수, 기숙사·안전·업무 효율 등 학교 실무 자료"
   },
+  "creative-open-source": {
+    "label": "🎨 무료 디자인·영상·PDF 도구",
+    "desc": "ArtCraft 오픈소스 프로그램 7종: 공식 안내·GitHub 저장소·설치 정보 (개발 초기, 기능 및 배포 상태 확인 필요)"
+  },
   "external-links": {
     "label": "🔗 외부 유용 자료",
     "desc": "타 기관·타 교사가 제공하는 참고용 외부 링크"
@@ -50,6 +54,190 @@ const SECTIONS = {
 //    정렬 기준: 분야별 묶음 → 추천(featured) 우선 → 최근 업데이트 순
 //    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
+  {
+    "id": "artcraft-overview",
+    "icon": "🎨",
+    "title": "ArtCraft — 무료 창작 도구 전체 안내",
+    "section": "creative-open-source",
+    "description": "사진·영상·벡터·PDF·편집 도구 7종을 확인하는 공식 앱 목록. 사용 전 운영체제 지원·설치 방법 확인.",
+    "tags": [
+      "ArtCraft",
+      "공식 안내",
+      "앱 모음",
+      "설치"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "공식 사이트",
+        "url": "https://getartcraft.com/apps",
+        "platform": "web"
+      }
+    ]
+  },
+  {
+    "id": "artcraft-photocraft",
+    "icon": "🖼️",
+    "title": "PhotoCraft — 사진 편집 (포토샵 계열)",
+    "section": "creative-open-source",
+    "description": "사진 편집·레이어·PSD 관련 기능을 개발하는 오픈소스. 사용 가능 범위와 설치 파일은 GitHub에서 확인.",
+    "tags": [
+      "사진",
+      "포토샵",
+      "PSD",
+      "PhotoCraft"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "GitHub 바로가기",
+        "url": "https://github.com/storytold/photocraft",
+        "platform": "github"
+      }
+    ]
+  },
+  {
+    "id": "artcraft-vectorcraft",
+    "icon": "✒️",
+    "title": "VectorCraft — 벡터·로고 디자인",
+    "section": "creative-open-source",
+    "description": "벡터 일러스트·도형·로고 제작을 지향하는 오픈소스. 기능 완성도 확인 후 활용.",
+    "tags": [
+      "일러스트레이터",
+      "로고",
+      "벡터",
+      "VectorCraft"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "GitHub 바로가기",
+        "url": "https://github.com/storytold/vectorcraft",
+        "platform": "github"
+      }
+    ]
+  },
+  {
+    "id": "artcraft-filmcraft",
+    "icon": "🎬",
+    "title": "FilmCraft — 영상 편집",
+    "section": "creative-open-source",
+    "description": "영상 컷 편집·타임라인 등을 지향하는 오픈소스 영상 편집 프로젝트.",
+    "tags": [
+      "프리미어",
+      "영상 편집",
+      "FilmCraft"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "GitHub 바로가기",
+        "url": "https://github.com/storytold/filmcraft",
+        "platform": "github"
+      }
+    ]
+  },
+  {
+    "id": "artcraft-lightcraft",
+    "icon": "📷",
+    "title": "LightCraft — 사진 보정·현상",
+    "section": "creative-open-source",
+    "description": "사진의 노출·색상·보정을 지향하는 오픈소스 프로젝트.",
+    "tags": [
+      "라이트룸",
+      "사진 색감",
+      "사진 보정",
+      "LightCraft"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "GitHub 바로가기",
+        "url": "https://github.com/storytold/lightcraft",
+        "platform": "github"
+      }
+    ]
+  },
+  {
+    "id": "artcraft-pdfcraft",
+    "icon": "📕",
+    "title": "PDFCraft — PDF 문서 도구",
+    "section": "creative-open-source",
+    "description": "PDF 열람·편집 등 Acrobat 계열 기능을 지향하는 프로젝트. 과거 PrintCraft 링크에서 저장소 명칭 변경.",
+    "tags": [
+      "PDF",
+      "아크로뱃",
+      "PrintCraft",
+      "PDFCraft"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "GitHub 바로가기",
+        "url": "https://github.com/storytold/pdfcraft",
+        "platform": "github"
+      }
+    ]
+  },
+  {
+    "id": "artcraft-effectcraft",
+    "icon": "✨",
+    "title": "EffectCraft — 영상 효과·모션",
+    "section": "creative-open-source",
+    "description": "영상 효과·모션그래픽을 지향하는 오픈소스 프로젝트. 실제 구현 기능 확인 필요.",
+    "tags": [
+      "애프터이펙트",
+      "특수효과",
+      "모션그래픽",
+      "EffectCraft"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "GitHub 바로가기",
+        "url": "https://github.com/storytold/effectcraft",
+        "platform": "github"
+      }
+    ]
+  },
+  {
+    "id": "artcraft-designcraft",
+    "icon": "📐",
+    "title": "DesignCraft — 책자·편집 디자인",
+    "section": "creative-open-source",
+    "description": "인쇄물·책자 편집을 지향하는 오픈소스 프로젝트. 실제 구현 기능 확인 필요.",
+    "tags": [
+      "인디자인",
+      "책자",
+      "교지",
+      "DesignCraft"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "GitHub 바로가기",
+        "url": "https://github.com/storytold/designcraft",
+        "platform": "github"
+      }
+    ]
+  },
+
   {
     "id": "daily-health-guid",
     "icon": "💪",
