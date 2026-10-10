@@ -55,6 +55,36 @@ const SECTIONS = {
 //    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
   {
+    "id": "hotel-best-price-guide",
+    "icon": "🏨",
+    "title": "호텔 최저가 예약 가이드 — OTA 가격·할인 비교",
+    "section": "personal",
+    "description": "아고다·트립닷컴·부킹닷컴 등 호텔 예약 사이트의 회원가·쿠폰·캐시백·결제 통화를 비교하고, 최종 부담액 계산과 무료 취소 마감 알림을 관리하는 실전 가이드",
+    "tags": [
+      "호텔",
+      "숙박",
+      "최저가",
+      "OTA",
+      "아고다",
+      "트립닷컴",
+      "부킹닷컴",
+      "가격 비교",
+      "해외여행",
+      "환율",
+      "무료 취소"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/hotel-best-price-guide/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
     "id": "artcraft-overview",
     "icon": "🎨",
     "title": "ArtCraft — 무료 창작 도구 전체 안내",
