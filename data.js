@@ -57,9 +57,9 @@ const resources = [
   {
     "id": "k1-riasec",
     "icon": "🧬",
-    "title": "2027 창원경일고 신입생 맞춤 진로 DNA 탐색 (24문항)",
+    "title": "2027 창원경일고 신입생 맞춤 진로 DNA 탐색 (36문항)",
     "section": "career-explore",
-    "description": "홀랜드 24문항 진로검사와 직업 120개 탐색, 경일고 맞춤 선택과목 안내",
+    "description": "홀랜드 36문항 진로검사와 직업 120개 탐색, 경일고 맞춤 선택과목 안내",
     "tags": ["창원경일고", "2027 신입생", "고교학점제", "학교 교육과정", "홀랜드", "RIASEC", "진로검사", "24문항", "직업탐색", "선택과목", "진로 DNA"],
     "featured": true,
     "isNew": true,
