@@ -59,7 +59,7 @@ const resources = [
     "icon": "🧬",
     "title": "2027 창원경일고 신입생 맞춤 진로 DNA 탐색 (24문항)",
     "section": "career-explore",
-    "description": "2027학년도 창원경일고 입학생의 3개년 교육과정 편성표에 맞춰 홀랜드 24문항 흥미 탐색, 직업 120개 탐색, 계열·전공 및 학교 편성 과목 안내를 연결하는 모바일 진로 도구. 대학별 권장과목은 2028학년도 자료를 참고 사례로 제공하며 2030학년도 대입 기준과 구분합니다.",
+    "description": "홀랜드 24문항 진로검사와 직업 120개 탐색, 경일고 맞춤 선택과목 안내",
     "tags": ["창원경일고", "2027 신입생", "고교학점제", "학교 교육과정", "홀랜드", "RIASEC", "진로검사", "24문항", "직업탐색", "선택과목", "진로 DNA"],
     "featured": true,
     "isNew": true,
@@ -71,7 +71,7 @@ const resources = [
     "icon": "🏨",
     "title": "호텔 최저가 예약 가이드 — OTA 가격·할인 비교",
     "section": "personal",
-    "description": "아고다·트립닷컴·부킹닷컴 등 호텔 예약 사이트의 회원가·쿠폰·캐시백·결제 통화를 비교하고, 최종 부담액 계산과 무료 취소 마감 알림을 관리하는 실전 가이드",
+    "description": "호텔 예약사이트 가격·할인 비교와 최저가 예약 팁",
     "tags": [
       "호텔",
       "숙박",
@@ -101,7 +101,7 @@ const resources = [
     "icon": "🎨",
     "title": "ArtCraft — 무료 창작 도구 전체 안내",
     "section": "creative-open-source",
-    "description": "사진·영상·벡터·PDF·편집 도구 7종을 확인하는 공식 앱 목록. 사용 전 운영체제 지원·설치 방법 확인.",
+    "description": "사진·영상·PDF 등 무료 창작 도구 7종 안내",
     "tags": [
       "ArtCraft",
       "공식 안내",
@@ -124,7 +124,7 @@ const resources = [
     "icon": "🖼️",
     "title": "PhotoCraft — 사진 편집 (포토샵 계열)",
     "section": "creative-open-source",
-    "description": "사진 편집·레이어·PSD 관련 기능을 개발하는 오픈소스. 사용 가능 범위와 설치 파일은 GitHub에서 확인.",
+    "description": "오픈소스 사진 편집 도구와 개발 현황",
     "tags": [
       "사진",
       "포토샵",
@@ -147,7 +147,7 @@ const resources = [
     "icon": "✒️",
     "title": "VectorCraft — 벡터·로고 디자인",
     "section": "creative-open-source",
-    "description": "벡터 일러스트·도형·로고 제작을 지향하는 오픈소스. 기능 완성도 확인 후 활용.",
+    "description": "벡터·로고 디자인 오픈소스 프로젝트",
     "tags": [
       "일러스트레이터",
       "로고",
@@ -170,7 +170,7 @@ const resources = [
     "icon": "🎬",
     "title": "FilmCraft — 영상 편집",
     "section": "creative-open-source",
-    "description": "영상 컷 편집·타임라인 등을 지향하는 오픈소스 영상 편집 프로젝트.",
+    "description": "영상 편집 오픈소스 프로젝트",
     "tags": [
       "프리미어",
       "영상 편집",
@@ -215,7 +215,7 @@ const resources = [
     "icon": "📕",
     "title": "PDFCraft — PDF 문서 도구",
     "section": "creative-open-source",
-    "description": "PDF 열람·편집 등 Acrobat 계열 기능을 지향하는 프로젝트. 과거 PrintCraft 링크에서 저장소 명칭 변경.",
+    "description": "PDF 편집 오픈소스 프로젝트와 저장소 안내",
     "tags": [
       "PDF",
       "아크로뱃",
@@ -238,7 +238,7 @@ const resources = [
     "icon": "✨",
     "title": "EffectCraft — 영상 효과·모션",
     "section": "creative-open-source",
-    "description": "영상 효과·모션그래픽을 지향하는 오픈소스 프로젝트. 실제 구현 기능 확인 필요.",
+    "description": "영상 효과·모션그래픽 오픈소스 프로젝트",
     "tags": [
       "애프터이펙트",
       "특수효과",
@@ -261,7 +261,7 @@ const resources = [
     "icon": "📐",
     "title": "DesignCraft — 책자·편집 디자인",
     "section": "creative-open-source",
-    "description": "인쇄물·책자 편집을 지향하는 오픈소스 프로젝트. 실제 구현 기능 확인 필요.",
+    "description": "책자·인쇄물 편집 오픈소스 프로젝트",
     "tags": [
       "인디자인",
       "책자",
@@ -285,7 +285,7 @@ const resources = [
     "icon": "💪",
     "title": "피부·건강 가이드 — 매일 실천 루틴",
     "section": "personal",
-    "description": "피부 보습·자외선 관리, 학교 일과 맞춤 운동, 식사 원칙, 체중·허리둘레·골격근량·체지방 기록을 한곳에서 관리하는 모바일 건강 가이드",
+    "description": "피부 관리·운동·식단·체성분 기록을 위한 건강 루틴",
     "tags": ["건강관리", "피부", "건성", "보습", "운동", "식단", "체중관리", "인바디", "기록", "모바일"],
     "featured": false,
     "isNew": true,
@@ -299,7 +299,7 @@ const resources = [
     "icon": "🩺",
     "title": "똑똑한 건강검진 2026 — 맞춤형 검진·준비 가이드",
     "section": "personal",
-    "description": "국가암검진 대상 간이 확인, 검사 26종 검색, 검진 일정·체크리스트·재검 기록 관리, 쉬운 설명과 인포그래픽 6장",
+    "description": "건강검진 항목 검색과 준비·일정 관리",
     "tags": ["건강검진", "국가암검진", "6대 암검진", "검진 대상", "검사 선택", "인포그래픽", "검진 준비", "검진 일정", "체크리스트", "건강관리"],
     "featured": false,
     "isNew": true,
@@ -313,7 +313,7 @@ const resources = [
     "icon": "📘",
     "title": "2028 대입, 교사가 먼저 읽는 해설집",
     "section": "admission-core",
-    "description": "고교학점제·내신 5등급제·통합형 수능과 2028학년도 대입 시행계획을 교사 상담 관점에서 쉽게 풀어 정리한 배포용 해설집",
+    "description": "2028 대입 변화와 대학별 전형의 교사용 해설",
     "tags": [
       "2028",
       "대입",
@@ -340,7 +340,7 @@ const resources = [
     "icon": "🐼",
     "title": "경일 진학상담 Navigator — 성적입력·입결탐색 통합",
     "section": "admission-core",
-    "description": "성적 입력 → 입결 비교·학과 비교·상담 리포트 통합 처리 (학교 내부 상담용)",
+    "description": "성적 입력·입결·학과 비교를 한곳에서 관리",
     "tags": [
       "수시",
       "정시",
@@ -523,7 +523,7 @@ const resources = [
     "icon": "🎯",
     "title": "2027학년도 9월 모평 대학·학과 탐색기",
     "section": "admission-support",
-    "description": "9월 모평 성적(표준점수·백분위)을 넣으면 179개 대학 4,133개 모집단위의 지원참고점수와 내 비교점수 차이를 계산. 대학·학과·지역별 검색, 정렬, 관심목록·가나다군 조합, 인쇄·CSV 저장 (이투스 실채점 지원참고표 기준)",
+    "description": "9월 모평 성적으로 179개 대학·4,133개 모집단위 탐색",
     "tags": [
       "정시",
       "배치표",
@@ -595,7 +595,7 @@ const resources = [
     "icon": "🧭",
     "title": "경일 내신·학과 진학 나침반 2028",
     "section": "admission-support",
-    "description": "5등급 내신 평균 하나로 내 위치 확인 → 학과군별 탐색 대학(대학어디가 2025·2026 입결) + 경일 선배 지원 사례까지 (1·2학년 학생·학부모용)",
+    "description": "5등급 내신과 대학 입결·경일고 선배 사례 비교",
     "tags": [
       "5등급",
       "내신",
@@ -1011,7 +1011,7 @@ const resources = [
     "icon": "🎴",
     "title": "대학 전공별 현실 밈 백과사전",
     "section": "career-explore",
-    "description": "172개 학과를 한 줄 현실 밈 카드로 만나고, 카드 뽑기·관심 학과 담기·최대 4개 비교 후 커리어넷·대학어디가 공식 정보로 이어서 확인",
+    "description": "172개 학과의 특징을 재미있게 탐색·비교",
     "tags": [
       "학과탐색",
       "전공",
@@ -1039,7 +1039,7 @@ const resources = [
     "icon": "🌱",
     "title": "경일 진로·탐구 성장 허브",
     "section": "inquiry-research",
-    "description": "진로·탐구 활동을 어디서 시작할지 막막할 때 여는 통합 입구. 관심 발견 → 주제·탐구 → 도움 → 성장 → 내 탐구노트 흐름으로 관련 도구를 한곳에서 안내",
+    "description": "관심 발견부터 탐구 설계·성장 기록까지 한곳에",
     "tags": [
       "통합허브",
       "시작점",
@@ -1064,7 +1064,7 @@ const resources = [
     "icon": "🧭",
     "title": "진로 탐구 길잡이",
     "section": "inquiry-research",
-    "description": "내 진로로 무엇을 탐구할지 정하는 탐구 설계 도구. 학년과 희망 진로를 고르면 우리 학교 교육과정과 연결해 탐구 주제 → 질문 → 활동 방법 → 보고서 작성까지 4단계로 안내 (입력 내용은 기기 브라우저에만 저장)",
+    "description": "진로·학년별 탐구 주제 선정부터 보고서 작성까지",
     "tags": [
       "진로탐구",
       "탐구설계",
@@ -1091,7 +1091,7 @@ const resources = [
     "icon": "📝",
     "title": "수업에서 시작하는 좋은 학교생활기록",
     "section": "inquiry-research",
-    "description": "어떤 활동이 좋은 기록으로 이어지는지 알려 주는 원리·실천 안내. 수업 → 질문 → 탐구 → 근거 → 역할 → 생각의 변화 → 다음 질문의 7단계와 활동 후 탐구노트·자기점검을 제공",
+    "description": "수업 활동을 질문·탐구·성장 기록으로 연결하는 방법",
     "tags": [
       "학생부",
       "학교생활기록부",
@@ -1121,7 +1121,7 @@ const resources = [
     "icon": "🧠",
     "title": "성격유형 자기이해 프로그램",
     "section": "career-explore",
-    "description": "93문항 성격유형 검사와 선호지표·학습 특성·강점·성찰 내용을 함께 확인하는 자기이해 도구",
+    "description": "93문항 성격검사와 학습 특성·강점 탐색",
     "tags": [
       "성격유형",
       "자기이해",
@@ -1485,7 +1485,7 @@ const resources = [
     "icon": "🗣️",
     "title": "박상근 선생님의 모두의 학생·학부모를 위한 자기주도 면접 연습기",
     "section": "student-growth",
-    "description": "음성 질문에 답하면 표정·자세를 분석해 점수·피드백을 주는 면접 연습기 (노트북+Chrome 권장)",
+    "description": "음성 답변과 표정·자세 피드백으로 면접 연습",
     "tags": [
       "박상근",
       "면접",
@@ -1741,7 +1741,7 @@ const resources = [
     "icon": "🎯",
     "title": "2027 수능 마무리 수험전략 가이드",
     "section": "curriculum",
-    "description": "수능 D-Day에 맞춰 오늘의 학습 포커스, 성적대별·영역별 마무리 전략, 생활·컨디션 관리, 전날·당일 체크리스트와 주요 일정을 한눈에 확인하는 수험생 실전 가이드",
+    "description": "수능 D-Day별 학습 전략과 시험 전후 체크리스트",
     "tags": [
       "2027",
       "수능",
@@ -1768,7 +1768,7 @@ const resources = [
     "icon": "📘",
     "title": "고등학생 공부법 × 생기부 실천 가이드",
     "section": "curriculum",
-    "description": "공부와 학교생활을 어떻게 실천할지 알려 주는 학습·생활 가이드. 세종우리누리 선배 멘토의 과목별 공부법 17편과 학교생활기록부 가이드 9편을 핵심 요약·오늘의 실천·원문·기록 도구와 함께 제공",
+    "description": "과목별 공부법 17편과 학생부 실천 가이드 9편",
     "tags": [
       "공부법",
       "생기부",
@@ -1886,7 +1886,7 @@ const resources = [
     "icon": "👨‍🏫",
     "title": "경남전자고 교원 생성형 AI 1시간 실습연수",
     "section": "ai-learning",
-    "description": "경남전자고 선생님 대상 60분 실습형 연수 복습자료. 무료 Gemini로 Gem 1회 체험, 나만의 웹페이지 제작, index.html 만들기, GitHub Pages 공개까지 연수 내용을 단계별로 다시 따라할 수 있는 가이드",
+    "description": "Gemini·웹페이지 제작·GitHub 배포 실습",
     "tags": [
       "경남전자고",
       "교원연수",
@@ -1916,7 +1916,7 @@ const resources = [
     "icon": "🏷️",
     "title": "프롬프트 태그와 교차검수 실습 노트",
     "section": "ai-learning",
-    "description": "ChatGPT·Gemini·Claude에 쓰는 핵심 태그 12개, 다중 AI 교차검수 흐름, 프롬프트 조립기·태그 사전·/clean·세특 바이트 계산기 포함",
+    "description": "AI 프롬프트 태그 12개와 교차검수 실습",
     "tags": [
       "프롬프트",
       "ChatGPT",
@@ -1943,7 +1943,7 @@ const resources = [
     "icon": "🧑‍💼",
     "title": "AI 대화형 vs 에이전트형 쉽게 이해하기",
     "section": "ai-learning",
-    "description": "ChatGPT Chat·Work, Claude·Cowork, Perplexity Search·Computer의 차이를 도식·비교표·타임라인·O/X 퀴즈·업무 지시서 조립기로 정리한 공부 노트 (2026년 9월 말 기준)",
+    "description": "대화형 AI와 에이전트형 AI 비교·실습",
     "tags": [
       "AI 에이전트",
       "ChatGPT",
@@ -1995,7 +1995,7 @@ const resources = [
     "icon": "🧪",
     "title": "Claude Code 따라하기 실습 노트",
     "section": "ai-learning",
-    "description": "작은 웹도구 하나로 CLAUDE.md·Plan Mode·테스트·Rewind·Git·Skill·Subagent·GitHub Pages 배포까지 7차시로 따라 하는 실습서",
+    "description": "Claude Code 기본 기능부터 웹 배포까지 7차시 실습",
     "tags": [
       "Claude Code",
       "AI 에이전트",
@@ -2021,7 +2021,7 @@ const resources = [
     "icon": "💎",
     "title": "Gemini 프롬프트 모음",
     "section": "ai-learning",
-    "description": "Gemini 활용에 필요한 프롬프트를 찾아보고 업무·수업에 적용할 수 있도록 정리한 자료",
+    "description": "Gemini 활용에 필요한 프롬프트를 찾아보고 업무·수업에 적용할 수 있도록",
     "tags": [
       "Gemini",
       "프롬프트",
@@ -2045,7 +2045,7 @@ const resources = [
     "icon": "✅",
     "title": "2028 대입 대응 부서별 점검 현황판",
     "section": "staff-training",
-    "description": "2028 대입 변화(성취도·과목 선택·세특)에 맞춰 교육과정–수업–평가–학생부–진학 14개 항목을 업무분장 기준 6개 부서가 나눠 점검하고, 입력 즉시 현황판에 실시간 반영",
+    "description": "2028 대입 대비 학교 6개 부서별 14개 점검항목",
     "tags": [
       "2028",
       "대입",
@@ -2073,7 +2073,7 @@ const resources = [
     "icon": "🏠",
     "title": "기숙사 외출·외박 신청",
     "section": "staff-training",
-    "description": "기숙사생은 호실·이름·비밀번호로 외출·외박을 신청하고, 사감 선생님은 날짜별 외출·외박자의 호실·이름·사유를 휴대폰으로 확인",
+    "description": "기숙사생 외출·외박 신청과 사감 확인",
     "tags": [
       "기숙사",
       "외출",
@@ -2099,7 +2099,7 @@ const resources = [
     "icon": "🔥",
     "title": "2026 기숙사 화재대피훈련 통합 안전 가이드",
     "section": "staff-training",
-    "description": "창원경일고등학교 기숙사 야간 화재대피훈련을 위한 학생 안전교육·훈련 시나리오·역할 분담·운영 기록·사후 점검 가이드",
+    "description": "기숙사 야간 화재대피 교육·훈련·점검",
     "tags": [
       "화재",
       "기숙사",
@@ -2126,7 +2126,7 @@ const resources = [
     "icon": "⌨️",
     "title": "업무용 PC 단축키 검색 가이드",
     "section": "staff-training",
-    "description": "Windows·브라우저·파일·Excel·한글(HWP) 단축키 119개를 기능·키로 검색. HWP Ctrl+Y 등 프로그램별 차이와 주의 단축키 안내",
+    "description": "PC·Excel·한글 등 업무 단축키 119개 검색",
     "tags": [
       "단축키",
       "컴퓨터",
@@ -2154,7 +2154,7 @@ const resources = [
     "icon": "🏫",
     "title": "창원경일고등학교 교직원 연수 포털",
     "section": "staff-training",
-    "description": "복무·공문서·청렴·학교회계·교육활동 보호 등 교직원 연수자료를 한곳에서 검색·열람·인쇄",
+    "description": "복무·공문서·청렴 등 교직원 연수자료 모음",
     "tags": [
       "교직원",
       "연수",
@@ -2224,7 +2224,7 @@ const resources = [
     "icon": "🔍",
     "title": "겸재를 가까이 보다 — 겸재 정선 디테일 아카이브",
     "section": "personal",
-    "description": "대구간송미술관 특별전 《겸재 정선 - 조선의 눈으로 조선을 그리다》에서 찍은 디테일 사진 25장을 사람·배·동물·곤충·나무와 집·붓·전체 7개 장으로 정리. 확대경, 확신도(확인·유력·미확인) 표시, 숨은 디테일 찾기 퀴즈, 장면별 메모 기능",
+    "description": "겸재 정선 작품 사진 25장과 숨은 디테일 탐색",
     "tags": [
       "겸재",
       "정선",
@@ -2253,7 +2253,7 @@ const resources = [
     "icon": "🧭",
     "title": "여행 당일 실행 체크리스트 (유동 일정)",
     "section": "personal",
-    "description": "여행 당일 폰으로 보며 따라가는 일정표. 일정마다 체크하고, 지연·순서 변경·건너뛰기를 하면 이후 시각과 귀가 열차까지 자동으로 다시 계산되며, 다음 장소는 네이버 길찾기로 바로 연결 (첫 일정: 2026.10.3 대구 간송미술관·근대골목)",
+    "description": "일정 변경 시 이동·귀가 시간을 다시 계산하는 여행표",
     "tags": [
       "여행",
       "일정표",
@@ -2282,7 +2282,7 @@ const resources = [
     "icon": "🌸",
     "title": "9월 말 경남 가을꽃 명소 10곳",
     "section": "personal",
-    "description": "창원 용지아이파크 출발 기준 소요시간과 함께 보는 코스모스·메밀꽃·핑크뮬리·아스타국화 명소 10곳 안내 (주차·운영정보·FAQ·하루 코스)",
+    "description": "경남 가을꽃 명소 10곳과 주차·여행 코스",
     "tags": [
       "가을꽃",
       "코스모스",
@@ -2352,7 +2352,7 @@ const resources = [
     "icon": "🎬",
     "title": "드라마·영화 명대사 모음",
     "section": "personal",
-    "description": "드라마·영화·애니메이션의 마음에 남는 명대사를 검색하고 랜덤으로 감상하며 프레젠테이션으로도 볼 수 있는 명대사 모음",
+    "description": "드라마·영화 명대사 검색·감상",
     "tags": [
       "명대사",
       "드라마",
@@ -2402,7 +2402,7 @@ const resources = [
     "icon": "🧂",
     "title": "소스·양념 레시피 34종",
     "section": "personal",
-    "description": "간장·고추장·마요·파스타 소스 등 34종의 재료·조리법과 알레르기·안전 안내, 선택 인쇄·조리 타이머를 갖춘 레시피 모음",
+    "description": "소스·양념 34종의 재료와 조리법",
     "tags": [
       "소스",
       "양념",
@@ -2425,7 +2425,7 @@ const resources = [
     "icon": "🍲",
     "title": "우리집 레시피 앨범",
     "section": "personal",
-    "description": "제육볶음·김치찌개·된장찌개와 대표 찌개 TOP 10까지 13가지 레시피를 사진으로 보고 요리 이름·재료로 검색",
+    "description": "사진으로 보는 집밥 레시피 13가지",
     "tags": [
       "레시피",
       "요리",
@@ -2451,7 +2451,7 @@ const resources = [
     "icon": "🀄",
     "title": "출퇴근 실전중국어 코치",
     "section": "personal",
-    "description": "운전 중 듣고 먼저 말하는 방식으로 익히는 70일 중국 본토 실전 중국어 (병음·성조·숫자 훈련 포함)",
+    "description": "듣고 말하며 익히는 70일 실전 중국어",
     "tags": [
       "중국어",
       "여행중국어",
