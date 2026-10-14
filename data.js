@@ -55,6 +55,18 @@ const SECTIONS = {
 //    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
   {
+    "id": "k1-riasec",
+    "icon": "🧬",
+    "title": "2027 창원경일고 신입생 맞춤 진로 DNA 탐색 (24문항)",
+    "section": "career-explore",
+    "description": "2027학년도 창원경일고 입학생의 3개년 교육과정 편성표에 맞춰 홀랜드 24문항 흥미 탐색, 직업 120개 탐색, 계열·전공 및 학교 편성 과목 안내를 연결하는 모바일 진로 도구. 대학별 권장과목은 2028학년도 자료를 참고 사례로 제공하며 2030학년도 대입 기준과 구분합니다.",
+    "tags": ["창원경일고", "2027 신입생", "고교학점제", "학교 교육과정", "홀랜드", "RIASEC", "진로검사", "24문항", "직업탐색", "선택과목", "진로 DNA"],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [{"label": "바로가기", "url": "https://mathlhk15-glitch.github.io/k1-riasec/", "platform": "html"}]
+  },
+  {
     "id": "hotel-best-price-guide",
     "icon": "🏨",
     "title": "호텔 최저가 예약 가이드 — OTA 가격·할인 비교",
