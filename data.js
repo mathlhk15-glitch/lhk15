@@ -55,6 +55,18 @@ const SECTIONS = {
 //    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
   {
+    "id": "daep-compass",
+    "icon": "🧭",
+    "title": "대입 나침반 — 우리 아이 대학·학과 찾기",
+    "section": "admission-support",
+    "description": "5등급제 내신 입력과 9등급제 추정 환산, 관심 대학·학과 검색 및 6개년 수시 입결 비교",
+    "tags": ["대입 나침반", "학부모", "내신", "5등급제", "9등급제 환산", "대학 검색", "학과 검색", "학생부교과", "학생부종합", "논술", "수시 입결"],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [{"label": "바로가기", "url": "https://mathlhk15-glitch.github.io/daep-compass/", "platform": "html"}]
+  },
+  {
     "id": "k1-riasec",
     "icon": "🧬",
     "title": "2027 창원경일고 신입생 맞춤 진로 DNA 탐색 (36문항)",
