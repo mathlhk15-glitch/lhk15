@@ -55,6 +55,24 @@ const SECTIONS = {
 //    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
   {
+    "id": "gyeongdali-emoticons",
+    "icon": "🦦",
+    "title": "경달이의 고딩 생존일기 — 이모티콘 72종",
+    "section": "staff-training",
+    "description": "창원경일고 마스코트 경달이 이모티콘 72종을 감상하고 투명 PNG를 개별·전체 다운로드하는 학교 홍보 갤러리",
+    "tags": ["경달이", "창원경일고", "학교 마스코트", "이모티콘", "72종", "학교 홍보", "학생", "굿즈", "PNG", "다운로드"],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/gyeongdali-emoticons/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
     "id": "daep-compass",
     "icon": "🧭",
     "title": "대입 나침반 — 우리 아이 대학·학과 찾기",
