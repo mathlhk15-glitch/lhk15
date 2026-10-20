@@ -55,6 +55,20 @@ const SECTIONS = {
 //    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
   {
+    "id": "ai-investment-compass",
+    "icon": "🧭",
+    "title": "뀨의 AI 투자 나침반 — 초보 투자 관리",
+    "section": "personal",
+    "description": "한국·미국 주식 거래 기록, 원화·달러 손익, 투자 계획 및 경제 위험 점검을 돕는 개인용 웹 도구 (종가·환율 수동 입력)",
+    "tags": ["AI 투자 나침반", "주식", "투자", "한국 주식", "미국 주식", "손익", "환율", "경제 위험", "초보 투자", "포트폴리오"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {"label": "바로가기", "url": "https://mathlhk15-glitch.github.io/ai-investment-compass/", "platform": "html"}
+    ]
+  },
+  {
     "id": "gyeongdali-emoticons",
     "icon": "🦦",
     "title": "경달이의 고딩 생존일기 — 이모티콘 72종",
