@@ -55,6 +55,30 @@ const SECTIONS = {
 //    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
   {
+    "id": "2027-school-program-benchmark",
+    "icon": "🏫",
+    "title": "2027 우수학교 교육프로그램 벤치마킹",
+    "section": "staff-training",
+    "description": "9개 우수학교 프로그램을 쉽게 비교하고 교사가 실제 수업·학교활동에 적용할 수 있도록 돕는 운영 가이드",
+    "tags": ["2027", "교육프로그램", "벤치마킹", "우수학교", "학교업무", "교사", "교육계획"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [{"label": "바로가기", "url": "https://mathlhk15-glitch.github.io/2027-school-program-benchmark/", "platform": "html"}]
+  },
+  {
+    "id": "book-reader",
+    "icon": "📖",
+    "title": "북 리더 — 책 읽기 웹 앱",
+    "section": "personal",
+    "description": "휴대폰과 컴퓨터에서 책을 읽을 수 있도록 만든 웹 기반 독서 도구",
+    "tags": ["북리더", "책읽기", "독서", "전자책", "웹앱", "리더"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [{"label": "바로가기", "url": "https://mathlhk15-glitch.github.io/book-reader/", "platform": "html"}]
+  },
+  {
     "id": "europe-seasonal-life",
     "icon": "🌍",
     "title": "유럽 계절살이 실전 로드맵 — 도시·예산·솅겐",
