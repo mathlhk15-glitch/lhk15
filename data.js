@@ -55,6 +55,18 @@ const SECTIONS = {
 //    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
   {
+    "id": "europe-seasonal-life",
+    "icon": "🌍",
+    "title": "유럽 계절살이 실전 로드맵 — 도시·예산·솅겐",
+    "section": "personal",
+    "description": "유럽 4~8주 장기체류를 위한 도시·동네 비교, 실제 지도, 2인 예산 계산, 솅겐 90/180일 점검, 숙소·의료 체크리스트 및 생활 기록 도구",
+    "tags": ["유럽", "계절살이", "한달살기", "장기체류", "발렌시아", "볼로냐", "류블랴나", "빈", "여행", "솅겐", "숙박", "예산", "해외생활", "생활 기록"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [{"label": "바로가기", "url": "https://mathlhk15-glitch.github.io/europe-seasonal-life/", "platform": "html"}]
+  },
+  {
     "id": "ai-investment-compass",
     "icon": "🧭",
     "title": "뀨의 AI 투자 나침반 — 초보 투자 관리",
