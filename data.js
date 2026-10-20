@@ -55,6 +55,18 @@ const SECTIONS = {
 //    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
   {
+    "id": "ai-visual-director",
+    "icon": "🎬",
+    "title": "AI 웹·영상 연출 사전 — 전문 프롬프트 만들기",
+    "section": "ai-learning",
+    "description": "영상 카메라·편집 기법과 웹 애니메이션·UI 용어를 쉽게 배우고 원하는 영상을 위한 전문 제작 지시문을 설계하는 실습 도구",
+    "tags": ["AI 영상", "영상 제작", "영상 연출", "카메라 워크", "프롬프트", "웹 애니메이션", "UI", "촬영", "편집"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [{"label": "바로가기", "url": "https://mathlhk15-glitch.github.io/ai-visual-director/", "platform": "html"}]
+  },
+  {
     "id": "2027-school-program-benchmark",
     "icon": "🏫",
     "title": "2027 우수학교 교육프로그램 벤치마킹",
