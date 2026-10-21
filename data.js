@@ -611,6 +611,32 @@ const resources = [
     ]
   },
   {
+    "id": "jeongsi-2026-10",
+    "icon": "🎯",
+    "title": "2026년 10월 학평 대학까지 몇 점?",
+    "section": "admission-support",
+    "description": "고1·고2·고3 10월 학평 가채점 성적으로 대학·학과와 지원참고점수 차이 탐색",
+    "tags": [
+      "정시",
+      "10월학평",
+      "배치표",
+      "대학검색",
+      "학과검색",
+      "가채점",
+      "점수분석"
+    ],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/jeongsi-2026-10/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
     "id": "jeongsi-2027-09",
     "icon": "🎯",
     "title": "2027학년도 9월 모평 대학·학과 탐색기",
