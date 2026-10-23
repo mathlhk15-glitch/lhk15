@@ -55,6 +55,18 @@ const SECTIONS = {
 //    NEW 기준: 2026년 9~10월 업데이트 자료
 const resources = [
   {
+    "id": "2028-admissions-guide",
+    "icon": "🎓",
+    "title": "2028 대입 길잡이 — 29개 대학 전형 비교",
+    "section": "admission-core",
+    "description": "전국 주요 29개 대학의 2027→2028 입학전형 변화 검색·비교, 대학별 모집인원, 수능최저 계산과 지원 준비 가이드",
+    "tags": ["2028", "대입", "29개 대학", "입학전형", "시행계획", "모집인원", "수능최저", "대학 비교", "진학상담", "학부모"],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "links": [{"label": "바로가기", "url": "https://mathlhk15-glitch.github.io/2028-admissions-guide/", "platform": "html"}]
+  },
+  {
     "id": "ai-visual-director",
     "icon": "🎬",
     "title": "AI 웹·영상 연출 사전 — 전문 프롬프트 만들기",
