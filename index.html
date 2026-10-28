@@ -4,1287 +4,667 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>진로진학 상담 워크스테이션 — 창원경일고</title>
-  <meta name="description" content="창원경일고등학교 진로진학 상담 워크스테이션 — 검사결과, 생기부 분석, 상담관리, 자료실 통합 허브" />
-
-  <!-- 공통 CSS (PHASE 1 산출물) -->
+  <meta name="description" content="창원경일고 진로진학 상담 워크스테이션 — 학생 조회, 상담 도구, 업무별 자료실" />
   <link rel="stylesheet" href="common.css" />
-
-  <!-- PWA 지원 -->
   <link rel="manifest" href="manifest.json" />
   <link rel="apple-touch-icon" href="icon-192.png" />
-  <meta name="theme-color" content="#1a3a5c" />
-
+  <meta name="theme-color" content="#1e3a5f" />
   <style>
     /* =====================================================
-       PHASE 2 전용 스타일 — 대시보드 레이아웃
+       v3 첫 화면 — 개인 업무용 작업대
+       ① 학생 조회 + 자료 찾기 ② 상담 흐름 ③ 업무별 서랍 + 즐겨찾기 ④ 자료실
        ===================================================== */
+    :root {
+      --paper: #f3f5f8;
+      --card: #ffffff;
+      --card-2: #f7f9fc;
+      --ink: #142033;
+      --ink-2: #44526a;
+      --ink-3: #6b778c;
+      --line: #dfe5ee;
+      --line-2: #c9d3e1;
+      --brand: #1e3a5f;
+      --brand-ink: #1e3a5f;
+      --brand-soft: #e7eef8;
+      --blue: #2563c9;
+      --blue-soft: #e5eefc;
+      --gold: #e5a300;
+      --gold-soft: #fff5d9;
+      --new: #c2410c;
+      --new-soft: #fff1e7;
+      --ok: #15803d;
+      --shadow: 0 1px 2px rgba(16,32,60,.06), 0 6px 18px rgba(16,32,60,.06);
+      --r: 14px;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: #0f1622; --card: #172131; --card-2: #1c2839; --ink: #e8edf5; --ink-2: #b9c4d6; --ink-3: #8e9bb0;
+        --line: #26344a; --line-2: #33445e; --brand-ink: #a9c6f0; --brand-soft: #1f3150; --blue: #7fb0ff; --blue-soft: #1d2f4d;
+        --gold-soft: #3a2f10; --new: #ffad7a; --new-soft: #3b2417; --shadow: 0 1px 2px rgba(0,0,0,.3);
+        --bg: #0f1622; --bg-card: #172131; --border: #26344a; --text-main: #e8edf5; --text-muted: #8e9bb0;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --paper: #0f1622; --card: #172131; --card-2: #1c2839; --ink: #e8edf5; --ink-2: #b9c4d6; --ink-3: #8e9bb0;
+      --line: #26344a; --line-2: #33445e; --brand-ink: #a9c6f0; --brand-soft: #1f3150; --blue: #7fb0ff; --blue-soft: #1d2f4d;
+      --gold-soft: #3a2f10; --new: #ffad7a; --new-soft: #3b2417; --shadow: 0 1px 2px rgba(0,0,0,.3);
+      color-scheme: dark;
+    }
+    body { background: var(--paper); color: var(--ink); word-break: keep-all; overflow-wrap: anywhere; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+    button, input, select { font-family: var(--font-main); }
+    :focus-visible { outline: 3px solid rgba(37,99,201,.45); outline-offset: 2px; }
 
-    /* ── 히어로 검색 배너 ── */
-    .ws-hero {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 60%, var(--accent) 100%);
-      color: var(--text-white);
-      padding: 32px 20px 28px;
-      margin-bottom: 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .ws-hero::before {
-      content: '';
-      position: absolute;
-      top: -40px; right: -40px;
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.05);
-    }
-    .ws-hero__inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      position: relative;
-    }
-    .ws-hero__school {
-      font-size: 12px;
-      color: rgba(255,255,255,0.65);
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
-    }
-    .ws-hero__title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-    .ws-hero__title span {
-      color: var(--gold);
-    }
+    /* ── ① 상단 작업 영역 ── */
+    .top { background: var(--brand); color: #fff; padding: 22px 0 26px; position: relative; overflow: hidden; }
+    .top::after { content:""; position:absolute; right:-80px; top:-120px; width:360px; height:360px; border-radius:50%;
+      background: radial-gradient(circle, rgba(255,255,255,.10), rgba(255,255,255,0) 70%); pointer-events:none; }
+    .top__head { display:flex; align-items:flex-end; gap:12px; flex-wrap:wrap; margin-bottom:16px; position:relative; z-index:1; }
+    .top__school { font-size:12px; color:rgba(255,255,255,.7); letter-spacing:.3px; }
+    .top__title { font-size:22px; font-weight:700; line-height:1.3; }
+    .top__title b { color:#ffd166; font-weight:700; }
+    .top__date { margin-left:auto; font-size:13px; color:rgba(255,255,255,.8); }
+    .install-btn { display:none; align-items:center; gap:6px; background:rgba(255,255,255,.14); color:#fff;
+      border:1px solid rgba(255,255,255,.3); padding:5px 11px; border-radius:999px; font-size:12px; font-weight:600; cursor:pointer; }
+    .finders { display:grid; grid-template-columns: 1.1fr 1fr; gap:12px; position:relative; z-index:1; }
+    .finder { background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:var(--r); padding:12px; }
+    .finder__label { font-size:12px; font-weight:700; color:rgba(255,255,255,.85); margin-bottom:8px; display:flex; gap:6px; align-items:center; }
+    .finder__row { display:flex; gap:8px; }
+    .finder input { flex:1; min-width:0; height:44px; border:0; border-radius:10px; padding:0 14px; font-size:15px;
+      background:#fff; color:#142033; }
+    .finder input::placeholder { color:#8792a6; }
+    .finder button.go { height:44px; padding:0 16px; border:0; border-radius:10px; background:#ffd166; color:#1b1b1b;
+      font-weight:700; font-size:14px; cursor:pointer; white-space:nowrap; }
+    .finder button.go:hover { background:#ffc53d; }
+    .recent-students { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; min-height:0; }
+    .recent-students button { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); color:#fff;
+      border-radius:999px; padding:3px 10px; font-size:12px; cursor:pointer; }
+    .recent-students button:hover { background:rgba(255,255,255,.22); }
+    .find-hint { font-size:12px; color:rgba(255,255,255,.7); margin-top:8px; }
+    .find-hint button { background:none; border:0; color:#ffd166; font-weight:700; cursor:pointer; padding:0 2px; font-size:12px; }
 
-    /* 검색창 */
-    .ws-hero__search {
-      display: flex;
-      gap: 8px;
-      max-width: 520px;
-    }
-    .ws-hero__search-wrap {
-      flex: 1;
-      position: relative;
-    }
-    .ws-hero__search-wrap input {
-      width: 100%;
-      padding: 11px 16px 11px 40px;
-      border-radius: 10px;
-      border: none;
-      font-size: 14px;
-      font-family: var(--font-main);
-      background: rgba(255,255,255,0.95);
-      color: var(--text-main);
-      outline: none;
-    }
-    .ws-hero__search-wrap input:focus {
-      background: #fff;
-      box-shadow: 0 0 0 3px rgba(240,165,0,0.4);
-    }
-    .ws-hero__search-wrap input::placeholder { color: var(--text-muted); }
-    .ws-hero__search-icon {
-      position: absolute;
-      left: 12px; top: 50%;
-      transform: translateY(-50%);
-      font-size: 16px;
-      pointer-events: none;
-    }
-    .ws-hero__search button {
-      padding: 11px 20px;
-      background: var(--gold);
-      color: #1a1a1a;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      font-family: var(--font-main);
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background 0.15s;
-    }
-    .ws-hero__search button:hover { background: #d4920a; }
+    .student-result { display:none; margin-top:12px; background:var(--card); color:var(--ink); border-radius:var(--r);
+      padding:14px; box-shadow: var(--shadow); position:relative; z-index:1; }
+    .student-result.open { display:block; }
+    .student-result__who { font-weight:700; font-size:15px; color:var(--brand-ink); margin-bottom:10px; }
+    .student-result__main { display:flex; justify-content:center; align-items:center; gap:8px; width:100%; padding:13px;
+      border-radius:10px; background:var(--brand); color:#fff; font-weight:700; font-size:15px; text-decoration:none; }
+    .student-result__main:hover { text-decoration:none; filter:brightness(1.1); }
+    .student-result__more { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:8px; }
+    .student-result__more a { display:flex; align-items:center; justify-content:center; gap:5px; padding:9px 6px; border-radius:10px;
+      border:1px solid var(--line); background:var(--card-2); color:var(--ink-2); font-size:13px; font-weight:600; text-decoration:none; text-align:center; }
+    .student-result__more a:hover { border-color:var(--blue); color:var(--blue); text-decoration:none; }
 
-    /* ── 오늘 요약 바 ── */
-    .ws-today-bar {
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border);
-      padding: 0 20px;
-    }
-    .ws-today-bar__inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 10px 0;
-      font-size: 13px;
-      color: var(--text-sub);
-      flex-wrap: wrap;
-    }
-    .ws-today-bar__item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .ws-today-bar__item strong { color: var(--primary); }
-    .ws-today-bar__date {
-      margin-left: auto;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
+    /* ── 공통 블록 제목 ── */
+    .block { margin-top:22px; }
+    .block__head { display:flex; align-items:baseline; gap:8px; margin-bottom:10px; }
+    .block__title { font-size:16px; font-weight:700; color:var(--ink); }
+    .block__sub { font-size:12px; color:var(--ink-3); }
+    .block__head .link-btn { margin-left:auto; background:none; border:0; color:var(--blue); font-size:12px; font-weight:700; cursor:pointer; }
 
-    /* ── 학생 검색 결과 팝업 ── */
-    .ws-student-result {
-      display: none;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lg);
-      padding: 16px;
-      margin: 12px 0 0;
-      max-width: 520px;
-    }
-    .ws-student-result.open { display: block; }
-    .ws-student-result__name {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 12px;
-    }
-    .ws-student-result__actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .ws-student-result__actions a {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 7px 14px;
-      border-radius: var(--radius-sm);
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.15s;
-    }
-    .ws-student-result__actions .btn-gumsa {
-      background: #eef2ff;
-      color: #3730a3;
-    }
-    .ws-student-result__actions .btn-gumsa:hover { background: #e0e7ff; }
-    .ws-student-result__actions .btn-susi {
-      background: #f0fdf4;
-      color: #166534;
-    }
-    .ws-student-result__actions .btn-susi:hover { background: #dcfce7; }
-    .ws-student-result__actions .btn-counsel {
-      background: var(--accent-light);
-      color: var(--accent);
-    }
-    .ws-student-result__actions .btn-counsel:hover { background: #b8d9f3; }
-    .ws-student-result__actions .btn-report {
-      background: #fff7ed;
-      color: #9a3412;
-    }
-    .ws-student-result__actions .btn-report:hover { background: #ffedd5; }
+    /* ── ② 상담 흐름 ── */
+    .flow { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; counter-reset: step; }
+    .flow a { position:relative; display:flex; flex-direction:column; gap:3px; background:var(--card); border:1px solid var(--line);
+      border-radius:var(--r); padding:14px 14px 13px; text-decoration:none; color:var(--ink); box-shadow:var(--shadow); min-width:0; }
+    .flow a:hover { border-color:var(--blue); text-decoration:none; transform:translateY(-1px); }
+    .flow__n { font-size:11px; font-weight:800; color:var(--blue); letter-spacing:.3px; }
+    .flow__t { font-size:15px; font-weight:700; display:flex; gap:6px; align-items:center; }
+    .flow__d { font-size:12px; color:var(--ink-3); line-height:1.45; }
+    .flow a:not(:last-child)::after { content:"›"; position:absolute; right:-9px; top:50%; transform:translateY(-50%);
+      width:16px; height:16px; display:grid; place-items:center; font-size:15px; color:var(--ink-3); background:var(--paper); border-radius:50%; z-index:1; }
 
-    /* ── 메인 4대 기능 카드 ── */
-    .ws-features {
-      background: var(--bg);
-      padding: 24px 20px 8px;
-    }
-    .ws-features__inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-    }
-    .ws-feature-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 14px;
-    }
-    .ws-feature-card {
-      background: var(--bg-card);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border);
-      padding: 20px 18px;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: block;
-      position: relative;
-      overflow: hidden;
-    }
-    .ws-feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-    }
-    .ws-feature-card--gumsa::before { background: #6c63ff; }
-    .ws-feature-card--susi::before { background: var(--success); }
-    .ws-feature-card--counsel::before { background: var(--accent); }
-    .ws-feature-card--archive::before { background: var(--gold); }
-    .ws-feature-card--roadmap::before { background: #10b981; }
+    /* ── ③ 업무별 서랍 + 즐겨찾기 ── */
+    .desk { display:grid; grid-template-columns: minmax(0,1.65fr) minmax(0,1fr); gap:18px; align-items:start; }
+    .desk > * { min-width:0; }
+    .drawers { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+    .drawer { width:100%; text-align:left; background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:12px 13px;
+      cursor:pointer; display:flex; flex-direction:column; gap:4px; min-width:0; color:var(--ink); }
+    .drawer:hover { border-color:var(--blue); background:var(--card-2); }
+    .drawer__top { display:flex; align-items:center; gap:8px; }
+    .drawer__icon { font-size:20px; line-height:1; }
+    .drawer__name { font-size:14px; font-weight:700; flex:1; min-width:0; line-height:1.35; }
+    .drawer__count { font-size:12px; font-weight:800; color:var(--blue); background:var(--blue-soft); border-radius:999px; padding:1px 8px; }
+    .drawer__groups { font-size:11.5px; color:var(--ink-3); line-height:1.45; }
+    .drawer--personal { border-style:dashed; }
 
-    .ws-feature-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
-      text-decoration: none;
-    }
-    .ws-feature-card__icon {
-      font-size: 28px;
-      margin-bottom: 10px;
-      display: block;
-    }
-    .ws-feature-card__title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 5px;
-    }
-    .ws-feature-card__desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-    .ws-feature-card__badge {
-      position: absolute;
-      top: 14px; right: 14px;
-      font-size: 10px;
-      background: #f1f5f9;
-      color: var(--text-muted);
-      padding: 2px 7px;
-      border-radius: 20px;
-    }
+    .side { display:flex; flex-direction:column; gap:12px; }
+    .panel { background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:12px; }
+    .panel__head { display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; margin-bottom:8px; color:var(--ink); }
+    .panel__head small { font-weight:400; color:var(--ink-3); font-size:11.5px; }
+    .pin-list { display:flex; flex-direction:column; gap:4px; }
+    .pin { display:flex; align-items:center; gap:8px; width:100%; text-align:left; background:none; border:0; border-radius:8px;
+      padding:7px 8px; cursor:pointer; color:var(--ink); font-size:13px; }
+    .pin:hover { background:var(--card-2); }
+    .pin__icon { width:22px; text-align:center; flex-shrink:0; }
+    .pin__title { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .pin__sec { font-size:11px; color:var(--ink-3); flex-shrink:0; }
+    .panel-empty { font-size:12px; color:var(--ink-3); line-height:1.6; padding:2px 4px; }
+    .tabs { display:flex; gap:4px; margin-bottom:8px; background:var(--card-2); padding:3px; border-radius:10px; }
+    .tabs button { flex:1; border:0; background:none; padding:6px; border-radius:8px; font-size:12px; font-weight:700; color:var(--ink-3); cursor:pointer; }
+    .tabs button[aria-selected="true"] { background:var(--card); color:var(--ink); box-shadow:var(--shadow); }
+    .ext-links { display:flex; flex-wrap:wrap; gap:6px; }
+    .ext-links a { display:inline-flex; gap:5px; align-items:center; padding:5px 10px; border:1px solid var(--line); border-radius:999px;
+      font-size:12px; font-weight:600; color:var(--ink-2); text-decoration:none; background:var(--card-2); }
+    .ext-links a:hover { border-color:var(--blue); color:var(--blue); text-decoration:none; }
 
-    /* ── 자료실 섹션 ── */
-    .ws-archive {
-      padding: 20px 20px 0;
-    }
-    .ws-archive__inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-    }
+    /* ── ④ 자료실 ── */
+    .archive { margin-top:28px; scroll-margin-top:64px; }
+    .toolbar { position:sticky; top:var(--nav-height,56px); z-index:50; background:var(--paper); padding:10px 0 8px;
+      border-bottom:1px solid var(--line); margin-bottom:12px; }
+    .toolbar__row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .toolbar__row + .toolbar__row { margin-top:8px; }
+    .search { position:relative; flex:1 1 280px; min-width:0; }
+    .search input { width:100%; height:42px; border:1px solid var(--line-2); border-radius:10px; padding:0 38px 0 36px;
+      font-size:14px; background:var(--card); color:var(--ink); }
+    .search input:focus { outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(37,99,201,.15); }
+    .search__icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); font-size:14px; pointer-events:none; }
+    .search__clear { position:absolute; right:6px; top:50%; transform:translateY(-50%); border:0; background:none; font-size:20px;
+      color:var(--ink-3); cursor:pointer; width:30px; height:30px; display:none; }
+    .search.has-q .search__clear { display:block; }
+    .select { height:42px; border:1px solid var(--line-2); border-radius:10px; padding:0 10px; font-size:13px; background:var(--card); color:var(--ink); }
+    .chips { display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch; flex:1; min-width:0; padding-bottom:1px; }
+    .chips::-webkit-scrollbar { display:none; }
+    .chip { flex-shrink:0; border:1px solid var(--line); background:var(--card); color:var(--ink-2); border-radius:999px;
+      padding:6px 12px; font-size:12.5px; font-weight:600; cursor:pointer; white-space:nowrap; }
+    .chip:hover { border-color:var(--blue); color:var(--blue); }
+    .chip[aria-pressed="true"] { background:var(--brand); border-color:var(--brand); color:#fff; }
+    .result-line { font-size:12px; color:var(--ink-3); display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .result-line b { color:var(--ink); }
+    .result-line .tbtn { border:0; background:none; color:var(--blue); font-weight:700; font-size:12px; cursor:pointer; padding:2px; }
 
-    /* 검색 + 필터 바 */
-    .ws-filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    .ws-filter-bar__search {
-      flex: 1;
-      min-width: 200px;
-      position: relative;
-    }
-    .ws-filter-bar__search input {
-      width: 100%;
-      padding: 8px 12px 8px 34px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-size: 13px;
-      font-family: var(--font-main);
-      outline: none;
-      transition: border-color 0.15s;
-    }
-    .ws-filter-bar__search input:focus { border-color: var(--border-focus); }
-    .ws-filter-bar__search-icon {
-      position: absolute;
-      left: 10px; top: 50%;
-      transform: translateY(-50%);
-      font-size: 14px;
-      pointer-events: none;
-    }
-    .ws-filter-btns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .ws-filter-btn {
-      padding: 6px 14px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      color: var(--text-sub);
-      font-size: 12px;
-      font-weight: 600;
-      font-family: var(--font-main);
-      cursor: pointer;
-      transition: all 0.15s;
-      white-space: nowrap;
-    }
-    .ws-filter-btn:hover, .ws-filter-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
+    .sec { background:var(--card); border:1px solid var(--line); border-radius:var(--r); margin-bottom:10px; overflow:hidden; scroll-margin-top:170px; }
+    .sec__head { width:100%; display:flex; align-items:center; gap:10px; padding:13px 14px; border:0; background:none; cursor:pointer; text-align:left; color:var(--ink); }
+    .sec__head:hover { background:var(--card-2); }
+    .sec__icon { font-size:22px; line-height:1; flex-shrink:0; }
+    .sec__titles { flex:1; min-width:0; }
+    .sec__name { font-size:15px; font-weight:700; }
+    .sec__desc { font-size:12px; color:var(--ink-3); margin-top:1px; }
+    .sec__count { font-size:12px; font-weight:800; color:var(--blue); background:var(--blue-soft); border-radius:999px; padding:2px 9px; flex-shrink:0; }
+    .sec__chev { color:var(--ink-3); transition:transform .15s; flex-shrink:0; }
+    .sec.open .sec__chev { transform:rotate(180deg); }
+    .sec__body { display:none; padding:2px 14px 14px; }
+    .sec.open .sec__body { display:block; }
+    .grp + .grp { margin-top:14px; }
+    .grp__title { font-size:12px; font-weight:800; color:var(--ink-3); letter-spacing:.2px; margin:4px 0 8px; display:flex; align-items:center; gap:8px; }
+    .grp__title::after { content:""; flex:1; height:1px; background:var(--line); }
+    .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:10px; }
 
+    .card { position:relative; display:flex; gap:11px; background:var(--card); border:1px solid var(--line); border-radius:12px;
+      padding:12px 44px 11px 12px; cursor:pointer; min-width:0; transition:border-color .12s, box-shadow .12s; }
+    .card:hover { border-color:var(--blue); box-shadow:var(--shadow); }
+    .card.hit { border-color:#f0c35a; }
+    .card__icon { font-size:22px; line-height:1.2; flex-shrink:0; }
+    .card__body { min-width:0; flex:1; }
+    .card__title { font-size:14px; font-weight:700; color:var(--brand-ink); line-height:1.4;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .card__desc { font-size:12.5px; color:var(--ink-2); line-height:1.5; margin-top:3px;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .card__meta { display:flex; flex-wrap:wrap; gap:4px; margin-top:7px; }
+    .m { font-size:10.5px; font-weight:700; padding:2px 7px; border-radius:999px; background:var(--card-2); color:var(--ink-3); border:1px solid var(--line); }
+    .m--new { background:var(--new-soft); color:var(--new); border-color:transparent; }
+    .m--feat { background:var(--blue-soft); color:var(--blue); border-color:transparent; }
+    .m--by { background:var(--gold-soft); color:#8a5b00; border-color:transparent; }
+    :root[data-theme="dark"] .m--by { color:#ffd27a; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .m--by { color:#ffd27a; } }
+    .m--ai { background:#ecfdf3; color:#067647; border-color:transparent; }
+    :root[data-theme="dark"] .m--ai { background:#12321f; color:#7ee2a8; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .m--ai { background:#12321f; color:#7ee2a8; } }
+    .card__links { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+    .card__links button { border:1px solid var(--line-2); background:var(--card-2); color:var(--ink-2); border-radius:8px; padding:4px 9px; font-size:12px; font-weight:600; cursor:pointer; }
+    .card__links button:hover { border-color:var(--blue); color:var(--blue); }
+    .fav { position:absolute; right:8px; top:8px; width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:var(--card);
+      color:#9aa6b8; font-size:16px; cursor:pointer; display:grid; place-items:center; line-height:1; }
+    .fav:hover { color:var(--gold); border-color:var(--gold); }
+    .fav.on { color:var(--gold); background:var(--gold-soft); border-color:#f3cf6a; }
+    .no-result { display:none; text-align:center; padding:36px 16px; color:var(--ink-3); font-size:14px; background:var(--card); border:1px dashed var(--line-2); border-radius:var(--r); }
+    .no-result.show { display:block; }
 
-    /* 자료실 그리드 */
-    .ws-archive-sections { }
-    .ws-archive-section { margin-bottom: 28px; }
-    .ws-archive-section.hidden { display: none; }
+    .theme-btn { position:fixed; right:14px; bottom:14px; z-index:60; width:42px; height:42px; border-radius:50%; border:1px solid var(--line-2);
+      background:var(--card); color:var(--ink); box-shadow:var(--shadow); cursor:pointer; font-size:18px; }
+    .to-top { position:fixed; right:14px; bottom:64px; z-index:60; width:42px; height:42px; border-radius:50%; border:1px solid var(--line-2);
+      background:var(--card); color:var(--ink); box-shadow:var(--shadow); cursor:pointer; font-size:16px; display:none; }
+    .to-top.show { display:block; }
+    .ws-footer { margin-top:40px; }
 
-    .ws-archive-section__title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--accent-light);
+    /* ── 반응형 ── */
+    @media (max-width: 1080px) {
+      .flow { grid-template-columns:repeat(3,1fr); }
+      .flow a:not(:last-child)::after { display:none; }
+      .drawers { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
-    .ws-archive-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 12px;
-    }
-    .ws-archive-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 14px 16px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      text-decoration: none;
-      color: inherit;
-      transition: all 0.15s;
-      position: relative;
-    }
-    .ws-archive-card:hover {
-      box-shadow: var(--shadow-sm);
-      border-color: var(--accent);
-      text-decoration: none;
-    }
-    .ws-archive-card__badge {
-      position: absolute;
-      top: 10px; right: 10px;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 20px;
-      background: #fff7ed;
-      color: #9a3412;
-      border: 1px solid #fed7aa;
-      white-space: nowrap;
-    }
-    .ws-archive-card__icon {
-      font-size: 22px;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .ws-archive-card__info { flex: 1; min-width: 0; }
-    .ws-archive-card__title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 3px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .ws-archive-card__desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.4;
-    }
-    .ws-archive-card__tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-top: 6px;
-    }
-    .ws-archive-card__tag {
-      font-size: 10px;
-      padding: 1px 7px;
-      border-radius: 20px;
-      background: var(--accent-light);
-      color: var(--accent);
-    }
-
-    /* 빠른 링크 */
-    .ws-quick {
-      padding: 20px 20px 0;
-    }
-    .ws-quick__inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-    }
-    .ws-quick-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .ws-quick-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-sub);
-      text-decoration: none;
-      transition: all 0.15s;
-    }
-    .ws-quick-item:hover {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-      text-decoration: none;
-    }
-
-    .ws-no-result {
-      display: none;
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--text-muted);
-      font-size: 14px;
-    }
-    .ws-no-result.visible { display: block; }
-
-
-
-    /* 반응형 */
-    @media (max-width: 1100px) {
-      .ws-feature-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 750px) {
-      .ws-feature-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 860px) {
+      .finders { grid-template-columns:1fr; }
+      .desk { grid-template-columns:1fr; }
+      .side { order:-1; }
     }
     @media (max-width: 600px) {
-      .ws-feature-grid { grid-template-columns: repeat(2, 1fr); }
-      .ws-hero__title { font-size: 16px; }
-      .ws-today-bar__date { display: none; }
+      .wrap { padding:0 16px; }
+      .top { padding:16px 0 18px; }
+      .top__title { font-size:19px; }
+      .top__date { margin-left:0; width:100%; font-size:12px; }
+      .student-result__more { grid-template-columns:repeat(2,1fr); }
+      .flow { grid-template-columns:repeat(2,1fr); gap:8px; }
+      .flow a { padding:11px 12px; }
+      .flow a:last-child:nth-child(odd) { grid-column:span 2; }
+      .flow__d { display:none; }
+      .desk__drawers { display:none; }  /* 휴대폰은 아래 자료실 목록이 같은 역할 */
+      .drawer { padding:10px 11px; }
+      .drawer__groups { display:none; }
+      .drawer__name { font-size:13px; }
+      .toolbar { position:static; }
+      .toolbar__row--opts { display:grid; grid-template-columns:1fr 1fr; }
+      .toolbar__row--opts .select { width:100%; min-width:0; }
+      .toolbar__row--opts .result-line { grid-column:1 / -1; }
+      .pin-list .pin:nth-of-type(n+7) { display:none; }
+      .cards { grid-template-columns:1fr; }
+      .sec__desc { display:none; }
+      .sec { scroll-margin-top:70px; }
+      .archive { scroll-margin-top:60px; }
     }
-    @media (max-width: 400px) {
-      .ws-feature-grid { grid-template-columns: 1fr; }
-    }
-  
-
-    /* =====================================================
-       자료실 2.0 — 100+ 카드 탐색/검색/즐겨찾기 UI
-       ===================================================== */
-    .ws-archive-dashboard {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 10px;
-      margin: 0 0 14px;
-    }
-    .ws-archive-stat {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 12px 14px;
-      min-width: 0;
-    }
-    .ws-archive-stat__label { font-size: 11px; color: var(--text-muted); margin-bottom: 3px; }
-    .ws-archive-stat__value { font-size: 21px; font-weight: 800; color: var(--primary); line-height: 1.2; }
-    .ws-archive-stat__sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-    .ws-archive-tools {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 12px;
-      margin-bottom: 14px;
-    }
-    .ws-archive-toolbar-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-    .ws-archive-toolbar-row + .ws-archive-toolbar-row { margin-top:10px; }
-    .ws-archive-view-btn, .ws-chip-btn, .ws-small-btn {
-      border:1px solid var(--border); background:var(--bg-card); color:var(--text-sub);
-      border-radius:999px; padding:6px 11px; font-size:12px; font-weight:650;
-      font-family:var(--font-main); cursor:pointer; transition:all .15s; white-space:nowrap;
-    }
-    .ws-archive-view-btn:hover, .ws-chip-btn:hover, .ws-small-btn:hover { border-color:var(--accent); color:var(--primary); }
-    .ws-archive-view-btn.active { background:var(--primary); border-color:var(--primary); color:#fff; }
-    .ws-chip-btn { background:#f8fafc; }
-    .ws-chip-label { font-size:11px; color:var(--text-muted); font-weight:700; margin-right:2px; }
-    .ws-sort-select {
-      border:1px solid var(--border); background:var(--bg-card); color:var(--text-main);
-      border-radius:8px; padding:6px 28px 6px 10px; font-size:12px; font-family:var(--font-main);
-    }
-    .ws-result-summary { margin-left:auto; font-size:12px; font-weight:700; color:var(--primary); }
-    .ws-search-clear {
-      position:absolute; right:8px; top:50%; transform:translateY(-50%); border:0; background:transparent;
-      color:var(--text-muted); font-size:18px; cursor:pointer; padding:2px 5px; display:none;
-    }
-    .ws-filter-bar__search.has-query .ws-search-clear { display:block; }
-    .ws-filter-bar__search.has-query input { padding-right:34px; }
-
-    .ws-recent-resources { display:none; margin:0 0 14px; padding:11px 12px; border:1px dashed var(--border); border-radius:var(--radius-md); background:#fbfdff; }
-    .ws-recent-resources.visible { display:block; }
-    .ws-recent-resources__head { display:flex; align-items:center; gap:8px; margin-bottom:8px; font-size:12px; font-weight:800; color:var(--primary); }
-    .ws-recent-resources__list { display:flex; flex-wrap:wrap; gap:6px; }
-    .ws-recent-link { border:1px solid var(--border); background:#fff; border-radius:8px; padding:5px 9px; font-size:11px; cursor:pointer; color:var(--text-sub); max-width:260px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .ws-recent-link:hover { border-color:var(--accent); color:var(--primary); }
-
-    .ws-archive-section { border:1px solid var(--border); border-radius:var(--radius-md); overflow:hidden; background:var(--bg-card); margin-bottom:10px; }
-    .ws-archive-section__head {
-      width:100%; border:0; background:var(--bg-card); padding:12px 14px; cursor:pointer;
-      display:flex; align-items:center; gap:10px; text-align:left; font-family:var(--font-main);
-    }
-    .ws-archive-section__head:hover { background:#f8fafc; }
-    .ws-archive-section__title { margin:0; padding:0; border:0; flex:1; }
-    .ws-section-count { font-size:11px; font-weight:800; color:var(--accent); background:var(--accent-light); border-radius:999px; padding:2px 8px; }
-    .ws-section-desc { font-size:11px; color:var(--text-muted); margin-top:2px; font-weight:400; }
-    .ws-section-chevron { font-size:13px; color:var(--text-muted); transition:transform .15s; }
-    .ws-archive-section.expanded .ws-section-chevron { transform:rotate(180deg); }
-    .ws-archive-section .ws-archive-cards { display:none; padding:0 12px 12px; }
-    .ws-archive-section.expanded .ws-archive-cards { display:grid; }
-
-    .ws-archive-card { cursor:pointer; min-width:0; }
-    .ws-archive-card__info { min-width:0; flex:1; }
-    .ws-card-actions { position:absolute; right:9px; bottom:9px; display:flex; gap:5px; }
-    .ws-fav-btn {
-      width:30px; height:30px; border-radius:50%; border:1px solid var(--border); background:#fff;
-      cursor:pointer; display:grid; place-items:center; font-size:15px; line-height:1; color:#94a3b8;
-    }
-    .ws-fav-btn:hover { border-color:#f59e0b; color:#f59e0b; }
-    .ws-fav-btn.active { color:#f59e0b; background:#fffbeb; border-color:#fcd34d; }
-    .ws-card-meta { display:flex; flex-wrap:wrap; gap:5px; margin-top:7px; padding-right:36px; }
-    .ws-card-meta span { font-size:10px; padding:2px 7px; border-radius:999px; background:#f1f5f9; color:var(--text-muted); font-weight:700; }
-    .ws-card-meta .meta-new { background:#fff7ed; color:#c2410c; }
-    .ws-card-meta .meta-featured { background:#eff6ff; color:#1d4ed8; }
-    .ws-card-match { outline:2px solid rgba(240,165,0,.35); outline-offset:-2px; }
-
-    .ws-category-guide { font-size:12px; color:var(--text-muted); margin:-4px 0 12px; }
-
-    @media (max-width: 760px) {
-      .ws-archive-dashboard { grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .ws-result-summary { width:100%; margin-left:0; }
-      .ws-archive-toolbar-row { align-items:flex-start; }
-      .ws-archive-card { padding-right:42px; }
-    }
-
   </style>
 </head>
 <body data-ws-page="home">
 
-  <!-- nav.js 가 자동으로 상단 네비게이션과 푸터를 삽입합니다 -->
-
-  <!-- ① 히어로: 학생 검색 -->
-  <section class="ws-hero" id="hero">
-    <div class="ws-hero__inner">
-      <div style="position: absolute; top: 0; right: 0;">
-        <button id="pwaInstallBtn" style="display: none; background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; align-items: center; gap: 6px; font-weight: 600; transition: all 0.2s;">
-          <span style="font-size: 14px;">⬇️</span> 앱으로 설치
-        </button>
-      </div>
-      <div class="ws-hero__school">창원경일고등학교 · 진로진학상담부</div>
-      <h1 class="ws-hero__title">진로진학 <span>상담 워크스테이션</span></h1>
-      <div class="ws-hero__search">
-        <div class="ws-hero__search-wrap">
-          <span class="ws-hero__search-icon">👤</span>
-          <input type="text" id="studentSearchInput"
-                 placeholder="학번 또는 이름 입력 (예: 20315, 김○○)"
-                 autocomplete="off"
-                 onkeydown="if(event.key==='Enter') searchStudent()" />
+  <!-- ① 학생 조회 + 자료 찾기 -->
+  <header class="top" id="hero">
+    <div class="wrap">
+      <div class="top__head">
+        <div>
+          <div class="top__school">창원경일고등학교 · 진로진학상담부</div>
+          <h1 class="top__title">진로진학 <b>상담 워크스테이션</b></h1>
         </div>
-        <button onclick="searchStudent()">🔍 학생 조회</button>
+        <div class="top__date" id="todayStr"></div>
+        <button class="install-btn" id="pwaInstallBtn" type="button">⬇️ 앱으로 설치</button>
       </div>
-      <!-- 학생 조회 결과 -->
-      <div class="ws-student-result" id="studentResult">
-        <div class="ws-student-result__name" id="studentResultName"></div>
-        <div class="ws-student-result__actions" id="studentResultActions"></div>
+
+      <div class="finders">
+        <form class="finder" id="studentForm" autocomplete="off">
+          <label class="finder__label" for="studentSearchInput">👤 학생 조회 <span style="font-weight:400;opacity:.75">학번 5자리 또는 이름</span></label>
+          <div class="finder__row">
+            <input type="text" id="studentSearchInput" placeholder="예: 20315 또는 김○○" />
+            <button class="go" type="submit">조회</button>
+          </div>
+          <div class="recent-students" id="recentStudents"></div>
+        </form>
+        <form class="finder" id="toolForm" autocomplete="off">
+          <label class="finder__label" for="toolSearchInput">🔎 도구·자료 찾기 <span style="font-weight:400;opacity:.75" id="toolCountLabel"></span></label>
+          <div class="finder__row">
+            <input type="search" id="toolSearchInput" placeholder="예: 수능최저, 면접, 배치표, 박상근" />
+            <button class="go" type="submit">찾기</button>
+          </div>
+          <div class="find-hint">자주 찾는 말:
+            <button type="button" data-q="수능최저">수능최저</button>
+            <button type="button" data-q="배치">배치</button>
+            <button type="button" data-q="세특">세특</button>
+            <button type="button" data-q="면접">면접</button>
+            <button type="button" data-q="GPTs">GPTs</button>
+          </div>
+        </form>
       </div>
-    </div>
-  </section>
 
-  <!-- ② 오늘 요약 바 -->
-  <div class="ws-today-bar">
-    <div class="ws-today-bar__inner">
-      <div class="ws-today-bar__item">📅 <strong id="todayStr"></strong></div>
-      <div class="ws-today-bar__item" id="todaySchedule">🗓️ 오늘 상담 일정을 확인하려면 <a href="https://mathlhk15-glitch.github.io/jinlosangdam/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;">상담관리</a>에서 확인하세요</div>
-      <div class="ws-today-bar__date" id="recentStudentBar"></div>
-    </div>
-  </div>
-
-  <!-- ③ 4대 주요 기능 카드 -->
-  <section class="ws-features">
-    <div class="ws-features__inner">
-      <div class="ws-section-title" style="margin-bottom:14px;">📌 주요 기능</div>
-      <div class="ws-feature-grid">
-
-        <a class="ws-feature-card ws-feature-card--gumsa"
-           href="https://mathlhk15-glitch.github.io/2026gumsa-R/"
-           target="_blank" rel="noopener">
-          <span class="ws-feature-card__badge">새 창</span>
-          <span class="ws-feature-card__icon">📊</span>
-          <div class="ws-feature-card__title">진로검사 결과 조회</div>
-          <div class="ws-feature-card__desc">인성·적성·진로·자기주도 검사 결과를 학생별로 조회합니다</div>
-        </a>
-
-        <a class="ws-feature-card ws-feature-card--susi"
-           href="https://mathlhk15-glitch.github.io/susi/"
-           target="_blank" rel="noopener">
-          <span class="ws-feature-card__badge">새 창</span>
-          <span class="ws-feature-card__icon">📋</span>
-          <div class="ws-feature-card__title">생기부 분석기 Pro</div>
-          <div class="ws-feature-card__desc">학교생활기록부 PDF를 AI로 분석하고 세특 키워드를 추출합니다</div>
-        </a>
-
-        <a class="ws-feature-card ws-feature-card--counsel"
-           href="https://mathlhk15-glitch.github.io/jinlosangdam/" target="_blank" rel="noopener">
-          <span class="ws-feature-card__icon">💬</span>
-          <div class="ws-feature-card__title">진로상담 관리</div>
-          <div class="ws-feature-card__desc">상담 예약·기록·학생 관리를 통합적으로 처리합니다</div>
-        </a>
-
-        <a class="ws-feature-card ws-feature-card--archive"
-           href="#archive" onclick="scrollToArchive()">
-          <span class="ws-feature-card__icon">📚</span>
-          <div class="ws-feature-card__title">자료실</div>
-          <div class="ws-feature-card__desc">수시 입시·교육과정·AI 도우미·진로 데이터 자료 모음</div>
-        </a>
-
-        <a class="ws-feature-card ws-feature-card--roadmap"
-           href="https://mathlhk15-glitch.github.io/student_growth_roadmap/"
-           target="_blank" rel="noopener">
-          <span class="ws-feature-card__badge">새 창</span>
-          <span class="ws-feature-card__icon">📗</span>
-          <div class="ws-feature-card__title">진로탐구 성장플랫폼</div>
-          <div class="ws-feature-card__desc">학과 키워드 → 탐구 설계 → 학생부 성장 로드맵 통합</div>
-        </a>
-
+      <div class="student-result" id="studentResult" aria-live="polite">
+        <div class="student-result__who" id="studentResultName"></div>
+        <a class="student-result__main" id="studentMain" target="_blank" rel="noopener">💬 상담기록 확인 · 상담 시작 ↗</a>
+        <div class="student-result__more" id="studentMore"></div>
       </div>
     </div>
-  </section>
+  </header>
 
-  <!-- ④ 빠른 링크 -->
-  <section class="ws-quick">
-    <div class="ws-quick__inner">
-      <div class="ws-section-title" style="margin: 16px 0 10px;">⚡ 자주 쓰는 링크</div>
-      <div class="ws-quick-grid" id="quickGrid">
-        <!-- data.js 로드 후 동적 생성 -->
+  <main class="wrap">
+    <!-- ② 상담 흐름 -->
+    <section class="block" aria-labelledby="flowTitle">
+      <div class="block__head">
+        <h2 class="block__title" id="flowTitle">상담 흐름</h2>
+        <span class="block__sub">학생 조회 뒤 이 순서로 열면 됩니다</span>
       </div>
-    </div>
-  </section>
+      <nav class="flow" aria-label="상담 도구">
+        <a href="https://mathlhk15-glitch.github.io/jinlosangdam/" target="_blank" rel="noopener">
+          <span class="flow__n">1 · 기록</span><span class="flow__t">💬 상담관리</span><span class="flow__d">예약·상담 진행·이력</span></a>
+        <a href="https://mathlhk15-glitch.github.io/2026gumsa-R/" target="_blank" rel="noopener">
+          <span class="flow__n">2 · 검사</span><span class="flow__t">📊 검사결과</span><span class="flow__d">인성·적성·진로·자기주도</span></a>
+        <a href="https://mathlhk15-glitch.github.io/susi/" target="_blank" rel="noopener">
+          <span class="flow__n">3 · 학생부</span><span class="flow__t">📋 생기부 분석</span><span class="flow__d">PDF 분석·세특 키워드</span></a>
+        <a href="https://mathlhk15-glitch.github.io/ipsi/" target="_blank" rel="noopener">
+          <span class="flow__n">4 · 진학</span><span class="flow__t">🐼 진학 Navigator</span><span class="flow__d">성적·입결·학과 비교</span></a>
+        <a href="report.html" target="_blank" rel="noopener">
+          <span class="flow__n">5 · 정리</span><span class="flow__t">🧾 통합리포트</span><span class="flow__d">상담 결과 한 장 정리</span></a>
+      </nav>
+    </section>
 
-  <!-- ⑤ 자료실 -->
-  <section class="ws-archive" id="archive">
-    <div class="ws-archive__inner">
-      <div class="ws-section-title" style="margin: 24px 0 8px;">📚 자료실</div>
-      <div class="ws-category-guide">자료 수는 자동 집계됩니다. 검색하거나 카테고리를 눌러 펼치면 원하는 자료를 빠르게 찾을 수 있습니다.</div>
-      <div class="ws-archive-dashboard" id="archiveStats"></div>
-      <div class="ws-recent-resources" id="recentResources"></div>
-      <div class="ws-archive-tools" id="archiveTools">
-        <div class="ws-archive-toolbar-row" id="archiveViewBtns"></div>
-        <div class="ws-archive-toolbar-row">
-          <span class="ws-chip-label">빠른 검색</span>
-          <button class="ws-chip-btn" onclick="applyArchiveKeyword('수능')">수능</button>
-          <button class="ws-chip-btn" onclick="applyArchiveKeyword('2028')">2028</button>
-          <button class="ws-chip-btn" onclick="applyArchiveKeyword('세특')">세특</button>
-          <button class="ws-chip-btn" onclick="applyArchiveKeyword('면접')">면접</button>
-          <button class="ws-chip-btn" onclick="applyArchiveKeyword('진로')">진로</button>
-          <button class="ws-chip-btn" onclick="applyArchiveKeyword('AI')">AI</button>
-          <select class="ws-sort-select" id="archiveSortSelect" onchange="setArchiveSort(this.value)" aria-label="자료 정렬">
-            <option value="featured">추천·최신순</option>
+    <!-- ③ 업무별 서랍 + 즐겨찾기 -->
+    <section class="block desk">
+      <div class="desk__drawers">
+        <div class="block__head">
+          <h2 class="block__title">업무별 자료실</h2>
+          <span class="block__sub">누르면 그 분류만 펼쳐집니다</span>
+        </div>
+        <div class="drawers" id="drawers"></div>
+      </div>
+      <aside class="side">
+        <div class="panel">
+          <div class="tabs" role="tablist">
+            <button role="tab" id="tabFav" aria-selected="true" data-pane="fav">⭐ 즐겨찾기</button>
+            <button role="tab" id="tabRecent" aria-selected="false" data-pane="recent">🕘 최근 본</button>
+          </div>
+          <div class="pin-list" id="pinList"></div>
+        </div>
+        <div class="panel">
+          <div class="panel__head">🌐 외부 사이트 <small>공식 정보</small></div>
+          <div class="ext-links" id="extLinks"></div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ④ 자료실 -->
+    <section class="archive" id="archive" aria-labelledby="archiveTitle">
+      <h2 class="sr-only" id="archiveTitle">자료실</h2>
+      <div class="toolbar">
+        <div class="toolbar__row">
+          <div class="search" id="searchBox">
+            <span class="search__icon">🔍</span>
+            <input type="search" id="archiveSearchInput" placeholder="자료명·설명·태그·제작자 검색" aria-label="자료 검색" />
+            <button class="search__clear" type="button" id="searchClear" aria-label="검색어 지우기">×</button>
+          </div>
+        </div>
+        <div class="toolbar__row">
+          <div class="chips" id="secChips" aria-label="분류"></div>
+        </div>
+        <div class="toolbar__row toolbar__row--opts">
+          <select class="select" id="viewSelect" aria-label="보기">
+            <option value="all">전체 보기</option>
+            <option value="featured">📌 업무 핵심 추천</option>
+            <option value="new">🆕 최근 업데이트</option>
+            <option value="favorites">⭐ 즐겨찾기</option>
+            <option value="recent">🕘 최근 본</option>
+            <option value="external">🤝 외부 제작</option>
+            <option value="ai">🤖 GPTs·Gemini</option>
+          </select>
+          <select class="select" id="sortSelect" aria-label="정렬">
+            <option value="group">묶음순</option>
             <option value="latest">최신순</option>
             <option value="title">가나다순</option>
-            <option value="oldest">오래된순</option>
           </select>
-          <button class="ws-small-btn" onclick="expandAllCategories()">모두 펼치기</button>
-          <button class="ws-small-btn" onclick="collapseAllCategories()">모두 접기</button>
-          <span class="ws-result-summary" id="archiveResultSummary"></span>
+          <div class="result-line"><span id="resultCount"></span>
+            <button class="tbtn" type="button" id="expandAll">모두 펼치기</button>
+            <button class="tbtn" type="button" id="collapseAll">모두 접기</button>
+          </div>
         </div>
       </div>
+      <div id="archiveSections"></div>
+      <div class="no-result" id="archiveNoResult"></div>
+    </section>
+  </main>
 
-      <!-- 검색 + 필터 -->
-      <div class="ws-filter-bar">
-        <div class="ws-filter-bar__search" id="archiveSearchWrap">
-          <span class="ws-filter-bar__search-icon">🔍</span>
-          <input type="search" id="archiveSearchInput"
-                 placeholder="자료명·설명·태그 검색 (예: 수능, 면접, 2028)"
-                 oninput="filterArchive()"
-                 autocomplete="off" />
-          <button class="ws-search-clear" type="button" aria-label="검색어 지우기" onclick="clearArchiveSearch()">×</button>
-        </div>
-        <div class="ws-filter-btns" id="filterBtnGroup">
-          <button class="ws-filter-btn active" data-section="all" onclick="setFilter('all', this)">전체</button>
-          <!-- 나머지 필터 버튼은 data.js의 SECTIONS를 기준으로 자동 생성됩니다 (personal 섹션 제외) -->
-        </div>
-      </div>
+  <button class="to-top" id="toTop" type="button" aria-label="맨 위로">↑</button>
+  <button class="theme-btn" id="themeBtn" type="button" aria-label="화면 밝기 바꾸기">🌓</button>
 
-      <!-- 자료 섹션들 (동적 생성) -->
-      <div class="ws-archive-sections" id="archiveSections"></div>
-      <div class="ws-no-result" id="archiveNoResult">검색 결과가 없습니다. 다른 키워드로 검색해 보세요.</div>
-    </div>
-  </section>
-
-  <!-- ━━━ 개인 공간 진입 (푸터 위 숨겨진 버튼) ━━━ -->
-  <div id="personalEntrance" style="
-    text-align:center;
-    padding:28px 20px 8px;
-    opacity:0;
-    transition:opacity 0.4s;
-  "
-    onmouseenter="this.style.opacity='1'"
-    onmouseleave="this.style.opacity='0'"
-  >
-    <a href="personal.html" style="
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 22px;
-      background:var(--primary); color:rgba(255,255,255,0.7);
-      border-radius:24px; font-size:13px; font-weight:600;
-      font-family:var(--font-main); text-decoration:none;
-      border:1px solid rgba(255,255,255,0.15);
-      transition:all 0.2s;
-    "
-      onmouseenter="this.style.color='#fff';this.style.background='var(--primary-light)'"
-      onmouseleave="this.style.color='rgba(255,255,255,0.7)';this.style.background='var(--primary)'"
-    >🔐 개인 공간</a>
-  </div>
-
-  <!-- PHASE 1 공통 네비게이션 JS -->
   <script src="nav.js"></script>
-
-  <!-- 기존 data.js (자료실 데이터) — 있으면 로드, 없으면 기본 데이터 사용 -->
-  <script>
-  </script>
-
-  <!-- 자료실 데이터 -->
   <script src="data.js"></script>
-
   <script>
-    /* =====================================================
-       data.js의 SECTIONS + resources 형식을
-       ARCHIVE_DATA.sections[].items[] 형식으로 변환
-       ===================================================== */
-    (function () {
-      if (typeof SECTIONS === 'undefined' || typeof resources === 'undefined') return;
+  (function () {
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const esc = v => String(v ?? '').replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c]));
+    const store = {
+      get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+      set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+    };
+    // 기존 저장 키 그대로 사용 (즐겨찾기·최근 본 자료·최근 학생 유지)
+    const FAV_KEY = 'lhk15_archive_favorites_v1', RECENT_KEY = 'lhk15_archive_recent_v1', STU_KEY = 'ws_recent_students';
+    const OPEN_KEY = 'lhk15_archive_open_v1', THEME_KEY = 'lhk15_theme';
+    const SEC_IDS = Object.keys(SECTIONS);
+    const secIcon = sid => (SECTIONS[sid].label.match(/^\S+/) || ['📁'])[0];
+    const secName = sid => SECTIONS[sid].label.replace(/^\S+\s/, '');
+    const byId = Object.fromEntries(resources.map(r => [r.id, r]));
+    const AI_PLATFORMS = { gpt: 'GPTs', gemini: 'Gemini', claude: 'Claude' };
+    const isAI = r => (r.links || []).some(l => AI_PLATFORMS[l.platform]);
 
-      // data.js의 SECTIONS 객체를 그대로 기준(Source of Truth)으로 사용합니다.
-      const sectionOrder = Object.keys(SECTIONS);
+    /* ── 테마 ── */
+    const applyTheme = t => { if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme; };
+    applyTheme(store.get(THEME_KEY, ''));
+    $('themeBtn').addEventListener('click', () => {
+      const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+      const next = dark ? 'light' : 'dark'; applyTheme(next); store.set(THEME_KEY, next);
+    });
 
-      window.ARCHIVE_DATA = {
-        sections: sectionOrder.map(sid => ({
-          id: sid,
-          title: SECTIONS[sid].label,
-          items: resources
-            .filter(r => r.section === sid)
-            .map(r => ({
-              title: r.title,
-              desc: r.description,
-              tags: r.tags || [],
-              url: (r.links && r.links[0]) ? r.links[0].url : '#',
-              icon: r.icon || '📄',
-              newTab: true
-            }))
-        })),
-        quick: [
-          { title: '경일 진학상담 Navigator', url: 'https://mathlhk15-glitch.github.io/ipsi/', icon: '🐼' },
-          { title: '대학어디가', url: 'https://www.adiga.kr', icon: '🏫' },
-          { title: '대학알리미', url: 'https://www.academyinfo.go.kr', icon: '📊' },
-          { title: '커리어넷', url: 'https://www.career.go.kr/', icon: '🧭' },
-          { title: '워크넷', url: 'https://www.work24.go.kr/', icon: '💼' },
-          { title: '꿈길', url: 'https://www.ggoomgil.go.kr/', icon: '✨' },
-          { title: '입시자료모음', url: 'https://xn--vk1bt41a12ci0t.com/univ-admission-search/', icon: '📚' }
-        ]
-      };
+    /* ── 날짜 ── */
+    const now = new Date();
+    $('todayStr').textContent = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일 (${'일월화수목금토'[now.getDay()]})`;
+    $('toolCountLabel').textContent = `${resources.length}개 중`;
 
-      // 필터 버튼도 SECTIONS 기준으로 자동 생성 (신규 섹션 추가 시 index.html 수정 불필요)
-      const btnGroup = document.getElementById('filterBtnGroup');
-      if (btnGroup) {
-        sectionOrder.forEach(sid => {
-          const btn = document.createElement('button');
-          btn.className = 'ws-filter-btn';
-          btn.dataset.section = sid;
-          // 라벨의 이모지를 떼고 버튼에는 텍스트만 표시 (아이콘은 섹션 타이틀에서 이미 보여줌)
-          btn.textContent = SECTIONS[sid].label.replace(/^\S+\s/, '');
-          btn.onclick = function () { setFilter(sid, btn); };
-          btnGroup.appendChild(btn);
-        });
-      }
-    })();
-  </script>
-
-  <script>
-    /* =====================================================
-       PHASE 2 대시보드 스크립트
-       ===================================================== */
-
-    let currentFilter = 'all';
-
-    /* ── 오늘 날짜 표시 ── */
-    (function () {
-      const now = new Date();
-      const days = ['일', '월', '화', '수', '목', '금', '토'];
-      const str = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일 (${days[now.getDay()]})`;
-      const el = document.getElementById('todayStr');
-      if (el) el.textContent = str;
-    })();
-
-    /* ── 최근 조회 학생 (localStorage) ── */
-    function getRecentStudents() {
-      try {
-        return JSON.parse(localStorage.getItem('ws_recent_students') || '[]');
-      } catch { return []; }
+    /* ── 학생 조회 ── */
+    const decodeSafe = s => { try { return decodeURIComponent(s); } catch { return s; } };
+    const getStudents = () => store.get(STU_KEY, []).filter(s => s && s.id).map(s => ({ ...s, id: decodeSafe(String(s.id)), name: String(s.name || s.id) }));
+    function renderStudents() {
+      const list = getStudents().slice(0, 5);
+      $('recentStudents').innerHTML = list.length
+        ? list.map(s => `<button type="button" data-stu="${esc(s.id)}">${esc(s.name)}</button>`).join('')
+        : '';
     }
-    function saveRecentStudent(id, name) {
-      let list = getRecentStudents();
-      list = list.filter(s => s.id !== id);
-      list.unshift({ id, name, ts: Date.now() });
-      list = list.slice(0, 5);
-      try { localStorage.setItem('ws_recent_students', JSON.stringify(list)); } catch {}
-    }
-    function renderRecentBar() {
-      const list = getRecentStudents();
-      const el = document.getElementById('recentStudentBar');
-      if (!el || list.length === 0) return;
-      el.innerHTML = '최근: ' + list.slice(0, 3).map(s =>
-        `<a href="javascript:void(0)" onclick="applyStudent('${s.id}','${s.name}')"
-            style="color:var(--accent);font-weight:600;">${s.name}(${s.id})</a>`
-      ).join(' · ');
-    }
-    renderRecentBar();
-
-    function buildStudentQueryParam(query, isId) {
-      const params = new URLSearchParams();
-      params.set(isId ? 'studentId' : 'name', query);
-      return params.toString();
-    }
-
-    /* ── 학생 검색 ── */
-    function searchStudent() {
-      const q = document.getElementById('studentSearchInput').value.trim();
-      if (!q) return;
-      const resultEl = document.getElementById('studentResult');
-      const nameEl = document.getElementById('studentResultName');
-      const actionsEl = document.getElementById('studentResultActions');
-
-      // 학번/이름으로 간단 처리 (실제 학생 DB는 data.js or GAS에 있음)
+    function searchStudent(q) {
+      q = (q ?? $('studentSearchInput').value).trim();
+      if (!q) { $('studentSearchInput').focus(); return; }
+      $('studentSearchInput').value = q;
       const isId = /^\d{5}$/.test(q);
-      const displayName = isId ? `학번 ${q}` : `이름 "${q}"`;
-      nameEl.textContent = `🔍 ${displayName} 으로 조회`;
+      const p = new URLSearchParams(); p.set(isId ? 'studentId' : 'name', q);
+      const qs = p.toString();
+      $('studentResultName').textContent = `🔍 ${isId ? '학번 ' + q : '이름 “' + q + '”'} 으로 조회`;
+      $('studentMain').href = `https://mathlhk15-glitch.github.io/jinlosangdam/?${qs}`;
+      $('studentMore').innerHTML = [
+        ['📊 검사결과', `https://mathlhk15-glitch.github.io/2026gumsa-R/?${qs}`],
+        ['📋 생기부 분석', `https://mathlhk15-glitch.github.io/susi/?${qs}`],
+        ['🐼 진학 Navigator', 'https://mathlhk15-glitch.github.io/ipsi/'],
+        ['🧾 통합리포트', `report.html?${qs}`]
+      ].map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${t} ↗</a>`).join('');
+      $('studentResult').classList.add('open');
+      let list = getStudents().filter(s => s.id !== q);
+      list.unshift({ id: q, name: q, ts: Date.now() });
+      store.set(STU_KEY, list.slice(0, 5));
+      renderStudents();
+    }
+    $('studentForm').addEventListener('submit', e => { e.preventDefault(); searchStudent(); });
+    $('recentStudents').addEventListener('click', e => { const b = e.target.closest('[data-stu]'); if (b) searchStudent(b.dataset.stu); });
+    window.searchStudent = () => searchStudent();
+    renderStudents();
 
-      const nameParam = buildStudentQueryParam(q, isId);
-
-      actionsEl.innerHTML = `
-        <div style="width: 100%; margin-bottom: 12px;">
-          <a class="btn-counsel" href="https://mathlhk15-glitch.github.io/jinlosangdam/?${nameParam}" target="_blank" rel="noopener" style="display: flex; justify-content: center; padding: 14px; font-size: 16px; font-weight: 700; background: var(--primary); color: white; border-radius: var(--radius-sm); text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            💬 상담기록 확인 및 상담 시작
-          </a>
-        </div>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%; justify-content: center;">
-          <a href="https://mathlhk15-glitch.github.io/2026gumsa-R/?${nameParam}" target="_blank" rel="noopener" style="font-size: 12px; color: var(--text-muted); text-decoration: underline;">
-            진로검사 결과 (새 창) ↗
-          </a>
-          <a href="https://mathlhk15-glitch.github.io/susi/?${nameParam}" target="_blank" rel="noopener" style="font-size: 12px; color: var(--text-muted); text-decoration: underline;">
-            생기부 분석 (새 창) ↗
-          </a>
-          <a href="https://mathlhk15-glitch.github.io/student_growth_roadmap/" target="_blank" rel="noopener" style="font-size: 12px; color: var(--text-muted); text-decoration: underline;">
-            진로탐구 성장플랫폼 (새 창) ↗
-          </a>
-          <a href="report.html?${nameParam}" target="_blank" rel="noopener" style="font-size: 12px; color: var(--text-muted); text-decoration: underline;">
-            통합리포트 (새 창) ↗
-          </a>
-        </div>
-      `;
-
-      if (isId) saveRecentStudent(q, q);
-      else saveRecentStudent(encodeURIComponent(q), q);
-      resultEl.classList.add('open');
+    /* ── 자료실 상태 ── */
+    const state = { q: '', sec: 'all', view: 'all', sort: 'group', open: new Set(store.get(OPEN_KEY, [])) };
+    const getFav = () => new Set(store.get(FAV_KEY, []));
+    const getRecent = () => store.get(RECENT_KEY, []).filter(id => byId[id]);
+    function openResource(id, linkIdx = 0) {
+      const r = byId[id]; if (!r || !r.links || !r.links[linkIdx]) return;
+      store.set(RECENT_KEY, [id, ...getRecent().filter(x => x !== id)].slice(0, 10));
+      window.open(r.links[linkIdx].url, '_blank', 'noopener,noreferrer');
+      renderPins();
+    }
+    function toggleFav(id) {
+      const f = getFav(); f.has(id) ? f.delete(id) : f.add(id);
+      store.set(FAV_KEY, [...f]); renderPins(); renderArchive();
+    }
+    const dateVal = s => { const m = String(s || '').match(/(\d{4})[-.](\d{1,2})/); return m ? +m[1] * 100 + +m[2] : 0; };
+    const groupIdx = r => { const g = (SECTIONS[r.section].groups || []).findIndex(x => x.id === r.group); return g < 0 ? 999 : g; };
+    function sortItems(items) {
+      const a = items.slice();
+      if (state.sort === 'title') return a.sort((x, y) => x.title.localeCompare(y.title, 'ko'));
+      if (state.sort === 'latest') return a.sort((x, y) => dateVal(y.updatedAt) - dateVal(x.updatedAt) || x.title.localeCompare(y.title, 'ko'));
+      return a.sort((x, y) => groupIdx(x) - groupIdx(y) || (x.order || 99) - (y.order || 99) || (+!!y.featured - +!!x.featured) || dateVal(y.updatedAt) - dateVal(x.updatedAt));
+    }
+    function matches(r, fav, recent) {
+      if (state.sec !== 'all' && r.section !== state.sec) return false;
+      if (state.view === 'featured' && !r.featured) return false;
+      if (state.view === 'new' && !r.isNew) return false;
+      if (state.view === 'favorites' && !fav.has(r.id)) return false;
+      if (state.view === 'recent' && !recent.includes(r.id)) return false;
+      if (state.view === 'external' && !r.by) return false;
+      if (state.view === 'ai' && !isAI(r)) return false;
+      if (!state.q) return true;
+      const g = (SECTIONS[r.section].groups || []).find(x => x.id === r.group);
+      const hay = [r.title, r.description, r.by, ...(r.tags || []), SECTIONS[r.section].label, g && g.label,
+        ...(r.links || []).map(l => AI_PLATFORMS[l.platform] || '')].join(' ').toLowerCase();
+      return state.q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w));
     }
 
-    function applyStudent(id, name) {
-      document.getElementById('studentSearchInput').value = id;
-      searchStudent();
+    function cardHtml(r, fav, hit) {
+      const meta = [`<span class="m">${esc(r.updatedAt || '날짜 미상')}</span>`];
+      if (r.featured) meta.push('<span class="m m--feat">추천</span>');
+      if (r.isNew) meta.push('<span class="m m--new">NEW</span>');
+      if (r.by) meta.push(`<span class="m m--by">외부 · ${esc(r.by)}</span>`);
+      const ai = [...new Set((r.links || []).map(l => AI_PLATFORMS[l.platform]).filter(Boolean))];
+      if (ai.length) meta.push(`<span class="m m--ai">${esc(ai.join('·'))}</span>`);
+      const extra = (r.links || []).length > 1
+        ? `<div class="card__links">${r.links.map((l, i) => `<button type="button" data-open="${esc(r.id)}" data-link="${i}">${esc(l.label)} ↗</button>`).join('')}</div>` : '';
+      const on = fav.has(r.id);
+      return `<div class="card${hit ? ' hit' : ''}" role="link" tabindex="0" data-open="${esc(r.id)}" title="새 창에서 열기">
+        <span class="card__icon" aria-hidden="true">${esc(r.icon || '📄')}</span>
+        <div class="card__body"><div class="card__title">${esc(r.title)}</div>
+          <div class="card__desc">${esc(r.description || '')}</div>
+          <div class="card__meta">${meta.join('')}</div>${extra}</div>
+        <button type="button" class="fav${on ? ' on' : ''}" data-fav="${esc(r.id)}" aria-pressed="${on}" aria-label="즐겨찾기 ${on ? '해제' : '추가'}">${on ? '★' : '☆'}</button>
+      </div>`;
     }
 
-    /* ── 자료실 아카이브 렌더링 ── */
     function renderArchive() {
-      const container = document.getElementById('archiveSections');
-      if (!container) return;
-      const data = window.ARCHIVE_DATA;
-      if (!data || !data.sections) return;
-
-      container.innerHTML = '';
-
-      data.sections.forEach(section => {
-        const sectionEl = document.createElement('div');
-        sectionEl.className = `ws-archive-section`;
-        sectionEl.dataset.sectionId = section.id;
-
-        const titleHtml = `
-          <div class="ws-archive-section__title">
-            ${section.title}
-          </div>`;
-
-        const items = section.items || [];
-        const isExternal = section.id === 'external-links';
-        const cardsHtml = items.map(item => `
-          <a class="ws-archive-card" href="${item.url || '#'}" target="${item.newTab !== false ? '_blank' : '_self'}" rel="noopener"
-             data-title="${item.title || ''}" data-desc="${item.desc || ''}" data-tags="${(item.tags || []).join(',')}">
-            ${isExternal ? `<span class="ws-archive-card__badge">외부 제작</span>` : ''}
-            <span class="ws-archive-card__icon">${item.icon || '📎'}</span>
-            <div class="ws-archive-card__info">
-              <div class="ws-archive-card__title">${item.title || ''}</div>
-              <div class="ws-archive-card__desc">${item.desc || ''}</div>
-              ${item.tags && item.tags.length ? `<div class="ws-archive-card__tags">${item.tags.map(t => `<span class="ws-archive-card__tag">${t}</span>`).join('')}</div>` : ''}
-            </div>
-          </a>`).join('');
-
-        const emptyHtml = items.length === 0 ? `<p style="color:var(--text-muted);font-size:13px;padding:8px 0;">아직 등록된 자료가 없습니다.</p>` : '';
-
-        sectionEl.innerHTML = titleHtml + `<div class="ws-archive-cards">${cardsHtml}${emptyHtml}</div>`;
-        container.appendChild(sectionEl);
-      });
-
-      // 퀵 링크
-      if (data.quick && data.quick.length) {
-        const qGrid = document.getElementById('quickGrid');
-        if (qGrid) {
-          qGrid.innerHTML = data.quick.map(item =>
-            `<a class="ws-quick-item" href="${item.url}" target="_blank" rel="noopener">
-              ${item.icon || '🔗'} ${item.title}
-            </a>`
-          ).join('');
-        }
-      }
-
-      filterArchive();
-    }
-
-    /* ── 필터 ── */
-    function setFilter(sectionId, btn) {
-      currentFilter = sectionId;
-      document.querySelectorAll('.ws-filter-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      filterArchive();
-    }
-
-    function filterArchive() {
-      const query = (document.getElementById('archiveSearchInput')?.value || '').toLowerCase();
-      const sections = document.querySelectorAll('.ws-archive-section');
-      let anyVisible = false;
-
-      sections.forEach(sec => {
-        const secId = sec.dataset.sectionId;
-        const matchFilter = currentFilter === 'all' || secId === currentFilter;
-        if (!matchFilter) { sec.classList.add('hidden'); return; }
-
-        const cards = sec.querySelectorAll('.ws-archive-card');
-        let sectionHasMatch = false;
-
-        cards.forEach(card => {
-          const text = [
-            card.dataset.title || '',
-            card.dataset.desc || '',
-            card.dataset.tags || ''
-          ].join(' ').toLowerCase();
-          const match = !query || text.includes(query);
-          card.style.display = match ? '' : 'none';
-          if (match) sectionHasMatch = true;
-        });
-
-        // 빈 섹션도 표시 (등록 없음 메시지)
-        if (cards.length === 0) sectionHasMatch = true;
-
-        sec.classList.toggle('hidden', !sectionHasMatch);
-        if (sectionHasMatch) anyVisible = true;
-      });
-
-      const noResult = document.getElementById('archiveNoResult');
-      if (noResult) noResult.classList.toggle('visible', !anyVisible && !!query);
-    }
-
-    /* ── 자료실 스크롤 ── */
-    function scrollToArchive(e) {
-      if (e) e.preventDefault();
-      document.getElementById('archive')?.scrollIntoView({ behavior: 'smooth' });
-      return false;
-    }
-
-    /* ── 초기화 ── */
-    window.addEventListener('DOMContentLoaded', function () {
-      renderArchive();
-    });
-    // data.js가 나중에 로드될 경우를 위한 폴백
-    window.addEventListener('load', function () {
-      if (document.getElementById('archiveSections')?.children.length === 0) {
-        renderArchive();
-      }
-    });
-
-    /* ── 기존 script.js 호환: SECTIONS 전역변수 사용 시 ── */
-    document.addEventListener('DOMContentLoaded', function () {
-      if (typeof window.SECTIONS !== 'undefined' && window.SECTIONS.length > 0) {
-        window.ARCHIVE_DATA.sections = window.SECTIONS;
-        renderArchive();
-      }
-    });
-  </script>
-
-
-  <script>
-    /* =====================================================
-       자료실 2.0 — 102+ 자료를 빠르게 찾기 위한 탐색 기능
-       data.js만 갱신해도 개수/분류/검색/정렬이 자동 반영됩니다.
-       ===================================================== */
-    const ARCHIVE_FAV_KEY = 'lhk15_archive_favorites_v1';
-    const ARCHIVE_RECENT_KEY = 'lhk15_archive_recent_v1';
-    let archiveView = 'all';
-    let archiveSort = 'featured';
-    let collapsedArchiveSections = new Set();
-
-    function escHtml(value) {
-      return String(value ?? '').replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
-    }
-    function getArchiveFavorites() {
-      try { return new Set(JSON.parse(localStorage.getItem(ARCHIVE_FAV_KEY) || '[]')); }
-      catch { return new Set(); }
-    }
-    function saveArchiveFavorites(set) {
-      try { localStorage.setItem(ARCHIVE_FAV_KEY, JSON.stringify([...set])); } catch {}
-    }
-    function getArchiveRecent() {
-      try { return JSON.parse(localStorage.getItem(ARCHIVE_RECENT_KEY) || '[]').filter(id => resources.some(r => r.id === id)); }
-      catch { return []; }
-    }
-    function recordArchiveRecent(id) {
-      let list = getArchiveRecent().filter(x => x !== id);
-      list.unshift(id);
-      list = list.slice(0, 10);
-      try { localStorage.setItem(ARCHIVE_RECENT_KEY, JSON.stringify(list)); } catch {}
-      renderRecentResources();
-    }
-    function toggleArchiveFavorite(id, event) {
-      if (event) { event.preventDefault(); event.stopPropagation(); }
-      const fav = getArchiveFavorites();
-      fav.has(id) ? fav.delete(id) : fav.add(id);
-      saveArchiveFavorites(fav);
-      renderArchiveStats();
-      renderArchiveViewButtons();
-      renderArchive();
-    }
-    function openArchiveResource(id) {
-      const item = resources.find(r => r.id === id);
-      if (!item || !item.links || !item.links.length) return;
-      recordArchiveRecent(id);
-      window.open(item.links[0].url, '_blank', 'noopener,noreferrer');
-    }
-    function archiveDateValue(s) {
-      const m = String(s || '').match(/(\d{4})[-.](\d{1,2})/);
-      return m ? Number(m[1]) * 100 + Number(m[2]) : 0;
-    }
-    function sortArchiveItems(items) {
-      const arr = items.slice();
-      if (archiveSort === 'title') return arr.sort((a,b) => a.title.localeCompare(b.title,'ko'));
-      if (archiveSort === 'latest') return arr.sort((a,b) => archiveDateValue(b.updatedAt)-archiveDateValue(a.updatedAt) || a.title.localeCompare(b.title,'ko'));
-      if (archiveSort === 'oldest') return arr.sort((a,b) => archiveDateValue(a.updatedAt)-archiveDateValue(b.updatedAt) || a.title.localeCompare(b.title,'ko'));
-      return arr.sort((a,b) => Number(!!b.featured)-Number(!!a.featured) || archiveDateValue(b.updatedAt)-archiveDateValue(a.updatedAt) || a.title.localeCompare(b.title,'ko'));
-    }
-    function archiveMatches(item, query, fav, recent) {
-      if (currentFilter !== 'all' && item.section !== currentFilter) return false;
-      if (archiveView === 'favorites' && !fav.has(item.id)) return false;
-      if (archiveView === 'new' && !item.isNew) return false;
-      if (archiveView === 'featured' && !item.featured) return false;
-      if (archiveView === 'recent' && !recent.includes(item.id)) return false;
-      if (!query) return true;
-      const hay = [item.title, item.description, ...(item.tags || []), item.updatedAt, SECTIONS[item.section]?.label].join(' ').toLowerCase();
-      return hay.includes(query);
-    }
-    function renderArchiveStats() {
-      const el = document.getElementById('archiveStats');
-      if (!el || typeof resources === 'undefined') return;
-      const favCount = getArchiveFavorites().size;
-      const featuredCount = resources.filter(r => r.featured).length;
-      const newCount = resources.filter(r => r.isNew).length;
-      const sectionCount = Object.keys(SECTIONS || {}).length;
-      el.innerHTML = `
-        <div class="ws-archive-stat"><div class="ws-archive-stat__label">전체 등록 자료</div><div class="ws-archive-stat__value">${resources.length}<small style="font-size:12px;font-weight:700">개</small></div><div class="ws-archive-stat__sub">data.js 자동 집계</div></div>
-        <div class="ws-archive-stat"><div class="ws-archive-stat__label">분류</div><div class="ws-archive-stat__value">${sectionCount}<small style="font-size:12px;font-weight:700">개</small></div><div class="ws-archive-stat__sub">분야별 묶음</div></div>
-        <div class="ws-archive-stat"><div class="ws-archive-stat__label">추천 · NEW</div><div class="ws-archive-stat__value">${featuredCount}<small style="font-size:12px;font-weight:700"> / ${newCount}</small></div><div class="ws-archive-stat__sub">추천 / 최근 자료</div></div>
-        <div class="ws-archive-stat"><div class="ws-archive-stat__label">내 즐겨찾기</div><div class="ws-archive-stat__value">${favCount}<small style="font-size:12px;font-weight:700">개</small></div><div class="ws-archive-stat__sub">이 브라우저에 저장</div></div>`;
-    }
-    function renderArchiveViewButtons() {
-      const el = document.getElementById('archiveViewBtns');
-      if (!el) return;
-      const fav = getArchiveFavorites().size;
-      const recent = getArchiveRecent().length;
-      const configs = [
-        ['all', `전체 ${resources.length}`],
-        ['featured', `📌 추천 ${resources.filter(r=>r.featured).length}`],
-        ['new', `🆕 NEW ${resources.filter(r=>r.isNew).length}`],
-        ['favorites', `⭐ 즐겨찾기 ${fav}`],
-        ['recent', `🕘 최근 본 ${recent}`]
-      ];
-      el.innerHTML = '<span class="ws-chip-label">보기</span>' + configs.map(([v,label]) =>
-        `<button class="ws-archive-view-btn ${archiveView===v?'active':''}" onclick="setArchiveView('${v}')">${label}</button>`
-      ).join('');
-    }
-    function renderArchiveFilterButtons() {
-      const el = document.getElementById('filterBtnGroup');
-      if (!el) return;
-      const count = sid => resources.filter(r => r.section === sid).length;
-      const buttons = [`<button class="ws-filter-btn ${currentFilter==='all'?'active':''}" data-section="all" onclick="setFilter('all',this)">전체 ${resources.length}</button>`];
-      Object.keys(SECTIONS).forEach(sid => {
-        const label = SECTIONS[sid].label.replace(/^\S+\s/, '');
-        buttons.push(`<button class="ws-filter-btn ${currentFilter===sid?'active':''}" data-section="${sid}" onclick="setFilter('${sid}',this)">${escHtml(label)} ${count(sid)}</button>`);
-      });
-      el.innerHTML = buttons.join('');
-    }
-    function renderRecentResources() {
-      const box = document.getElementById('recentResources');
-      if (!box) return;
-      const recent = getArchiveRecent().slice(0,5).map(id => resources.find(r => r.id === id)).filter(Boolean);
-      if (!recent.length) { box.classList.remove('visible'); box.innerHTML=''; return; }
-      box.classList.add('visible');
-      box.innerHTML = `<div class="ws-recent-resources__head">🕘 최근 본 자료 <span style="font-weight:400;color:var(--text-muted)">다시 찾기</span></div><div class="ws-recent-resources__list">${recent.map(r => `<button class="ws-recent-link" onclick="openArchiveResource('${r.id}')">${escHtml(r.icon || '📄')} ${escHtml(r.title)}</button>`).join('')}</div>`;
-    }
-    function setArchiveView(view) {
-      archiveView = view;
-      if (view !== 'all') Object.keys(SECTIONS).forEach(s => collapsedArchiveSections.delete(s));
-      renderArchiveViewButtons(); renderArchive();
-    }
-    function setArchiveSort(value) { archiveSort = value; renderArchive(); }
-    function applyArchiveKeyword(word) {
-      const input = document.getElementById('archiveSearchInput');
-      if (input) { input.value = word; currentFilter = 'all'; archiveView='all'; }
-      Object.keys(SECTIONS).forEach(s => collapsedArchiveSections.delete(s));
-      renderArchiveFilterButtons(); renderArchiveViewButtons(); filterArchive();
-    }
-    function clearArchiveSearch() {
-      const input = document.getElementById('archiveSearchInput');
-      if (input) { input.value=''; input.focus(); }
-      filterArchive();
-    }
-    function expandAllCategories() { Object.keys(SECTIONS).forEach(s => collapsedArchiveSections.delete(s)); renderArchive(); }
-    function collapseAllCategories() { Object.keys(SECTIONS).forEach(s => collapsedArchiveSections.add(s)); renderArchive(); }
-    function toggleArchiveSection(id) {
-      collapsedArchiveSections.has(id) ? collapsedArchiveSections.delete(id) : collapsedArchiveSections.add(id);
-      renderArchive();
-    }
-
-    // 기존 함수 교체: 카테고리 선택 시 해당 묶음은 자동 펼침
-    setFilter = function(sectionId, btn) {
-      currentFilter = sectionId;
-      if (sectionId !== 'all') collapsedArchiveSections.delete(sectionId);
-      renderArchiveFilterButtons();
-      renderArchive();
-    };
-
-    filterArchive = function() {
-      const input = document.getElementById('archiveSearchInput');
-      const wrap = document.getElementById('archiveSearchWrap');
-      if (wrap) wrap.classList.toggle('has-query', !!(input && input.value.trim()));
-      if (input && input.value.trim()) Object.keys(SECTIONS).forEach(s => collapsedArchiveSections.delete(s));
-      renderArchive();
-    };
-
-    renderArchive = function() {
-      const container = document.getElementById('archiveSections');
-      if (!container || typeof resources === 'undefined') return;
-      const query = (document.getElementById('archiveSearchInput')?.value || '').trim().toLowerCase();
-      const fav = getArchiveFavorites();
-      const recent = getArchiveRecent();
-      const matched = resources.filter(item => archiveMatches(item, query, fav, recent));
-      const matchedIds = new Set(matched.map(r => r.id));
-      const isSearching = !!query;
+      const fav = getFav(), recent = getRecent();
+      const matched = resources.filter(r => matches(r, fav, recent));
+      const searching = !!state.q;
+      const filtered = searching || state.view !== 'all' || state.sec !== 'all';
       let html = '';
-      Object.keys(SECTIONS).forEach(sid => {
-        const items = sortArchiveItems(resources.filter(r => r.section === sid && matchedIds.has(r.id)));
+      SEC_IDS.forEach(sid => {
+        const items = sortItems(matched.filter(r => r.section === sid));
         if (!items.length) return;
-        const sec = SECTIONS[sid];
-        const expanded = isSearching || currentFilter === sid || archiveView !== 'all' || !collapsedArchiveSections.has(sid);
-        html += `<div class="ws-archive-section ${expanded?'expanded':''}" data-section-id="${sid}">
-          <button class="ws-archive-section__head" onclick="toggleArchiveSection('${sid}')" aria-expanded="${expanded}">
-            <div class="ws-archive-section__title">${escHtml(sec.label)}<div class="ws-section-desc">${escHtml(sec.desc || '')}</div></div>
-            <span class="ws-section-count">${items.length}개</span><span class="ws-section-chevron">▼</span>
+        const open = filtered || state.open.has(sid);
+        let body = '';
+        if (state.sort === 'group' && (SECTIONS[sid].groups || []).length) {
+          const groups = [...(SECTIONS[sid].groups || []), { id: '__etc', label: '기타' }];
+          groups.forEach(g => {
+            const gi = items.filter(r => g.id === '__etc' ? !(SECTIONS[sid].groups || []).some(x => x.id === r.group) : r.group === g.id);
+            if (!gi.length) return;
+            body += `<div class="grp"><div class="grp__title">${esc(g.label)} · ${gi.length}</div><div class="cards">${gi.map(r => cardHtml(r, fav, searching)).join('')}</div></div>`;
+          });
+        } else {
+          body = `<div class="cards">${items.map(r => cardHtml(r, fav, searching)).join('')}</div>`;
+        }
+        html += `<section class="sec${open ? ' open' : ''}" id="sec-${sid}" data-sec="${sid}">
+          <button type="button" class="sec__head" data-toggle="${sid}" aria-expanded="${open}">
+            <span class="sec__icon" aria-hidden="true">${esc(secIcon(sid))}</span>
+            <span class="sec__titles"><span class="sec__name">${esc(secName(sid))}</span><div class="sec__desc">${esc(SECTIONS[sid].desc || '')}</div></span>
+            <span class="sec__count">${items.length}</span><span class="sec__chev" aria-hidden="true">▼</span>
           </button>
-          <div class="ws-archive-cards">${items.map(item => {
-            const tags=(item.tags||[]).slice(0,5).map(t=>`<span class="ws-archive-card__tag">${escHtml(t)}</span>`).join('');
-            const meta=[`<span>${escHtml(item.updatedAt || '업데이트 미상')}</span>`];
-            if(item.featured) meta.push('<span class="meta-featured">추천</span>');
-            if(item.isNew) meta.push('<span class="meta-new">NEW</span>');
-            if(item.section==='external-links') meta.push('<span>외부 제작</span>');
-            return `<div class="ws-archive-card ${isSearching?'ws-card-match':''}" role="link" tabindex="0" onclick="openArchiveResource('${item.id}')" onkeydown="if(event.key==='Enter'){openArchiveResource('${item.id}')}" title="새 창에서 열기">
-              <span class="ws-archive-card__icon">${escHtml(item.icon || '📄')}</span>
-              <div class="ws-archive-card__info"><div class="ws-archive-card__title">${escHtml(item.title)}</div><div class="ws-archive-card__desc">${escHtml(item.description || '')}</div>${tags?`<div class="ws-archive-card__tags">${tags}</div>`:''}<div class="ws-card-meta">${meta.join('')}</div></div>
-              <div class="ws-card-actions"><button class="ws-fav-btn ${fav.has(item.id)?'active':''}" onclick="toggleArchiveFavorite('${item.id}',event)" aria-label="즐겨찾기 ${fav.has(item.id)?'해제':'추가'}" title="즐겨찾기">${fav.has(item.id)?'★':'☆'}</button></div>
-            </div>`;
-          }).join('')}</div></div>`;
+          <div class="sec__body">${body}</div></section>`;
       });
-      container.innerHTML = html;
-      const noResult = document.getElementById('archiveNoResult');
-      if (noResult) {
-        noResult.classList.toggle('visible', matched.length === 0);
-        if (matched.length === 0) noResult.textContent = archiveView==='favorites' ? '즐겨찾기한 자료가 없습니다. 카드의 ☆를 눌러 저장해 보세요.' : archiveView==='recent' ? '최근 본 자료가 없습니다.' : '검색 결과가 없습니다. 다른 키워드나 분류를 선택해 보세요.';
-      }
-      const result = document.getElementById('archiveResultSummary');
-      if (result) result.textContent = `표시 ${matched.length}개 / 전체 ${resources.length}개`;
-      renderArchiveStats();
-      renderRecentResources();
+      $('archiveSections').innerHTML = html;
+      const nr = $('archiveNoResult');
+      nr.classList.toggle('show', !matched.length);
+      nr.textContent = state.view === 'favorites' ? '즐겨찾기한 자료가 없습니다. 카드 오른쪽 위 ☆를 누르면 여기와 첫 화면에 모입니다.'
+        : state.view === 'recent' ? '최근 본 자료가 없습니다.' : '찾는 자료가 없습니다. 다른 말이나 분류로 찾아보세요.';
+      $('resultCount').innerHTML = `<b>${matched.length}</b>개 / 전체 ${resources.length}개`;
+      $('searchBox').classList.toggle('has-q', !!state.q);
+    }
 
-      // 기존 빠른 링크는 유지
-      if (window.ARCHIVE_DATA?.quick?.length) {
-        const qGrid=document.getElementById('quickGrid');
-        if(qGrid && !qGrid.children.length) qGrid.innerHTML=window.ARCHIVE_DATA.quick.map(item=>`<a class="ws-quick-item" href="${item.url}" target="_blank" rel="noopener">${item.icon||'🔗'} ${escHtml(item.title)}</a>`).join('');
-      }
-    };
+    function renderChips() {
+      const count = sid => resources.filter(r => r.section === sid).length;
+      $('secChips').innerHTML = [`<button class="chip" data-sec="all" aria-pressed="${state.sec === 'all'}">전체 ${resources.length}</button>`]
+        .concat(SEC_IDS.map(sid => `<button class="chip" data-sec="${sid}" aria-pressed="${state.sec === sid}">${esc(secIcon(sid))} ${esc(secName(sid))} ${count(sid)}</button>`)).join('');
+    }
+    function renderDrawers() {
+      $('drawers').innerHTML = SEC_IDS.map(sid => {
+        const n = resources.filter(r => r.section === sid).length;
+        const gs = (SECTIONS[sid].groups || []).map(g => g.label).join(' · ');
+        return `<button type="button" class="drawer${sid === 'personal' ? ' drawer--personal' : ''}" data-sec="${sid}">
+          <span class="drawer__top"><span class="drawer__icon" aria-hidden="true">${esc(secIcon(sid))}</span><span class="drawer__name">${esc(secName(sid))}</span><span class="drawer__count">${n}</span></span>
+          <span class="drawer__groups">${esc(gs || SECTIONS[sid].desc || '')}</span></button>`;
+      }).join('');
+    }
+    let pane = 'fav';
+    function renderPins() {
+      const fav = [...getFav()].filter(id => byId[id]);
+      let ids, empty;
+      if (pane === 'fav') {
+        ids = fav.length ? fav : resources.filter(r => r.featured).map(r => r.id);
+        empty = '';
+      } else { ids = getRecent(); empty = '아직 연 자료가 없습니다.'; }
+      const head = pane === 'fav' && !fav.length ? '<div class="panel-empty">즐겨찾기가 없어 업무 핵심 추천을 보여 줍니다. 카드의 ☆로 고정하세요.</div>' : '';
+      $('pinList').innerHTML = head + (ids.length ? ids.slice(0, 12).map(id => { const r = byId[id];
+        return `<button type="button" class="pin" data-open="${esc(id)}"><span class="pin__icon">${esc(r.icon || '📄')}</span><span class="pin__title">${esc(r.title)}</span><span class="pin__sec">${esc(secIcon(r.section))}</span></button>`; }).join('')
+        : `<div class="panel-empty">${empty}</div>`);
+      $('tabFav').textContent = `⭐ 즐겨찾기${fav.length ? ' ' + fav.length : ''}`;
+    }
+    document.querySelectorAll('.tabs [role=tab]').forEach(b => b.addEventListener('click', () => {
+      pane = b.dataset.pane; document.querySelectorAll('.tabs [role=tab]').forEach(x => x.setAttribute('aria-selected', x === b)); renderPins();
+    }));
 
-    window.addEventListener('DOMContentLoaded', function(){
-      // 첫 화면은 10개 카테고리 제목만 보여 주어 100+ 카드의 긴 스크롤을 피합니다.
-      Object.keys(SECTIONS || {}).forEach(s => collapsedArchiveSections.add(s));
-      renderArchiveFilterButtons();
-      renderArchiveViewButtons();
-      renderArchiveStats();
-      renderRecentResources();
-      renderArchive();
+    const EXT = [
+      ['🏫', '대학어디가', 'https://www.adiga.kr'], ['📊', '대학알리미', 'https://www.academyinfo.go.kr'],
+      ['🧭', '커리어넷', 'https://www.career.go.kr/'], ['💼', '고용24', 'https://www.work24.go.kr/'],
+      ['✨', '꿈길', 'https://www.ggoomgil.go.kr/'], ['📚', '입시자료모음', 'https://xn--vk1bt41a12ci0t.com/univ-admission-search/']
+    ];
+    $('extLinks').innerHTML = EXT.map(([i, t, u]) => `<a href="${u}" target="_blank" rel="noopener">${i} ${t}</a>`).join('');
+
+    /* ── 동작 ── */
+    function goArchive(focusSec) {
+      const el = focusSec ? $('sec-' + focusSec) : $('archive');
+      (el || $('archive')).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    function setSec(sid, scroll) {
+      state.sec = sid; renderChips(); renderArchive();
+      const chip = document.querySelector(`.chip[data-sec="${sid}"]`); if (chip) chip.scrollIntoView({ block: 'nearest', inline: 'center' });
+      if (scroll) goArchive();
+    }
+    function setQuery(q, scroll) {
+      state.q = q.trim(); $('archiveSearchInput').value = state.q; $('toolSearchInput').value = state.q;
+      if (state.q) { state.sec = 'all'; renderChips(); }
+      renderArchive(); if (scroll) goArchive();
+    }
+    let t;
+    $('archiveSearchInput').addEventListener('input', e => { clearTimeout(t); t = setTimeout(() => setQuery(e.target.value), 120); });
+    $('searchClear').addEventListener('click', () => { setQuery(''); $('archiveSearchInput').focus(); });
+    $('toolForm').addEventListener('submit', e => { e.preventDefault(); setQuery($('toolSearchInput').value, true); });
+    document.querySelectorAll('.find-hint [data-q]').forEach(b => b.addEventListener('click', () => setQuery(b.dataset.q, true)));
+    $('secChips').addEventListener('click', e => { const b = e.target.closest('[data-sec]'); if (b) setSec(b.dataset.sec); });
+    $('drawers').addEventListener('click', e => { const b = e.target.closest('[data-sec]'); if (b) { state.q = ''; $('archiveSearchInput').value = ''; setSec(b.dataset.sec, true); } });
+    $('viewSelect').addEventListener('change', e => { state.view = e.target.value; renderArchive(); });
+    $('sortSelect').addEventListener('change', e => { state.sort = e.target.value; renderArchive(); });
+    $('expandAll').addEventListener('click', () => { state.open = new Set(SEC_IDS); store.set(OPEN_KEY, [...state.open]); renderArchive(); });
+    $('collapseAll').addEventListener('click', () => { state.open = new Set(); store.set(OPEN_KEY, []); state.sec = 'all'; state.view = 'all'; state.q = '';
+      $('viewSelect').value = 'all'; $('archiveSearchInput').value = ''; $('toolSearchInput').value = ''; renderChips(); renderArchive(); });
+    document.addEventListener('click', e => {
+      const fav = e.target.closest('[data-fav]'); if (fav) { e.stopPropagation(); toggleFav(fav.dataset.fav); return; }
+      const tg = e.target.closest('[data-toggle]');
+      if (tg) { const sid = tg.dataset.toggle; const sec = tg.closest('.sec'); const willOpen = !sec.classList.contains('open');
+        sec.classList.toggle('open', willOpen); tg.setAttribute('aria-expanded', willOpen);
+        willOpen ? state.open.add(sid) : state.open.delete(sid); store.set(OPEN_KEY, [...state.open]); return; }
+      const op = e.target.closest('[data-open]'); if (op) openResource(op.dataset.open, +(op.dataset.link || 0));
     });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && e.target.matches && e.target.matches('.card[data-open]')) openResource(e.target.dataset.open);
+      if (e.key === '/' && !/input|textarea|select/i.test(document.activeElement.tagName)) { e.preventDefault(); $('toolSearchInput').focus(); }
+    });
+    addEventListener('scroll', () => $('toTop').classList.toggle('show', scrollY > 700), { passive: true });
+    $('toTop').addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+
+    renderChips(); renderDrawers(); renderPins(); renderArchive();
+    function onHash() {
+      const h = decodeURIComponent(location.hash.slice(1));
+      if (h.startsWith('sec-') && SECTIONS[h.slice(4)]) setSec(h.slice(4), true);
+      else if (h === 'archive') setTimeout(() => goArchive(), 50);
+    }
+    onHash(); addEventListener('hashchange', onHash);
+  })();
   </script>
 
-  <!-- PWA 서비스워커 및 설치 등록 -->
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW ref fail', err));
-      });
+      window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(() => {}); });
     }
-
-    // PWA 앱 설치 버튼 로직
-    let deferredPrompt;
-    const installBtn = document.getElementById('pwaInstallBtn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      // Chrome 67 이전 버전의 자동 프롬프트 방지
-      e.preventDefault();
-      // 이벤트를 보관하여 나중에 트리거할 수 있게 함
-      deferredPrompt = e;
-      // 설치 버튼 표시
-      if (installBtn) {
-        installBtn.style.display = 'flex';
-      }
-    });
-
-    if (installBtn) {
-      installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        // 설치 프롬프트 표시
-        deferredPrompt.prompt();
-        // 사용자가 프롬프트에 응답할 때까지 대기
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          console.log('사용자가 앱 설치를 동의했습니다.');
-          installBtn.style.display = 'none';
-        }
-        deferredPrompt = null;
-      });
-    }
-    
-    // 이미 설치된 경우 버튼 숨기기
-    window.addEventListener('appinstalled', () => {
-      if (installBtn) installBtn.style.display = 'none';
-      deferredPrompt = null;
-    });
+    (function () {
+      let deferred; const btn = document.getElementById('pwaInstallBtn');
+      window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; if (btn) btn.style.display = 'inline-flex'; });
+      if (btn) btn.addEventListener('click', async () => { if (!deferred) return; deferred.prompt(); const r = await deferred.userChoice; if (r.outcome === 'accepted') btn.style.display = 'none'; deferred = null; });
+      window.addEventListener('appinstalled', () => { if (btn) btn.style.display = 'none'; deferred = null; });
+    })();
   </script>
 </body>
 </html>

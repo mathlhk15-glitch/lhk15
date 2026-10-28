@@ -6,7 +6,8 @@
      1. <head>에 common.css 링크
      2. </body> 직전에 이 파일 script 태그로 삽입
      3. <body>에 data-ws-page="현재페이지키" 속성 추가
-        (home | counseling | susi | gumsa | archive | settings | personal)
+        (home | counseling | susi | gumsa | report | archive | personal)
+        ※ 설정(구글 계정·비밀번호 등)은 개인 공간 → ⚙️ 설정 탭에 있습니다
    ===================================================== */
 
 (function () {
@@ -19,7 +20,6 @@
     { key: 'counseling', icon: '💬',  label: '상담관리', url: 'https://mathlhk15-glitch.github.io/jinlosangdam/',         newTab: true  },
     { key: 'report',     icon: '🧾',  label: '통합리포트',url: 'https://mathlhk15-glitch.github.io/lhk15/report.html',   newTab: false },
     { key: 'archive',    icon: '📚',  label: '자료실',   url: 'https://mathlhk15-glitch.github.io/lhk15/#archive',       newTab: false },
-    { key: 'settings',   icon: '⚙️', label: '설정',     url: 'https://mathlhk15-glitch.github.io/lhk15/#settings',      newTab: false },
     { key: 'personal',   icon: '🔐',  label: '개인 공간',url: 'https://mathlhk15-glitch.github.io/lhk15/personal.html',  newTab: false },
   ];
 
