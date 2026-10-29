@@ -801,7 +801,7 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
-    "links": [{"label":"바로가기","url":"2026-career-compass.html","platform":"html"}]
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2026-career-compass/","platform":"html"}]
   },
   {
     "id": "k1-riasec",
