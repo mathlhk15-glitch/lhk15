@@ -946,6 +946,20 @@ const resources = [
     "links": [{"label":"바로가기","url":"https://park-sanggeun-all.github.io/teacher-console-cases/","platform":"html"}]
   },
   {
+    "id": "achievement-inquiry-2026",
+    "icon": "🔖",
+    "title": "성취기준에서 탐구로 — 2022 개정 성취기준별 질문·탐구 예시",
+    "section": "inquiry-research",
+    "group": "design",
+    "order": 0,
+    "description": "고등학교 전 과목 3,125개 성취기준마다 질문·탐구 계획 예시를 연결. 주제·탐구 내용 검색, 검수 완료 예시만 보기, 교과서 목차",
+    "tags": ["성취기준","2022개정","탐구질문","탐구계획","교과연계","세특","수행평가","교과서목차","교사용","학생용"],
+    "featured": true,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2026achievement/","platform":"html"}]
+  },
+  {
     "id": "career-exploration-tool",
     "icon": "🧭",
     "title": "진로 탐구 길잡이",
