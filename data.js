@@ -118,6 +118,7 @@ const SECTIONS = {
       {"id":"travel","label":"여행"},
       {"id":"culture","label":"문화·취미"},
       {"id":"health","label":"건강"},
+      {"id":"digital","label":"디지털 생활"},
       {"id":"food","label":"요리·살림"},
       {"id":"family","label":"가족·재무"},
       {"id":"lang","label":"언어 학습"}
@@ -1697,6 +1698,32 @@ const resources = [
     "isNew": false,
     "updatedAt": "2026-05",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/good-writing","platform":"html"}]
+  },
+  {
+    "id": "cold-care-guide",
+    "icon": "🤧",
+    "title": "감기·몸살 증상별 대처 가이드",
+    "section": "personal",
+    "group": "health",
+    "description": "몸살·목감기·코감기 증상별 생활 관리와 안전한 약 복용 시 주의사항 안내",
+    "tags": ["감기", "몸살", "목감기", "코감기", "기침", "콧물", "복약주의", "건강정보", "인포그래픽"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/cold-care-guide/","platform":"html"}]
+  },
+  {
+    "id": "computer-cleanup-guide",
+    "icon": "🧹",
+    "title": "내 컴퓨터 청소 대작전 — 초보자 실습 가이드",
+    "section": "personal",
+    "group": "digital",
+    "description": "Windows 저장소 정리, 임시 파일 관리, 단계별 실습과 안전 체크리스트",
+    "tags": ["컴퓨터", "Windows", "윈도우", "PC 청소", "디스크 용량", "임시 파일", "저장소 정리", "초보자", "실습"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/computer-cleanup-guide/","platform":"html"}]
   },
   {
     "id": "daily-health-guid",
