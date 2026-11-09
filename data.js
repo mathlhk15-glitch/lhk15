@@ -1,5 +1,6 @@
 // 창원경일고 진로진학 상담 워크스테이션 — 자료실 데이터
 // 2026-10-29 재분류: 함께 쓰는 도구끼리 같은 분류·소묶음(group)에 모음
+// 2026-11-09 수능·학습자료: '수능 직전 과목별 파이널' 소묶음 신설(한국사·국어 추가)
 //
 // ★ 카드 추가/수정은 아래 resources 배열만 편집하세요
 //   section : SECTIONS 의 키      group : 그 분류의 groups[].id (없으면 맨 아래 "기타")
@@ -82,9 +83,10 @@ const SECTIONS = {
   },
   "study": {
     "label": "📚 수능·학습자료",
-    "desc": "수능 마무리·작품 학습, 공부법, 교양·자기계발 자료",
+    "desc": "수능 직전 과목별 파이널 → 수험전략·작품 학습 → 공부법·교양",
     "groups": [
-      {"id":"csat","label":"수능 대비"},
+      {"id":"final","label":"수능 직전 과목별 파이널"},
+      {"id":"csat","label":"수험전략·작품 학습"},
       {"id":"study","label":"공부법·교양"}
     ]
   },
@@ -1158,6 +1160,34 @@ const resources = [
     "isNew": false,
     "updatedAt": "2026-04",
     "links": [{"label":"GPTs로 열기","url":"https://chatgpt.com/g/g-69dc98128764819197bf1ddbc92b4e47-saenggibu-giban-myeonjeob-jaryo-saengseong","platform":"gpt"},{"label":"Gemini로 열기","url":"https://gemini.google.com/gem/1GMiZ4pV5Rbmoc2s3puoYkJiI_OT53bRh?usp=sharing","platform":"gemini"}]
+  },
+  {
+    "id": "final-2027-history",
+    "icon": "📜",
+    "title": "한국사 파이널 노트 — 2027 수능 직전",
+    "section": "study",
+    "group": "final",
+    "order": 1,
+    "description": "시대별 표·함정 선지·자료 단서 47개·O/X·연표 훈련, 반복 출제 29개 개념과 원본 7쪽",
+    "tags": ["2027","수능","한국사","파이널","O/X","연표","함정선지","오답노트","학생용"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/final-2027-history/","platform":"html"}]
+  },
+  {
+    "id": "final-2027-korean",
+    "icon": "📖",
+    "title": "국어 파이널 허브 — 2027 수능 연계 우선 학습",
+    "section": "study",
+    "group": "final",
+    "order": 2,
+    "description": "문학 25작품·독서 20제재 학습 카드, 판단 O/X·작품 연결 퀴즈, 수특·수완 작품 색인 75, D-day 계획",
+    "tags": ["2027","수능","국어","문학","독서","수능특강","수능완성","EBS연계","파이널","학생용"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/final-2027-korean/","platform":"html"}]
   },
   {
     "id": "2027-csat-final-guide",
