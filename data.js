@@ -122,6 +122,7 @@ const SECTIONS = {
       {"id":"health","label":"건강"},
       {"id":"digital","label":"디지털 생활"},
       {"id":"food","label":"요리·살림"},
+      {"id":"car","label":"자동차·차량 관리"},
       {"id":"family","label":"가족·재무"},
       {"id":"lang","label":"언어 학습"}
     ]
@@ -1741,6 +1742,19 @@ const resources = [
     "isNew": true,
     "updatedAt": "2026-11",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/cold-care-guide/","platform":"html"}]
+  },
+  {
+    "id": "benz-e200-guide",
+    "icon": "🚘",
+    "title": "벤츠 E200 익스클루시브 — 실전 사용·관리 가이드",
+    "section": "personal",
+    "group": "car",
+    "description": "2026 E200(W214) 차량 버튼·숨은 기능·주행과 주차·MBUX·티맵·주유·정비·보증·비상 대응을 한곳에서 검색하는 실전 안내서",
+    "tags": ["벤츠", "메르세데스벤츠", "E200", "익스클루시브", "W214", "자동차", "차량관리", "사용설명서", "MBUX", "티맵", "주차", "정비", "보증"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/benz-e200/","platform":"html"}]
   },
   {
     "id": "computer-cleanup-guide",
