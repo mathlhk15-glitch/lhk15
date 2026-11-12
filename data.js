@@ -1736,6 +1736,19 @@ const resources = [
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/gyeomjae/","platform":"html"}]
   },
   {
+    "id": "wife-poems",
+    "icon": "💌",
+    "title": "아내라는 한 사람 — 부부의 시와 아내에게 전하는 글",
+    "section": "personal",
+    "group": "culture",
+    "description": "부부를 노래한 시 21편과 아내에게 전하는 글 9편을 유화풍 그림과 함께 엮은 작은 문집. 편지·연표·사진을 채워 선물본으로 저장",
+    "tags": ["부부","아내","시","문집","편지","선물","기념일","결혼","하피첩","유화"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/wife-poems/","platform":"html"}]
+  },
+  {
     "id": "drama-movie-quotes",
     "icon": "🎬",
     "title": "드라마·영화 명대사 모음",
