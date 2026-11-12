@@ -850,6 +850,36 @@ const resources = [
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2026-1-hakup-design/roadmap/","platform":"html"}]
   },
   {
+    "id": "2028-course-guide",
+    "icon": "📚",
+    "title": "2028 대학별·전공별 권장과목 찾기",
+    "section": "curriculum",
+    "group": "flow",
+    "order": 4,
+    "by": "spinel",
+    "description": "48개 대학의 전공별 권장과목을 대학·전공 기준으로 검색하고 과목 선택을 비교하는 참고자료",
+    "tags": [
+      "2028",
+      "대입",
+      "권장과목",
+      "선택과목",
+      "대학별",
+      "전공별",
+      "고교학점제",
+      "외부 제작"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/2028-course-guide/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
     "id": "gyeongil-growth-hub",
     "icon": "🌱",
     "title": "경일 진로·탐구 성장 허브",
@@ -1357,6 +1387,33 @@ const resources = [
     "isNew": true,
     "updatedAt": "2026-10",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/gyeongdali-emoticons/","platform":"html"}]
+  },
+  {
+    "id": "gyeongil-2027",
+    "icon": "🏫",
+    "title": "2027 창원경일고등학교 학교설명회",
+    "section": "staff-training",
+    "group": "pr",
+    "order": 2,
+    "description": "2027학년도 창원경일고등학교 학교소개 및 입학설명회 자료",
+    "tags": [
+      "2027",
+      "창원경일고",
+      "학교설명회",
+      "학교홍보",
+      "신입생",
+      "학부모"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/gyeongil-2027",
+        "platform": "html"
+      }
+    ]
   },
   {
     "id": "teacher-ai-workshop",
