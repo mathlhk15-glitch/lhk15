@@ -1814,6 +1814,19 @@ const resources = [
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/cold-care-guide/","platform":"html"}]
   },
   {
+    "id": "eye-health",
+    "icon": "👀",
+    "title": "눈 운동의 진실 · 눈 건강 지키는 법",
+    "section": "personal",
+    "group": "health",
+    "description": "인터넷 '시력 좋아지는 눈 운동' 사실 점검과 근시 예방 생활습관(야외 2시간·20-20-20·안경) 초등용 인포그래픽 2장",
+    "tags": ["눈건강", "근시", "시력", "눈운동", "20-20-20", "야외활동", "안경", "초등", "인포그래픽"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/eye-health/","platform":"html"}]
+  },
+  {
     "id": "benz-e200-guide",
     "icon": "🚘",
     "title": "벤츠 E200 익스클루시브 — 실전 사용·관리 가이드",
