@@ -1801,6 +1801,19 @@ const resources = [
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/good-writing","platform":"html"}]
   },
   {
+    "id": "life-quotes",
+    "icon": "💬",
+    "title": "살면서 봤던 명언 중에 진짜 최고다",
+    "section": "personal",
+    "group": "culture",
+    "description": "주제별 인생 명언 113개 — 출처 구분, 오늘의 명언, 복사·카드 이미지 저장",
+    "tags": ["명언","인생","좋은 글","밴드 게시","카드 이미지"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/life-quotes/","platform":"html"}]
+  },
+  {
     "id": "cold-care-guide",
     "icon": "🤧",
     "title": "감기·몸살 증상별 대처 가이드",
