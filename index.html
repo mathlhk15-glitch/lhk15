@@ -229,6 +229,26 @@
     .to-top.show { display:block; }
     .ws-footer { margin-top:40px; }
 
+    /* ── 2026-11-16 개편: 점검 중·관련 도구·대상 선택·학생·학부모 안내 링크 ── */
+    .m--maint { background:#fdecec; color:#b42318; border-color:transparent; }
+    :root[data-theme="dark"] .m--maint { background:#3a1414; color:#ffb4ab; }
+    .card.is-maint { opacity:.62; }
+    .card.is-maint .card__title::after { content:" · 점검 중"; color:#b42318; font-weight:700; font-size:12px; }
+    .card__rel { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:8px; padding-top:8px; border-top:1px dashed var(--line); }
+    .card__rel > span { font-size:11px; font-weight:700; color:var(--ink-3); }
+    .card__rel button { border:1px solid var(--line-2); background:var(--card-2); color:var(--ink-2); border-radius:8px; padding:3px 8px; font-size:11.5px; font-weight:600; cursor:pointer; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .card__rel button:hover { border-color:var(--blue); color:var(--blue); }
+    .flow a.is-maint { opacity:.5; pointer-events:none; }
+    .flow a.is-maint .flow__d::after { content:" · 점검 중"; color:#b42318; font-weight:700; }
+    .student-result__more .is-maint { opacity:.5; cursor:not-allowed; }
+    .family-link { display:inline-flex; align-items:center; gap:6px; padding:8px 12px; border-radius:10px; font-size:13px; font-weight:700;
+      background:rgba(255,255,255,.14); color:inherit; text-decoration:none; border:1px solid rgba(255,255,255,.28); }
+    .family-link:hover { background:rgba(255,255,255,.24); }
+    .ws-toast { position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(20px); z-index:80; max-width:min(92vw,520px);
+      background:#1f2937; color:#fff; padding:12px 16px; border-radius:12px; font-size:13.5px; line-height:1.5; box-shadow:var(--shadow);
+      opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; }
+    .ws-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
     /* ── 반응형 ── */
     @media (max-width: 1080px) {
       .flow { grid-template-columns:repeat(3,1fr); }
@@ -277,6 +297,7 @@
           <h1 class="top__title">진로진학 <b>상담 워크스테이션</b></h1>
         </div>
         <div class="top__date" id="todayStr"></div>
+        <a class="family-link" href="family.html" target="_blank" rel="noopener" title="학생·학부모에게 보내는 공개 안내 페이지">👪 학생·학부모 안내</a>
         <button class="install-btn" id="pwaInstallBtn" type="button">⬇️ 앱으로 설치</button>
       </div>
 
@@ -373,6 +394,13 @@
           <div class="chips" id="secChips" aria-label="분류"></div>
         </div>
         <div class="toolbar__row toolbar__row--opts">
+          <select class="select" id="audSelect" aria-label="대상">
+            <option value="work">👥 업무 전체 (개인 제외)</option>
+            <option value="sp">🎒 학생·학부모용</option>
+            <option value="teacher">🧑‍🏫 교사용</option>
+            <option value="personal">🧺 개인</option>
+            <option value="all">전부 보기</option>
+          </select>
           <select class="select" id="viewSelect" aria-label="보기">
             <option value="all">전체 보기</option>
             <option value="featured">📌 업무 핵심 추천</option>
@@ -381,6 +409,8 @@
             <option value="recent">🕘 최근 본</option>
             <option value="external">🤝 외부 제작</option>
             <option value="ai">🤖 GPTs·Gemini</option>
+            <option value="maint">🔒 점검 중</option>
+            <option value="archive">🗄️ 지난 학년도 자료</option>
           </select>
           <select class="select" id="sortSelect" aria-label="정렬">
             <option value="group">묶음순</option>
@@ -422,6 +452,32 @@
     const AI_PLATFORMS = { gpt: 'GPTs', gemini: 'Gemini', claude: 'Claude' };
     const isAI = r => (r.links || []).some(l => AI_PLATFORMS[l.platform]);
 
+    /* ── 2026-11-16 개편: 대상·상태·관련 묶음·NEW 자동 계산 ── */
+    const AUD_KEY = 'lhk15_archive_aud_v1';
+    const aud = r => r.audience || (r.section === 'personal' ? ['personal'] : ['teacher']);
+    const AUD_TEST = {
+      work: r => !aud(r).includes('personal'),
+      sp: r => aud(r).some(a => a === 'student' || a === 'parent'),
+      teacher: r => aud(r).includes('teacher'),
+      personal: r => aud(r).includes('personal'),
+      all: () => true
+    };
+    const isMaint = r => r.status === 'maintenance';
+    const isArchived = r => r.status === 'archive';
+    const isNewOf = r => r.updated ? (Date.now() - new Date(r.updated + 'T00:00:00')) / 864e5 <= 30 : !!r.isNew;
+    const kidsOf = {};
+    resources.forEach(r => { if (r.parent && byId[r.parent]) (kidsOf[r.parent] = kidsOf[r.parent] || []).push(r); });
+    const MAINT_URLS = new Set(resources.filter(isMaint).flatMap(r => (r.links || []).map(l => l.url.replace(/\/$/, ''))));
+    const urlIsMaint = u => MAINT_URLS.has(String(u).split('?')[0].replace(/\/$/, ''));
+    let toastT;
+    function toast(msg) {
+      let el = $('wsToast');
+      if (!el) { el = document.createElement('div'); el.id = 'wsToast'; el.className = 'ws-toast'; el.setAttribute('role', 'status'); document.body.appendChild(el); }
+      el.textContent = msg; el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 3800);
+    }
+    const visibleBase = r => !isArchived(r);
+    const countable = r => visibleBase(r) && AUD_TEST.work(r);
+
     /* ── 테마 ── */
     const applyTheme = t => { if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme; };
     applyTheme(store.get(THEME_KEY, ''));
@@ -433,7 +489,8 @@
     /* ── 날짜 ── */
     const now = new Date();
     $('todayStr').textContent = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일 (${'일월화수목금토'[now.getDay()]})`;
-    $('toolCountLabel').textContent = `${resources.length}개 중`;
+    $('toolCountLabel').textContent = `${resources.filter(countable).length}개 중`;
+    document.querySelectorAll('.flow a').forEach(a => { if (urlIsMaint(a.getAttribute('href'))) { a.classList.add('is-maint'); a.setAttribute('aria-disabled', 'true'); a.removeAttribute('href'); } });
 
     /* ── 학생 조회 ── */
     const decodeSafe = s => { try { return decodeURIComponent(s); } catch { return s; } };
@@ -458,7 +515,9 @@
         ['📋 생기부 분석', `https://mathlhk15-glitch.github.io/susi/?${qs}`],
         ['🐼 진학 Navigator', 'https://mathlhk15-glitch.github.io/ipsi/'],
         ['🧾 통합리포트', `report.html?${qs}`]
-      ].map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${t} ↗</a>`).join('');
+      ].map(([t, u]) => urlIsMaint(u)
+        ? `<span class="is-maint" title="정보 보호 점검 중">${t} · 점검 중</span>`
+        : `<a href="${esc(u)}" target="_blank" rel="noopener">${t} ↗</a>`).join('');
       $('studentResult').classList.add('open');
       let list = getStudents().filter(s => s.id !== q);
       list.unshift({ id: q, name: q, ts: Date.now() });
@@ -471,11 +530,13 @@
     renderStudents();
 
     /* ── 자료실 상태 ── */
-    const state = { q: '', sec: 'all', view: 'all', sort: 'group', open: new Set(store.get(OPEN_KEY, [])) };
+    const state = { q: '', sec: 'all', view: 'all', sort: 'group', aud: AUD_TEST[store.get(AUD_KEY, 'work')] ? store.get(AUD_KEY, 'work') : 'work', open: new Set(store.get(OPEN_KEY, [])) };
+    $('audSelect').value = state.aud;
     const getFav = () => new Set(store.get(FAV_KEY, []));
     const getRecent = () => store.get(RECENT_KEY, []).filter(id => byId[id]);
     function openResource(id, linkIdx = 0) {
       const r = byId[id]; if (!r || !r.links || !r.links[linkIdx]) return;
+      if (isMaint(r)) { toast('🔒 ' + (r.statusNote || '점검 중인 자료입니다.')); return; }
       store.set(RECENT_KEY, [id, ...getRecent().filter(x => x !== id)].slice(0, 10));
       window.open(r.links[linkIdx].url, '_blank', 'noopener,noreferrer');
       renderPins();
@@ -494,42 +555,53 @@
     }
     function matches(r, fav, recent) {
       if (state.sec !== 'all' && r.section !== state.sec) return false;
+      if (!AUD_TEST[state.aud](r)) return false;
+      if (state.view === 'archive' ? !isArchived(r) : isArchived(r)) return false;
+      if (state.view === 'maint' && !isMaint(r)) return false;
       if (state.view === 'featured' && !r.featured) return false;
-      if (state.view === 'new' && !r.isNew) return false;
+      if (state.view === 'new' && !isNewOf(r)) return false;
       if (state.view === 'favorites' && !fav.has(r.id)) return false;
       if (state.view === 'recent' && !recent.includes(r.id)) return false;
       if (state.view === 'external' && !r.by) return false;
       if (state.view === 'ai' && !isAI(r)) return false;
       if (!state.q) return true;
       const g = (SECTIONS[r.section].groups || []).find(x => x.id === r.group);
-      const hay = [r.title, r.description, r.by, ...(r.tags || []), SECTIONS[r.section].label, g && g.label,
+      const hay = [r.title, r.description, r.by, ...(r.tags || []), ...(r.aliases || []), SECTIONS[r.section].label, g && g.label,
         ...(r.links || []).map(l => AI_PLATFORMS[l.platform] || '')].join(' ').toLowerCase();
       return state.q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w));
     }
 
     function cardHtml(r, fav, hit) {
       const meta = [`<span class="m">${esc(r.updatedAt || '날짜 미상')}</span>`];
+      if (isMaint(r)) meta.push('<span class="m m--maint">🔒 점검 중</span>');
       if (r.featured) meta.push('<span class="m m--feat">추천</span>');
-      if (r.isNew) meta.push('<span class="m m--new">NEW</span>');
+      if (isNewOf(r)) meta.push('<span class="m m--new">NEW</span>');
       if (r.by) meta.push(`<span class="m m--by">외부 · ${esc(r.by)}</span>`);
       const ai = [...new Set((r.links || []).map(l => AI_PLATFORMS[l.platform]).filter(Boolean))];
       if (ai.length) meta.push(`<span class="m m--ai">${esc(ai.join('·'))}</span>`);
       const extra = (r.links || []).length > 1
         ? `<div class="card__links">${r.links.map((l, i) => `<button type="button" data-open="${esc(r.id)}" data-link="${i}">${esc(l.label)} ↗</button>`).join('')}</div>` : '';
       const on = fav.has(r.id);
-      return `<div class="card${hit ? ' hit' : ''}" role="link" tabindex="0" data-open="${esc(r.id)}" title="새 창에서 열기">
+      const kids = (kids => kids.length ? `<div class="card__rel"><span>관련 도구</span>${kids.map(k =>
+        `<button type="button" data-open="${esc(k.id)}" title="${esc(k.title)}">${esc(k.icon || '📄')} ${esc(k.title.length > 22 ? k.title.slice(0, 22) + '…' : k.title)}</button>`).join('')}</div>` : '')(
+        hideKids ? (kidsOf[r.id] || []).filter(k => AUD_TEST[state.aud](k) && !isArchived(k)) : []);
+      const desc = isMaint(r) && r.statusNote ? r.statusNote : (r.description || '');
+      return `<div class="card${hit ? ' hit' : ''}${isMaint(r) ? ' is-maint' : ''}" role="link" tabindex="0" data-open="${esc(r.id)}" title="${isMaint(r) ? '점검 중' : '새 창에서 열기'}">
         <span class="card__icon" aria-hidden="true">${esc(r.icon || '📄')}</span>
         <div class="card__body"><div class="card__title">${esc(r.title)}</div>
-          <div class="card__desc">${esc(r.description || '')}</div>
-          <div class="card__meta">${meta.join('')}</div>${extra}</div>
+          <div class="card__desc">${esc(desc)}</div>
+          <div class="card__meta">${meta.join('')}</div>${extra}${kids}</div>
         <button type="button" class="fav${on ? ' on' : ''}" data-fav="${esc(r.id)}" aria-pressed="${on}" aria-label="즐겨찾기 ${on ? '해제' : '추가'}">${on ? '★' : '☆'}</button>
       </div>`;
     }
 
+    let hideKids = true;
     function renderArchive() {
       const fav = getFav(), recent = getRecent();
-      const matched = resources.filter(r => matches(r, fav, recent));
       const searching = !!state.q;
+      hideKids = !searching && state.view === 'all';
+      let matched = resources.filter(r => matches(r, fav, recent));
+      if (hideKids) { const ms = new Set(matched.map(r => r.id)); matched = matched.filter(r => !(r.parent && ms.has(r.parent))); }
       const filtered = searching || state.view !== 'all' || state.sec !== 'all';
       let html = '';
       SEC_IDS.forEach(sid => {
@@ -559,19 +631,23 @@
       const nr = $('archiveNoResult');
       nr.classList.toggle('show', !matched.length);
       nr.textContent = state.view === 'favorites' ? '즐겨찾기한 자료가 없습니다. 카드 오른쪽 위 ☆를 누르면 여기와 첫 화면에 모입니다.'
-        : state.view === 'recent' ? '최근 본 자료가 없습니다.' : '찾는 자료가 없습니다. 다른 말이나 분류로 찾아보세요.';
-      $('resultCount').innerHTML = `<b>${matched.length}</b>개 / 전체 ${resources.length}개`;
+        : state.view === 'recent' ? '최근 본 자료가 없습니다.'
+        : state.view === 'archive' ? '보관된 지난 학년도 자료가 아직 없습니다. data.js에서 status를 "archive"로 바꾸면 여기로 옮겨집니다.'
+        : state.view === 'maint' ? '점검 중인 자료가 없습니다.' : '찾는 자료가 없습니다. 다른 말이나 분류로 찾아보세요.';
+      const shownKids = hideKids ? matched.reduce((n, r) => n + (kidsOf[r.id] || []).filter(k => AUD_TEST[state.aud](k) && !isArchived(k)).length, 0) : 0;
+      $('resultCount').innerHTML = `<b>${matched.length}</b>개${shownKids ? ` (+관련 ${shownKids})` : ''} / 전체 ${resources.filter(visibleBase).length}개`;
       $('searchBox').classList.toggle('has-q', !!state.q);
     }
 
     function renderChips() {
-      const count = sid => resources.filter(r => r.section === sid).length;
-      $('secChips').innerHTML = [`<button class="chip" data-sec="all" aria-pressed="${state.sec === 'all'}">전체 ${resources.length}</button>`]
-        .concat(SEC_IDS.map(sid => `<button class="chip" data-sec="${sid}" aria-pressed="${state.sec === sid}">${esc(secIcon(sid))} ${esc(secName(sid))} ${count(sid)}</button>`)).join('');
+      const inAud = r => visibleBase(r) && AUD_TEST[state.aud](r);
+      const count = sid => resources.filter(r => r.section === sid && inAud(r)).length;
+      $('secChips').innerHTML = [`<button class="chip" data-sec="all" aria-pressed="${state.sec === 'all'}">전체 ${resources.filter(inAud).length}</button>`]
+        .concat(SEC_IDS.filter(sid => count(sid) || sid === state.sec).map(sid => `<button class="chip" data-sec="${sid}" aria-pressed="${state.sec === sid}">${esc(secIcon(sid))} ${esc(secName(sid))} ${count(sid)}</button>`)).join('');
     }
     function renderDrawers() {
       $('drawers').innerHTML = SEC_IDS.map(sid => {
-        const n = resources.filter(r => r.section === sid).length;
+        const n = resources.filter(r => r.section === sid && visibleBase(r)).length;
         const gs = (SECTIONS[sid].groups || []).map(g => g.label).join(' · ');
         return `<button type="button" class="drawer${sid === 'personal' ? ' drawer--personal' : ''}" data-sec="${sid}">
           <span class="drawer__top"><span class="drawer__icon" aria-hidden="true">${esc(secIcon(sid))}</span><span class="drawer__name">${esc(secName(sid))}</span><span class="drawer__count">${n}</span></span>
@@ -588,7 +664,7 @@
       } else { ids = getRecent(); empty = '아직 연 자료가 없습니다.'; }
       const head = pane === 'fav' && !fav.length ? '<div class="panel-empty">즐겨찾기가 없어 업무 핵심 추천을 보여 줍니다. 카드의 ☆로 고정하세요.</div>' : '';
       $('pinList').innerHTML = head + (ids.length ? ids.slice(0, 12).map(id => { const r = byId[id];
-        return `<button type="button" class="pin" data-open="${esc(id)}"><span class="pin__icon">${esc(r.icon || '📄')}</span><span class="pin__title">${esc(r.title)}</span><span class="pin__sec">${esc(secIcon(r.section))}</span></button>`; }).join('')
+        return `<button type="button" class="pin" data-open="${esc(id)}"><span class="pin__icon">${esc(r.icon || '📄')}</span><span class="pin__title">${esc(r.title)}${isMaint(r) ? ' · 점검 중' : ''}</span><span class="pin__sec">${esc(secIcon(r.section))}</span></button>`; }).join('')
         : `<div class="panel-empty">${empty}</div>`);
       $('tabFav').textContent = `⭐ 즐겨찾기${fav.length ? ' ' + fav.length : ''}`;
     }
@@ -608,7 +684,14 @@
       const el = focusSec ? $('sec-' + focusSec) : $('archive');
       (el || $('archive')).scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+    function setAud(a) {
+      if (!AUD_TEST[a]) a = 'work';
+      state.aud = a; $('audSelect').value = a;
+      store.set(AUD_KEY, a === 'personal' ? 'work' : a);  // 개인 보기는 다음 방문 때 기본 화면으로 돌아감
+    }
     function setSec(sid, scroll) {
+      if (sid === 'personal' && !['personal', 'all'].includes(state.aud)) setAud('personal');
+      else if (sid !== 'all' && sid !== 'personal' && state.aud === 'personal') setAud('work');
       state.sec = sid; renderChips(); renderArchive();
       const chip = document.querySelector(`.chip[data-sec="${sid}"]`); if (chip) chip.scrollIntoView({ block: 'nearest', inline: 'center' });
       if (scroll) goArchive();
@@ -626,6 +709,7 @@
     $('secChips').addEventListener('click', e => { const b = e.target.closest('[data-sec]'); if (b) setSec(b.dataset.sec); });
     $('drawers').addEventListener('click', e => { const b = e.target.closest('[data-sec]'); if (b) { state.q = ''; $('archiveSearchInput').value = ''; setSec(b.dataset.sec, true); } });
     $('viewSelect').addEventListener('change', e => { state.view = e.target.value; renderArchive(); });
+    $('audSelect').addEventListener('change', e => { setAud(e.target.value); if (state.sec !== 'all' && !resources.some(r => r.section === state.sec && AUD_TEST[state.aud](r))) state.sec = 'all'; renderChips(); renderArchive(); });
     $('sortSelect').addEventListener('change', e => { state.sort = e.target.value; renderArchive(); });
     $('expandAll').addEventListener('click', () => { state.open = new Set(SEC_IDS); store.set(OPEN_KEY, [...state.open]); renderArchive(); });
     $('collapseAll').addEventListener('click', () => { state.open = new Set(); store.set(OPEN_KEY, []); state.sec = 'all'; state.view = 'all'; state.q = '';

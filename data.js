@@ -1,4 +1,5 @@
 // 창원경일고 진로진학 상담 워크스테이션 — 자료실 데이터
+// 2026-11-16 개편: 대상(audience)·학년도(cohort)·상태(status)·관련 묶음(parent)·별칭(aliases)·수정일(updated) 추가
 // 2026-10-29 재분류: 함께 쓰는 도구끼리 같은 분류·소묶음(group)에 모음
 // 2026-11-09 수능·학습자료: '수능 직전 과목별 파이널' 소묶음 신설(한국사·국어 추가)
 //
@@ -6,8 +7,13 @@
 //   section : SECTIONS 의 키      group : 그 분류의 groups[].id (없으면 맨 아래 "기타")
 //   order   : 소묶음 안 순서(작을수록 위, 생략 가능)
 //   by      : 다른 선생님·기관이 만든 자료면 제작자 (카드에 "외부 · 제작자" 배지)
-//   featured: 업무 핵심 추천(12개 내외 권장)   isNew: 최근 2개월 안팎 업데이트
+//   featured: 업무 핵심 추천(12개 내외 권장)   isNew: 자동 계산(updated 30일 이내, updated 없으면 이 값)
 //   links   : 여러 개면 카드 아래에 GPTs·Gemini 같은 버튼이 따로 생깁니다
+//   audience: ["teacher"|"student"|"parent"|"personal"] — 기본 화면은 personal 제외, 대상 선택으로 거름
+//   cohort  : 대입 학년도 ["2027"] = 2024 입학(현 고3), ["2028"] = 2025 입학(현 고2), ["2030"] = 2027 입학 / [] = 학년 무관
+//   status  : "active" 운영 | "maintenance" 점검 중(statusNote에 사유, 카드가 열리지 않음) | "archive" 지난 학년도(기본 숨김)
+//   parent  : 대표 카드 id — 평소에는 대표 카드 안 '관련 도구'로 접히고, 검색할 때는 따로 보임
+//   aliases : 검색용 다른 이름   updated: 마지막 수정일(YYYY-MM-DD) — NEW 표시는 이 날짜로 30일 이내 자동 계산
 const SECTIONS = {
   "counsel": {
     "label": "🧑‍💼 상담·학생 분석",
@@ -141,7 +147,12 @@ const resources = [
     "tags": ["진로상담","고등학교","진학현황","AI도구"],
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-04",
+    "updatedAt": "2026-05",
+    "updated": "2026-05-14",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
+    "aliases": ["상담관리","상담 기록","진로상담"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/jinlosangdam/","platform":"html"}]
   },
   {
@@ -156,6 +167,11 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "maintenance",
+    "statusNote": "정보 보호 점검 중입니다. 점검이 끝나면 다시 엽니다.",
+    "aliases": ["검사결과","적성검사","인성검사"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2026gumsa-R/","platform":"html"}]
   },
   {
@@ -170,6 +186,9 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/susi/","platform":"html"}]
   },
   {
@@ -184,6 +203,9 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"report.html","platform":"html"}]
   },
   {
@@ -197,7 +219,11 @@ const resources = [
     "tags": ["수시","정시","입결","배치표","성적입력","통합"],
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-04",
+    "updatedAt": "2026-06",
+    "updated": "2026-06-30",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/ipsi/","platform":"html"}]
   },
   {
@@ -212,6 +238,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-20",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/jinhak-system/","platform":"html"}]
   },
   {
@@ -224,7 +254,11 @@ const resources = [
     "tags": ["학부모","교육성향","테스트"],
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-05",
+    "updatedAt": "2026-06",
+    "updated": "2026-06-16",
+    "audience": ["parent"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/gyeongil-parent-test","platform":"html"}]
   },
   {
@@ -239,6 +273,11 @@ const resources = [
     "featured": true,
     "isNew": true,
     "updatedAt": "2026-10",
+    "updated": "2026-10-23",
+    "audience": ["student","parent","teacher"],
+    "cohort": ["2028"],
+    "status": "active",
+    "aliases": ["2028 길잡이","29개 대학","대입 개편"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2028-admissions-guide/","platform":"html"}]
   },
   {
@@ -251,8 +290,12 @@ const resources = [
     "description": "2028 대입 변화와 대학별 전형의 교사용 해설",
     "tags": ["2028","대입","교사용","시행계획","고교학점제","내신 5등급제","통합형 수능","진학상담"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-29",
+    "audience": ["teacher"],
+    "cohort": ["2028"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2028-daeip-teacher-guide/","platform":"html"}]
   },
   {
@@ -266,7 +309,11 @@ const resources = [
     "tags": ["2027,8","14개 대학","간담회"],
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-05",
+    "updatedAt": "2026-07",
+    "updated": "2026-07-24",
+    "audience": ["student","parent"],
+    "cohort": ["2027","2028"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/lhk15/admission-guide-2028","platform":"html"}]
   },
   {
@@ -280,7 +327,12 @@ const resources = [
     "tags": ["2027,8","15개 대학","전형 정리"],
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-05",
+    "updatedAt": "2026-06",
+    "updated": "2026-06-08",
+    "audience": ["teacher"],
+    "cohort": ["2027","2028"],
+    "status": "active",
+    "parent": "2028-admissions-guide",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2028ipsi/","platform":"html"}]
   },
   {
@@ -290,12 +342,17 @@ const resources = [
     "section": "admission-core",
     "group": "change",
     "order": 5,
-    "by": "이동균(은광여고)",
     "description": "주요대학·메디컬계열 2027·2028 전형 PDF 고해상도 뷰어",
     "tags": ["2027","2028","대입","전형정리","외부 제작"],
+    "by": "이동균(은광여고)",
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-05",
+    "updatedAt": "2026-06",
+    "updated": "2026-06-04",
+    "audience": ["teacher"],
+    "cohort": ["2027","2028"],
+    "status": "active",
+    "parent": "2028-admissions-guide",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/college-admissions-2027-2028/","platform":"html"}]
   },
   {
@@ -308,8 +365,12 @@ const resources = [
     "description": "대학별 수시·정시 변화와 입결·상담 포인트, 권역·전형 유형별 보기",
     "tags": ["2027","핵심 가이드","랜딩페이지"],
     "featured": false,
-    "isNew": false,
-    "updatedAt": "2026-05",
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "updated": "2026-11-10",
+    "audience": ["student","parent","teacher"],
+    "cohort": ["2027"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/ipsi-2027/","platform":"html"}]
   },
   {
@@ -324,6 +385,10 @@ const resources = [
     "featured": true,
     "isNew": false,
     "updatedAt": "2026-06",
+    "updated": "2026-06-16",
+    "audience": ["student","teacher"],
+    "cohort": ["2027"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/ipsi-2027/2027-susi-counsel-hub.html","platform":"html"}]
   },
   {
@@ -338,6 +403,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-06",
+    "audience": ["teacher"],
+    "cohort": ["2027"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/ipsi-2027/admission2027/","platform":"html"}]
   },
   {
@@ -346,12 +415,15 @@ const resources = [
     "title": "경기진협 대입정보",
     "section": "admission-core",
     "group": "ext",
-    "by": "경기진협",
     "description": "경기진학지도협의회가 제공하는 대입정보 모음",
     "tags": ["경기","대입정보","나침반","입시","외부 제작"],
+    "by": "경기진협",
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-05",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://specialzoker.github.io/","platform":"html"}]
   },
   {
@@ -360,12 +432,15 @@ const resources = [
     "title": "진학정보실",
     "section": "admission-core",
     "group": "ext",
-    "by": "진학정보실",
     "description": "대입정보를 정리한 외부 진학정보 사이트",
     "tags": ["진학","정보실","외부 제작"],
+    "by": "진학정보실",
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-05",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://jinhak.esteacher.kr/","platform":"html"}]
   },
   {
@@ -378,8 +453,13 @@ const resources = [
     "description": "부산 15,978명 누적 성적 분포로 내 등급평균의 실제 위치 확인",
     "tags": ["5등급","내신","변환"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-05",
+    "audience": ["student","parent","teacher"],
+    "cohort": ["2028"],
+    "status": "active",
+    "aliases": ["5등급","내신 위치","등급 환산"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/grade5-calc/","platform":"html"}]
   },
   {
@@ -392,8 +472,14 @@ const resources = [
     "description": "5등급 내신과 대학 입결·경일고 선배 사례 비교",
     "tags": ["5등급","내신","2028","학과검색","대학탐색","입결","경일사례"],
     "featured": true,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-28",
+    "audience": ["student","parent"],
+    "cohort": ["2028"],
+    "status": "maintenance",
+    "statusNote": "정보 보호 점검 중입니다. 점검이 끝나면 다시 엽니다.",
+    "aliases": ["내신 나침반","5등급 내신","학과 찾기"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/grade5-compass/","platform":"html"}]
   },
   {
@@ -403,12 +489,16 @@ const resources = [
     "section": "admission-support",
     "group": "naesin",
     "order": 3,
-    "by": "김강석",
     "description": "현재 성적으로 지원 가능 대학 찾고, 목표 대학까지 필요한 성적 역산",
     "tags": ["5등급","9등급","등급환산","수시","지원가능대학","목표등급","입결","외부 제작"],
+    "by": "김강석",
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-09",
+    "audience": ["student","parent","teacher"],
+    "cohort": [],
+    "status": "active",
+    "parent": "grade5-calc",
     "links": [{"label":"바로가기","url":"https://kangseok-hub.github.io/converter/","platform":"html"}]
   },
   {
@@ -423,6 +513,11 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-05",
+    "updated": "2026-05-08",
+    "audience": ["student","parent"],
+    "cohort": [],
+    "status": "active",
+    "parent": "grade5-calc",
     "links": [{"label":"바로가기","url":"중간고사 성적으로 9등급 환산.html","platform":"html"}]
   },
   {
@@ -437,6 +532,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-24",
+    "audience": ["student","parent"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/mock-percentile/","platform":"html"}]
   },
   {
@@ -449,8 +548,14 @@ const resources = [
     "description": "5등급제 내신 입력과 9등급제 추정 환산, 관심 대학·학과 검색 및 6개년 수시 입결 비교",
     "tags": ["대입 나침반","학부모","내신","5등급제","9등급제 환산","대학 검색","학과 검색","학생부교과","학생부종합","논술","수시 입결"],
     "featured": true,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-16",
+    "audience": ["parent","teacher"],
+    "cohort": [],
+    "status": "maintenance",
+    "statusNote": "정보 보호 점검 중입니다. 점검이 끝나면 다시 엽니다.",
+    "aliases": ["대입나침반","선배 기록","입결"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/daep-compass/","platform":"html"}]
   },
   {
@@ -464,7 +569,13 @@ const resources = [
     "tags": ["수시","배치표"],
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-05",
+    "updatedAt": "2026-07",
+    "updated": "2026-07-15",
+    "audience": ["student","parent","teacher"],
+    "cohort": [],
+    "status": "maintenance",
+    "statusNote": "정보 보호 점검 중입니다. 점검이 끝나면 다시 엽니다.",
+    "aliases": ["수시나침반","선배 입결","선배 합격"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/gyeongil-admissions-compass/","platform":"html"}]
   },
   {
@@ -479,6 +590,11 @@ const resources = [
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "updated": "2026-10-22",
+    "audience": ["student","parent","teacher"],
+    "cohort": [],
+    "status": "active",
+    "aliases": ["배치표","학평","가채점"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/jeongsi-2026-10/","platform":"html"}]
   },
   {
@@ -491,8 +607,13 @@ const resources = [
     "description": "9월 모평 성적으로 179개 대학·4,133개 모집단위 탐색",
     "tags": ["정시","배치표","9월모평","2027","지원참고표","대학검색","학과검색","가나다군"],
     "featured": true,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-01",
+    "audience": ["student","parent","teacher"],
+    "cohort": ["2027"],
+    "status": "active",
+    "aliases": ["배치표","정시 배치","모평"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/jeongsi-2027-09/","platform":"html"}]
   },
   {
@@ -506,7 +627,12 @@ const resources = [
     "tags": ["배치표","정시"],
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-03",
+    "updatedAt": "2026-07",
+    "updated": "2026-07-01",
+    "audience": ["student","parent","teacher"],
+    "cohort": ["2027"],
+    "status": "active",
+    "parent": "jeongsi-2027-09",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2026-bachi/","platform":"html"}]
   },
   {
@@ -516,12 +642,16 @@ const resources = [
     "section": "admission-support",
     "group": "jeongsi",
     "order": 4,
-    "by": "박상근",
     "description": "2027 대입 배치표 (외부 제작)",
     "tags": ["2027","박상근","배치표","외부 제작"],
+    "by": "박상근",
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "audience": ["student","teacher"],
+    "cohort": ["2027"],
+    "status": "active",
+    "parent": "jeongsi-2027-09",
     "links": [{"label":"바로가기","url":"https://park-sanggeun-all.github.io/modu-baechipyo-2027/","platform":"html"}]
   },
   {
@@ -534,8 +664,12 @@ const resources = [
     "description": "2024~2026 경쟁률 흐름과 2027 실시간 경쟁률 비교 도구",
     "tags": ["2027 수시","경쟁률","실시간 경쟁률","지원전략"],
     "featured": true,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-08",
+    "audience": ["student","teacher"],
+    "cohort": ["2027"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2027-susi-rate/","platform":"html"}]
   },
   {
@@ -548,8 +682,13 @@ const resources = [
     "description": "2026 수시 원서접수 기간 중 시간대별·대학별 경쟁률 변화",
     "tags": ["2026 수시","경쟁률"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-03",
+    "audience": ["teacher"],
+    "cohort": ["2026"],
+    "status": "active",
+    "parent": "2027-susi-rate",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/lhk15/2026-susi-competition-rate-tracker.html","platform":"html"}]
   },
   {
@@ -562,8 +701,13 @@ const resources = [
     "description": "모의평가 성적을 입력해 수능최저 충족 여부 확인",
     "tags": ["2027 수시","최저 충족 여부 확인"],
     "featured": true,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-05",
+    "audience": ["student","parent","teacher"],
+    "cohort": ["2027"],
+    "status": "active",
+    "aliases": ["최저","최저학력기준","수능최저 계산"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/susi-mincheck-2027/","platform":"html"}]
   },
   {
@@ -578,6 +722,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-14",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/lhk15/med-admission-2026","platform":"html"}]
   },
   {
@@ -587,12 +735,16 @@ const resources = [
     "section": "admission-field",
     "group": "medical",
     "order": 2,
-    "by": "부산교육청",
     "description": "지역인재 등 2027학년도 의대 지원자격 검색",
     "tags": ["2027","의대","지원자격","외부 제작"],
+    "by": "부산교육청",
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-05",
+    "updatedAt": "2026-07",
+    "updated": "2026-07-24",
+    "audience": ["student","parent","teacher"],
+    "cohort": ["2027"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/lhk15/2027-medical-eligibility-checker","platform":"html"}]
   },
   {
@@ -607,6 +759,11 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-05",
+    "updated": "2026-05-22",
+    "audience": ["student","parent","teacher"],
+    "cohort": ["2027"],
+    "status": "active",
+    "aliases": ["지역의사","의대 지역"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/localdoctor","platform":"html"}]
   },
   {
@@ -621,6 +778,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-05",
+    "updated": "2026-05-26",
+    "audience": ["student","parent","teacher"],
+    "cohort": ["2028"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2028nurse/","platform":"html"}]
   },
   {
@@ -635,6 +796,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-14",
+    "audience": ["student","parent","teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/lhk15/teacher-edu-guide.html","platform":"html"}]
   },
   {
@@ -649,6 +814,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-05",
+    "updated": "2026-05-21",
+    "audience": ["student","parent","teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/teacher-cert-finder","platform":"html"}]
   },
   {
@@ -663,6 +832,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-06",
+    "updated": "2026-06-18",
+    "audience": ["student","parent","teacher"],
+    "cohort": ["2027"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/ipsi-2027/science-univ-2027.html","platform":"html"}]
   },
   {
@@ -675,8 +848,12 @@ const resources = [
     "description": "계약학과 3유형과 첨단학과의 차이, 대학별 운영 현황 정리",
     "tags": ["계약학과","첨단학과","조기취업형","학부모"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-15",
+    "audience": ["student","parent","teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"2027-contract-major-guide.html","platform":"html"}]
   },
   {
@@ -690,7 +867,11 @@ const resources = [
     "tags": ["체육","수시"],
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-05",
+    "updatedAt": "2026-07",
+    "updated": "2026-07-14",
+    "audience": ["student","parent","teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/gyeongil-sports-guide/","platform":"html"}]
   },
   {
@@ -700,12 +881,16 @@ const resources = [
     "section": "admission-field",
     "group": "essay",
     "order": 1,
-    "by": "최승후",
     "description": "2027 약술형 논술 실시 대학과 전형 정리",
     "tags": ["2027","약술형 논술","외부 제작"],
+    "by": "최승후",
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-05",
+    "updatedAt": "2026-07",
+    "updated": "2026-07-13",
+    "audience": ["student","parent","teacher"],
+    "cohort": ["2027"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/lhk15/2027-yaksul-nonsul","platform":"html"}]
   },
   {
@@ -715,12 +900,15 @@ const resources = [
     "section": "admission-field",
     "group": "essay",
     "order": 2,
-    "by": "김강석",
     "description": "2027 대학별 논술전형 정리 (외부 제작)",
     "tags": ["2027","논술","외부 제작"],
+    "by": "김강석",
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-05",
+    "audience": ["student","parent","teacher"],
+    "cohort": ["2027"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://kangseok15.github.io/2027_essay/","platform":"html"}]
   },
   {
@@ -733,8 +921,12 @@ const resources = [
     "description": "93문항 성격검사와 학습 특성·강점 탐색 (비밀번호)",
     "tags": ["성격유형","자기이해","진로탐색","학습특성","테스트"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-21",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/mbti/","platform":"html"}]
   },
   {
@@ -749,6 +941,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-05",
+    "updated": "2026-05-14",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/worldcup","platform":"html"}]
   },
   {
@@ -761,8 +957,12 @@ const resources = [
     "description": "172개 학과의 특징을 재미있게 탐색·비교",
     "tags": ["학과탐색","전공","밈","학과카드","랜덤","관심학과","비교","커리어넷","대학어디가"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-02",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/major-meme/","platform":"html"}]
   },
   {
@@ -776,7 +976,11 @@ const resources = [
     "tags": ["직업","동영상","진로탐색"],
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-05",
+    "updatedAt": "2026-06",
+    "updated": "2026-06-10",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"2026 직업 동영상 모음.html","platform":"html"}]
   },
   {
@@ -791,6 +995,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-04",
+    "updated": "2026-04-13",
+    "audience": ["student","parent"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/job/","platform":"html"}]
   },
   {
@@ -803,8 +1011,12 @@ const resources = [
     "description": "경남 지역산업과 연계한 진로·학과·진학 경로 탐색",
     "tags": ["지역산업","지역인재육성법"],
     "featured": false,
-    "isNew": false,
-    "updatedAt": "2026-08",
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "updated": "2026-10-29",
+    "audience": ["student","parent"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2026-career-compass/","platform":"html"}]
   },
   {
@@ -817,8 +1029,12 @@ const resources = [
     "description": "홀랜드 36문항 진로검사와 직업 120개 탐색, 경일고 맞춤 선택과목 안내",
     "tags": ["창원경일고","2027 신입생","고교학점제","학교 교육과정","홀랜드","RIASEC","진로검사","36문항","직업탐색","선택과목","진로 DNA"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-14",
+    "audience": ["student","parent"],
+    "cohort": ["2030"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/k1-riasec/","platform":"html"}]
   },
   {
@@ -831,8 +1047,12 @@ const resources = [
     "description": "전공 탐색 → 과목 이해 → 학교별 선택과목 설계 (2026학년도 입학생 편제)",
     "tags": ["교육과정","과목선택","편제표"],
     "featured": true,
-    "isNew": false,
-    "updatedAt": "2026-03",
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "updated": "2026-11-02",
+    "audience": ["student","parent","teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2026-1-hakup-design","platform":"html"}]
   },
   {
@@ -845,8 +1065,12 @@ const resources = [
     "description": "2022 교육과정 기준 계열별 준비 원칙 12단계 선택형 학습",
     "tags": ["계열","대입","로드맵"],
     "featured": false,
-    "isNew": false,
-    "updatedAt": "2026-06",
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "updated": "2026-10-29",
+    "audience": ["student","parent"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2026-1-hakup-design/roadmap/","platform":"html"}]
   },
   {
@@ -856,28 +1080,17 @@ const resources = [
     "section": "curriculum",
     "group": "flow",
     "order": 4,
-    "by": "spinel",
     "description": "48개 대학의 전공별 권장과목을 대학·전공 기준으로 검색하고 과목 선택을 비교하는 참고자료",
-    "tags": [
-      "2028",
-      "대입",
-      "권장과목",
-      "선택과목",
-      "대학별",
-      "전공별",
-      "고교학점제",
-      "외부 제작"
-    ],
+    "tags": ["2028","대입","권장과목","선택과목","대학별","전공별","고교학점제","외부 제작"],
+    "by": "spinel",
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-11",
-    "links": [
-      {
-        "label": "바로가기",
-        "url": "https://mathlhk15-glitch.github.io/2028-course-guide/",
-        "platform": "html"
-      }
-    ]
+    "updated": "2026-11-12",
+    "audience": ["student","parent"],
+    "cohort": ["2028"],
+    "status": "active",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2028-course-guide/","platform":"html"}]
   },
   {
     "id": "gyeongil-growth-hub",
@@ -891,6 +1104,10 @@ const resources = [
     "featured": true,
     "isNew": true,
     "updatedAt": "2026-10",
+    "updated": "2026-10-29",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/gyeongil-growth-hub/","platform":"html"}]
   },
   {
@@ -905,6 +1122,9 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/student_growth_roadmap/","platform":"html"}]
   },
   {
@@ -917,8 +1137,12 @@ const resources = [
     "description": "진로 가설 → 질문 → 탐구 설계 → 성장 로드맵",
     "tags": ["질문","탐구 설계","성장로드맵"],
     "featured": false,
-    "isNew": false,
-    "updatedAt": "2026-08",
+    "isNew": true,
+    "updatedAt": "2026-10",
+    "updated": "2026-10-28",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/career-lab/","platform":"html"}]
   },
   {
@@ -933,6 +1157,9 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-04",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"GPTs로 열기","url":"https://chatgpt.com/g/g-69d4bd3bbe808191924ff384d664273b-cangweongyeongilgo-jilmun-tamgu-juje-doumi","platform":"gpt"},{"label":"Gemini로 열기","url":"https://gemini.google.com/gem/1QPoxJSX7herq_XQoZ_1pIdmo7ZuPkq5j?usp=sharing","platform":"gemini"}]
   },
   {
@@ -947,6 +1174,9 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-04",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"GPTs로 열기","url":"https://chatgpt.com/g/g-6982a6ea81fc8191b3e8975858800ba6-sinmungisaro-tamguhwaldong-saengseong","platform":"gpt"}]
   },
   {
@@ -956,12 +1186,15 @@ const resources = [
     "section": "inquiry-research",
     "group": "topic",
     "order": 4,
-    "by": "박상근",
     "description": "학과별 탐구 주제와 방향을 탐색할 수 있는 콘솔",
     "tags": ["박상근","학과탐구","탐구주제","외부 제작"],
+    "by": "박상근",
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "audience": ["student","teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://park-sanggeun-all.github.io/teacher-console-map/","platform":"html"}]
   },
   {
@@ -971,12 +1204,15 @@ const resources = [
     "section": "inquiry-research",
     "group": "topic",
     "order": 5,
-    "by": "박상근",
     "description": "학과별 합격·활동 사례를 비교해볼 수 있는 콘솔",
     "tags": ["박상근","학과사례","비교","외부 제작"],
+    "by": "박상근",
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://park-sanggeun-all.github.io/teacher-console-cases/","platform":"html"}]
   },
   {
@@ -991,6 +1227,10 @@ const resources = [
     "featured": true,
     "isNew": true,
     "updatedAt": "2026-11",
+    "updated": "2026-11-05",
+    "audience": ["student","teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2026achievement/","platform":"html"}]
   },
   {
@@ -1005,6 +1245,10 @@ const resources = [
     "featured": true,
     "isNew": true,
     "updatedAt": "2026-10",
+    "updated": "2026-10-28",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/career-exploration-tool/","platform":"html"}]
   },
   {
@@ -1018,7 +1262,11 @@ const resources = [
     "tags": ["세특","탐구활동","학생용","예시61가지"],
     "featured": false,
     "isNew": true,
-    "updatedAt": "2026-09",
+    "updatedAt": "2026-10",
+    "updated": "2026-10-28",
+    "audience": ["student","parent"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/seteuk-guide/","platform":"html"}]
   },
   {
@@ -1031,8 +1279,12 @@ const resources = [
     "description": "예체능 활동에서 질문 만들고 교과 개념과 연결하는 탐구법 안내",
     "tags": ["예체능","탐구","미술","음악","체육"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-08",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/arts-inquiry-guide/","platform":"html"}]
   },
   {
@@ -1047,6 +1299,10 @@ const resources = [
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "updated": "2026-10-28",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/good-school-record/","platform":"html"}]
   },
   {
@@ -1061,6 +1317,11 @@ const resources = [
     "featured": true,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-31",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
+    "aliases": ["세특 문장","행동 서술","고위계 서술어"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/neis-action242/","platform":"html"}]
   },
   {
@@ -1074,7 +1335,11 @@ const resources = [
     "tags": ["탐구활동","세특","프롬프트 생성"],
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-05",
+    "updatedAt": "2026-07",
+    "updated": "2026-07-08",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/saetuk-prompt","platform":"html"}]
   },
   {
@@ -1089,6 +1354,9 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-04",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"GPTs로 열기","url":"https://chatgpt.com/g/g-6982925ee34881919b46f80dedfc8b02-seteug-saengseong","platform":"gpt"}]
   },
   {
@@ -1103,6 +1371,9 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-04",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"GPTs로 열기","url":"https://chatgpt.com/g/g-69829666a7d48191986da33a1e64b293-seteug-naeyong-sujeong-bowan","platform":"gpt"}]
   },
   {
@@ -1112,12 +1383,16 @@ const resources = [
     "section": "student-growth",
     "group": "seteuk",
     "order": 5,
-    "by": "박정민",
     "description": "세특 작성 도와주는 서술형 문장 모음",
     "tags": ["세특","문장","외부 제작"],
+    "by": "박정민",
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-06",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
+    "parent": "action242",
     "links": [{"label":"바로가기","url":"https://fastidious-brigadeiros-07cdae.netlify.app/","platform":"html"}]
   },
   {
@@ -1130,8 +1405,12 @@ const resources = [
     "description": "수행평가 설계·세특 점검·검수, 외부 AI용 안전한 프롬프트 제작 (교사용)",
     "tags": ["수행평가 설계","세특 점검, 검수"],
     "featured": false,
-    "isNew": false,
-    "updatedAt": "2026-08",
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "updated": "2026-11-11",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/teacher-growth-studio/","platform":"html"}]
   },
   {
@@ -1141,12 +1420,15 @@ const resources = [
     "section": "student-growth",
     "group": "review",
     "order": 1,
-    "by": "박상근",
     "description": "생기부 정성평가 관점에서 상담을 지원하는 콘솔",
     "tags": ["박상근","생기부","정성평가","상담","외부 제작"],
+    "by": "박상근",
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://park-sanggeun-all.github.io/teacher-console/","platform":"html"}]
   },
   {
@@ -1160,7 +1442,12 @@ const resources = [
     "tags": ["면접","생활기록부","예상질문","말하기연습","2027"],
     "featured": true,
     "isNew": false,
-    "updatedAt": "2026-08",
+    "updatedAt": "2026-09",
+    "updated": "2026-09-18",
+    "audience": ["student"],
+    "cohort": ["2027"],
+    "status": "active",
+    "aliases": ["면접 연습","면접 질문"],
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/interview-hub/","platform":"html"}]
   },
   {
@@ -1170,12 +1457,16 @@ const resources = [
     "section": "student-growth",
     "group": "interview",
     "order": 2,
-    "by": "박상근",
     "description": "음성 답변과 표정·자세 피드백으로 면접 연습",
     "tags": ["박상근","면접","자기주도","음성질문","답변텍스트변환","표정분석","자세분석","면접리포트","외부 제작"],
+    "by": "박상근",
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-09",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
+    "parent": "interview-hub",
     "links": [{"label":"바로가기","url":"https://park-sanggeun-all.github.io/interview-coach/","platform":"html"}]
   },
   {
@@ -1190,6 +1481,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-04",
+    "audience": ["student","teacher"],
+    "cohort": [],
+    "status": "active",
+    "parent": "interview-hub",
     "links": [{"label":"GPTs로 열기","url":"https://chatgpt.com/g/g-69dc98128764819197bf1ddbc92b4e47-saenggibu-giban-myeonjeob-jaryo-saengseong","platform":"gpt"},{"label":"Gemini로 열기","url":"https://gemini.google.com/gem/1GMiZ4pV5Rbmoc2s3puoYkJiI_OT53bRh?usp=sharing","platform":"gemini"}]
   },
   {
@@ -1204,6 +1499,10 @@ const resources = [
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-11",
+    "updated": "2026-11-14",
+    "audience": ["student"],
+    "cohort": ["2027"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/final-2027-history/","platform":"html"}]
   },
   {
@@ -1218,6 +1517,10 @@ const resources = [
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-11",
+    "updated": "2026-11-10",
+    "audience": ["student"],
+    "cohort": ["2027"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/final-2027-korean/","platform":"html"}]
   },
   {
@@ -1230,8 +1533,12 @@ const resources = [
     "description": "수능 D-Day별 학습 전략과 시험 전후 체크리스트",
     "tags": ["2027","수능","마무리전략","수험전략","D-Day","학습전략","컨디션","체크리스트"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-06",
+    "audience": ["student"],
+    "cohort": ["2027"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2027-csat-final-guide/","platform":"html"}]
   },
   {
@@ -1244,8 +1551,12 @@ const resources = [
     "description": "수능완성 문학·독서 63개 작품 인터랙티브 학습맵",
     "tags": ["수능완성","국어","문학","독서","2027"],
     "featured": false,
-    "isNew": false,
-    "updatedAt": "2026-06",
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "updated": "2026-11-10",
+    "audience": ["student"],
+    "cohort": ["2027"],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/ipsi-2027/suwan-korean-2027.html","platform":"html"}]
   },
   {
@@ -1258,8 +1569,12 @@ const resources = [
     "description": "과목별 공부법 17편과 학생부 실천 가이드 9편",
     "tags": ["공부법","생기부","학생부","세특","탐구","학습전략","1학년","2학년","학교생활"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-01",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/study-record-guide/","platform":"html"}]
   },
   {
@@ -1274,6 +1589,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-26",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/free_learning_economy_hub/","platform":"html"}]
   },
   {
@@ -1288,6 +1607,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-17",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"korea-independence-movement.html","platform":"html"}]
   },
   {
@@ -1300,8 +1623,12 @@ const resources = [
     "description": "6개 부서 14개 점검항목 실시간 현황, 협의 안건 문안",
     "tags": ["2028","대입","점검표","업무분장","부서별","교육과정","성취평가","학생부","협의회"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-07",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2028-check/","platform":"html"}]
   },
   {
@@ -1316,6 +1643,10 @@ const resources = [
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "updated": "2026-10-20",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/2027-school-program-benchmark/","platform":"html"}]
   },
   {
@@ -1328,8 +1659,12 @@ const resources = [
     "description": "기숙사생 외출·외박 신청과 사감 확인",
     "tags": ["기숙사","외출","외박","사감","생활지도","모바일","신청"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-06",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/dorm/","platform":"html"}]
   },
   {
@@ -1342,8 +1677,12 @@ const resources = [
     "description": "기숙사 야간 화재대피 교육·훈련·점검",
     "tags": ["화재","기숙사","대피훈련","안전교육","소방","재난안전","학생안전","훈련시나리오"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-21",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/fire/","platform":"html"}]
   },
   {
@@ -1357,7 +1696,11 @@ const resources = [
     "tags": ["교직원","연수","복무","공문서","청렴","학교회계","교육활동보호"],
     "featured": false,
     "isNew": true,
-    "updatedAt": "2026-09",
+    "updatedAt": "2026-11",
+    "updated": "2026-11-09",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/staff-training/index.html","platform":"html"}]
   },
   {
@@ -1370,8 +1713,12 @@ const resources = [
     "description": "PC·Excel·한글 등 업무 단축키 119개 검색",
     "tags": ["단축키","컴퓨터","업무효율","Windows","Excel","한글","HWP","캡처","클립보드"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-26",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/shortcut/","platform":"html"}]
   },
   {
@@ -1386,6 +1733,10 @@ const resources = [
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "updated": "2026-10-17",
+    "audience": ["student"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/gyeongdali-emoticons/","platform":"html"}]
   },
   {
@@ -1396,24 +1747,15 @@ const resources = [
     "group": "pr",
     "order": 2,
     "description": "2027학년도 창원경일고등학교 학교소개 및 입학설명회 자료",
-    "tags": [
-      "2027",
-      "창원경일고",
-      "학교설명회",
-      "학교홍보",
-      "신입생",
-      "학부모"
-    ],
+    "tags": ["2027","창원경일고","학교설명회","학교홍보","신입생","학부모"],
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-11",
-    "links": [
-      {
-        "label": "바로가기",
-        "url": "https://mathlhk15-glitch.github.io/gyeongil-2027",
-        "platform": "html"
-      }
-    ]
+    "updated": "2026-11-12",
+    "audience": ["student","parent"],
+    "cohort": ["2030"],
+    "status": "active",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/gyeongil-2027","platform":"html"}]
   },
   {
     "id": "teacher-ai-workshop",
@@ -1425,8 +1767,12 @@ const resources = [
     "description": "Gemini·웹페이지 제작·GitHub 배포 실습",
     "tags": ["경남전자고","교원연수","1시간연수","60분","생성형AI","Gemini","Gem","웹페이지","HTML","GitHub Pages","실습"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-01",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"연수 복습가이드","url":"https://mathlhk15-glitch.github.io/teacher-ai-workshop/","platform":"html"}]
   },
   {
@@ -1439,8 +1785,12 @@ const resources = [
     "description": "대화형 AI와 에이전트형 AI 비교·실습",
     "tags": ["AI 에이전트","ChatGPT","Work","Claude","Cowork","Perplexity","Computer","MCP","업무 위임"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-30",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/ai-agent-study/","platform":"html"}]
   },
   {
@@ -1453,8 +1803,12 @@ const resources = [
     "description": "AI 프롬프트 태그 12개와 교차검수 실습",
     "tags": ["프롬프트","ChatGPT","Gemini","Claude","교차검수","태그","세특","실습"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-25",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"prompt-tag-lab.html","platform":"html"}]
   },
   {
@@ -1467,8 +1821,12 @@ const resources = [
     "description": "AI 스킬을 검색하고 학습하며 즐겨찾기·메모·학습 기록으로 정리하는 학습 사이트",
     "tags": ["AI","스킬","학습","교과서","프롬프트"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-21",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/skill-study/","platform":"html"}]
   },
   {
@@ -1481,8 +1839,12 @@ const resources = [
     "description": "Claude Code 기본 기능부터 웹 배포까지 7차시 실습",
     "tags": ["Claude Code","AI 에이전트","Skill","Subagent","CLAUDE.md","GitHub Pages","실습"],
     "featured": false,
-    "isNew": true,
-    "updatedAt": "2026-09",
+    "isNew": false,
+    "updatedAt": "2026-10",
+    "updated": "2026-10-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/claude-code-lab/","platform":"html"}]
   },
   {
@@ -1495,8 +1857,12 @@ const resources = [
     "description": "Gemini 활용에 필요한 프롬프트를 찾아보고 업무·수업에 적용할 수 있도록",
     "tags": ["Gemini","프롬프트","AI","활용","업무"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-26",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/gemini-prompts/","platform":"html"}]
   },
   {
@@ -1511,6 +1877,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-05",
+    "updated": "2026-05-18",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/AI_Council_Room","platform":"html"}]
   },
   {
@@ -1525,6 +1895,10 @@ const resources = [
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "updated": "2026-10-20",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/ai-visual-director/","platform":"html"}]
   },
   {
@@ -1532,12 +1906,15 @@ const resources = [
     "icon": "🎨",
     "title": "ArtCraft — 무료 창작 도구 전체 안내",
     "section": "creative-open-source",
-    "by": "ArtCraft",
     "description": "사진·영상·PDF 등 무료 창작 도구 7종 안내",
     "tags": ["ArtCraft","공식 안내","앱 모음","설치","외부 제작"],
+    "by": "ArtCraft",
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"공식 사이트","url":"https://getartcraft.com/apps","platform":"web"}]
   },
   {
@@ -1545,12 +1922,15 @@ const resources = [
     "icon": "🖼️",
     "title": "PhotoCraft — 사진 편집 (포토샵 계열)",
     "section": "creative-open-source",
-    "by": "ArtCraft",
     "description": "오픈소스 사진 편집 도구와 개발 현황",
     "tags": ["사진","포토샵","PSD","PhotoCraft","외부 제작"],
+    "by": "ArtCraft",
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"GitHub 바로가기","url":"https://github.com/storytold/photocraft","platform":"github"}]
   },
   {
@@ -1558,12 +1938,15 @@ const resources = [
     "icon": "✒️",
     "title": "VectorCraft — 벡터·로고 디자인",
     "section": "creative-open-source",
-    "by": "ArtCraft",
     "description": "벡터·로고 디자인 오픈소스 프로젝트",
     "tags": ["일러스트레이터","로고","벡터","VectorCraft","외부 제작"],
+    "by": "ArtCraft",
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"GitHub 바로가기","url":"https://github.com/storytold/vectorcraft","platform":"github"}]
   },
   {
@@ -1571,12 +1954,15 @@ const resources = [
     "icon": "🎬",
     "title": "FilmCraft — 영상 편집",
     "section": "creative-open-source",
-    "by": "ArtCraft",
     "description": "영상 편집 오픈소스 프로젝트",
     "tags": ["프리미어","영상 편집","FilmCraft","외부 제작"],
+    "by": "ArtCraft",
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"GitHub 바로가기","url":"https://github.com/storytold/filmcraft","platform":"github"}]
   },
   {
@@ -1584,12 +1970,15 @@ const resources = [
     "icon": "📷",
     "title": "LightCraft — 사진 보정·현상",
     "section": "creative-open-source",
-    "by": "ArtCraft",
     "description": "사진의 노출·색상·보정을 지향하는 오픈소스 프로젝트.",
     "tags": ["라이트룸","사진 색감","사진 보정","LightCraft","외부 제작"],
+    "by": "ArtCraft",
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"GitHub 바로가기","url":"https://github.com/storytold/lightcraft","platform":"github"}]
   },
   {
@@ -1597,12 +1986,15 @@ const resources = [
     "icon": "📕",
     "title": "PDFCraft — PDF 문서 도구",
     "section": "creative-open-source",
-    "by": "ArtCraft",
     "description": "PDF 편집 오픈소스 프로젝트와 저장소 안내",
     "tags": ["PDF","아크로뱃","PrintCraft","PDFCraft","외부 제작"],
+    "by": "ArtCraft",
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"GitHub 바로가기","url":"https://github.com/storytold/pdfcraft","platform":"github"}]
   },
   {
@@ -1610,12 +2002,15 @@ const resources = [
     "icon": "✨",
     "title": "EffectCraft — 영상 효과·모션",
     "section": "creative-open-source",
-    "by": "ArtCraft",
     "description": "영상 효과·모션그래픽 오픈소스 프로젝트",
     "tags": ["애프터이펙트","특수효과","모션그래픽","EffectCraft","외부 제작"],
+    "by": "ArtCraft",
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"GitHub 바로가기","url":"https://github.com/storytold/effectcraft","platform":"github"}]
   },
   {
@@ -1623,12 +2018,15 @@ const resources = [
     "icon": "📐",
     "title": "DesignCraft — 책자·편집 디자인",
     "section": "creative-open-source",
-    "by": "ArtCraft",
     "description": "책자·인쇄물 편집 오픈소스 프로젝트",
     "tags": ["인디자인","책자","교지","DesignCraft","외부 제작"],
+    "by": "ArtCraft",
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "audience": ["teacher"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"GitHub 바로가기","url":"https://github.com/storytold/designcraft","platform":"github"}]
   },
   {
@@ -1642,6 +2040,10 @@ const resources = [
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "updated": "2026-10-30",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/europe-seasonal-life/","platform":"html"}]
   },
   {
@@ -1653,8 +2055,12 @@ const resources = [
     "description": "호텔 예약사이트 가격·할인 비교와 최저가 예약 팁",
     "tags": ["호텔","숙박","최저가","OTA","아고다","트립닷컴","부킹닷컴","가격 비교","해외여행","환율","무료 취소"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-10",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/hotel-best-price-guide/","platform":"html"}]
   },
   {
@@ -1666,8 +2072,12 @@ const resources = [
     "description": "일정 변경 시 이동·귀가 시간을 다시 계산하는 여행표",
     "tags": ["여행","일정표","체크리스트","유동일정","네이버길찾기","대구","간송미술관","근대골목","KTX","SRT"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-02",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/trips/","platform":"html"}]
   },
   {
@@ -1679,8 +2089,12 @@ const resources = [
     "description": "경남 가을꽃 명소 10곳과 주차·여행 코스",
     "tags": ["가을꽃","코스모스","메밀꽃","핑크뮬리","아스타국화","경남여행","나들이"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-27",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/autumn-flowers/","platform":"html"}]
   },
   {
@@ -1694,6 +2108,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-30",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/highway-rest-area-food/","platform":"html"}]
   },
   {
@@ -1707,6 +2125,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-26",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/trip-planner/","platform":"html"}]
   },
   {
@@ -1720,6 +2142,10 @@ const resources = [
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "updated": "2026-10-20",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/book-reader/","platform":"html"}]
   },
   {
@@ -1731,8 +2157,12 @@ const resources = [
     "description": "겸재 정선 작품 사진 25장과 숨은 디테일 탐색",
     "tags": ["겸재","정선","간송미술관","대구간송미술관","금강내산","진경산수","미술관","관람기록","디테일","아카이브"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-03",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/gyeomjae/","platform":"html"}]
   },
   {
@@ -1746,6 +2176,10 @@ const resources = [
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-11",
+    "updated": "2026-11-12",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/wife-poems/","platform":"html"}]
   },
   {
@@ -1757,8 +2191,12 @@ const resources = [
     "description": "드라마·영화 명대사 검색·감상",
     "tags": ["명대사","드라마","영화","애니메이션","위로","동기부여","프레젠테이션"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-29",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/drama-movie-quotes/","platform":"html"}]
   },
   {
@@ -1772,6 +2210,9 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"BSOD 라디오","url":"https://radio.bsod.kr/","platform":"html"},{"label":"수학쌤 라디오","url":"https://mathlhk15-glitch.github.io/radio/","platform":"html"}]
   },
   {
@@ -1785,6 +2226,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-05",
+    "updated": "2026-05-13",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/44law","platform":"html"}]
   },
   {
@@ -1797,7 +2242,11 @@ const resources = [
     "tags": ["좋은 글"],
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-05",
+    "updatedAt": "2026-07",
+    "updated": "2026-07-10",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/good-writing","platform":"html"}]
   },
   {
@@ -1811,6 +2260,10 @@ const resources = [
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-11",
+    "updated": "2026-11-15",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/life-quotes/","platform":"html"}]
   },
   {
@@ -1820,10 +2273,14 @@ const resources = [
     "section": "personal",
     "group": "health",
     "description": "몸살·목감기·코감기 증상별 생활 관리와 안전한 약 복용 시 주의사항 안내",
-    "tags": ["감기", "몸살", "목감기", "코감기", "기침", "콧물", "복약주의", "건강정보", "인포그래픽"],
+    "tags": ["감기","몸살","목감기","코감기","기침","콧물","복약주의","건강정보","인포그래픽"],
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-11",
+    "updated": "2026-11-06",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/cold-care-guide/","platform":"html"}]
   },
   {
@@ -1833,10 +2290,14 @@ const resources = [
     "section": "personal",
     "group": "health",
     "description": "인터넷 '시력 좋아지는 눈 운동' 사실 점검과 근시 예방 생활습관(야외 2시간·20-20-20·안경) 초등용 인포그래픽 2장",
-    "tags": ["눈건강", "근시", "시력", "눈운동", "20-20-20", "야외활동", "안경", "초등", "인포그래픽"],
+    "tags": ["눈건강","근시","시력","눈운동","20-20-20","야외활동","안경","초등","인포그래픽"],
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-11",
+    "updated": "2026-11-13",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/eye-health/","platform":"html"}]
   },
   {
@@ -1846,10 +2307,14 @@ const resources = [
     "section": "personal",
     "group": "car",
     "description": "2026 E200(W214) 차량 버튼·숨은 기능·주행과 주차·MBUX·티맵·주유·정비·보증·비상 대응을 한곳에서 검색하는 실전 안내서",
-    "tags": ["벤츠", "메르세데스벤츠", "E200", "익스클루시브", "W214", "자동차", "차량관리", "사용설명서", "MBUX", "티맵", "주차", "정비", "보증"],
+    "tags": ["벤츠","메르세데스벤츠","E200","익스클루시브","W214","자동차","차량관리","사용설명서","MBUX","티맵","주차","정비","보증"],
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-11",
+    "updated": "2026-11-15",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/benz-e200/","platform":"html"}]
   },
   {
@@ -1859,10 +2324,14 @@ const resources = [
     "section": "personal",
     "group": "digital",
     "description": "Windows 저장소 정리, 임시 파일 관리, 단계별 실습과 안전 체크리스트",
-    "tags": ["컴퓨터", "Windows", "윈도우", "PC 청소", "디스크 용량", "임시 파일", "저장소 정리", "초보자", "실습"],
+    "tags": ["컴퓨터","Windows","윈도우","PC 청소","디스크 용량","임시 파일","저장소 정리","초보자","실습"],
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-11",
+    "updated": "2026-11-06",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/computer-cleanup-guide/","platform":"html"}]
   },
   {
@@ -1874,8 +2343,12 @@ const resources = [
     "description": "피부 관리·운동·식단·체성분 기록을 위한 건강 루틴",
     "tags": ["건강관리","피부","건성","보습","운동","식단","체중관리","인바디","기록","모바일"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-09",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/daily-health-guid/","platform":"html"}]
   },
   {
@@ -1887,8 +2360,12 @@ const resources = [
     "description": "건강검진 항목 검색과 준비·일정 관리",
     "tags": ["건강검진","국가암검진","6대 암검진","검진 대상","검사 선택","인포그래픽","검진 준비","검진 일정","체크리스트","건강관리"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-10",
+    "updated": "2026-10-09",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/checkup-guide-2026/","platform":"html"}]
   },
   {
@@ -1900,8 +2377,12 @@ const resources = [
     "description": "아침 5분·퇴근 후 8분, 목과 어깨가 뻐근할 때 따라 하는 자세 리셋 스트레칭 영상",
     "tags": ["스트레칭","목","어깨","자세교정","건강"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-21",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/neck-stretch/","platform":"html"}]
   },
   {
@@ -1915,6 +2396,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-11",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"saengmaeksan-guide.png","platform":"image"}]
   },
   {
@@ -1928,6 +2413,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-11",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"elderly-appetite-guide.png","platform":"image"}]
   },
   {
@@ -1941,6 +2430,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-11",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"jaunggo-guide.png","platform":"image"}]
   },
   {
@@ -1953,7 +2446,11 @@ const resources = [
     "tags": ["동양란","서양란"],
     "featured": false,
     "isNew": true,
-    "updatedAt": "2026-09",
+    "updatedAt": "2026-10",
+    "updated": "2026-10-22",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/orchid-guide/","platform":"html"}]
   },
   {
@@ -1965,8 +2462,12 @@ const resources = [
     "description": "소스·양념 34종의 재료와 조리법",
     "tags": ["소스","양념","레시피","요리"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-20",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/sauce-recipes/","platform":"html"}]
   },
   {
@@ -1978,8 +2479,12 @@ const resources = [
     "description": "사진으로 보는 집밥 레시피 13가지",
     "tags": ["레시피","요리","찌개","제육볶음","김치찌개","된장찌개","집밥"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-30",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/recipes/","platform":"html"}]
   },
   {
@@ -1993,6 +2498,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-17",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"laundry_pocket_guide.html","platform":"html"}]
   },
   {
@@ -2006,6 +2515,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-04",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"breakfast_soup.html","platform":"html"}]
   },
   {
@@ -2019,6 +2532,10 @@ const resources = [
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-10",
+    "updated": "2026-10-20",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/ai-investment-compass/","platform":"html"}]
   },
   {
@@ -2030,8 +2547,12 @@ const resources = [
     "description": "가족 사망 시 필요한 상속 절차와 준비사항을 정리한 가이드",
     "tags": ["상속","사망신고","가족","절차"],
     "featured": false,
-    "isNew": true,
+    "isNew": false,
     "updatedAt": "2026-09",
+    "updated": "2026-09-03",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/family_death_inheritance_guide_2026/","platform":"html"}]
   },
   {
@@ -2045,6 +2566,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-17",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"family-cash-gift-tax-guide-2026.html","platform":"html"}]
   },
   {
@@ -2058,6 +2583,10 @@ const resources = [
     "featured": false,
     "isNew": false,
     "updatedAt": "2026-08",
+    "updated": "2026-08-17",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"seoul-apartment-search.html","platform":"html"}]
   },
   {
@@ -2069,8 +2598,12 @@ const resources = [
     "description": "듣고 말하며 익히는 70일 실전 중국어",
     "tags": ["중국어","여행중국어","듣기말하기"],
     "featured": false,
-    "isNew": true,
-    "updatedAt": "2026-09",
+    "isNew": false,
+    "updatedAt": "2026-10",
+    "updated": "2026-10-03",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/commute-chinese/","platform":"html"}]
   },
   {
@@ -2079,12 +2612,15 @@ const resources = [
     "title": "한자야 놀자! — 초등 애니메이션 한자 학습",
     "section": "personal",
     "group": "lang",
-    "by": "외부 사이트",
     "description": "부수 애니메이션으로 배우는 초등 한자 학습 사이트",
     "tags": ["한자","초등","애니메이션","쓰기연습","외부 제작"],
+    "by": "외부 사이트",
     "featured": false,
     "isNew": true,
     "updatedAt": "2026-09",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"https://playhanja.vercel.app/","platform":"html"}]
   },
   {
@@ -2097,7 +2633,11 @@ const resources = [
     "tags": ["여행영어","영어","듣기말하기"],
     "featured": false,
     "isNew": false,
-    "updatedAt": "2026-08",
+    "updatedAt": "2026-10",
+    "updated": "2026-10-03",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
     "links": [{"label":"바로가기","url":"commute-english.html","platform":"html"}]
   }
 ];

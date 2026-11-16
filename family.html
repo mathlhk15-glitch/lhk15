@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>학생·학부모 안내 — 창원경일고 진로진학상담부</title>
+  <meta name="description" content="창원경일고 학생·학부모용 진로진학 안내 — 입학 연도별로 지금 볼 자료를 모았습니다." />
+  <meta name="theme-color" content="#1e3a5f" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <style>
+    :root { --paper:#f3f5f8; --card:#fff; --ink:#142033; --ink-2:#44526a; --ink-3:#6b778c; --line:#dfe5ee;
+      --brand:#1e3a5f; --brand-soft:#e7eef8; --blue:#2563c9; --gold-soft:#fff5d9; --warn:#b42318; --warn-soft:#fdecec; --r:14px; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif; line-height:1.55; }
+    a { color:inherit; }
+    .wrap { max-width:960px; margin:0 auto; padding:0 18px; }
+    header { background:var(--brand); color:#fff; padding:22px 0 20px; }
+    .school { font-size:13px; opacity:.85; }
+    h1 { margin:4px 0 6px; font-size:22px; letter-spacing:-.02em; }
+    .lead { margin:0; font-size:14px; opacity:.9; }
+    .tabs { display:flex; gap:8px; overflow-x:auto; padding:14px 0 2px; scrollbar-width:none; }
+    .tabs button { flex:0 0 auto; border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.1); color:#fff; border-radius:999px;
+      padding:8px 14px; font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; }
+    .tabs button[aria-selected="true"] { background:#fff; color:var(--brand); border-color:#fff; }
+    main { padding:18px 0 40px; }
+    .cohort-title { font-size:19px; margin:4px 0 2px; }
+    .cohort-sub { color:var(--ink-3); font-size:13px; margin:0 0 14px; }
+    .tracks { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:22px; }
+    .track { background:var(--card); border:1px solid var(--line); border-radius:var(--r); padding:14px 16px; }
+    .track h3 { margin:0 0 2px; font-size:15px; }
+    .track p { margin:0 0 10px; font-size:12.5px; color:var(--ink-3); }
+    .track ol { margin:0; padding-left:20px; display:grid; gap:7px; font-size:14px; }
+    .track li a { font-weight:700; color:var(--blue); text-decoration:none; }
+    .track li a:hover { text-decoration:underline; }
+    .tag { display:inline-block; margin-left:6px; font-size:11px; font-weight:700; padding:1px 7px; border-radius:999px; vertical-align:1px; }
+    .tag--soon { background:var(--gold-soft); color:#8a5b00; }
+    .tag--maint { background:var(--warn-soft); color:var(--warn); }
+    .muted { color:var(--ink-3); font-weight:600; }
+    h2 { font-size:15px; margin:22px 0 10px; color:var(--ink-2); }
+    .cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .card { display:flex; gap:10px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 13px; text-decoration:none; }
+    a.card:hover { border-color:var(--blue); }
+    .card.off { opacity:.6; }
+    .card__icon { font-size:20px; line-height:1.2; }
+    .card__t { font-weight:700; font-size:14px; color:var(--brand); }
+    .card__d { font-size:12.5px; color:var(--ink-2); margin-top:2px; }
+    details { margin-top:18px; }
+    summary { cursor:pointer; font-weight:700; color:var(--ink-2); font-size:15px; padding:6px 0; }
+    .note { margin-top:26px; font-size:12.5px; color:var(--ink-3); background:var(--card); border:1px dashed var(--line); border-radius:12px; padding:12px 14px; }
+    .empty { color:var(--ink-3); font-size:13.5px; padding:6px 0; }
+    @media (max-width:680px) { .tracks, .cards { grid-template-columns:1fr; } h1 { font-size:19px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="school">창원경일고등학교 · 진로진학상담부</div>
+      <h1>학생·학부모 진로진학 안내</h1>
+      <p class="lead">입학한 해를 고르면 지금 보면 좋은 자료만 모아 보여 드립니다.</p>
+      <div class="tabs" id="tabs" role="tablist"></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h2 class="cohort-title" id="cTitle" style="color:var(--ink);font-size:19px;margin-top:4px"></h2>
+    <p class="cohort-sub" id="cSub"></p>
+    <div id="tracks"></div>
+    <div id="list"></div>
+    <details id="commonBox">
+      <summary>모든 학년 공통 자료</summary>
+      <div id="common"></div>
+    </details>
+    <div class="note">
+      대입 정보는 대학별 <b>시행계획</b>을 바탕으로 정리한 참고 자료입니다. 원서를 쓸 때는 반드시 각 대학이 발표하는 <b>모집요강</b>으로 다시 확인하세요.
+      궁금한 점은 담임 선생님이나 진로진학상담부로 문의해 주세요.
+    </div>
+  </main>
+
+  <script src="data.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const esc = v => String(v ?? '').replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c]));
+    const byId = Object.fromEntries(resources.map(r => [r.id, r]));
+    const forFamily = r => (r.audience || []).some(a => a === 'student' || a === 'parent') && r.status !== 'archive';
+    const url = r => (r.links && r.links[0] && r.links[0].url) || '#';
+
+    /* 학년도는 3월에 바뀝니다: 입학 연도 → 현재 학년 자동 계산 */
+    const now = new Date();
+    const schoolYear = now.getMonth() >= 2 ? now.getFullYear() : now.getFullYear() - 1;
+    const gradeOf = entry => schoolYear - entry + 1;
+    const gradeLabel = entry => { const g = gradeOf(entry); return g <= 0 ? '입학 예정' : g > 3 ? '졸업' : `현재 고${g}`; };
+
+    /* 입학 연도별 문. 대입 학년도 = 입학 연도 + 3 */
+    const COHORTS = [2025, 2024, 2026, 2027].map(entry => ({ entry, exam: String(entry + 3) }))
+      .filter(c => gradeOf(c.entry) <= 3);
+
+    /* 2028학년도 대입(2025 입학생) 전용 두 갈래 동선 */
+    const item = (id, label) => {
+      const r = byId[id];
+      if (!r) return `<li><span class="muted">${esc(label)}</span><span class="tag tag--soon">준비 중</span></li>`;
+      if (r.status === 'maintenance') return `<li><span class="muted">${esc(label || r.title)}</span><span class="tag tag--maint">점검 중</span></li>`;
+      return `<li><a href="${esc(url(r))}" target="_blank" rel="noopener">${esc(label || r.title)}</a></li>`;
+    };
+    const soon = (label, note) => `<li><span class="muted">${esc(label)}</span><span class="tag tag--soon">${esc(note)}</span></li>`;
+    const TRACKS = {
+      '2028': `<div class="tracks">
+        <section class="track"><h3>① 3분 훑어보기</h3><p>성적 입력 없이 2028 대입이 무엇이 바뀌는지 먼저 봅니다.</p><ol>
+          ${item('2028-admissions-guide', '2028 대입 길잡이 — 달라진 점부터')}
+          ${item('admission-briefing-2028', '대학은 무엇을 보고, 무엇을 준비할까')}
+          ${soon('우리 학교 학생이 많이 지원하는 대학의 2028 전형', '12월 공개 예정')}
+          ${item('contract-major-guide-2027', '계약학과·첨단학과 바로 알기')}
+        </ol></section>
+        <section class="track"><h3>② 성적표 나온 날 진단</h3><p>내신·모의고사 성적표를 옆에 두고 차례대로 열어 보세요.</p><ol>
+          ${item('grade5-calc', '5등급제 내신 위치 확인')}
+          ${item('grade5-compass', '내신으로 대학·학과 찾기')}
+          ${soon('2028 수능최저 자가진단', '12월 공개 예정')}
+          ${soon('학교장추천 전형 교내 안내', '학교 별도 안내 예정')}
+          <li><span class="muted">결과를 들고 담임 선생님·진로진학상담부와 상담</span></li>
+        </ol></section></div>`
+    };
+
+    const card = r => r.status === 'maintenance'
+      ? `<div class="card off" title="${esc(r.statusNote || '점검 중')}"><span class="card__icon">${esc(r.icon || '📄')}</span><div><div class="card__t">${esc(r.title)} <span class="tag tag--maint">점검 중</span></div><div class="card__d">${esc(r.statusNote || '')}</div></div></div>`
+      : `<a class="card" href="${esc(url(r))}" target="_blank" rel="noopener"><span class="card__icon">${esc(r.icon || '📄')}</span><div><div class="card__t">${esc(r.title)}</div><div class="card__d">${esc(r.description || '')}</div></div></a>`;
+    const grouped = list => {
+      if (!list.length) return '<div class="empty">이 학년에 맞춘 자료가 아직 없습니다. 아래 공통 자료를 보세요.</div>';
+      const bySec = {};
+      list.forEach(r => (bySec[r.section] = bySec[r.section] || []).push(r));
+      return Object.keys(SECTIONS).filter(s => bySec[s]).map(s =>
+        `<h2>${esc(SECTIONS[s].label)}</h2><div class="cards">${bySec[s].map(card).join('')}</div>`).join('');
+    };
+
+    /* 주소 끝 #2025 = 2025년 입학생 (탭 이름과 같은 입학 연도) */
+    function show(entry) {
+      const c = COHORTS.find(x => String(x.entry) === String(entry)) || COHORTS[0];
+      document.querySelectorAll('#tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.entry === String(c.entry)));
+      $('cTitle').textContent = `${c.exam}학년도 대입 준비 — ${c.entry}학년도 고교 입학생`;
+      $('cSub').textContent = `${gradeLabel(c.entry)} · 대입 학년도는 입학한 해 + 3년입니다.`;
+      $('tracks').innerHTML = TRACKS[c.exam] || '';
+      const mine = resources.filter(r => forFamily(r) && (r.cohort || []).includes(c.exam));
+      $('list').innerHTML = (TRACKS[c.exam] ? '<h2 style="color:var(--ink);font-size:16px">이 학년 자료 전체</h2>' : '') + grouped(mine);
+      $('commonBox').open = !mine.length;
+      try { history.replaceState(null, '', '#' + c.entry); } catch (e) {}
+    }
+
+    $('tabs').innerHTML = COHORTS.map(c =>
+      `<button type="button" role="tab" data-entry="${c.entry}">${c.entry} 입학 · ${gradeLabel(c.entry)}</button>`).join('');
+    $('tabs').addEventListener('click', e => { const b = e.target.closest('[data-entry]'); if (b) show(b.dataset.entry); });
+    addEventListener('hashchange', () => show(decodeURIComponent(location.hash.slice(1))));
+    $('common').innerHTML = grouped(resources.filter(r => forFamily(r) && !(r.cohort || []).length));
+    show(decodeURIComponent(location.hash.slice(1)) || '2025');
+  })();
+  </script>
+</body>
+</html>

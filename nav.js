@@ -15,7 +15,7 @@
 
   const MENU = [
     { key: 'home',       icon: '🏠',  label: '홈',       url: 'https://mathlhk15-glitch.github.io/lhk15/',               newTab: false },
-    { key: 'gumsa',      icon: '📊',  label: '검사결과', url: 'https://mathlhk15-glitch.github.io/2026gumsa-R/',          newTab: true  },
+    { key: 'gumsa',      icon: '📊',  label: '검사결과', url: 'https://mathlhk15-glitch.github.io/2026gumsa-R/',          newTab: true, off: '정보 보호 점검 중' },  // 2026-11-16 점검 — 다시 열 때 off 삭제
     { key: 'susi',       icon: '📋',  label: '생기부분석',url: 'https://mathlhk15-glitch.github.io/susi/',                newTab: true  },
     { key: 'counseling', icon: '💬',  label: '상담관리', url: 'https://mathlhk15-glitch.github.io/jinlosangdam/',         newTab: true  },
     { key: 'report',     icon: '🧾',  label: '통합리포트',url: 'https://mathlhk15-glitch.github.io/lhk15/report.html',   newTab: false },
@@ -33,6 +33,9 @@
       const cls    = mobile ? 'ws-nav__mobile-item' : 'ws-nav__item';
       const active = item.key === currentPage ? ' active' : '';
       const target = item.newTab ? ' target="_blank" rel="noopener"' : '';
+      if (item.off) return `<span class="${cls}" style="opacity:.5;cursor:not-allowed" title="${item.off}" aria-disabled="true">
+        <span class="ws-nav__item-icon">${item.icon}</span>${item.label} · 점검 중
+      </span>`;
       return `<a class="${cls}${active}" href="${item.url}"${target}>
         <span class="ws-nav__item-icon">${item.icon}</span>${item.label}
       </a>`;
