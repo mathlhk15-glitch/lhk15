@@ -627,6 +627,16 @@
           </button>
           <div class="sec__body">${body}</div></section>`;
       });
+      // 업무 보기에서도 목록 맨 아래에 생활·개인 자료로 가는 입구를 둠
+      if (!searching && state.view === 'all' && state.sec === 'all' && !['personal', 'all'].includes(state.aud)) {
+        const pn = resources.filter(r => r.section === 'personal' && visibleBase(r)).length;
+        if (pn) html += `<section class="sec" id="sec-personal-entry">
+          <button type="button" class="sec__head" data-goto-personal="1" aria-label="생활·개인 자료 ${pn}개 보기">
+            <span class="sec__icon" aria-hidden="true">${esc(secIcon('personal'))}</span>
+            <span class="sec__titles"><span class="sec__name">${esc(secName('personal'))}</span><div class="sec__desc">${esc(SECTIONS.personal.desc || '')} · 누르면 개인 자료만 보여 줍니다</div></span>
+            <span class="sec__count">${pn}</span><span class="sec__chev" aria-hidden="true" style="transform:none">→</span>
+          </button></section>`;
+      }
       $('archiveSections').innerHTML = html;
       const nr = $('archiveNoResult');
       nr.classList.toggle('show', !matched.length);
@@ -641,9 +651,10 @@
 
     function renderChips() {
       const inAud = r => visibleBase(r) && AUD_TEST[state.aud](r);
-      const count = sid => resources.filter(r => r.section === sid && inAud(r)).length;
+      // 생활·개인 버튼은 대상 선택과 관계없이 늘 보이고, 누르면 개인 보기로 바뀜
+      const count = sid => resources.filter(r => r.section === sid && visibleBase(r) && (sid === 'personal' || AUD_TEST[state.aud](r))).length;
       $('secChips').innerHTML = [`<button class="chip" data-sec="all" aria-pressed="${state.sec === 'all'}">전체 ${resources.filter(inAud).length}</button>`]
-        .concat(SEC_IDS.filter(sid => count(sid) || sid === state.sec).map(sid => `<button class="chip" data-sec="${sid}" aria-pressed="${state.sec === sid}">${esc(secIcon(sid))} ${esc(secName(sid))} ${count(sid)}</button>`)).join('');
+        .concat(SEC_IDS.filter(sid => count(sid) || sid === state.sec || sid === 'personal').map(sid => `<button class="chip" data-sec="${sid}" aria-pressed="${state.sec === sid}">${esc(secIcon(sid))} ${esc(secName(sid))} ${count(sid)}</button>`)).join('');
     }
     function renderDrawers() {
       $('drawers').innerHTML = SEC_IDS.map(sid => {
@@ -691,7 +702,7 @@
     }
     function setSec(sid, scroll) {
       if (sid === 'personal' && !['personal', 'all'].includes(state.aud)) setAud('personal');
-      else if (sid !== 'all' && sid !== 'personal' && state.aud === 'personal') setAud('work');
+      else if (sid !== 'personal' && state.aud === 'personal') setAud('work');  // 전체·다른 분류를 누르면 업무 보기로 돌아옴
       state.sec = sid; renderChips(); renderArchive();
       const chip = document.querySelector(`.chip[data-sec="${sid}"]`); if (chip) chip.scrollIntoView({ block: 'nearest', inline: 'center' });
       if (scroll) goArchive();
@@ -716,6 +727,7 @@
       $('viewSelect').value = 'all'; $('archiveSearchInput').value = ''; $('toolSearchInput').value = ''; renderChips(); renderArchive(); });
     document.addEventListener('click', e => {
       const fav = e.target.closest('[data-fav]'); if (fav) { e.stopPropagation(); toggleFav(fav.dataset.fav); return; }
+      if (e.target.closest('[data-goto-personal]')) { setSec('personal', true); return; }
       const tg = e.target.closest('[data-toggle]');
       if (tg) { const sid = tg.dataset.toggle; const sec = tg.closest('.sec'); const willOpen = !sec.classList.contains('open');
         sec.classList.toggle('open', willOpen); tg.setAttribute('aria-expanded', willOpen);
