@@ -137,6 +137,81 @@ const SECTIONS = {
 
 const resources = [
   {
+    "id": "changwon-student-forecast",
+    "icon": "📉",
+    "title": "창원 학령인구·미래 신입생 전망",
+    "section": "staff-training",
+    "group": "plan",
+    "order": 2,
+    "description": "의창구·성산구 중3 남녀 학생 수의 연도별 변화와 창원경일고·경일여고 신입생·학급 수 시나리오 분석",
+    "tags": [
+      "창원",
+      "학령인구",
+      "중3",
+      "성산구",
+      "의창구",
+      "경일고",
+      "경일여고",
+      "고교 신입생",
+      "학급 수",
+      "미래 전망"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "updated": "2026-11-20",
+    "audience": [
+      "teacher"
+    ],
+    "cohort": [],
+    "status": "active",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/changwon-student-forecast/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
+    "id": "2027-suneung-cut",
+    "icon": "📊",
+    "title": "2027학년도 수능 가채점 등급컷 조회",
+    "section": "admission-support",
+    "group": "jeongsi",
+    "order": 1,
+    "description": "2027학년도 수능 가채점 등급컷을 찾아보고 점수를 비교하는 참고용 자료",
+    "tags": [
+      "2027",
+      "수능",
+      "가채점",
+      "등급컷",
+      "점수",
+      "정시",
+      "성적 조회"
+    ],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "updated": "2026-11-20",
+    "audience": [
+      "teacher",
+      "student",
+      "parent"
+    ],
+    "cohort": [
+      "2027"
+    ],
+    "status": "active",
+    "links": [
+      {
+        "label": "바로가기",
+        "url": "https://mathlhk15-glitch.github.io/2027-suneung-cut/",
+        "platform": "html"
+      }
+    ]
+  },
+  {
     "id": "career-counsel",
     "icon": "🍉",
     "title": "진로상담 시스템 v3 — 상담 예약·기록·학생 관리",
