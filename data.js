@@ -2342,6 +2342,24 @@ const resources = [
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/life-quotes/","platform":"html"}]
   },
   {
+    "id": "myeongri-compass",
+    "icon": "🧭",
+    "title": "명리 나침반 — 사주팔자 정밀 분석",
+    "section": "personal",
+    "group": "culture",
+    "description": "절기·표준시·서머타임을 반영해 사주 명식을 계산하고 성향·대운·연운·월운·궁합을 쉽게 풀어 주는 개인용 도구 (기기 안 계산, AI 심층 분석 프롬프트 복사)",
+    "tags": ["명리 나침반","사주","사주팔자","명리","만세력","대운","세운","월운","궁합","오행","운세"],
+    "aliases": ["사주 프로그램","사주 분석","myeongri-compass"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "updated": "2026-11-21",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/myeongri-compass/","platform":"html"}]
+  },
+  {
     "id": "cold-care-guide",
     "icon": "🤧",
     "title": "감기·몸살 증상별 대처 가이드",
