@@ -2378,6 +2378,24 @@ const resources = [
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/tarot-compass/","platform":"html"}]
   },
   {
+    "id": "biyeom",
+    "icon": "🌿",
+    "title": "알레르기 비염 관리 가이드",
+    "section": "personal",
+    "group": "health",
+    "description": "알레르기 비염의 증상과 일상생활 관리법을 알아보는 안내 사이트",
+    "tags": ["알레르기 비염", "비염", "알레르기", "재채기", "콧물", "코막힘", "건강", "생활 관리"],
+    "aliases": ["biyeom", "비염 관리", "알레르기성 비염"],
+    "featured": false,
+    "isNew": true,
+    "updatedAt": "2026-11",
+    "updated": "2026-11-23",
+    "audience": ["personal"],
+    "cohort": [],
+    "status": "active",
+    "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/biyeom/","platform":"html"}]
+  },
+  {
     "id": "cold-care-guide",
     "icon": "🤧",
     "title": "감기·몸살 증상별 대처 가이드",
