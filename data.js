@@ -57,6 +57,7 @@ const SECTIONS = {
     "label": "🔎 진로·학과·직업 탐색",
     "desc": "자기이해 검사와 학과·직업·취업 정보",
     "groups": [
+      {"id":"guide","label":"진로·진학 통합 길잡이"},
       {"id":"test","label":"검사·자기이해"},
       {"id":"major","label":"학과·직업 정보"}
     ]
@@ -136,6 +137,23 @@ const SECTIONS = {
 };
 
 const resources = [
+  {
+    "id": "gyeongil-career-route",
+    "icon": "🚉",
+    "title": "꿈까지 가는 노선도 — 진로·진학 정보 길잡이",
+    "section": "career-explore",
+    "group": "guide",
+    "order": 1,
+    "description": "학생·학부모를 위한 진로·대입·수행평가·세특·독서·면접 정보 사이트 모음과 탐구 환승 코스",
+    "tags": ["진로", "진학", "정보사이트", "대학입시", "수행평가", "세특", "주제탐구", "독서", "면접", "학부모", "꿈까지 가는 노선도"],
+    "featured": false,
+    "updatedAt": "2026-11",
+    "updated": "2026-11-23",
+    "audience": ["student", "parent", "teacher"],
+    "cohort": [],
+    "status": "active",
+    "links": [{"label": "사이트 바로가기", "url": "https://mathlhk15-glitch.github.io/gyeongil-career-route/", "platform": "html"}]
+  },
   {
     "id": "changwon-student-forecast",
     "icon": "📉",
