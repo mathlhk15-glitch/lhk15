@@ -1653,6 +1653,24 @@ const resources = [
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/ipsi-2027/suwan-korean-2027.html","platform":"html"}]
   },
   {
+    "id": "winter-study-guide-2026",
+    "icon": "📒",
+    "title": "창원경일고 2026 겨울방학 학습 실행 가이드",
+    "section": "study",
+    "group": "study",
+    "order": 1,
+    "description": "예비 고1·고2·고3 과목별 공부법, 첫 주 계획과 8주 체크표, 2028 수능과 EBS 자료 안내",
+    "tags": ["겨울방학", "학습계획", "공부법", "예비 고1", "예비 고2", "예비 고3", "EBS", "2028 수능"],
+    "aliases": ["겨울방학 학습 가이드", "겨울방학 공부", "방학 계획", "겨울방학 학습전략"],
+    "featured": false,
+    "updatedAt": "2026-11",
+    "updated": "2026-11-26",
+    "audience": ["student", "parent", "teacher"],
+    "cohort": ["2028", "2029", "2030"],
+    "status": "active",
+    "links": [{"label": "사이트 바로가기", "url": "https://mathlhk15-glitch.github.io/winter-study-guide-2026/", "platform": "html"}]
+  },
+  {
     "id": "study-record-guide",
     "icon": "📘",
     "title": "고등학생 공부법 × 생기부 실천 가이드",
