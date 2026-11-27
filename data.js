@@ -1869,6 +1869,24 @@ const resources = [
     "links": [{"label":"바로가기","url":"https://mathlhk15-glitch.github.io/gyeongil-2027","platform":"html"}]
   },
   {
+    "id": "2026-boxing",
+    "icon": "🥊",
+    "title": "2026 창원경일고 복싱부",
+    "section": "staff-training",
+    "group": "pr",
+    "order": 3,
+    "description": "2026년 창단한 창원경일고 복싱부와 학생들의 대회 소식",
+    "tags": ["복싱", "복싱부", "권투", "창원경일고", "학교 홍보", "체육", "대회"],
+    "aliases": ["경일고 복싱부", "2026-boxing"],
+    "featured": false,
+    "updatedAt": "2026-11",
+    "updated": "2026-11-28",
+    "audience": ["student", "parent", "teacher"],
+    "cohort": [],
+    "status": "active",
+    "links": [{"label": "사이트 바로가기", "url": "https://mathlhk15-glitch.github.io/2026-boxing/", "platform": "html"}]
+  },
+  {
     "id": "teacher-ai-workshop",
     "icon": "👨‍🏫",
     "title": "경남전자고 교원 생성형 AI 1시간 실습연수",
