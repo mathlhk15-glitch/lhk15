@@ -1887,6 +1887,24 @@ const resources = [
     "links": [{"label": "사이트 바로가기", "url": "https://mathlhk15-glitch.github.io/2026-boxing/", "platform": "html"}]
   },
   {
+    "id": "gyeongil-admission-faq-2027",
+    "icon": "💬",
+    "title": "2027학년도 창원경일고 학교설명회 사전 질문과 답변",
+    "section": "staff-training",
+    "group": "pr",
+    "order": 4,
+    "description": "2027학년도 설명회 질문 16개와 답변. 과목 선택, 내신·진학, 기숙사·통학, 고교 배정 안내와 다음 설명회 준비에 활용할 수 있습니다.",
+    "tags": ["창원경일고", "학교설명회", "고입", "신입생", "중3", "학부모", "스쿨버스", "기숙사", "1지망"],
+    "aliases": ["입학설명회", "사전 질문", "학교설명회 Q&A", "학교설명회 FAQ", "2027학년도 고입", "gyeongil-admission-faq-2027"],
+    "featured": false,
+    "updatedAt": "2026-11",
+    "updated": "2026-11-28",
+    "audience": ["student", "parent", "teacher"],
+    "cohort": ["2030"],
+    "status": "active",
+    "links": [{"label": "사이트 바로가기", "url": "https://mathlhk15-glitch.github.io/gyeongil-admission-faq-2027/", "platform": "html"}]
+  },
+  {
     "id": "teacher-ai-workshop",
     "icon": "👨‍🏫",
     "title": "경남전자고 교원 생성형 AI 1시간 실습연수",
